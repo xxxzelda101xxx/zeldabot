@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/xxxzelda101xxx/zeldabot/issues"
   },
-  "homepage": "https://github.com/xxxzelda101xxx/zeldabot#readme"
+  "homepage": "https://github.com/xxxzelda101xxx/zeldabot#readme",
+  "dependencies": {
+    "discord.js": "^11.3.2"
+  }
 }
