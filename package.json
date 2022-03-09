@@ -1,0 +1,36 @@
+{
+  "name": "zeldabot",
+  "version": "0.0.1",
+  "description": "A twitchbot for shigetora's twitch chat.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node main.js"
+  },
+  "keywords": [
+    "shigetora",
+    "chocomint",
+    "cookiezi",
+    "osu",
+    "twitch"
+  ],
+  "author": "zelda101",
+  "license": "ISC",
+  "dependencies": {
+    "@nut-tree/nut-js": "^2.0.1",
+    "@twurple/api": "^5.0.18",
+    "@twurple/auth": "^5.0.18",
+    "@twurple/chat": "^5.0.18",
+    "axios": "^0.26.0",
+    "ffi-napi": "^4.0.3",
+    "mysql": "^2.18.1",
+    "open": "^8.4.0",
+    "osu-parser": "^0.3.3",
+    "readline-sync": "^1.4.10",
+    "request": "^2.88.2",
+    "winston": "^3.6.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.9.0"
+  }
+}
