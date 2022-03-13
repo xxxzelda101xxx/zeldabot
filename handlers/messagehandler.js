@@ -16,10 +16,26 @@ async function messageHandler(channel, user, msg, context) {
     if (channel) {
         if (user.toLowerCase() == "kagami_77") {
             var randomNumber = Math.floor(Math.random() * 1001);
-            console.log(randomNumber)
+            console.log(randomNumber, "kagami")
             if (randomNumber == 727) {
-                await chatClient.say(channel, "Kagami_77 hit the 1/1000 chance on got banned lmao.")
-                await chatClient.ban(channel, user, "You hit the 1/1000 chance lmeo get rekted")
+                await chatClient.say(channel, "Kagami_77 hit the 1/1000 chance to get banned lmao.")
+                await chatClient.ban(channel, user, "You hit the 1/1000 chance lmao get rekted")
+            }
+        }
+        else {
+            var randomNumber = Math.floor(Math.random() * 10000 + 1);
+            console.log(randomNumber, "everybody else")
+            if (randomNumber == 727) {
+                if (context.userInfo.isBroadcaster) {
+                    await chatClient.say(channel, `Somehow shige hit the 1/10,000 chance to get banned? Is that good luck or bad luck?`)
+                }
+                else if (context.userInfo.isMod) {
+                    await chatClient.say(channel, `${user} hit the 1/10,000 chance to get banned but is immune. smh.... shigeSumika`)
+                }
+                else {
+                    await chatClient.say(channel, `${user} hit the 1/10,000 chance to get banned lmao.`)
+                await chatClient.ban(channel, user, "You hit the 1/10,000 chance lmao get rekted")
+                }
             }
         }
         const user_id = context.userInfo.userId
@@ -30,13 +46,15 @@ async function messageHandler(channel, user, msg, context) {
             addEmoteToDB(user_id, msg, context.parseEmotes(), context.channelId)
         }
         if (!Commands[command]) return
-        var data = await getGosumemoryData().catch(e => {
-            if ((e == "osu! is not fully loaded!" || e.code == "ECONNREFUSED")) {
-                open("osu://spectate/chocomint")
-                sendMessage(channel, "osu! isn't open/crashed, attempting to restart...")
-            }
-        })
-        if (!data) return
+        if (Commands[command].isOsuCommand == true) {
+            var data = await getGosumemoryData().catch(e => {
+                if ((e == "osu! is not fully loaded!" || e.code == "ECONNREFUSED")) {
+                    open("osu://spectate/chocomint")
+                    chatClient.say(channel, "osu! isn't open/crashed, attempting to restart...")
+                }
+            })
+        }
+        if (!data && Commands[command].isOsuCommand == true) return
         var online = await getTwitchStreamStatus(context.channelId)
         var commandFailed, modOnly, whitelistOnly, offlineOnly
         const cooldown = getCooldown(command)
@@ -46,7 +64,7 @@ async function messageHandler(channel, user, msg, context) {
             else if (Commands[command].offlineOnly) commandFailed = true, offlineOnly = true
             else if (cooldown && (!context.userInfo.isMod && !context.userInfo.isBroadcaster)) commandFailed = true
             else if (isWhitelistEnabled && whitelisted_users.indexOf(context.userInfo.userName) < 0 && command != "!np") commandFailed = true, whitelistOnly = true
-            else if (Commands[command].requiredState && data.menuState != Commands[command].requiredState) commandFailed = true
+            if (data && Commands[command].requiredState && data.menuState != Commands[command].requiredState) commandFailed = true
         }
         if (commandFailed) {
             if (context.userInfo.isBroadcaster != 1 || context.userInfo.isMod != 1) {
@@ -68,7 +86,7 @@ async function messageHandler(channel, user, msg, context) {
 		var data = await getGosumemoryData().catch(e => {
 			if ((e == "osu! is not fully loaded!" || e.code == "ECONNREFUSED")) {
 				open("osu://spectate/chocomint")
-				sendMessage(channel, "osu! isn't open/crashed, attempting to restart...")
+				chatClient.say(channel, "osu! isn't open/crashed, attempting to restart...")
 			}
 		})
 		if (!data) return

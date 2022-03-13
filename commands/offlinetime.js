@@ -16,8 +16,13 @@ module.exports = {
         }
         else if (isUsername) {
             user_id = await getUserIdByUsername(msg.toLowerCase().split(" ")[1])
-            offlineTime = await getOfflineTime(user_id, context.channelId)
-            chatClient.say(channel, `${msg.toLowerCase().split(" ")[1]} has been in offline chat for ${offlineTime}.`)
+            if (user_id) {
+                offlineTime = await getOfflineTime(user_id, context.channelId)
+                chatClient.say(channel, `${msg.toLowerCase().split(" ")[1]} has been in offline chat for ${offlineTime}.`)
+            }
+            else {
+                chatClient.say(channel, `User not found.`)
+            }
         }
         else {
             offlineTime = await getOfflineTime(user_id, context.channelId)

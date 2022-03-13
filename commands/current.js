@@ -2,6 +2,7 @@ module.exports = {
     name: `current`,
     description: ``,
     canWhisper: true,
+    isOsuCommand: true,
     execute: async function(channel, user, msg, context, chatClient, data) {
         if (data.getGameMode() != 0) {
             if (channel) {

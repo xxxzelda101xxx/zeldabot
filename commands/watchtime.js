@@ -16,8 +16,13 @@ module.exports = {
         }
         else if (isUsername) {
             user_id = await getUserIdByUsername(msg.toLowerCase().split(" ")[1])
-            onlineTime = await getWatchTime(user_id, context.channelId)
-            chatClient.say(channel, `${msg.toLowerCase().split(" ")[1]} has been watching for a total of ${onlineTime}.`)
+            if (user_id) {
+                onlineTime = await getWatchTime(user_id, context.channelId)
+                chatClient.say(channel, `${msg.toLowerCase().split(" ")[1]} has been watching for a total of ${onlineTime}.`)
+            }
+            else {
+                chatClient.say(channel, `User not found.`)
+            }
         }
         else {
             onlineTime = await getWatchTime(user_id, context.channelId)

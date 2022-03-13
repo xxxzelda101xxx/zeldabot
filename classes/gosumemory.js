@@ -43,11 +43,13 @@ class GosuMemory {
         return [PP, numberOf100sNeeded]
     }
     hasLeaderboard() {
-        if (this.gameplay.hasLeaderboard == true) return true
+        if (this.gameplay.leaderboard.slots != null) {
+            if (this.gameplay.leaderboard.hasLeaderboard == true)return true
+        }
         return false
     }
     getNumber1Score() {
-        if (this.hasLeaderboard) {
+        if (this.hasLeaderboard()) {
             this.gameplay.leaderboard.slots[0].accuracy = this.getNumber1Accuracy()
             return this.gameplay.leaderboard.slots[0]
         }

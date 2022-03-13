@@ -1,14 +1,13 @@
-const { updateMaps, addWatchTimeToUser, changeTwitchStreamStatus } = require("./database.js")
+const { addWatchTimeToUser, changeTwitchStreamStatus } = require("./database.js")
 const { GosuMemory } = require("./classes/gosumemory.js")
-const { logger } = require("./logger.js")
-const { keyboard, Key } = require("@nut-tree/nut-js")
+//const { logger } = require("./logger.js")
 const { apiClient } = require("./utils/apiclient")
-keyboard.config.autoDelayMs = 0
 const request = require("request")
 const options = {json: true}
 const { exec } = require("child_process")
-var lastGosuMemoryData
 var ffi = require("ffi-napi")
+const { chatClient } = require("./utils/chatclient.js")
+var hasKagamiBeenBanned = false
 var user32 = new ffi.Library("user32", {
 	"GetTopWindow": ["long", ["long"]],
 	"FindWindowA": ["long", ["string", "string"]],
@@ -28,41 +27,17 @@ var kernel32 = new ffi.Library("Kernel32.dll", {
 	"GetCurrentThreadId": ["int", []]
 })
 
-async function getOsuWindowTitle() {
-	return new Promise(function(resolve, reject) {
+function getOsuWindowTitle() {
+	return new Promise(function(resolve){
 		exec("tasklist /fi \"imagename eq osu!.exe\" /fo list /v", { windowsHide: true }, async function(err, stdout, stderr) {
-			try {
-				var data = stdout.split("\n")
-				data = data[9].substring(14)
-				resolve(data.trim())
-			}
-			catch (e) {
-				logger.error(e)
-				reject(e)
-			}
+			var data = stdout.split("\n")
+			data = data[9].substring(14)
+			resolve(data.trim())
 		})
 	})
 }
 
-module.exports.startReplaySaveLoop = startReplaySaveLoop
-
-async function startReplaySaveLoop() {
-	var data = await getGosumemoryData().catch(e => {return})
-	if (data) {
-		if (data.getResultsPlayerName() == "chocomint") {
-			if (lastGosuMemoryData != data.resultsScreen.score) {
-				lastGosuMemoryData = data.resultsScreen.score
-				makeOsuActiveWindow()
-				setTimeout(() => {
-					keyboard.type(Key.F2)
-				}, 1000)
-			}
-		}
-	}
-	setTimeout(() => {
-		startReplaySaveLoop()
-	}, 2000)
-}
+exports.makeOsuActiveWindow = makeOsuActiveWindow
 
 async function makeOsuActiveWindow() {
 	var windowTitle = await getOsuWindowTitle()
@@ -70,27 +45,13 @@ async function makeOsuActiveWindow() {
 	var foregroundHWnd = user32.GetForegroundWindow()
 	var currentThreadId = kernel32.GetCurrentThreadId()
 	var windowThreadProcessId = user32.GetWindowThreadProcessId(foregroundHWnd, null)
-	var showWindow = user32.ShowWindow(winToSetOnTop, 9)
-	var setWindowPos1 = user32.SetWindowPos(winToSetOnTop, -1, 0, 0, 0, 0, 3)
-	var setWindowPos2 = user32.SetWindowPos(winToSetOnTop, -2, 0, 0, 0, 0, 3)
-	var setForegroundWindow = user32.SetForegroundWindow(winToSetOnTop)
-	var attachThreadInput = user32.AttachThreadInput(windowThreadProcessId, currentThreadId, 0)
-	var setFocus = user32.SetFocus(winToSetOnTop)
-	var setActiveWindow = user32.SetActiveWindow(winToSetOnTop)
-}
-
-module.exports.shigeMapTracking = shigeMapTracking
-
-async function shigeMapTracking() {
-	var data = await getGosumemoryData().catch(e => {return})
-	if (data) {
-		if (data.getCurrentPlayerName() == "chocomint") {
-			await updateMaps(data)
-		}
-	}
-	setTimeout(() => {
-		shigeMapTracking()
-	}, 100)
+	user32.ShowWindow(winToSetOnTop, 9)
+	user32.SetWindowPos(winToSetOnTop, -1, 0, 0, 0, 0, 3)
+	user32.SetWindowPos(winToSetOnTop, -2, 0, 0, 0, 0, 3)
+	user32.SetForegroundWindow(winToSetOnTop)
+	user32.AttachThreadInput(windowThreadProcessId, currentThreadId, 0)
+	user32.SetFocus(winToSetOnTop)
+	user32.SetActiveWindow(winToSetOnTop)
 }
 
 module.exports.isStreamOnline = isStreamOnline
@@ -105,10 +66,19 @@ async function isStreamOnline(channel, firstRun) {
 		var stream = await apiClient.streams.getStreamByUserName(channel)
 		var channel_id
 		if (stream != null) {
+			if (channel == "shigetora") {
+				if (hasKagamiBeenBanned == false){
+					hasKagamiBeenBanned = true
+					chatClient.ban(channel, "Kagami_77", "shige started stream get banned lmao")
+				}
+			}
 			channel_id = stream.userId
 			changeTwitchStreamStatus(channel_id, true)
 		}
 		else {
+			if (channel == "shigetora") {
+				hasKagamiBeenBanned = false
+			}
 			var user = await apiClient.users.getUserByName(channel)
 			channel_id = user.id
 			changeTwitchStreamStatus(user.id, false)

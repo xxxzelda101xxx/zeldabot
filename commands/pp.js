@@ -2,6 +2,7 @@ module.exports = {
     name: `pp`,
     description: ``,
     canWhisper: true,
+    isOsuCommand: true,
     requiredState: 7, //results screen
     execute: async function(channel, user, msg, context, chatClient, data) {
         if (msg.toLowerCase().split(" ").length == 1) {

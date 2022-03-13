@@ -4,6 +4,7 @@ module.exports = {
     name: `np`,
     description: `Sends information on the song/map that is currently playing.`,
     canWhisper: true,
+    isOsuCommand: true,
     execute: async function(channel, user, msg, context, chatClient, data) {
         //contents = `${mapData.artist} - ${mapData.title} [${mapData.difficulty}] +${osuMods} (${rankedStatus}, Mapset by ${mapData.mapper}) Download: `
         var contents = `${data.getArtist()} - ${data.getTitle()} [${data.getDifficulty()}] Download: `

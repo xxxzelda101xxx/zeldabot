@@ -2,6 +2,7 @@ module.exports = {
     name: `bg`,
     description: ``,
     canWhisper: true,
+    isOsuCommand: true,
     execute: async function(channel, user, msg, context, chatClient, data) {
         if (data.beatmapset_id > -1) {
             var link = data.getBackgroundLink()

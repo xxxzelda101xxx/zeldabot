@@ -3,6 +3,7 @@ module.exports = {
     name: `scorepost`,
     description: ``,
     canWhisper: true,
+    isOsuCommand: true,
     requiredState: 7,
     execute: async function(channel, user, msg, context, chatClient, data) {
         var results = data.getResultsScreen()

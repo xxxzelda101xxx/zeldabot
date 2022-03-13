@@ -110,11 +110,21 @@ module.exports.getEmotes = getEmotes
 async function getEmotes(user_id, channel_id, emote) {
     if (user_id) {
         var emote = await sqlQuery(`SELECT * FROM emotes_test WHERE user_id = ? AND channel_id = ? AND emote = ?`, [user_id, channel_id, emote])
-        return emote[0]
+        if (emote.length == 1) {
+            return emote[0]
+        }
+        else {
+            return null
+        }
     }
     else {
         var emote = await sqlQuery(`SELECT SUM(uses) AS total, emote FROM emotes_test WHERE emote = ? AND channel_id = ?`, [emote, channel_id])
-        return emote[0]
+        if (emote.length == 1) {
+            return emote[0]
+        }
+        else {
+            return null
+        }
     }
 }
 
@@ -141,7 +151,7 @@ async function getUserIdByUsername(username) {
         return user[0].user_id
     }
     else {
-        console.log("User doent't exist in the database.")
+        return null
     }
 }
 
@@ -193,7 +203,7 @@ async function getUsernameById(user_id) {
         return results[0].username
     }
     else {
-        console.log("User doent't exist in the database.")
+        return null
     }
 }
 

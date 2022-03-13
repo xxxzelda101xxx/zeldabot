@@ -5,13 +5,16 @@ const { subHandler } = require("./handlers/subhandler.js")
 const { banHandler } = require("./handlers/banhandler.js")
 const { logger } = require("./logger.js")
 const { chatClient } = require("./utils/chatclient.js")
+const { mapTrackingLoop } = require("./loops/maptrackingloop.js")
+const { replaySaveLoop } = require("./loops/replaysaveloop.js")
+var totalMessages = 0
 
 async function main() {
-	startReplaySaveLoop()
+	replaySaveLoop()
+	mapTrackingLoop()
 	await chatClient.connect()
 	chatClient.onRegister(() => {
 		logger.info("Connected to Twitch!")
-		shigeMapTracking()
 		for (var i = 0; i < config.twitch.channels.length; i++) {
 			isStreamOnline(config.twitch.channels[i], true)
 		}
@@ -29,6 +32,7 @@ async function main() {
 		banHandler(channel, user)
 	})
 	chatClient.onMessage(async function (channel, user, msg, context) {
+		totalMessages++
 		messageHandler(channel, user, msg, context)
 	})
 	chatClient.onWhisper(async function (user, msg, context) {
@@ -38,6 +42,6 @@ async function main() {
 
 main()
 
-process.on('uncaughtException', function(err) {
-	logger.error('Caught exception: ' + err);
-  });
+process.on("uncaughtException", function(err) {
+	logger.error("Caught exception: " + err)
+})

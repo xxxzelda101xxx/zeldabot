@@ -2,6 +2,7 @@ module.exports = {
     name: `stats`,
     description: ``,
     canWhisper: true,
+    isOsuCommand: true,
     execute: async function(channel, user, msg, context, chatClient, data) {
         var newSR = await data.getNewSR()
         if (channel) {

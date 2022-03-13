@@ -22,6 +22,7 @@
     "@twurple/auth": "^5.0.18",
     "@twurple/chat": "^5.0.18",
     "axios": "^0.26.0",
+    "electron": "^17.1.2",
     "ffi-napi": "^4.0.3",
     "mysql": "^2.18.1",
     "open": "^8.4.0",
