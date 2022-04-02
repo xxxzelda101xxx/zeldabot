@@ -251,6 +251,6 @@ async function osuFileExists(beatmap_id) {
 }
 async function downloadOsuFile(beatmap_id) {
 	var data = await axios.get(`${baseUrl}${beatmap_id}`)
-	const savePath = path.join(songsFolder, beatmap_id, ".osu")
+	const savePath = path.join(songsFolder, beatmap_id + ".osu")
 	fs.writeFileSync(savePath, data.data, function () {})
 }
