@@ -95,7 +95,7 @@ class GosuMemory {
 				await downloadOsuFile(this.menu.bm.id.toString())
 			}
 
-			return path.join(songsFolder, this.menu.bm.id.toString(), ".osu")
+			return path.join(songsFolder, this.menu.bm.id.toString() + ".osu")
 		}
         
 		else {
@@ -244,7 +244,7 @@ async function calculatePP(calcString, isSr) {
 }
 
 async function osuFileExists(beatmap_id) {
-	if (fs.existsSync(path.join(songsFolder, beatmap_id, ".osu"))) {
+	if (fs.existsSync(path.join(songsFolder, beatmap_id + ".osu"))) {
 		return true
 	} 
 	else return false
