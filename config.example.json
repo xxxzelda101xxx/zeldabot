@@ -1,0 +1,33 @@
+{
+  "twitch": {
+    "channels": [],
+    "client_id": "",
+    "client_secret": "",
+    "access_token": "",
+    "refresh_token": "",
+    "emotes": [],
+    "whitelisted_users": [],
+    "admins": [],
+    "enable_whitelist": true,
+    "command_cooldown": true,
+    "command_cooldown_time": 30000,
+    "message_cooldown_time": 5000
+  },
+  "osu": {
+    "isRemote": false,
+    "Songs_folder": "",
+    "osu_files_folder": "",
+    "PerformanceCalculator_Live": "",
+    "PerformanceCalculator_Rework": "",
+    "spectating": false,
+    "user_to_spectate": "",
+    "gosumemory_address": "localhost"
+  },
+  "mysql": {
+    "enabled": false,
+    "host": "localhost",
+    "user": "",
+    "password": "",
+    "database": ""
+  }
+}
