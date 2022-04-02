@@ -1,4 +1,4 @@
-const { sqlQuery, getUserIdByUsername, getUsernameById } = require(`../functions.js`)
+const { sqlQuery, getUserIdByUsername } = require(`../database.js`)
 module.exports = {
     name: `removemessages`,
     description: `Sends information on the song/map that is currently playing.`,

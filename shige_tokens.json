@@ -1,0 +1,16 @@
+{
+    "accessToken": "q0qndpfju9afh0a08b4oe2084gbpbo",
+    "refreshToken": "ytkwjdq2duybtymtgocdgp6ylhr47j2rrud47gb8lhh6xpo2sm",
+    "scope": [
+        "channel:manage:broadcast",
+        "channel:manage:predictions",
+        "channel:manage:redemptions",
+        "channel:read:predictions",
+        "channel:read:redemptions",
+        "channel:read:subscriptions",
+        "moderation:read",
+        "user:read:broadcast"
+    ],
+    "expiresIn": 0,
+    "obtainmentTimestamp": 0
+}

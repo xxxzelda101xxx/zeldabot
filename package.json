@@ -21,14 +21,15 @@
     "@twurple/api": "^5.0.18",
     "@twurple/auth": "^5.0.18",
     "@twurple/chat": "^5.0.18",
-    "axios": "^0.26.0",
+    "axios": "^0.26.1",
     "ffi-napi": "^4.0.3",
-    "mysql": "^2.18.1",
+    "mysql2": "^2.3.3",
     "open": "^8.4.0",
     "osu-parser": "^0.3.3",
     "readline-sync": "^1.4.10",
     "request": "^2.88.2",
-    "winston": "^3.6.0"
+    "winston": "^3.6.0",
+    "ws": "^8.5.0"
   },
   "devDependencies": {
     "eslint": "^8.9.0"

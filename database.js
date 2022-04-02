@@ -1,9 +1,11 @@
 const config = require("./config.json")
 const emotes = config.twitch.emotes
-const mysql = require("mysql")
+const mysql = require("mysql2")
 const mysqlEnabled = config.mysql.enabled 
 const { logger } = require("./logger.js")
 const { apiClient } = require("./utils/apiclient")
+const { setCooldown, getCooldown } = require("./helpers/cooldownhelper.js")
+
 
 if (mysqlEnabled) {
 	var con = mysql.createPool({
@@ -19,17 +21,24 @@ module.exports.addTwitchUserToDB = addTwitchUserToDB
 
 function addTwitchUserToDB(user_id, username) {
     sqlQuery(`INSERT INTO users_test SET username = ?, user_id = ? ON DUPLICATE KEY UPDATE username = ?`, [username, user_id, username])
+    return
 }
 
 module.exports.addToDB = addToDB
 
-function addToDB(user_id, channel_id) {
+async function addToDB(user_id, channel_id) {
+    const cooldown = await getCooldown(user_id)
+    if (cooldown) return
     sqlQuery(`INSERT INTO messages_test SET total = 1, channel_id = ?, user_id = ? ON DUPLICATE KEY UPDATE total = total + 1`, [channel_id, user_id])
+    setCooldown(user_id, true)
+    return
 }
 
 module.exports.addEmoteToDB = addEmoteToDB
 
-function addEmoteToDB(user_id, msg, twitchEmotes, channel_id) {
+async function addEmoteToDB(user_id, msg, twitchEmotes, channel_id) {
+    const cooldown = await getCooldown(user_id)
+    if (cooldown) return
     for (var i = 0; i < emotes.length; i++) {
         if (msg.indexOf(emotes[i]) > -1) {
             sqlQuery(`INSERT INTO emotes_test SET user_id = ?, emote = ?, channel_id = ?, uses = 1 ON DUPLICATE KEY UPDATE uses = uses + 1`, [user_id, emotes[i], channel_id])
@@ -109,6 +118,7 @@ module.exports.getEmotes = getEmotes
 
 async function getEmotes(user_id, channel_id, emote) {
     if (user_id) {
+        console.log(`SELECT * FROM emotes_test WHERE user_id = ${user_id} AND channel_id = ${channel_id} AND emote = ${emote}`)
         var emote = await sqlQuery(`SELECT * FROM emotes_test WHERE user_id = ? AND channel_id = ? AND emote = ?`, [user_id, channel_id, emote])
         if (emote.length == 1) {
             return emote[0]

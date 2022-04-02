@@ -1,16 +1,23 @@
 const cooldowns = new Map()
 const config = require("../config.json")
-const cooldownTime = config.twitch.cooldown_time
+const commandCooldownTime = config.twitch.command_cooldown_time
+const messageCooldownTime = config.twitch.message_cooldown_time
 
-function setCooldown(command) {
-	cooldowns.set(command, Date.now() + cooldownTime)
-	setTimeout(() => cooldowns.delete(command), cooldownTime)
+function setCooldown(data, isMessage) {
+    if (isMessage) {
+        cooldowns.set(data, Date.now() + messageCooldownTime)
+	    setTimeout(() => cooldowns.delete(data), messageCooldownTime)
+    }
+    else {
+        cooldowns.set(data, Date.now() + commandCooldownTime)
+	    setTimeout(() => cooldowns.delete(data), commandCooldownTime)
+    }
     return
 }
 
-function getCooldown(command) {
-    return cooldowns.get(command)
+function getCooldown(data) {
+    return cooldowns.get(data)
 }
 
-exports.setCooldown = setCooldown
-exports.getCooldown = getCooldown
+module.exports.setCooldown = setCooldown
+module.exports.getCooldown = getCooldown

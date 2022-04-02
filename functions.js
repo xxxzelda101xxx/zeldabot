@@ -3,31 +3,15 @@ const { GosuMemory } = require("./classes/gosumemory.js")
 //const { logger } = require("./logger.js")
 const { apiClient } = require("./utils/apiclient")
 const request = require("request")
+const config = require("./config.json")
+const gosumemoryURL = config.osu.gosumemory_address
 const options = {json: true}
-const { exec } = require("child_process")
-var ffi = require("ffi-napi")
+//const { exec } = require("child_process")
+//var ffi = require("ffi-napi")
 const { chatClient } = require("./utils/chatclient.js")
 var hasKagamiBeenBanned = false
-var user32 = new ffi.Library("user32", {
-	"GetTopWindow": ["long", ["long"]],
-	"FindWindowA": ["long", ["string", "string"]],
-	"SetActiveWindow": ["long", ["long"]],
-	"SetForegroundWindow": ["bool", ["long"]],
-	"BringWindowToTop": ["bool", ["long"]],
-	"ShowWindow": ["bool", ["long", "int"]],
-	"SwitchToThisWindow": ["void", ["long", "bool"]],
-	"GetForegroundWindow": ["long", []],
-	"AttachThreadInput": ["bool", ["int", "long", "bool"]],
-	"GetWindowThreadProcessId": ["int", ["long", "int"]],
-	"SetWindowPos": ["bool", ["long", "long", "int", "int", "int", "int", "uint"]],
-	"SetFocus": ["long", ["long"]],
-	"FindWindowW" : ["int32", [ "int32", "string" ]]
-})
-var kernel32 = new ffi.Library("Kernel32.dll", {
-	"GetCurrentThreadId": ["int", []]
-})
 
-function getOsuWindowTitle() {
+/*function getOsuWindowTitle() {
 	return new Promise(function(resolve){
 		exec("tasklist /fi \"imagename eq osu!.exe\" /fo list /v", { windowsHide: true }, async function(err, stdout, stderr) {
 			var data = stdout.split("\n")
@@ -35,24 +19,7 @@ function getOsuWindowTitle() {
 			resolve(data.trim())
 		})
 	})
-}
-
-exports.makeOsuActiveWindow = makeOsuActiveWindow
-
-async function makeOsuActiveWindow() {
-	var windowTitle = await getOsuWindowTitle()
-	var winToSetOnTop = user32.FindWindowA(null, windowTitle)
-	var foregroundHWnd = user32.GetForegroundWindow()
-	var currentThreadId = kernel32.GetCurrentThreadId()
-	var windowThreadProcessId = user32.GetWindowThreadProcessId(foregroundHWnd, null)
-	user32.ShowWindow(winToSetOnTop, 9)
-	user32.SetWindowPos(winToSetOnTop, -1, 0, 0, 0, 0, 3)
-	user32.SetWindowPos(winToSetOnTop, -2, 0, 0, 0, 0, 3)
-	user32.SetForegroundWindow(winToSetOnTop)
-	user32.AttachThreadInput(windowThreadProcessId, currentThreadId, 0)
-	user32.SetFocus(winToSetOnTop)
-	user32.SetActiveWindow(winToSetOnTop)
-}
+}*/
 
 module.exports.isStreamOnline = isStreamOnline
 
@@ -69,7 +36,7 @@ async function isStreamOnline(channel, firstRun) {
 			if (channel == "shigetora") {
 				if (hasKagamiBeenBanned == false){
 					hasKagamiBeenBanned = true
-					chatClient.ban(channel, "Kagami_77", "shige started stream get banned lmao")
+					//chatClient.ban(channel, "Kagami_77", "shige started stream get banned lmao")
 				}
 			}
 			channel_id = stream.userId
@@ -102,7 +69,7 @@ module.exports.getGosumemoryData = getGosumemoryData
 async function getGosumemoryData() {
 	return new Promise(function(resolve, reject) {
 		try {
-			request("http://0.0.0.0:24050/json", options, async function(error, res, body) {
+			request(`http://${gosumemoryURL}:24050/json`, options, async function(error, res, body) {
 				if(error) {
 					return reject(error)
 				}		
@@ -120,4 +87,33 @@ async function getGosumemoryData() {
 			reject(e)
 		}
 	})
+}
+
+module.exports.kagamiBanRNG = kagamiBanRNG
+
+async function kagamiBanRNG(channel, user) {
+	var randomNumber = Math.floor(Math.random() * 1001)
+	if (randomNumber == 727) {
+		await chatClient.say(channel, "Kagami_77 hit the 1/1000 chance to get banned lmao.")
+		await chatClient.ban(channel, user, "You hit the 1/1000 chance lmao get rekted")
+	}
+}
+
+module.exports.banRNG = banRNG
+
+async function banRNG(channel, user, context) {
+	var randomNumber = Math.floor(Math.random() * 10000 + 1)
+	var randomNumber2 = Math.floor(Math.random() * 1000000 + 1)
+	if (randomNumber == 727 || randomNumber2 == 727) {
+		if (context.userInfo.isBroadcaster) {
+			await chatClient.say(channel, `Somehow shige hit the ${randomNumber == 727 ? "1/10,000" : "1/1,000,000"} chance to get banned? Is that good luck or bad luck?`)
+		}
+		else if (context.userInfo.isMod) {
+			await chatClient.say(channel, `${user} hit the ${randomNumber == 727 ? "1/10,000" : "1/1,000,000"} chance to get banned but is immune. smh.... shigeSumika`)
+		}
+		else {
+			await chatClient.say(channel, `${user} hit the ${randomNumber == 727 ? "1/10,000 " : "1/1,000,000 chance to get banned. how the fuck???."}`)
+			await chatClient.ban(channel, user, `You hit the ${randomNumber == 727 ? "1/10,000 chance to get banned get rekt lmao." : "1/1,000,000 chance to get banned. how the fuck???"}`)
+		}
+	}
 }

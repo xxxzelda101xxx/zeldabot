@@ -1,4 +1,5 @@
-const { authProvider } = require("./authprovider.js")
+const { zeldaAuthProvider } = require("./authprovider.js")
+const authProvider = zeldaAuthProvider
 const config = require("../config.json")
 
 const ChatClient = require("@twurple/chat").ChatClient

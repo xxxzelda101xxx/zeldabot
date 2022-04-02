@@ -39,6 +39,7 @@ module.exports = {
         else {
             if (!msg.toLowerCase().split(" ")[1]) return;
             var emote = await getEmotes(user_id, context.channelId, emoteToSearch)
+            console.log(emote)
             if (emote) {
                 chatClient.say(channel, `${user} has used the emote ${emote.emote} ${emote.uses} times.`)
             }

@@ -1,16 +1,13 @@
 const config = require("./config.json")
-const { isStreamOnline, shigeMapTracking, startReplaySaveLoop } = require("./functions.js")
+const { isStreamOnline } = require("./functions.js")
 const { messageHandler } = require("./handlers/messagehandler.js")
 const { subHandler } = require("./handlers/subhandler.js")
 const { banHandler } = require("./handlers/banhandler.js")
 const { logger } = require("./logger.js")
 const { chatClient } = require("./utils/chatclient.js")
 const { mapTrackingLoop } = require("./loops/maptrackingloop.js")
-const { replaySaveLoop } = require("./loops/replaysaveloop.js")
-var totalMessages = 0
 
 async function main() {
-	replaySaveLoop()
 	mapTrackingLoop()
 	await chatClient.connect()
 	chatClient.onRegister(() => {
@@ -32,7 +29,6 @@ async function main() {
 		banHandler(channel, user)
 	})
 	chatClient.onMessage(async function (channel, user, msg, context) {
-		totalMessages++
 		messageHandler(channel, user, msg, context)
 	})
 	chatClient.onWhisper(async function (user, msg, context) {
@@ -42,6 +38,11 @@ async function main() {
 
 main()
 
-process.on("uncaughtException", function(err) {
-	logger.error("Caught exception: " + err)
-})
+process
+	.on("unhandledRejection", (reason, p) => {
+		console.error(reason, "Unhandled Rejection at Promise", p)
+	})
+	.on("uncaughtException", err => {
+		console.error(err, "Uncaught Exception thrown")
+		process.exit(1)
+	})
