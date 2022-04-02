@@ -95,7 +95,7 @@ class GosuMemory {
 				await downloadOsuFile(this.menu.bm.id.toString())
 			}
 
-			return path.join(songsFolder, this.menu.bm.id, ".osu")
+			return path.join(songsFolder, this.menu.bm.id.toString(), ".osu")
 		}
         
 		else {
