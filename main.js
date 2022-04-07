@@ -6,8 +6,11 @@ const { banHandler } = require("./handlers/banhandler.js")
 const { logger } = require("./logger.js")
 const { chatClient } = require("./utils/chatclient.js")
 const { mapTrackingLoop } = require("./loops/maptrackingloop.js")
+const { shigeapiClient } = require("./utils/apiclient")
 
 async function main() {
+	var info = await shigeapiClient.getTokenInfo()
+	console.log(info.scopes)
 	mapTrackingLoop()
 	await chatClient.connect()
 	chatClient.onRegister(() => {

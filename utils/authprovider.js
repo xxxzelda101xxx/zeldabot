@@ -7,11 +7,11 @@ const zeldaTokenData = require("../tokens.json")
 const shigeTokenData = require("../shige_tokens.json")
 
 const zeldaAuthProvider = new RefreshingAuthProvider({
-		clientId,
-		clientSecret,
-		onRefresh: async newTokenData => await fs.writeFileSync("../tokens.json", JSON.stringify(newTokenData, null, 4), "UTF-8")
-	},
-	zeldaTokenData
+	clientId,
+	clientSecret,
+	onRefresh: async newTokenData => await fs.writeFileSync("../tokens.json", JSON.stringify(newTokenData, null, 4), "UTF-8")
+},
+zeldaTokenData
 )
 
 const shigeAuthProvider = new RefreshingAuthProvider({

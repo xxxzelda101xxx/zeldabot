@@ -215,7 +215,6 @@ async function calculatePP(calcString, isSr) {
 		exec(calcString, { windowsHide: true }, async function(err, stdout) {
 			try {
 				var data = JSON.parse(stdout)
-				console.log()
 				if (isSr) {
 					resolve(data["Difficulty"]["Star rating"].toFixed(2))
 				}

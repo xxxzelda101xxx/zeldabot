@@ -11,6 +11,6 @@ module.exports = {
 		console.log(description)
 		if (description) await shigeapiClient.streams.createStreamMarker(user, description)
 		else await shigeapiClient.streams.createStreamMarker(user)
-		chatClient.say(channel, "Stream marker set.")
+		//chatClient.say(channel, "Stream marker set.")
 	}
 }
