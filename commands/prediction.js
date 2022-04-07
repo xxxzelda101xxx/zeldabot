@@ -25,7 +25,7 @@ module.exports = {
 				chatClient.say(channel, "Prediction cancelled.")
 			}
 		}
-		else if (predictionAction == "lock") {
+        else if (predictionAction == "lock") {
 			prediction = await shigeapiClient.helix.predictions.getPredictions(user)
 			prediction = prediction.data[0]
 			if (prediction.status.toLowerCase() == "active") {
