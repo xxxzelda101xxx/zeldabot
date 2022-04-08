@@ -169,7 +169,7 @@ module.exports.updateMaps = updateMaps
 
 
 async function updateMaps(data) {
-	await sqlQuery("INSERT IGNORE shige_maps SET artist = ?, title = ?, mapper = ?, beatmapset_id = ?, uploaded = 0, username = ?", [data.getArtist(), data.getTitle(), data.getMapper(), data.beatmapset_id], data.getCurrentPlayerName())
+	await sqlQuery("INSERT IGNORE shige_maps SET artist = ?, title = ?, mapper = ?, beatmapset_id = ?, uploaded = 0, username = ?", [data.getArtist(), data.getTitle(), data.getMapper(), data.beatmapset_id, data.getCurrentPlayerName()])
 }
 
 module.exports.addWatchTimeToUser = addWatchTimeToUser
