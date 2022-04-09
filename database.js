@@ -205,6 +205,13 @@ async function getTwitchStreamStatus(channel_id) {
 	return onlineStatus[0].online
 }
 
+module.exports.addChannelToDB = addChannelToDB
+
+
+async function addChannelToDB(channel) {
+	await sqlQuery("INSERT IGNORE INTO channels SET name = ?, channel_id = ?, online = 0", ["#" + channel.name, channel.id])
+}
+
 module.exports.getUsernameById = getUsernameById
 
 async function getUsernameById(user_id) {

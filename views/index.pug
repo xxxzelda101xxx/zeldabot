@@ -1,0 +1,116 @@
+extends layout
+
+block content
+  style.
+    body {
+      background-color: black;
+    }
+    p {
+      color: white;
+    }
+    label {
+      color: white;
+    }
+  body
+  script(src='/jquery/jquery.js')
+  script.
+    var joinChannel = function() {
+      var channel = $('#channelToJoin').val();
+      $.ajax({
+        url: '/join',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ channel: channel }),
+        success: function(data) {
+          $("#textToUpdate").text(data.message)
+        },
+        error: function(error) {
+          $("#textToUpdate").text(error.responseJSON.error)
+        }
+      });
+    }
+    var banUserFromChannel = function() {
+      var channel = $('#channels').val();
+      var user = $('#userToBan').val();
+      $.ajax({
+        url: '/ban',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ channel: channel, user: user }),
+        success: function(data) {
+          $("#ban").text(data.message)
+        },
+        error: function(error) {
+          $("#ban").text(error.responseJSON.error)
+        }
+      });
+    }
+    var getMessagesTotal = function() {
+      $.ajax({
+        url: '/messages',
+        type: 'GET',
+        contentType: 'application/json',
+        success: function(data) {
+          var messagesTotal = $('#messagesTotal').text("Total messages this session: " + data.total)
+          console.log(data)
+        },
+        error: function(error) {
+          console.log(data)
+        }
+      });
+      setTimeout(function() {
+        getMessagesTotal()
+      }, 1000);
+    }
+    var getUsers = function() {
+      $.ajax({
+        url: '/users',
+        type: 'GET',
+        contentType: 'application/json',
+        success: function(data) {
+          var messagesTotal = $('#usersInChat').text("Current # of users in chat: " + data.total)
+          console.log(data)
+        },
+        error: function(error) {
+          console.log(data)
+        }
+      });
+      setTimeout(function() {
+        getUsers()
+      }, 60000);
+    }
+    $( document ).ready(function() {
+     getMessagesTotal()
+     getUsers()
+      $.ajax({
+        url: '/channels',
+        type: 'GET',
+        contentType: 'application/json',
+        success: function(data) {
+          var select = document.getElementById("channels")
+          for(var i = 0; i < data.length; i++) {
+            var opt = data[i];
+            var el = document.createElement("option");
+            el.textContent = opt;
+            el.value = opt;
+            select.appendChild(el);
+          }
+          console.log(data)
+        },
+        error: function(error) {
+          console.log(data)
+        }
+      });
+    });
+  form(action='/join', method='POST')
+    p
+      input(type='text', value='', placeholder="Channel to join", id = "channelToJoin")
+      button(onclick='joinChannel()' type='button' id='testButton') Join Channel
+      p(id="textToUpdate")
+    p
+      select(name="channels" id="channels")
+      input(type='text', value='', placeholder="User", id = "userToBan")
+      button(onclick='banUserFromChannel()' type='button' id='testButton') Ban
+      p(id="ban")
+    p(id = "messagesTotal")
+    p(id = "usersInChat")

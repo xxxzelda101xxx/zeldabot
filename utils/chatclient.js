@@ -1,6 +1,6 @@
 const { zeldaAuthProvider } = require("./authprovider.js")
-const authProvider = zeldaAuthProvider
 const config = require("../config.json")
+const authProvider = zeldaAuthProvider
 
 const ChatClient = require("@twurple/chat").ChatClient
 const chatClient = new ChatClient({ authProvider, channels: config.twitch.channels })
