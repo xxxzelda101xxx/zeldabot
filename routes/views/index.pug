@@ -12,12 +12,13 @@ block content
       color: white;
     }
   body
-  script(src='/jquery/jquery.js')
+  script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js")
+  script(src="https://unpkg.com/sweetalert/dist/sweetalert.min.js")
   script.
     var joinChannel = function() {
       var channel = $('#channelToJoin').val();
       $.ajax({
-        url: '/join',
+        url: '/join_channel',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({ channel: channel }),
@@ -32,22 +33,49 @@ block content
     var banUserFromChannel = function() {
       var channel = $('#channels').val();
       var user = $('#userToBan').val();
-      $.ajax({
-        url: '/ban',
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify({ channel: channel, user: user }),
-        success: function(data) {
-          $("#ban").text(data.message)
-        },
-        error: function(error) {
-          $("#ban").text(error.responseJSON.error)
-        }
-      });
+      if (user.length > 25) {
+        swal(`That username is too long!`, {
+          icon: "error",
+        });
+      }
+      else if (user.length == 0) {
+        swal(`Username can't be empty!`, {
+          icon: "error",
+        });
+      }
+      else {
+        swal({
+          title: "Are you sure?",
+          text: `Ban ${user} from ${channel}?`,
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            $.ajax({
+              url: '/ban_user',
+              type: 'POST',
+              contentType: 'application/json',
+              data: JSON.stringify({ channel: channel, user: user }),
+              success: function(data) {
+                swal(`${user} has been banned from ${channel} successfully.`, {
+                  icon: "success",
+                });
+              },
+              error: function(error) {
+                swal(`Failed to ban ${user}, Error: ${error.responseJSON.error}`, {
+                  icon: "error",
+                })
+              }
+            })
+          }
+        })
+      }
     }
     var getMessagesTotal = function() {
       $.ajax({
-        url: '/messages',
+        url: '/get_messages',
         type: 'GET',
         contentType: 'application/json',
         success: function(data) {
@@ -64,7 +92,7 @@ block content
     }
     var getUsers = function() {
       $.ajax({
-        url: '/users',
+        url: '/get_users',
         type: 'GET',
         contentType: 'application/json',
         success: function(data) {
@@ -83,7 +111,7 @@ block content
      getMessagesTotal()
      getUsers()
       $.ajax({
-        url: '/channels',
+        url: '/get_channels',
         type: 'GET',
         contentType: 'application/json',
         success: function(data) {
@@ -102,7 +130,7 @@ block content
         }
       });
     });
-  form(action='/join', method='POST')
+  form(action='/join_channel', method='POST')
     p
       input(type='text', value='', placeholder="Channel to join", id = "channelToJoin")
       button(onclick='joinChannel()' type='button' id='testButton') Join Channel
