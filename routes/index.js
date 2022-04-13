@@ -60,12 +60,6 @@ async function main() {
 	})
 	
 	router.post("/ban_user", async function (req, res) {
-		console.log(req.body)
-		if (req.body.channel.length > 25) {
-			res.contentType("json")
-			res.status(400).send({ error: "Username is too long" })
-			return
-		}
 		var user = await apiClient.users.getUserByName(req.body.channel)
 		if (user) {
 			var channel = req.body.channel
