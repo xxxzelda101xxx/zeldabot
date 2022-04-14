@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  body
+  script(src="/get_messages.js")
+  script(src="/get_users.js")
+  script.
+    $( document ).ready(function() {
+      getMessages()
+      getUsers()
+    })
+  div(id="testdiv")
+    p(id = "totalMessages")
+    p(id = "totalMessagesThisSession")
+    p(id = "usersInChat") Users in chat: 0
