@@ -2,143 +2,85 @@ extends layout
 
 block content
   style.
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
     body {
-      background-color: black;
-    }
-    p {
+      background-color: #353838;
       color: white;
     }
-    label {
+    header a {
+      text-decoration: none;
+    }
+    header {
+      padding: 0 20px;
+      background-color: #1d1f1d;
+      height: 50px;
+      display: flex;
+      justify-content: space-between;
+    }
+    #brand a {
+      color: #09c372;
+    }
+    #brand {
+      font-weight: bold;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+    }
+    ul {
+      list-style: none;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+    ul a {
       color: white;
     }
-  body
+    ul li {
+      padding: 5px;
+      margin-left: 10px;
+    }
+    ul li:hover {
+      transform: scale(1.1);
+      transition: 0.3s;
+    }
+  header
+      div(id="brand")
+        a(href="/panel") zeldabot
+      nav(class="navbar")
+        ul(id="navbarlinks")
+          li
+            a(href="/") Home
+          li
+            a(href="#stats") Stats
+          li
+            a(href="#admin") Admin
   script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js")
   script(src="https://unpkg.com/sweetalert/dist/sweetalert.min.js")
   script.
-    var joinChannel = function() {
-      var channel = $('#channelToJoin').val();
-      $.ajax({
-        url: '/join_channel',
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify({ channel: channel }),
-        success: function(data) {
-          $("#textToUpdate").text(data.message)
-        },
-        error: function(error) {
-          $("#textToUpdate").text(error.responseJSON.error)
-        }
-      });
+    function getEventTarget(e) {
+       e = e || window.event;
+      return e.target || e.srcElement; 
     }
-    var banUserFromChannel = function() {
-      var channel = $('#channels').val();
-      var user = $('#userToBan').val();
-      if (user.length > 25) {
-        swal(`That username is too long!`, {
-          icon: "error",
-        });
-      }
-      else if (user.length == 0) {
-        swal(`Username can't be empty!`, {
-          icon: "error",
-        });
-      }
-      else {
-        swal({
-          title: "Are you sure?",
-          text: `Ban ${user} from ${channel}?`,
-          icon: "warning",
-          buttons: true,
-          dangerMode: true,
-        })
-        .then((willDelete) => {
-          if (willDelete) {
-            $.ajax({
-              url: '/ban_user',
-              type: 'POST',
-              contentType: 'application/json',
-              data: JSON.stringify({ channel: channel, user: user }),
-              success: function(data) {
-                swal(`${user} has been banned from ${channel} successfully.`, {
-                  icon: "success",
-                });
-              },
-              error: function(error) {
-                swal(`Failed to ban ${user}, Error: ${error.responseJSON.error}`, {
-                  icon: "error",
-                })
-              }
-            })
-          }
-        })
-      }
-    }
-    var getMessagesTotal = function() {
+    var ul = document.getElementById('navbarlinks');
+    ul.onclick = function(event) {
+      var target = getEventTarget(event);
+      target = target.innerHTML.split("<")[0].toLowerCase()
+      console.log(target)
       $.ajax({
-        url: '/get_messages',
+        url: `/${target}`,
         type: 'GET',
-        contentType: 'application/json',
+        contentType: 'text/html',
         success: function(data) {
-          var messagesTotal = $('#messagesTotal').text("Total messages this session: " + data.total)
-          console.log(data)
+          $('#testdiv').html(data);
         },
         error: function(error) {
           console.log(data)
         }
       });
-      setTimeout(function() {
-        getMessagesTotal()
-      }, 1000);
-    }
-    var getUsers = function() {
-      $.ajax({
-        url: '/get_users',
-        type: 'GET',
-        contentType: 'application/json',
-        success: function(data) {
-          var messagesTotal = $('#usersInChat').text("Current # of users in chat: " + data.total)
-          console.log(data)
-        },
-        error: function(error) {
-          console.log(data)
-        }
-      });
-      setTimeout(function() {
-        getUsers()
-      }, 60000);
-    }
-    $( document ).ready(function() {
-     getMessagesTotal()
-     getUsers()
-      $.ajax({
-        url: '/get_channels',
-        type: 'GET',
-        contentType: 'application/json',
-        success: function(data) {
-          var select = document.getElementById("channels")
-          for(var i = 0; i < data.length; i++) {
-            var opt = data[i];
-            var el = document.createElement("option");
-            el.textContent = opt;
-            el.value = opt;
-            select.appendChild(el);
-          }
-          console.log(data)
-        },
-        error: function(error) {
-          console.log(data)
-        }
-      });
-    });
-  form(action='/join_channel', method='POST')
-    p
-      input(type='text', value='', placeholder="Channel to join", id = "channelToJoin")
-      button(onclick='joinChannel()' type='button' id='testButton') Join Channel
-      p(id="textToUpdate")
-    p
-      select(name="channels" id="channels")
-      input(type='text', value='', placeholder="User", id = "userToBan")
-      button(onclick='banUserFromChannel()' type='button' id='testButton') Ban
-      p(id="ban")
-    p(id = "messagesTotal")
-    p(id = "usersInChat")
+    };
+  div(id="testdiv") hi

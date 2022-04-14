@@ -7,12 +7,14 @@ const fs = require("fs")
 const port = process.env.PORT || "8000"
 const bodyParser = require("body-parser")
 const { apiClient } = require("../utils/apiclient")
-const { addChannelToDB } = require("../database")
+const { addChannelToDB, getMessages } = require("../database")
 const { chatClient } = require("../utils/chatclient.js")
 const { isStreamOnline } = require("../functions.js")
-var messages = 0
+var totalMessagesThisSession = 0
 router.use(express.urlencoded({ extended: true }))
-router.use("/jquery", express.static(__dirname + "/node_modules/jquery/dist/"))
+router.use("/join_channel.js", express.static(__dirname + "\\js\\join_channel.js"))
+router.use("/get_messages.js", express.static(__dirname + "\\js\\get_messages.js"))
+router.use("/get_users.js", express.static(__dirname + "\\js\\get_users.js"))
 router.use(bodyParser.urlencoded({extended:true}))
 router.use(bodyParser.json())
 router.set("views", path.join(__dirname, "views"))
@@ -22,13 +24,18 @@ async function main() {
 	router.get("/", function (req, res) {
 		res.render("index", { title: "Express" })
 	})
-	
+
+	router.get("/stats", function (req, res) {
+		res.render("stats", { title: "Express" })
+	})
+
 	router.get("/get_channels", function (req, res) {
 		res.status(200).send(channels)
 	})
 	
-	router.get("/get_messages", function (req, res) {
-		res.status(200).send({ total: messages })
+	router.get("/get_messages", async function (req, res) {
+		var totalMessages = await getMessages(null, 37575275)
+		res.status(200).send({ totalMessagesThisSession: totalMessagesThisSession, totalMessages: totalMessages })
 	})
 	
 	router.get("/get_users", async function (req, res) {
@@ -82,5 +89,5 @@ module.exports.startRouter = main
 module.exports.incrementMessages = incrementMessages
 
 function incrementMessages() {
-	messages++
+	totalMessagesThisSession++
 }
