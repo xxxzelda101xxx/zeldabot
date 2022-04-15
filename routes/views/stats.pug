@@ -2,13 +2,50 @@ extends layout
 
 block content
   body
-  script(src="/get_messages.js")
-  script(src="/get_users.js")
   script.
     $( document ).ready(function() {
       getMessages()
       getUsers()
     })
+    function addCommasToNumber(numb) {
+       var str = numb.toString().split(".");
+      str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      return str.join(".");
+    }
+    function getMessages() {
+      $.ajax({
+        url: "/get_messages",
+        type: "GET",
+        contentType: "application/json",
+        success: function(data) {
+          $("#totalMessages").text("Total messages: " + addCommasToNumber(data.totalMessages))
+          $("#totalMessagesThisSession").text("Total messages this session: " + addCommasToNumber(data.totalMessagesThisSession))
+        },
+        error: function(error) {
+          console.log(data)
+        }
+      })
+      setTimeout(function() {
+        getMessages()
+      }, 1000)
+    }
+    function getUsers() {
+      $.ajax({
+        url: "/get_users",
+        type: "GET",
+        contentType: "application/json",
+        success: function(data) {
+          $("#usersInChat").text("Users in chat: " + addCommasToNumber(data.total))
+        },
+        error: function(error) {
+          console.log(data)
+        }
+      })
+      setTimeout(function() {
+        getMessages()
+      }, 1000)
+    }
+    
   div(id="testdiv")
     p(id = "totalMessages")
     p(id = "totalMessagesThisSession")
