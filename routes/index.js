@@ -22,6 +22,11 @@ async function main() {
 		res.render("index", { title: "Express" })
 	})
 
+	router.get("/mappack", function(req, res){
+		const file = "/var/www/html/shige_maps.zip"
+		res.download(file) // Set disposition and send it.
+	})
+
 	router.get("/stats", function (req, res) {
 		res.render("stats", { title: "Express" })
 	})
