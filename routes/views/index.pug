@@ -10,7 +10,7 @@ block content
     ul.onclick = function(event) {
       var target = getEventTarget(event);
       target = target.innerHTML.split("<")[0].toLowerCase()
-      console.log(target)
+      if (target.length == 0) return
       $.ajax({
         url: `/${target}`,
         type: 'GET',
