@@ -54,7 +54,7 @@ block content
       nav(class="navbar")
         ul(id="navbarlinks")
           li
-            a(href="#stats") Stats
+            a(href="/stats") Stats
   script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js")
   script(src="https://unpkg.com/sweetalert/dist/sweetalert.min.js")
   script.
@@ -78,5 +78,6 @@ block content
           console.log(data)
         }
       });
+      event.preventDefault();
     };
   div(id="testdiv") hi

@@ -33,16 +33,17 @@ async function main() {
 		res.status(200).send(channels)
 	})
 	
-	router.get("/get_messages", async function (req, res) {
-		var totalMessages = await getMessages(null, 37575275)
-		res.status(200).send({ totalMessagesThisSession: totalMessagesThisSession, totalMessages: totalMessages })
-	})
-	
 	router.get("/get_users", async function (req, res) {
 		var viewers = await apiClient.unsupported.getChatters("shigetora")
 		res.status(200).send({ total: viewers.allChatters.length})
 	})
-	
+
+
+	router.get("/get_messages", async function (req, res) {
+		var totalMessages = await getMessages(null, 37575275)
+		res.status(200).send({ totalMessagesThisSession: totalMessagesThisSession, totalMessages: totalMessages })
+	})
+	/*
 	router.post("/join_channel", async function (req, res) {
 		if (req.body.channel.length > 25) {
 			res.contentType("json")
@@ -77,7 +78,7 @@ async function main() {
 		else {
 			res.status(404).send({ error: "User not found" })
 		}
-	})
+	})*/
 	
 	router.listen(port, () => {
 		console.log(`Listening to requests on http://localhost:${port}`)
