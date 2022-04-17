@@ -1,11 +1,11 @@
 exports.messageHandler = messageHandler
 const { setCooldown, getCooldown } = require("../helpers/cooldownhelper.js")
 const { addToDB, addEmoteToDB, getTwitchStreamStatus, addTwitchUserToDB } = require("../database.js")
-const { getGosumemoryData, kagamiBanRNG, banRNG } = require("../functions.js")
+const { kagamiBanRNG, banRNG } = require("../functions.js")
+const { GosuMemory } = require("../classes/gosumemory.js")
 const { logger } = require("../logger.js")
 const { Commands } = require("../helpers/commandshelper.js")
 const config = require("../config.json")
-const open = require("open")
 const { chatClient } = require("../utils/chatclient.js")
 const isWhitelistEnabled = config.twitch.enable_whitelist
 const whitelisted_users = config.twitch.whitelisted_users
@@ -13,6 +13,8 @@ const mysqlEnabled = config.mysql.enabled
 const admins = config.twitch.admins
 
 async function messageHandler(channel, user, msg, context) {
+	// eslint-disable-next-line no-undef
+	var data = new GosuMemory(gosumemoryData)
 	const user_id = context.userInfo.userId
 	const channel_id = context.channelId
 	const command = msg.trim().toLowerCase().split(" ")[0]
@@ -35,14 +37,6 @@ async function messageHandler(channel, user, msg, context) {
 			addEmoteToDB(user_id, msg, context.parseEmotes(), channel_id)
 		}
 		if (!commandToRun) return
-		if (commandToRun.isOsuCommand == true) {
-			var data = await getGosumemoryData().catch(e => {
-				if ((e == "osu! is not fully loaded!" || e.code == "ECONNREFUSED") && (isMod)) {
-					open("osu://spectate/chocomint")
-					chatClient.say(channel, "osu! isn't open/crashed, attempting to restart...")
-				}
-			})
-		}
 		if (!data && commandToRun.isOsuCommand == true) return
 		var online = await getTwitchStreamStatus(channel_id)
 		const cooldown = getCooldown(command)
@@ -58,13 +52,6 @@ async function messageHandler(channel, user, msg, context) {
 	}
 	else {
 		if (!commandToRun) return
-		var data = await getGosumemoryData().catch(e => {
-			if ((e == "osu! is not fully loaded!" || e.code == "ECONNREFUSED")) {
-				open("osu://spectate/chocomint")
-				chatClient.say(channel, "osu! isn't open/crashed, attempting to restart...")
-			}
-		})
-		if (!data) return
 		if (commandToRun.adminOnly) return
 		logger.debug(`Executing !${commandToRun.name} from user: ${user} in whispers.`)
 		if (commandToRun.canWhisper) {

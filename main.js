@@ -1,4 +1,5 @@
 const config = require("./config.json")
+const { startWebsocket } = require("./websocket.js")
 const channels = config.twitch.channels
 const { isStreamOnline } = require("./functions.js")
 const { messageHandler } = require("./handlers/messagehandler.js")
@@ -11,6 +12,7 @@ const { startRouter } = require("./routes/index.js")
 var { incrementMessages } = require("./routes/index.js")
 
 async function main() {
+	startWebsocket()
 	mapTrackingLoop()
 	await chatClient.connect()
 	chatClient.onRegister(() => {

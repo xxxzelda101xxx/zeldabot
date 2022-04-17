@@ -1,15 +1,9 @@
 const { addWatchTimeToUser, changeTwitchStreamStatus } = require("./database.js")
-const { GosuMemory } = require("./classes/gosumemory.js")
 //const { logger } = require("./logger.js")
 const { apiClient } = require("./utils/apiclient")
-const request = require("request")
-const config = require("./config.json")
-const gosumemoryURL = config.osu.gosumemory_address
-const options = {json: true}
 //const { exec } = require("child_process")
 //var ffi = require("ffi-napi")
 const { chatClient } = require("./utils/chatclient.js")
-var hasKagamiBeenBanned = false
 
 /*function getOsuWindowTitle() {
 	return new Promise(function(resolve){
@@ -21,40 +15,28 @@ var hasKagamiBeenBanned = false
 	})
 }*/
 
-module.exports.isStreamOnline = isStreamOnline
-
 async function isStreamOnline(channel, firstRun) {
 	if (firstRun) {
 		setTimeout(() => {
 			isStreamOnline(channel, false)
 		}, 60000)
+		return
 	}
-	else {
-		var stream = await apiClient.streams.getStreamByUserName(channel)
-		var channel_id
-		if (stream != null) {
-			if (channel == "shigetora") {
-				if (hasKagamiBeenBanned == false){
-					hasKagamiBeenBanned = true
-					//chatClient.ban(channel, "Kagami_77", "shige started stream get banned lmao")
-				}
-			}
-			channel_id = stream.userId
-			changeTwitchStreamStatus(channel_id, true)
-		}
-		else {
-			if (channel == "shigetora") {
-				hasKagamiBeenBanned = false
-			}
-			var user = await apiClient.users.getUserByName(channel)
-			channel_id = user.id
-			changeTwitchStreamStatus(user.id, false)
-		}
-		getCurrentViewers(channel, channel_id)
-		setTimeout(() => {
-			isStreamOnline(channel, false)
-		}, 60000)
+	var stream = await apiClient.streams.getStreamByUserName(channel)
+	var channel_id
+	if (stream) {
+		channel_id = stream.userId
+		changeTwitchStreamStatus(channel_id, true)
+		return
 	}
+	var user = await apiClient.users.getUserByName(channel)
+	channel_id = user.id
+	changeTwitchStreamStatus(user.id, false)
+	
+	getCurrentViewers(channel, channel_id)
+	setTimeout(() => {
+		isStreamOnline(channel, false)
+	}, 60000)
 }
 
 async function getCurrentViewers(channel, channel_id) {
@@ -64,33 +46,6 @@ async function getCurrentViewers(channel, channel_id) {
 	}
 }
 
-module.exports.getGosumemoryData = getGosumemoryData
-
-async function getGosumemoryData() {
-	return new Promise(function(resolve, reject) {
-		try {
-			request(`http://${gosumemoryURL}:24050/json`, options, async function(error, res, body) {
-				if(error) {
-					return reject(error)
-				}		
-
-				if (!error && res.statusCode == 200) {
-					if(body.error) {
-						return reject(body.error)
-					}
-					var data = new GosuMemory(body)
-					resolve (data)
-				}
-			})
-		}
-		catch(e) {
-			reject(e)
-		}
-	})
-}
-
-module.exports.kagamiBanRNG = kagamiBanRNG
-
 async function kagamiBanRNG(channel, user) {
 	var randomNumber = Math.floor(Math.random() * 1001)
 	if (randomNumber == 727) {
@@ -98,8 +53,6 @@ async function kagamiBanRNG(channel, user) {
 		await chatClient.ban(channel, user, "You hit the 1/1000 chance lmao get rekted")
 	}
 }
-
-module.exports.banRNG = banRNG
 
 async function banRNG(channel, user, context) {
 	var randomNumber = Math.floor(Math.random() * 10000 + 1)
@@ -117,3 +70,7 @@ async function banRNG(channel, user, context) {
 		}
 	}
 }
+
+module.exports.banRNG = banRNG
+module.exports.kagamiBanRNG = kagamiBanRNG
+module.exports.isStreamOnline = isStreamOnline
