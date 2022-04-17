@@ -2,7 +2,6 @@ exports.messageHandler = messageHandler
 const { setCooldown, getCooldown } = require("../helpers/cooldownhelper.js")
 const { addToDB, addEmoteToDB, getTwitchStreamStatus, addTwitchUserToDB } = require("../database.js")
 const { kagamiBanRNG, banRNG } = require("../functions.js")
-const { GosuMemory } = require("../classes/gosumemory.js")
 const { logger } = require("../logger.js")
 const { Commands } = require("../helpers/commandshelper.js")
 const config = require("../config.json")
@@ -13,8 +12,7 @@ const mysqlEnabled = config.mysql.enabled
 const admins = config.twitch.admins
 
 async function messageHandler(channel, user, msg, context) {
-	// eslint-disable-next-line no-undef
-	var data = new GosuMemory(gosumemoryData)
+	var data = gosumemoryData
 	const user_id = context.userInfo.userId
 	const channel_id = context.channelId
 	const command = msg.trim().toLowerCase().split(" ")[0]
