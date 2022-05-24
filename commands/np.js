@@ -9,8 +9,8 @@ module.exports = {
 	execute: async function(channel, user, msg, context, chatClient, data) {
 		//contents = `${mapData.artist} - ${mapData.title} [${mapData.difficulty}] +${osuMods} (${rankedStatus}, Mapset by ${mapData.mapper}) Download: `
 		var contents = `${data.getArtist()} - ${data.getTitle()} [${data.getDifficulty()}] `
-		console.log("x" + data.getMods() + "x")
-		if (data.getMods() != "") { 
+		console.log(data.getMods().length)
+		if (data.getMods().length > 0) { 
 			contents += `+${data.getMods()}`
 		}
 		if (data.beatmap_id == 0 && data.beatmapset_id > 0) {
