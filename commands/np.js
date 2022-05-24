@@ -9,6 +9,7 @@ module.exports = {
 	execute: async function(channel, user, msg, context, chatClient, data) {
 		//contents = `${mapData.artist} - ${mapData.title} [${mapData.difficulty}] +${osuMods} (${rankedStatus}, Mapset by ${mapData.mapper}) Download: `
 		var contents = `${data.getArtist()} - ${data.getTitle()} [${data.getDifficulty()}] `
+		console.log("x" + data.getMods() + "x")
 		if (data.getMods() != "") { 
 			contents += `+${data.getMods()}`
 		}
