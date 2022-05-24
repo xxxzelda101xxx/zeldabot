@@ -4,7 +4,9 @@ module.exports = {
 	canWhisper: true,
 	isOsuCommand: false,
 	execute: async function(channel, user, msg, context, chatClient, data) {
-		var randomDice = Math.floor(6*Math.random()) + 1
-        chatClient.say(channel, randomDice)
+		var maxDice = 6
+		if (!isNaN(msg.split(" ")[1] && msg.split(" ")[1] > 1)) maxDice = msg.split(" ")[1]
+		var randomDice = Math.floor(maxDice*Math.random()) + 1
+		chatClient.say(channel, randomDice)
 	}
 }

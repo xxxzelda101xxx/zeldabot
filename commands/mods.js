@@ -5,15 +5,12 @@ module.exports = {
 	isOsuCommand: true,
 	isPublic: true,
 	execute: async function(channel, user, msg, context, chatClient, data) {
-		var mods = data.getMods()
-		if (mods.length == 0) {
-			mods = "Nomod"
-		}
+		var contents = data.getMods()
 		if (channel) {
-			chatClient.say(channel, mods)
+			chatClient.say(channel, contents)
 		}
 		else {
-			chatClient.whisper(user, mods)
+			chatClient.whisper(user, contents)
 		}
 	}
 }
