@@ -12,6 +12,7 @@ const mysqlEnabled = config.mysql.enabled
 const admins = config.twitch.admins
 
 async function messageHandler(channel, user, msg, context) {
+	// eslint-disable-next-line no-undef
 	var data = gosumemoryData
 	const user_id = context.userInfo.userId
 	const channel_id = context.channelId
@@ -23,12 +24,8 @@ async function messageHandler(channel, user, msg, context) {
 		if (commandToRun.modOnly && !isMod) return
 	}
 	if (channel) {
-		if (user.toLowerCase() == "kagami_77") {
-			kagamiBanRNG(channel, user)
-		}
-		else {
-			banRNG(channel, user)
-		}
+		if (user.toLowerCase() == "kagami_77") kagamiBanRNG(channel, user)
+		banRNG(channel, user)
 		if (mysqlEnabled) {
 			addTwitchUserToDB(user_id, user)
 			addToDB(user_id, channel_id)
@@ -40,8 +37,8 @@ async function messageHandler(channel, user, msg, context) {
 		const cooldown = getCooldown(command)
 		if (!isMod && online) {
 			if (commandToRun.offlineOnly) return chatClient.deleteMessage(channel, context)
-			else if (cooldown && !isMod) return chatClient.deleteMessage(channel, context)
-			else if (isWhitelistEnabled && whitelisted_users.indexOf(context.userInfo.userName) < 0 && !commandToRun.isPublic) return chatClient.deleteMessage(channel, context)
+			if (cooldown && !isMod) return chatClient.deleteMessage(channel, context)
+			if (isWhitelistEnabled && whitelisted_users.indexOf(context.userInfo.userName) < 0 && !commandToRun.isPublic) return chatClient.deleteMessage(channel, context)
 			if (data && commandToRun.requiredState && data.menuState != commandToRun.requiredState) return chatClient.deleteMessage(channel, context)
 		}
 		setCooldown(command)

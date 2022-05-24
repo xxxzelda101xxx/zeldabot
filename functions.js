@@ -50,7 +50,7 @@ async function kagamiBanRNG(channel, user) {
 	var randomNumber = Math.floor(Math.random() * 1001)
 	if (randomNumber == 727) {
 		await chatClient.say(channel, "Kagami_77 hit the 1/1000 chance to get banned lmao.")
-		await chatClient.ban(channel, user, "You hit the 1/1000 chance lmao get rekted")
+		await chatClient.ban(channel, user, "You hit the 1/1000 chance lmao get rekt")
 	}
 }
 
