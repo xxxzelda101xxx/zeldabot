@@ -109,7 +109,7 @@ class GosuMemory {
 		return this.menu.bm.stats.maxCombo
 	}
 	getMods() {
-		return this.menu.mods.num.str
+		return this.menu.mods.str
 	}
 	async getCurrentPP() {
 		var osuFile = await this.getOsuFile()
