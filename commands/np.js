@@ -11,7 +11,7 @@ module.exports = {
 		var contents = `${data.getArtist()} - ${data.getTitle()} [${data.getDifficulty()}] `
 		console.log(data.getMods().length)
 		if (data.getMods().length > 0) { 
-			contents += `+${data.getMods()}`
+			contents += `+${data.getMods()} `
 		}
 		if (data.beatmap_id == 0 && data.beatmapset_id > 0) {
 			contents +=`${dlSetUrl}${data.beatmapset_id}`
