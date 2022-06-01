@@ -5,9 +5,10 @@ module.exports = {
 	isOsuCommand: false,
 	execute: async function(channel, user, msg, context, chatClient, data) {
 		var numberToRoll = msg.split(" ").filter(item => item)
+		console.log(numberToRoll)
 		numberToRoll = numberToRoll[1]
+		console.log(numberToRoll)
 		var maxDice = 6
-		console.log(msg.split(" "))
 		if (!isNaN(numberToRoll) && msg.split(" ")[1] > 0) maxDice = numberToRoll
 		var randomDice = Math.floor(maxDice*Math.random()) + 1
 		chatClient.say(channel, randomDice)
