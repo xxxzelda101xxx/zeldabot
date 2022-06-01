@@ -9,7 +9,7 @@ module.exports = {
 		numberToRoll = numberToRoll[1]
 		console.log(numberToRoll)
 		var maxDice = 6
-		if (!isNaN(numberToRoll) && msg.split(" ")[1] > 0) maxDice = numberToRoll
+		if (!isNaN(numberToRoll) && numberToRoll > 0) maxDice = numberToRoll
 		var randomDice = Math.floor(maxDice*Math.random()) + 1
 		chatClient.say(channel, randomDice)
 	}
