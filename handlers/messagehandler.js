@@ -13,6 +13,7 @@ const admins = config.twitch.admins
 
 async function messageHandler(channel, user, msg, context) {
 	// eslint-disable-next-line no-undef
+	msg = msg.trim()
 	var data = gosumemoryData
 	const user_id = context.userInfo.userId
 	const channel_id = context.channelId
