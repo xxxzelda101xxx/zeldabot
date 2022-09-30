@@ -216,10 +216,10 @@ async function calculatePP(calcString, isSr) {
 			try {
 				var data = JSON.parse(stdout)
 				if (isSr) {
-					resolve(data["Difficulty"]["Star rating"].toFixed(2))
+					resolve(data["difficulty_attributes"]["star_rating"].toFixed(2))
 				}
 				else {
-					resolve(data.pp.toFixed(2))
+					resolve(data["performance_attributes"]["pp"].toFixed(2))
 				}
 			}
 			catch (e) {
