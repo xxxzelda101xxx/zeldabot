@@ -27,16 +27,19 @@ module.exports = {
 					}
 				}
 			}
-			var valid_mods = ["nf", "ez", "td", "hd", "hr", "ht", "dt", "nc", "fl", "so"]
-			var selected_mods = mods.match(/.{1,2}/g)
-			var fixed_mods_string = ""
 
-			for (var i = 0; i < selected_mods.length; i++) {
-				valid_mods.filter(mod => {
-					if (mod == selected_mods[i]) {
-						if (fixed_mods_string.indexOf(mod) < 0) fixed_mods_string += mod
-					}
-				})
+			if (mods.length > 0) {
+				var valid_mods = ["nf", "ez", "td", "hd", "hr", "ht", "dt", "nc", "fl", "so"]
+				var selected_mods = mods.match(/.{1,2}/g)
+				var fixed_mods_string = ""
+
+				for (var i = 0; i < selected_mods.length; i++) {
+					valid_mods.filter(mod => {
+						if (mod == selected_mods[i]) {
+							if (fixed_mods_string.indexOf(mod) < 0) fixed_mods_string += mod
+						}
+					})
+				}
 			}
 
 			if (msg.indexOf("+") < 0) accuracy = Number(msg.toLowerCase().split(" ")[1]).toFixed(2)
