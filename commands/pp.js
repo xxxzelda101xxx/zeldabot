@@ -15,17 +15,12 @@ module.exports = {
 			}
 		}
 		else if (msg.toLowerCase().split(" ").length > 1 && msg.toLowerCase().split(" ").length < 4) {
-			var mods = "", accuracy, mods_string
-			var valid_mods = ["nf", "ez", "td", "hd", "hr", "ht", "dt", "nc", "fl", "so"]
+			var mods = "", accuracy
 			if (msg.indexOf("+") > -1) {
 				var msgArray = msg.split(" ")
 				for (var i = 0; i < msgArray.length; i++) {
 					if (msgArray[i].indexOf("+") > -1) {
-						var selected_mods = msgArray[i].substring(1).match(/.{1,2}/g)
-						for (var j = 0; j < selected_mods.length; j++) {
-							if (valid_mods.indexOf(selected_mods[j] > -1)) mods_string += selected_mods[j]
-						}
-						mods = mods_string
+						mods = msgArray[i].substring(1).toLowerCase()
 						if (msgArray.length == 2) accuracy = 100
 						else if (i == 1) accuracy = Number(msg.toLowerCase().split(" ")[2]).toFixed(2)
 						else accuracy = Number(msg.toLowerCase().split(" ")[1]).toFixed(2)
