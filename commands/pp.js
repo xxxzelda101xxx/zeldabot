@@ -33,12 +33,10 @@ module.exports = {
 
 			for (var i = 0; i < selected_mods.length; i++) {
 				console.log(selected_mods[i])
-				var result = valid_mods.filter(mod => {
-					console.log(mod)
-					mod.indexOf(selected_mods[i] > -1)
+				valid_mods.filter(mod => {
+					console.log(mod == selected_mods[i])
+					if (mod == selected_mods[i]) fixed_mods_string += mod
 				})
-				console.log(result)
-				if (result.length > 0) fixed_mods_string += result[0]
 			}
 
 			if (msg.indexOf("+") < 0) accuracy = Number(msg.toLowerCase().split(" ")[1]).toFixed(2)
