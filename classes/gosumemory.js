@@ -51,9 +51,10 @@ class GosuMemory {
 		var totalObjects = beatmap["nbCircles"] + beatmap["nbSliders"] + beatmap["nbSpinners"]
 		var numberOf100sNeeded = totalObjects - Math.round(totalObjects * (accuracy / 100))
 		var commandString
-		console.log(mods)
+		var converted_mods = getMods(mods)
+		console.log(converted_mods)
 		if (!mods) commandString = `dotnet ${liveppCalcDLL} simulate osu "${osuFile}" -G ${numberOf100sNeeded} ${this.getModsForPPCalc()} --json`
-		else commandString = `dotnet ${liveppCalcDLL} simulate osu "${osuFile}" -G ${numberOf100sNeeded} ${getMods(mods)} --json`
+		else commandString = `dotnet ${liveppCalcDLL} simulate osu "${osuFile}" -G ${numberOf100sNeeded} ${converted_mods} --json`
 		var PP = await calculatePP(commandString)
 		return [PP, numberOf100sNeeded]
 	}
