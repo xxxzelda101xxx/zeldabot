@@ -14,7 +14,7 @@ module.exports = {
 				chatClient.whisper(user, `${pp}pp`)
 			}
 		}
-		else if (msg.toLowerCase().split(" ").length > 1 && !isNaN(msg.toLowerCase().split(" ")[1])) {
+		else if (msg.toLowerCase().split(" ").length > 1) {
 			var mods = "", accuracy
 			if (msg.indexOf("+") > -1) {
 				var msgArray = msg.split(" ")
