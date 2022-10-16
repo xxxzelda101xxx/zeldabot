@@ -32,9 +32,7 @@ module.exports = {
 			var fixed_mods_string = ""
 
 			for (var i = 0; i < selected_mods.length; i++) {
-				console.log(selected_mods[i])
 				valid_mods.filter(mod => {
-					console.log(mod == selected_mods[i])
 					if (mod == selected_mods[i]) {
 						if (fixed_mods_string.indexOf(mod) < 0) fixed_mods_string += mod
 					}

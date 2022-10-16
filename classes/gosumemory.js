@@ -215,7 +215,8 @@ function getMods(mods) {
 	}
 	else {
 		var returnString = ""
-		var mods_string = mods.match(/.{1,2}/g)
+		//var mods_string = mods.match(/.{1,2}/g)
+		var mods_string = [...new Set(mods.match(/.{1,2}/g))];
 		for (var i = 0; i < mods_string.length; i++) {
 			if (mods_string[i] == "nf") returnString += "-m NF "
 			if (mods_string[i] == "ez") returnString += "-m EZ "
