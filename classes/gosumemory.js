@@ -51,6 +51,7 @@ class GosuMemory {
 		var totalObjects = beatmap["nbCircles"] + beatmap["nbSliders"] + beatmap["nbSpinners"]
 		var numberOf100sNeeded = totalObjects - Math.round(totalObjects * (accuracy / 100))
 		var commandString
+		console.log(mods)
 		if (!mods) commandString = `dotnet ${liveppCalcDLL} simulate osu "${osuFile}" -G ${numberOf100sNeeded} ${this.getModsForPPCalc()} --json`
 		else commandString = `dotnet ${liveppCalcDLL} simulate osu "${osuFile}" -G ${numberOf100sNeeded} ${mods} --json`
 		var PP = await calculatePP(commandString)
@@ -179,37 +180,59 @@ function millisToMinutesAndSeconds(millis) {
 }
 
 function getMods(mods) {
-	mods = parseInt(mods, 10)
-	var returnString = ""
-	var ModsEnum = {
-		None: 0,
-		NoFail: 1,
-		Easy: 2,
-		TouchDevice: 4,
-		Hidden: 8,
-		HardRock: 16,
-		DoubleTime: 64,
-		HalfTime: 256,
-		Nightcore: 512,
-		Flashlight: 1024,
-		SpunOut: 4096
+	if (!isNaN(mods)) {
+		mods = parseInt(mods, 10)
+		var returnString = ""
+		var ModsEnum = {
+			None: 0,
+			NoFail: 1,
+			Easy: 2,
+			TouchDevice: 4,
+			Hidden: 8,
+			HardRock: 16,
+			DoubleTime: 64,
+			HalfTime: 256,
+			Nightcore: 512,
+			Flashlight: 1024,
+			SpunOut: 4096
+		}
+		if ((mods & ModsEnum.NoFail) == ModsEnum.NoFail) returnString += "-m NF "
+		if ((mods & ModsEnum.Easy) == ModsEnum.Easy) returnString += "-m EZ "
+		if ((mods & ModsEnum.TouchDevice) == ModsEnum.TouchDevice) returnString += "-m TD "
+		if ((mods & ModsEnum.Hidden) == ModsEnum.Hidden) returnString += "-m HD "
+		if ((mods & ModsEnum.HardRock) == ModsEnum.HardRock) returnString += "-m HR "
+		if ((mods & ModsEnum.HalfTime) == ModsEnum.HalfTime) returnString += "-m HT "
+		if ((mods & ModsEnum.DoubleTime) == ModsEnum.DoubleTime) {
+			if ((mods & ModsEnum.Nightcore) == ModsEnum.Nightcore) returnString += "-m NC "
+			else returnString += "-m DT "
+		}
+		if ((mods & ModsEnum.Flashlight) == ModsEnum.Flashlight) returnString += "-m FL "
+		if ((mods & ModsEnum.SpunOut) == ModsEnum.SpunOut) returnString += "-m SO "
+		if (returnString === "") {
+			returnString = ""
+		}
+		return returnString
 	}
-	if ((mods & ModsEnum.NoFail) == ModsEnum.NoFail) returnString += "-m NF "
-	if ((mods & ModsEnum.Easy) == ModsEnum.Easy) returnString += "-m EZ "
-	if ((mods & ModsEnum.TouchDevice) == ModsEnum.TouchDevice) returnString += "-m TD "
-	if ((mods & ModsEnum.Hidden) == ModsEnum.Hidden) returnString += "-m HD "
-	if ((mods & ModsEnum.HardRock) == ModsEnum.HardRock) returnString += "-m HR "
-	if ((mods & ModsEnum.HalfTime) == ModsEnum.HalfTime) returnString += "-m HT "
-	if ((mods & ModsEnum.DoubleTime) == ModsEnum.DoubleTime) {
-		if ((mods & ModsEnum.Nightcore) == ModsEnum.Nightcore) returnString += "-m NC "
-		else returnString += "-m DT "
+	else {
+		var returnString = ""
+		var mods_string = mods.match(/.{1,2}/g)
+		for (var i = 0; i < mods_string.length; i++) {
+			if (mods[i] == "nf") returnString += "-m NF "
+			if (mods[i] == "ez") returnString += "-m EZ "
+			if (mods[i] == "td") returnString += "-m TD "
+			if (mods[i] == "hd") returnString += "-m HD "
+			if (mods[i] == "hr") returnString += "-m HR "
+			if (mods[i] == "ht") returnString += "-m HT "
+			if (mods[i] == "dt") returnString += "-m DT "
+			if (mods[i] == "nc") returnString += "-m NC "
+			if (mods[i] == "fl") returnString += "-m FL "
+			if (mods[i] == "so") returnString += "-m SO "
+			if (returnString === "") {
+				returnString = ""
+			}
+			return returnString
+		}
 	}
-	if ((mods & ModsEnum.Flashlight) == ModsEnum.Flashlight) returnString += "-m FL "
-	if ((mods & ModsEnum.SpunOut) == ModsEnum.SpunOut) returnString += "-m SO "
-	if (returnString === "") {
-		returnString = ""
-	}
-	return returnString
 }
 
 async function calculatePP(calcString, isSr) {
