@@ -31,10 +31,10 @@ module.exports = {
 			var [pp, count100] = await data.getPPCustom(accuracy, mods)
 			if (count100 == 0) accuracy = 100
 			if (channel) {
-				chatClient.say(channel, `${pp}pp for a ${accuracy}% (${count100}x100) fc.`)
+				chatClient.say(channel, `${pp}pp for a ${accuracy}% (${count100}x100) ${mods} fc.`)
 			}
 			else {
-				chatClient.whisper(user, `${pp}pp for a ${accuracy}% (${count100}x100) fc.`)
+				chatClient.whisper(user, `${pp}pp for a ${accuracy}% (${count100}x100) ${mods} fc.`)
 			}
 		}
 	}
