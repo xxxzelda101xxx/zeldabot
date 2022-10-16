@@ -15,7 +15,7 @@ module.exports = {
 			}
 		}
 		else if (msg.toLowerCase().split(" ").length > 1 && !isNaN(msg.toLowerCase().split(" ")[1])) {
-			var mods, accuracy
+			var mods = "", accuracy
 			if (msg.indexOf("+") > -1) {
 				var msgArray = msg.split(" ")
 				for (var i = 0; i < msgArray.length; i++) {
