@@ -45,12 +45,14 @@ class GosuMemory {
 	getMapper() {
 		return this.menu.bm.metadata.mapper
 	}
-	async getPPCustom(accuracy) {
+	async getPPCustom(accuracy, mods) {
 		var osuFile = await this.getOsuFile()
 		var beatmap = parser.parseContent(fs.readFileSync(osuFile))
 		var totalObjects = beatmap["nbCircles"] + beatmap["nbSliders"] + beatmap["nbSpinners"]
 		var numberOf100sNeeded = totalObjects - Math.round(totalObjects * (accuracy / 100))
-		var commandString = `dotnet ${liveppCalcDLL} simulate osu "${osuFile}" -G ${numberOf100sNeeded} ${this.getModsForPPCalc()} --json`
+		var commandString
+		if (!mods) commandString = `dotnet ${liveppCalcDLL} simulate osu "${osuFile}" -G ${numberOf100sNeeded} ${this.getModsForPPCalc()} --json`
+		else commandString = `dotnet ${liveppCalcDLL} simulate osu "${osuFile}" -G ${numberOf100sNeeded} ${mods} --json`
 		var PP = await calculatePP(commandString)
 		return [PP, numberOf100sNeeded]
 	}
