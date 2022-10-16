@@ -230,11 +230,11 @@ function getMods(mods) {
 			if (mods_string[i] == "nc") returnString += "-m NC "
 			if (mods_string[i] == "fl") returnString += "-m FL "
 			if (mods_string[i] == "so") returnString += "-m SO "
-			if (returnString === "") {
-				returnString = ""
-			}
-			return returnString
 		}
+		if (returnString === "") {
+			returnString = ""
+		}
+		return returnString
 	}
 }
 
