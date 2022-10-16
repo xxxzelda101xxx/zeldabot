@@ -20,15 +20,14 @@ module.exports = {
 				var msgArray = msg.split(" ")
 				for (var i = 0; i < msgArray.length; i++) {
 					if (msgArray[i].indexOf("+") > -1) {
-						console.log(i)
 						mods = msgArray[i].substring(1)
-						if (i == 2) accuracy = Number(msg.toLowerCase().split(" ")[2]).toFixed(2)
+						if (i == 1) accuracy = Number(msg.toLowerCase().split(" ")[2]).toFixed(2)
 						else accuracy = Number(msg.toLowerCase().split(" ")[1]).toFixed(2)
 					}
 				}
 			}
 			console.log(accuracy, mods)
-			//var accuracy = Number(msg.toLowerCase().split(" ")[1]).toFixed(2)
+			if (msg.indexOf("+") < 0) accuracy = Number(msg.toLowerCase().split(" ")[1]).toFixed(2)
 			var [pp, count100] = await data.getPPCustom(accuracy, mods)
 			if (count100 == 0) accuracy = 100
 			if (channel) {
