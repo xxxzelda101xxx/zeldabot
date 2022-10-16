@@ -33,7 +33,7 @@ module.exports = {
 
 			for (var i = 0; i < selected_mods.length; i++) {
 				console.log(selected_mods[i])
-				const result = valid_mods.filter(mod => {
+				var result = valid_mods.filter(mod => {
 					console.log(mod)
 					mod.indexOf(selected_mods[i] > -1)
 				})
