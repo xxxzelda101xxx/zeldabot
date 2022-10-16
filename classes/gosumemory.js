@@ -49,13 +49,11 @@ class GosuMemory {
 		var osuFile = await this.getOsuFile()
 		var beatmap = parser.parseContent(fs.readFileSync(osuFile))
 		var totalObjects = beatmap["nbCircles"] + beatmap["nbSliders"] + beatmap["nbSpinners"]
-		console.log(totalObjects)
-		var numberOf100sNeeded = totalObjects - Math.round(totalObjects * (accuracy / 100))
+		var numberOf100sNeeded = totalObjects - Math.floor(totalObjects * (accuracy / 100))
 		var commandString
 		var converted_mods = getMods(mods)
 		if (!mods) commandString = `dotnet ${liveppCalcDLL} simulate osu "${osuFile}" -G ${numberOf100sNeeded} ${this.getModsForPPCalc()} --json`
 		else commandString = `dotnet ${liveppCalcDLL} simulate osu "${osuFile}" -G ${numberOf100sNeeded} ${converted_mods} --json`
-		console.log(commandString)
 		var PP = await calculatePP(commandString)
 		return [PP, numberOf100sNeeded]
 	}
