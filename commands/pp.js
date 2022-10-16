@@ -41,6 +41,7 @@ module.exports = {
 					})
 				}
 			}
+			console.log(fixed_mods_string, fixed_mods_string.length)
 			if (fixed_mods_string.length > 0) fixed_mods_string.toUpperCase()
 			if (msg.indexOf("+") < 0) accuracy = Number(msg.toLowerCase().split(" ")[1]).toFixed(2)
 			var [pp, count100] = await data.getPPCustom(accuracy, mods)
