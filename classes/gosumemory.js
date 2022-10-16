@@ -52,7 +52,6 @@ class GosuMemory {
 		var numberOf100sNeeded = totalObjects - Math.round(totalObjects * (accuracy / 100))
 		var commandString
 		var converted_mods = getMods(mods)
-		console.log(converted_mods)
 		if (!mods) commandString = `dotnet ${liveppCalcDLL} simulate osu "${osuFile}" -G ${numberOf100sNeeded} ${this.getModsForPPCalc()} --json`
 		else commandString = `dotnet ${liveppCalcDLL} simulate osu "${osuFile}" -G ${numberOf100sNeeded} ${converted_mods} --json`
 		var PP = await calculatePP(commandString)
@@ -181,7 +180,6 @@ function millisToMinutesAndSeconds(millis) {
 }
 
 function getMods(mods) {
-	console.log(`isNaN ` + !isNaN(mods))
 	if (!isNaN(mods)) {
 		mods = parseInt(mods, 10)
 		var returnString = ""
@@ -219,7 +217,6 @@ function getMods(mods) {
 		var returnString = ""
 		var mods_string = mods.match(/.{1,2}/g)
 		for (var i = 0; i < mods_string.length; i++) {
-			console.log(mods_string[i])
 			if (mods_string[i] == "nf") returnString += "-m NF "
 			if (mods_string[i] == "ez") returnString += "-m EZ "
 			if (mods_string[i] == "td") returnString += "-m TD "
