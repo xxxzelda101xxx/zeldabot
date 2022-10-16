@@ -219,17 +219,17 @@ function getMods(mods) {
 		var returnString = ""
 		var mods_string = mods.match(/.{1,2}/g)
 		for (var i = 0; i < mods_string.length; i++) {
-			console.log(mods[i])
-			if (mods[i] == "nf") returnString += "-m NF "
-			if (mods[i] == "ez") returnString += "-m EZ "
-			if (mods[i] == "td") returnString += "-m TD "
-			if (mods[i] == "hd") returnString += "-m HD "
-			if (mods[i] == "hr") returnString += "-m HR "
-			if (mods[i] == "ht") returnString += "-m HT "
-			if (mods[i] == "dt") returnString += "-m DT "
-			if (mods[i] == "nc") returnString += "-m NC "
-			if (mods[i] == "fl") returnString += "-m FL "
-			if (mods[i] == "so") returnString += "-m SO "
+			console.log(mods_string[i])
+			if (mods_string[i] == "nf") returnString += "-m NF "
+			if (mods_string[i] == "ez") returnString += "-m EZ "
+			if (mods_string[i] == "td") returnString += "-m TD "
+			if (mods_string[i] == "hd") returnString += "-m HD "
+			if (mods_string[i] == "hr") returnString += "-m HR "
+			if (mods_string[i] == "ht") returnString += "-m HT "
+			if (mods_string[i] == "dt") returnString += "-m DT "
+			if (mods_string[i] == "nc") returnString += "-m NC "
+			if (mods_string[i] == "fl") returnString += "-m FL "
+			if (mods_string[i] == "so") returnString += "-m SO "
 			if (returnString === "") {
 				returnString = ""
 			}
