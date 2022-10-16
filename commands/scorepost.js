@@ -13,7 +13,7 @@ module.exports = {
 		var scorepostString = `${data.getResultsPlayerName()} | ${data.getArtist()} - ${data.getTitle()} [${data.getDifficulty()}] +${data.getMods()} (${data.getMapper()}, ${newSR}★) ${data.getAccuracy()}% `
 		if (data.resultsScreen["0"] > 0) scorepostString += `${results["0"]}xmiss `
 		scorepostString += `| ${pp}pp `
-		if (data.getUR() > 0) scorepostString += `| ${data.unstableRate} ur`
+		if (data.getUR() > 0) scorepostString += `| ${data.getUR()} ur`
 		if (channel) {
 			chatClient.say(channel, scorepostString)
 		}
