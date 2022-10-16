@@ -41,15 +41,15 @@ module.exports = {
 					})
 				}
 			}
-
+			if (fixed_mods_string.length > 0) fixed_mods_string.toUpperCase()
 			if (msg.indexOf("+") < 0) accuracy = Number(msg.toLowerCase().split(" ")[1]).toFixed(2)
 			var [pp, count100] = await data.getPPCustom(accuracy, mods)
 			if (count100 == 0) accuracy = 100
 			if (channel) {
-				chatClient.say(channel, `${pp}pp for a ${accuracy}% (${count100}x100) ${fixed_mods_string.toUpperCase()} fc.`)
+				chatClient.say(channel, `${pp}pp for a ${accuracy}% (${count100}x100) ${fixed_mods_string} fc.`)
 			}
 			else {
-				chatClient.whisper(user, `${pp}pp for a ${accuracy}% (${count100}x100) ${fixed_mods_string.toUpperCase()} fc.`)
+				chatClient.whisper(user, `${pp}pp for a ${accuracy}% (${count100}x100) ${fixed_mods_string} fc.`)
 			}
 		}
 		else {
