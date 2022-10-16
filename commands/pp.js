@@ -28,10 +28,10 @@ module.exports = {
 				}
 			}
 
+			var fixed_mods_string = ""
 			if (mods.length > 0) {
 				var valid_mods = ["nf", "ez", "td", "hd", "hr", "ht", "dt", "nc", "fl", "so"]
 				var selected_mods = mods.match(/.{1,2}/g)
-				var fixed_mods_string = ""
 
 				for (var i = 0; i < selected_mods.length; i++) {
 					valid_mods.filter(mod => {
@@ -41,16 +41,15 @@ module.exports = {
 					})
 				}
 			}
-			console.log(fixed_mods_string, fixed_mods_string.length)
-			if (fixed_mods_string.length > 0) fixed_mods_string.toUpperCase()
+
 			if (msg.indexOf("+") < 0) accuracy = Number(msg.toLowerCase().split(" ")[1]).toFixed(2)
 			var [pp, count100] = await data.getPPCustom(accuracy, mods)
 			if (count100 == 0) accuracy = 100
 			if (channel) {
-				chatClient.say(channel, `${pp}pp for a ${accuracy}% (${count100}x100) ${fixed_mods_string} fc.`)
+				chatClient.say(channel, `${pp}pp for a ${accuracy}% (${count100}x100) ${fixed_mods_string.toUpperCase()} fc.`)
 			}
 			else {
-				chatClient.whisper(user, `${pp}pp for a ${accuracy}% (${count100}x100) ${fixed_mods_string} fc.`)
+				chatClient.whisper(user, `${pp}pp for a ${accuracy}% (${count100}x100) ${fixed_mods_string.toUpperCase()} fc.`)
 			}
 		}
 		else {
