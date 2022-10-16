@@ -181,6 +181,7 @@ function millisToMinutesAndSeconds(millis) {
 }
 
 function getMods(mods) {
+	console.log(`isNaN ` + !isNaN(mods))
 	if (!isNaN(mods)) {
 		mods = parseInt(mods, 10)
 		var returnString = ""
@@ -218,6 +219,7 @@ function getMods(mods) {
 		var returnString = ""
 		var mods_string = mods.match(/.{1,2}/g)
 		for (var i = 0; i < mods_string.length; i++) {
+			console.log(mods[i])
 			if (mods[i] == "nf") returnString += "-m NF "
 			if (mods[i] == "ez") returnString += "-m EZ "
 			if (mods[i] == "td") returnString += "-m TD "
