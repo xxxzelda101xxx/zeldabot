@@ -21,7 +21,7 @@ module.exports = {
 				for (var i = 0; i < msgArray.length; i++) {
 					if (msgArray[i].indexOf("+") > -1) {
 						console.log(i)
-						mods = msgArray[i].substring(1)
+						mods = msgArray[i].substring(1).toLowerCase()
 						if (i == 1) accuracy = Number(msg.toLowerCase().split(" ")[2]).toFixed(2)
 						else accuracy = Number(msg.toLowerCase().split(" ")[1]).toFixed(2)
 					}
@@ -32,10 +32,10 @@ module.exports = {
 			var [pp, count100] = await data.getPPCustom(accuracy, mods)
 			if (count100 == 0) accuracy = 100
 			if (channel) {
-				chatClient.say(channel, `${pp}pp for a ${accuracy}% (${count100}x100) ${mods} fc.`)
+				chatClient.say(channel, `${pp}pp for a ${accuracy}% (${count100}x100) ${mods.toUpperCase()} fc.`)
 			}
 			else {
-				chatClient.whisper(user, `${pp}pp for a ${accuracy}% (${count100}x100) ${mods} fc.`)
+				chatClient.whisper(user, `${pp}pp for a ${accuracy}% (${count100}x100) ${mods.toUpperCase()} fc.`)
 			}
 		}
 	}

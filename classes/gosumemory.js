@@ -53,7 +53,7 @@ class GosuMemory {
 		var commandString
 		console.log(mods)
 		if (!mods) commandString = `dotnet ${liveppCalcDLL} simulate osu "${osuFile}" -G ${numberOf100sNeeded} ${this.getModsForPPCalc()} --json`
-		else commandString = `dotnet ${liveppCalcDLL} simulate osu "${osuFile}" -G ${numberOf100sNeeded} ${getMods(mods.toLowerCase())} --json`
+		else commandString = `dotnet ${liveppCalcDLL} simulate osu "${osuFile}" -G ${numberOf100sNeeded} ${getMods(mods)} --json`
 		var PP = await calculatePP(commandString)
 		return [PP, numberOf100sNeeded]
 	}
