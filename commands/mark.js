@@ -2,6 +2,7 @@ const { shigeapiClient } = require("../utils/apiclient")
 
 module.exports = {
 	name: "mark",
+	aliases: [""],
 	description: "Creates a stream marker.",
 	canWhisper: false,
 	modOnly: true, 

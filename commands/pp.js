@@ -1,5 +1,6 @@
 module.exports = {
 	name: "pp",
+	aliases: ["nppp"],
 	description: "",
 	canWhisper: true,
 	isOsuCommand: true,

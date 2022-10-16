@@ -3,6 +3,7 @@ const { shigeapiClient } = require("../utils/apiclient")
 
 module.exports = {
 	name: "subcount",
+	aliases: ["subs"],
 	description: "Sends current number of subs.",
 	canWhisper: false,
 	isPublic: true,

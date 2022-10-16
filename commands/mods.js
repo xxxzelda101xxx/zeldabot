@@ -1,5 +1,6 @@
 module.exports = {
 	name: "mods",
+	aliases: [""],
 	description: "Sends current mod combination.",
 	canWhisper: true,
 	isOsuCommand: true,

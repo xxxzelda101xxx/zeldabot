@@ -7,6 +7,9 @@ var Commands = {}
 for (var i = 0; i < commandFiles.length; i++) {
 	const command = require(`../commands/${commandFiles[i]}`)
 	Commands[`!${command.name}`] = command
+	for (var i = 0; i < command.aliases.length; i++) {
+		Commands[`!${command.aliases[i]}`] = command
+	}
 }
 
 exports.Commands = Commands
