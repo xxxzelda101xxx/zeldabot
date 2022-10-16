@@ -37,6 +37,7 @@ module.exports = {
 					console.log(mod)
 					mod.indexOf(selected_mods[i] > -1)
 				})
+				console.log(result)
 				if (result.length > 0) fixed_mods_string += result[0]
 			}
 
