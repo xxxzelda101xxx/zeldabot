@@ -1,13 +1,12 @@
 exports.messageHandler = messageHandler
 const { setCooldown, getCooldown } = require("../helpers/cooldownhelper.js")
-const { addToDB, addEmoteToDB, getTwitchStreamStatus, addTwitchUserToDB } = require("../database.js")
+const { addToDB, addEmoteToDB, getTwitchStreamStatus, addTwitchUserToDB, getWhitelistStatus } = require("../database.js")
 const { kagamiBanRNG, banRNG } = require("../functions.js")
 const { logger } = require("../logger.js")
 const { Commands } = require("../helpers/commandshelper.js")
 const config = require("../config.json")
 const { chatClient } = require("../utils/chatclient.js")
 const isWhitelistEnabled = config.twitch.enable_whitelist
-const whitelisted_users = config.twitch.whitelisted_users
 const admins = config.twitch.admins
 
 async function messageHandler(channel, user, msg, context) {
@@ -19,7 +18,9 @@ async function messageHandler(channel, user, msg, context) {
 	const command = msg.trim().toLowerCase().split(" ")[0]
 	const commandToRun = Commands[command]
 	const isMod = (context.userInfo.isMod || context.userInfo.isBroadcaster) ? true : false
+	const whitelistStatus = await getWhitelistStatus(user_id)
 	if (commandToRun) {
+		if (!commandToRun.isPublic && !whitelistStatus) return
 		if (commandToRun.adminOnly && admins.indexOf(user) < 0) return
 		if (commandToRun.modOnly && !isMod) return
 	}
@@ -36,7 +37,7 @@ async function messageHandler(channel, user, msg, context) {
 		if (!isMod && online) {
 			if (commandToRun.offlineOnly) return chatClient.deleteMessage(channel, context)
 			if (cooldown && !isMod) return chatClient.deleteMessage(channel, context)
-			if (isWhitelistEnabled && whitelisted_users.indexOf(context.userInfo.userName) < 0 && !commandToRun.isPublic) return chatClient.deleteMessage(channel, context)
+			if (isWhitelistEnabled && !whitelistStatus && !commandToRun.isPublic) return chatClient.deleteMessage(channel, context)
 			if (data && commandToRun.requiredState && data.menuState != commandToRun.requiredState) return chatClient.deleteMessage(channel, context)
 		}
 		setCooldown(command)

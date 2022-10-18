@@ -4,6 +4,7 @@ module.exports = {
 	description: "",
 	canWhisper: true,
 	isOsuCommand: true,
+	isPublic: false,
 	execute: async function(channel, user, msg, context, chatClient, data) {
 		if (msg.toLowerCase().split(" ").length == 1) {
 			var pp = await data.getCurrentPP()

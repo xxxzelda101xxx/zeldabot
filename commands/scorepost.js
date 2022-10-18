@@ -6,6 +6,7 @@ module.exports = {
 	canWhisper: true,
 	isOsuCommand: true,
 	requiredState: 7,
+	isPublic: false,
 	execute: async function(channel, user, msg, context, chatClient, data) {
 		var results = data.getResultsScreen()
 		var pp = await data.getCurrentPP()

@@ -5,6 +5,7 @@ module.exports = {
 	description: "",
 	canWhisper: false,
 	offlineOnly: true,
+	isPublic: false,
 	execute: async function(channel, user, msg, context, chatClient) {
 		var user_id = context.userInfo.userId
 		var originalMessage = msg

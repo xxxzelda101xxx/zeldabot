@@ -4,6 +4,7 @@ module.exports = {
 	description: "",
 	canWhisper: true,
 	isOsuCommand: true,
+	isPublic: false,
 	execute: async function(channel, user, msg, context, chatClient, data) {
 		var newSR = await data.getNewSR()
 		if (channel) {

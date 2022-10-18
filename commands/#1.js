@@ -5,6 +5,7 @@ module.exports = {
 	canWhisper: true,
 	requiredState: 7,
 	isOsuCommand: true,
+	isPublic: false,
 	execute: async function(channel, user, msg, context, chatClient, data) {
 		var numberOneScore = data.getNumber1Score()
 		if (!numberOneScore) return

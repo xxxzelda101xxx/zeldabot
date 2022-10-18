@@ -5,6 +5,7 @@ module.exports = {
 	description: "Sends information on the song/map that is currently playing.",
 	canWhisper: false,
 	adminOnly: true, 
+	isPublic: false,
 	execute: async function(channel, user, msg, context, chatClient) {
 		if (msg.toLowerCase().split(" ").length != 3) return
 		var username = msg.toLowerCase().split(" ")[1]

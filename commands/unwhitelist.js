@@ -7,6 +7,7 @@ module.exports = {
 	canWhisper: false,
 	isOsuCommand: false,
     modOnly: true, 
+    isPublic: false,
 	execute: async function(channel, user, msg, context, chatClient, data) {
         user_id = await getUserIdByUsername(msg.toLowerCase().split(" ")[1])
         if (user_id) {

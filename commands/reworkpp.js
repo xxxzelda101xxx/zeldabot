@@ -5,6 +5,7 @@ module.exports = {
 	canWhisper: true,
 	isOsuCommand: true,
 	requiredState: 7,
+	isPublic: false,
 	execute: async function(channel, user, msg, context, chatClient, data) {
 		var livePP = await data.getCurrentPP()
 		var reworkPP = await data.getReworkPP()

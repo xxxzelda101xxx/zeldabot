@@ -6,6 +6,7 @@ module.exports = {
 	description: "Creates a stream marker.",
 	canWhisper: false,
 	modOnly: true, 
+	isPublic: false,
 	execute: async function(channel, user, msg, context, chatClient, data) {
 		user = await shigeapiClient.users.getUserByName("shigetora")
 		const description = msg.replace("!mark", "") 

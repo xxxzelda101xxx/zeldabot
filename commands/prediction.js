@@ -6,6 +6,7 @@ module.exports = {
 	description: "Starts a new prediction",
 	canWhisper: false,
 	modOnly: true, 
+	isPublic: false,
 	execute: async function(channel, user, msg, context, chatClient, data) {
 		if (!context.userInfo.isMod && !context.userInfo.isBroadcaster) return
 		user = await shigeapiClient.users.getUserByName("shigetora")

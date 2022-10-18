@@ -5,6 +5,7 @@ module.exports = {
 	description: "Sends information on the song/map that is currently playing.",
 	canWhisper: false,
 	offlineOnly: true,
+	isPublic: false,
 	execute: async function(channel, user, msg, context, chatClient) {
 		var user_id = context.userInfo.userId
 		var isUsername, isTotal, totalMessages

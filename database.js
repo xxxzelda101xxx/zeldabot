@@ -115,6 +115,12 @@ async function unwhitelistUser(user_id) {
 	data = db.run("UPDATE users SET whitelisted = 0 WHERE user_id = ?", [user_id])
 }
 
+async function getWhitelistStatus(user_id) {
+	data = await db.run("SELECT whitelisted FROM users WHERE user_id = ?", [user_id])
+	console.log(data)
+	return data
+}
+
 module.exports.getUserIdByUsername = getUserIdByUsername
 module.exports.addTwitchUserToDB = addTwitchUserToDB
 module.exports.addToDB = addToDB
@@ -127,3 +133,4 @@ module.exports.addChannelToDB = addChannelToDB
 module.exports.getUsernameById = getUsernameById
 module.exports.whitelistUser = whitelistUser
 module.exports.unwhitelistUser = unwhitelistUser
+module.exports.getWhitelistStatus = getWhitelistStatus
