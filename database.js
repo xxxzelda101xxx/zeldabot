@@ -115,7 +115,7 @@ async function unwhitelistUser(user_id) {
 }
 
 async function getWhitelistStatus(user_id) {
-	data = await db.run("SELECT whitelisted FROM users WHERE user_id = ?", [user_id])
+	data = await db.get("SELECT whitelisted FROM users WHERE user_id = ?", [user_id])
 	return data
 }
 
