@@ -1,4 +1,4 @@
-const { getUserIdByUsername, unwhitelist } = require("../database.js")
+const { getUserIdByUsername, unwhitelistUser } = require("../database.js")
 
 module.exports = {
 	name: "unwhitelist",
