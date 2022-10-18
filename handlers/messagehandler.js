@@ -19,7 +19,7 @@ async function messageHandler(channel, user, msg, context) {
 	const commandToRun = Commands[command]
 	const isMod = (context.userInfo.isMod || context.userInfo.isBroadcaster) ? true : false
 	const whitelistStatus = await getWhitelistStatus(user_id)
-	console.log(whitelistStatus, !whitelistStatus)
+	console.log(whitelistStatus, !whitelistStatus, user)
 	console.log(isWhitelistEnabled && !whitelistStatus && !commandToRun.isPublic)
 	if (commandToRun) {
 		if (!commandToRun.isPublic && !whitelistStatus) return
