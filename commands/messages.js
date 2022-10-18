@@ -1,4 +1,4 @@
-const { getUserIdByUsername, getUsernameById, getMessages } = require("../database.js")
+const { getUserIdByUsername, getMessages } = require("../database.js")
 module.exports = {
 	name: "messages",
 	aliases: [],
