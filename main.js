@@ -7,13 +7,11 @@ const { subHandler } = require("./handlers/subhandler.js")
 const { banHandler } = require("./handlers/banhandler.js")
 const { logger } = require("./logger.js")
 const { chatClient } = require("./utils/chatclient.js")
-const { mapTrackingLoop } = require("./loops/maptrackingloop.js")
 const { startRouter } = require("./routes/index.js")
 var { incrementMessages } = require("./routes/index.js")
 
 async function main() {
 	startWebsocket()
-	mapTrackingLoop()
 	await chatClient.connect()
 	chatClient.onRegister(() => {
 		startRouter()
