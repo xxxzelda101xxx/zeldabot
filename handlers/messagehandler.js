@@ -19,8 +19,8 @@ async function messageHandler(channel, user, msg, context) {
 	const commandToRun = Commands[command]
 	const isMod = (context.userInfo.isMod || context.userInfo.isBroadcaster) ? true : false
 	const whitelistStatus = await getWhitelistStatus(user_id)
-	console.log(whitelistStatus, whitelistStatus == 0, user)
-	console.log(isWhitelistEnabled && whitelistStatus == 0 && !commandToRun.isPublic)
+	console.log(whitelistStatus, !whitelistStatus, user)
+	console.log(isWhitelistEnabled && !whitelistStatus && !commandToRun.isPublic)
 	if (commandToRun) {
 		if (!commandToRun.isPublic && !whitelistStatus) return
 		if (commandToRun.adminOnly && admins.indexOf(user) < 0) return
@@ -39,7 +39,7 @@ async function messageHandler(channel, user, msg, context) {
 		if (!isMod && online) {
 			if (commandToRun.offlineOnly) return chatClient.deleteMessage(channel, context)
 			if (cooldown && !isMod) return chatClient.deleteMessage(channel, context)
-			if (isWhitelistEnabled && whitelistStatus == 0 && !commandToRun.isPublic) return chatClient.deleteMessage(channel, context)
+			if (isWhitelistEnabled && !whitelistStatus && !commandToRun.isPublic) return chatClient.deleteMessage(channel, context)
 			if (data && commandToRun.requiredState && data.menuState != commandToRun.requiredState) return chatClient.deleteMessage(channel, context)
 		}
 		setCooldown(command)
