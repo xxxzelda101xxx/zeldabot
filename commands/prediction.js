@@ -2,7 +2,7 @@ const { shigeapiClient } = require("../utils/apiclient")
 
 module.exports = {
 	name: "prediction",
-	aliases: [""],
+	aliases: [],
 	description: "Starts a new prediction",
 	canWhisper: false,
 	modOnly: true, 

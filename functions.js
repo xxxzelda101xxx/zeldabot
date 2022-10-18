@@ -1,4 +1,4 @@
-const { addWatchTimeToUser, changeTwitchStreamStatus } = require("./database.js")
+const { changeTwitchStreamStatus } = require("./database.js")
 //const { logger } = require("./logger.js")
 const { apiClient } = require("./utils/apiclient")
 //const { exec } = require("child_process")
@@ -33,17 +33,9 @@ async function isStreamOnline(channel, firstRun) {
 	channel_id = user.id
 	changeTwitchStreamStatus(user.id, false)
 	
-	getCurrentViewers(channel, channel_id)
 	setTimeout(() => {
 		isStreamOnline(channel, false)
 	}, 60000)
-}
-
-async function getCurrentViewers(channel, channel_id) {
-	var viewers = await apiClient.unsupported.getChatters(channel)
-	for (var i = 0; i < viewers.allChatters.length; i++) {
-		addWatchTimeToUser(channel, viewers.allChatters[i], channel_id)
-	}
 }
 
 async function kagamiBanRNG(channel, user) {

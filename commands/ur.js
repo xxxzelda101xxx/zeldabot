@@ -1,6 +1,6 @@
 module.exports = {
 	name: "ur",
-	aliases: [""],
+	aliases: [],
 	description: "",
 	canWhisper: true,
 	isOsuCommand: true,

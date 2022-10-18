@@ -1,7 +1,7 @@
 const { getEmotes, getUserIdByUsername } = require("../database.js")
 module.exports = {
 	name: "emotes",
-	aliases: [""],
+	aliases: [],
 	description: "",
 	canWhisper: false,
 	offlineOnly: true,

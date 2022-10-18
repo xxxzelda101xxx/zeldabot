@@ -1,7 +1,7 @@
 const { sqlQuery, getUserIdByUsername } = require("../database.js")
 module.exports = {
 	name: "removemessages",
-	aliases: [""],
+	aliases: [],
 	description: "Sends information on the song/map that is currently playing.",
 	canWhisper: false,
 	adminOnly: true, 

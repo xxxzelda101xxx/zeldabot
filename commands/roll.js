@@ -1,6 +1,6 @@
 module.exports = {
 	name: "roll",
-	aliases: [""],
+	aliases: [],
 	description: "Roll a dice.",
 	canWhisper: true,
 	isOsuCommand: false,

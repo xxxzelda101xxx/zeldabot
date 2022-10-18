@@ -1,7 +1,7 @@
 const config = require("../config.json")
 module.exports = {
 	name: "scorepost",
-	aliases: [""],
+	aliases: [],
 	description: "",
 	canWhisper: true,
 	isOsuCommand: true,

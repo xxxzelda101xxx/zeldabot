@@ -1,6 +1,6 @@
 module.exports = {
 	name: "reworkpp",
-	aliases: [""],
+	aliases: [],
 	description: "",
 	canWhisper: true,
 	isOsuCommand: true,

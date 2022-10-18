@@ -1,6 +1,6 @@
 module.exports = {
 	name: "bg",
-	aliases: [""],
+	aliases: [],
 	description: "",
 	canWhisper: true,
 	isOsuCommand: true,

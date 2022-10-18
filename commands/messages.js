@@ -1,7 +1,7 @@
 const { getUserIdByUsername, getUsernameById, getMessages } = require("../database.js")
 module.exports = {
 	name: "messages",
-	aliases: [""],
+	aliases: [],
 	description: "Sends information on the song/map that is currently playing.",
 	canWhisper: false,
 	offlineOnly: true,

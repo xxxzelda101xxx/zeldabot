@@ -8,7 +8,6 @@ const config = require("../config.json")
 const { chatClient } = require("../utils/chatclient.js")
 const isWhitelistEnabled = config.twitch.enable_whitelist
 const whitelisted_users = config.twitch.whitelisted_users
-const mysqlEnabled = config.mysql.enabled
 const admins = config.twitch.admins
 
 async function messageHandler(channel, user, msg, context) {
@@ -27,11 +26,9 @@ async function messageHandler(channel, user, msg, context) {
 	if (channel) {
 		if (user.toLowerCase() == "kagami_77") kagamiBanRNG(channel, user)
 		banRNG(channel, user)
-		if (mysqlEnabled) {
-			addTwitchUserToDB(user_id, user)
-			addToDB(user_id, channel_id)
-			addEmoteToDB(user_id, msg, context.parseEmotes(), channel_id)
-		}
+		addTwitchUserToDB(user_id, user)
+		addToDB(user_id, channel_id)
+		addEmoteToDB(user_id, msg, context.parseEmotes(), channel_id)
 		if (!commandToRun) return
 		if (!data && commandToRun.isOsuCommand == true) return
 		var online = await getTwitchStreamStatus(channel_id)

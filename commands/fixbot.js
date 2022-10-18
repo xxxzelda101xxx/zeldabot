@@ -1,7 +1,7 @@
 const open = require("open")
 module.exports = {
 	name: "fixbot",
-	aliases: [""],
+	aliases: [],
 	description: "Sends information on the song/map that is currently playing.",
 	canWhisper: true,
 	modOnly: true, 
