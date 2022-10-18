@@ -93,7 +93,6 @@ async function changeTwitchStreamStatus(channel_id, onlineStatus) {
 
 async function getTwitchStreamStatus(channel_id) {
 	data = await db_get("SELECT online FROM channels WHERE channel_id = ?", [channel_id])
-	console.log(data)
 	return data.online
 }
 
@@ -117,7 +116,6 @@ async function unwhitelistUser(user_id) {
 
 async function getWhitelistStatus(user_id) {
 	data = await db.run("SELECT whitelisted FROM users WHERE user_id = ?", [user_id])
-	console.log(data)
 	return data
 }
 
