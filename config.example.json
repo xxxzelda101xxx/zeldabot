@@ -22,12 +22,5 @@
     "spectating": false,
     "user_to_spectate": "",
     "gosumemory_address": "localhost"
-  },
-  "mysql": {
-    "enabled": false,
-    "host": "localhost",
-    "user": "",
-    "password": "",
-    "database": ""
   }
 }

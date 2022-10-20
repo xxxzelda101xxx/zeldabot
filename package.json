@@ -16,6 +16,7 @@
   "author": "zelda101",
   "license": "ISC",
   "dependencies": {
+    "@kionell/osu-pp-calculator": "github:kionell/osu-pp-calculator",
     "@nut-tree/nut-js": "^2.0.1",
     "@twurple/api": "^5.0.18",
     "@twurple/auth": "^5.0.18",

@@ -1,10 +1,9 @@
 const config = require("./config.json")
 const emotes = config.twitch.emotes
-const { logger } = require("./logger.js")
-const { apiClient } = require("./utils/apiclient")
+//const { logger } = require("./logger.js")
 const { setCooldown, getCooldown } = require("./helpers/cooldownhelper.js")
-const sqlite3 = require('sqlite3').verbose()
-const db = new sqlite3.Database('database.db')
+const sqlite3 = require("sqlite3").verbose()
+const db = new sqlite3.Database("database.db")
 
 db.run("CREATE TABLE IF NOT EXISTS `channels` (`name` varchar(32) NOT NULL, `channel_id` integer NOT NULL, `online` integer NOT NULL)")
 db.run("CREATE TABLE IF NOT EXISTS `emotes` (`user_id` integer NOT NULL,  `channel_id` integer NOT NULL, `emote` varchar(100) NOT NULL, `uses` integer NOT NULL, UNIQUE (`user_id`,`emote`,`channel_id`))")
@@ -17,15 +16,15 @@ async function db_get(query, queryArray){
 			db.get(query, queryArray, function(err,rows){
 				if(err){return reject(err)}
 				resolve(rows)
-			  })
+			})
 		}
 		else {
 			db.get(query, queryArray, function(err,rows){
 				if(err){return reject(err)}
 				resolve(rows)
-			  })
+			})
 		}
-    })
+	})
 }
 
 function addTwitchUserToDB(user_id, username) {
@@ -60,28 +59,28 @@ async function addEmoteToDB(user_id, msg, twitchEmotes, channel_id) {
 
 async function getEmotes(user_id, channel_id, emote) {
 	if (user_id) {
-		data = await db_get("SELECT * FROM emotes WHERE user_id = ? AND channel_id = ? AND emote = ?", [user_id, channel_id, emote])
+		let data = await db_get("SELECT * FROM emotes WHERE user_id = ? AND channel_id = ? AND emote = ?", [user_id, channel_id, emote])
 		if (data) return data
 		return null
 	}
-	data = await db_get("SELECT SUM(uses) AS total, emote FROM emotes WHERE emote = ? AND channel_id = ?", [emote, channel_id])
+	let data = await db_get("SELECT SUM(uses) AS total, emote FROM emotes WHERE emote = ? AND channel_id = ?", [emote, channel_id])
 	if (data) return data
 	return null
 }
 
 async function getMessages(user_id, channel_id) {
 	if (user_id) {
-		data = await db_get("SELECT * FROM messages WHERE user_id = ? AND channel_id = ?", [user_id, channel_id])
-		messages = data.total
+		let data = await db_get("SELECT * FROM messages WHERE user_id = ? AND channel_id = ?", [user_id, channel_id])
+		let messages = data.total
 		return messages
 	}
-	data = await db_get("SELECT SUM(total) AS total FROM messages WHERE channel_id = ?", [channel_id])
-	messages = data.total
+	let data = await db_get("SELECT SUM(total) AS total FROM messages WHERE channel_id = ?", [channel_id])
+	let messages = data.total
 	return messages
 }
 
 async function getUserIdByUsername(username) {
-	data = await db_get("SELECT m.total, m.user_id, u.username FROM messages m INNER JOIN users u ON m.user_id = u.user_id WHERE u.username = ?", [username])
+	let data = await db_get("SELECT m.total, m.user_id, u.username FROM messages m INNER JOIN users u ON m.user_id = u.user_id WHERE u.username = ?", [username])
 	if (data) return data.user_id
 	else return null
 }
@@ -92,7 +91,7 @@ async function changeTwitchStreamStatus(channel_id, onlineStatus) {
 }
 
 async function getTwitchStreamStatus(channel_id) {
-	data = await db_get("SELECT online FROM channels WHERE channel_id = ?", [channel_id])
+	let data = await db_get("SELECT online FROM channels WHERE channel_id = ?", [channel_id])
 	return data.online
 }
 
@@ -101,21 +100,21 @@ async function addChannelToDB(channel) {
 }
 
 async function getUsernameById(user_id) {
-	data = await db_get("SELECT m.total, m.user_id, u.username FROM messages m INNER JOIN users u ON m.user_id = u.user_id WHERE m.user_id = ?", [user_id])
+	let data = await db_get("SELECT m.total, m.user_id, u.username FROM messages m INNER JOIN users u ON m.user_id = u.user_id WHERE m.user_id = ?", [user_id])
 	if (data) return data.username
 	else return null
 }
 
 async function whitelistUser(user_id) {
-	data = db.run("UPDATE users SET whitelisted = 1 WHERE user_id = ?", [user_id])
+	db.run("UPDATE users SET whitelisted = 1 WHERE user_id = ?", [user_id])
 }
 
 async function unwhitelistUser(user_id) {
-	data = db.run("UPDATE users SET whitelisted = 0 WHERE user_id = ?", [user_id])
+	db.run("UPDATE users SET whitelisted = 0 WHERE user_id = ?", [user_id])
 }
 
 async function getWhitelistStatus(user_id) {
-	data = await db_get("SELECT whitelisted FROM users WHERE user_id = ?", [user_id])
+	let data = await db_get("SELECT whitelisted FROM users WHERE user_id = ?", [user_id])
 	return data.whitelisted
 }
 
