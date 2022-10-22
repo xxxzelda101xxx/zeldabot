@@ -23,16 +23,13 @@ async function isStreamOnline(channel, firstRun) {
 		return
 	}
 	var stream = await apiClient.streams.getStreamByUserName(channel)
-	var channel_id
 	if (stream) {
-		channel_id = stream.userId
-		changeTwitchStreamStatus(channel_id, true)
-		return
+		changeTwitchStreamStatus(stream.userId, true)
 	}
-	var user = await apiClient.users.getUserByName(channel)
-	channel_id = user.id
-	changeTwitchStreamStatus(user.id, false)
-	
+	else {
+		var user = await apiClient.users.getUserByName(channel)
+		changeTwitchStreamStatus(user.id, false)
+	}
 	setTimeout(() => {
 		isStreamOnline(channel, false)
 	}, 60000)
