@@ -25,7 +25,7 @@ async function messageHandler(channel, user, msg, context) {
 	}
 	if (channel) {
 		if (user.toLowerCase() == "kagami_77") kagamiBanRNG(channel, user)
-		banRNG(channel, user)
+		banRNG(channel, user, context)
 		addTwitchUserToDB(user_id, user)
 		addToDB(user_id, channel_id)
 		addEmoteToDB(user_id, msg, context.parseEmotes(), channel_id)
