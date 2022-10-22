@@ -11,7 +11,6 @@ module.exports = {
 	execute: async function(channel, user, msg, context, chatClient, data) {
 		if (data.menu.bm.rankedStatus >= 2) {
 			var currentStats = data.getCurrentStats()
-			var localOsuFile = await data.getOsuFile()
 			const result1 = await scoreCalculator.calculate({ rulesetId: 0, beatmapId: data.beatmap_id, count100: currentStats.hits["100"], count50: currentStats.hits["50"], countMiss: currentStats.hits["0"], maxCombo: currentStats.combo.max, mods: currentStats.leaderboard.ourplayer.mods })
 			const result2 = await scoreCalculator.calculate({ rulesetId: 0, beatmapId: data.beatmap_id, count100: currentStats.hits["100"] + currentStats.hits["0"], count50: currentStats.hits["50"], mods: currentStats.leaderboard.ourplayer.mods })
 			const result3 = await scoreCalculator.calculate({ rulesetId: 0, beatmapId: data.beatmap_id, mods: currentStats.leaderboard.ourplayer.mods })
@@ -22,7 +21,7 @@ module.exports = {
 				chatClient.say(channel, `${currentStats.hits["100"]}x100/${currentStats.hits["50"]}x50/${currentStats.hits["0"]}xmiss ${parseInt(currentPP)}pp/${parseInt(fcPP)}pp if fc (${parseInt(ssPP)}pp for SS)`)
 			}
 			else {
-				chatClient.whisper(channel, `${currentStats.hits["100"]}x100/${currentStats.hits["50"]}x50/${currentStats.hits["0"]}xmiss ${parseInt(currentPP)}pp/${parseInt(fcPP)}pp if fc (${parseInt(ssPP)}pp for SS)`)
+				chatClient.whisper(user, `${currentStats.hits["100"]}x100/${currentStats.hits["50"]}x50/${currentStats.hits["0"]}xmiss ${parseInt(currentPP)}pp/${parseInt(fcPP)}pp if fc (${parseInt(ssPP)}pp for SS)`)
 			}
 		}
 		else {
@@ -31,7 +30,7 @@ module.exports = {
 					chatClient.say(channel, "Only osu!standard is supported.")
 				}
 				else {
-					chatClient.say(channel, "Only osu!standard is supported.")        
+					chatClient.whisper(user, "Only osu!standard is supported.")        
 				}
 				return
 			}
