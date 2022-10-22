@@ -46,6 +46,7 @@ async function kagamiBanRNG(channel, user) {
 async function banRNG(channel, user, context) {
 	var randomNumber = Math.floor(Math.random() * 10000 + 1)
 	var randomNumber2 = Math.floor(Math.random() * 1000000 + 1)
+	var randomNumber3 = Math.floor(Math.random() * 10 + 1)
 	if (randomNumber == 727 || randomNumber2 == 727) {
 		if (context.userInfo.isBroadcaster) {
 			await chatClient.say(channel, `Somehow shige hit the ${randomNumber == 727 ? "1/10,000" : "1/1,000,000"} chance to get banned? Is that good luck or bad luck?`)
@@ -57,6 +58,9 @@ async function banRNG(channel, user, context) {
 			await chatClient.say(channel, `${user} hit the ${randomNumber == 727 ? "1/10,000 " : "1/1,000,000 chance to get banned. how the fuck???."}`)
 			await chatClient.ban(channel, user, `You hit the ${randomNumber == 727 ? "1/10,000 chance to get banned get rekt lmao." : "1/1,000,000 chance to get banned. how the fuck???"}`)
 		}
+	}
+	else if (randomNumber3 == 5) {
+		await chatClient.say(channel, `Congrats you hit a 1/10 chance!`)
 	}
 }
 
