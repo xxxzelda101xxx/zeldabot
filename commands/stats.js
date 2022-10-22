@@ -21,12 +21,14 @@ module.exports = {
 				chatClient.whisper(user, `New SR: ${newSR}★, ${data.getLength()}, ${data.getBpm()}bpm,  AR${data.getAR()}, CS${data.getCS()}, OD${data.getOD()}, HP${data.getHP()}`)
 			}
 		}
-		//var newSR = await data.getNewSR()
-		//if (channel) {
-		//	chatClient.say(channel, `New SR: ${newSR}★, Old SR: ${data.getSR()}★, ${data.getLength()}, ${data.getBpm()}bpm,  AR${data.getAR()}, CS${data.getCS()}, OD${data.getOD()}, HP${data.getHP()}`)
-		//}
-		//else {
-		//	chatClient.whisper(user, `New SR: ${newSR}★, Old SR: ${data.getSR()}★, ${data.getLength()}, ${data.getBpm()}bpm,  AR${data.getAR()}, CS${data.getCS()}, OD${data.getOD()}, HP${data.getHP()}`)
-		//}
+		else {
+			var newSR = await data.getNewSR()
+			if (channel) {
+				chatClient.say(channel, `SR: ${newSR}★, ${data.getLength()}, ${data.getBpm()}bpm,  AR${data.getAR()}, CS${data.getCS()}, OD${data.getOD()}, HP${data.getHP()}`)
+			}
+			else {
+				chatClient.whisper(user, `SR: ${newSR}★, ${data.getLength()}, ${data.getBpm()}bpm,  AR${data.getAR()}, CS${data.getCS()}, OD${data.getOD()}, HP${data.getHP()}`)
+			}
+		}
 	}
 }
