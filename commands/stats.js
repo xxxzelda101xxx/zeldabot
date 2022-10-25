@@ -15,19 +15,19 @@ module.exports = {
 			console.log(result)
 			var newSR = result.difficulty.starRating.toFixed(2)
 			if (channel) {
-				chatClient.say(channel, `SR: ${newSR}★, ${data.getLength()}, ${data.getBpm()}bpm,  AR${data.getAR()}, CS${data.getCS()}, OD${data.getOD()}, HP${data.getHP()}`)
+				chatClient.say(channel, `SR: ${newSR}★, Max Combo: ${data.getMaxCombo()}, ${data.getLength()}, ${data.getBpm()}bpm,  AR${data.getAR()}, CS${data.getCS()}, OD${data.getOD()}, HP${data.getHP()}`)
 			}
 			else {
-				chatClient.whisper(user, `New SR: ${newSR}★, ${data.getLength()}, ${data.getBpm()}bpm,  AR${data.getAR()}, CS${data.getCS()}, OD${data.getOD()}, HP${data.getHP()}`)
+				chatClient.whisper(user, `New SR: ${newSR}★, Max Combo: ${data.getMaxCombo()}, ${data.getLength()}, ${data.getBpm()}bpm,  AR${data.getAR()}, CS${data.getCS()}, OD${data.getOD()}, HP${data.getHP()}`)
 			}
 		}
 		else {
 			var newSR = await data.getNewSR()
 			if (channel) {
-				chatClient.say(channel, `SR: ${newSR}★, ${data.getLength()}, ${data.getBpm()}bpm,  AR${data.getAR()}, CS${data.getCS()}, OD${data.getOD()}, HP${data.getHP()}`)
+				chatClient.say(channel, `SR: ${newSR}★, Max Combo: ${data.getMaxCombo()}, ${data.getLength()}, ${data.getBpm()}bpm,  AR${data.getAR()}, CS${data.getCS()}, OD${data.getOD()}, HP${data.getHP()}`)
 			}
 			else {
-				chatClient.whisper(user, `SR: ${newSR}★, ${data.getLength()}, ${data.getBpm()}bpm,  AR${data.getAR()}, CS${data.getCS()}, OD${data.getOD()}, HP${data.getHP()}`)
+				chatClient.whisper(user, `SR: ${newSR}★, Max Combo: ${data.getMaxCombo()}, ${data.getLength()}, ${data.getBpm()}bpm,  AR${data.getAR()}, CS${data.getCS()}, OD${data.getOD()}, HP${data.getHP()}`)
 			}
 		}
 	}

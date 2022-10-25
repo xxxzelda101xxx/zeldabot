@@ -36,6 +36,9 @@ class GosuMemory {
 	getArtist() {
 		return this.menu.bm.metadata.artist
 	}
+	getMaxCombo() {
+		return this.menu.bm.stats.maxCombo
+	}
 	getTitle() {
 		return this.menu.bm.metadata.title
 	}
