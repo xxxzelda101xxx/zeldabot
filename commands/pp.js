@@ -44,6 +44,8 @@ module.exports = {
 			}
 
 			if (msg.indexOf("+") < 0) accuracy = Number(msg.toLowerCase().split(" ")[1]).toFixed(2)
+			if (accuracy > 100) accuracy = 100
+			if (accuracy < 33.33) accuracy = 33.33
 			var [pp, count100] = await data.getPPCustom(accuracy, mods)
 			if (count100 == 0) accuracy = 100
 			if (channel) {
