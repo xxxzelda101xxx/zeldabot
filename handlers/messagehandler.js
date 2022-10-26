@@ -41,11 +41,14 @@ async function messageHandler(channel, user, msg, context) {
 		}
 		setCooldown(command)
 		logger.debug(`Executing !${commandToRun.name} from user: ${user} in channel: ${channel}.`)
-		commandToRun.execute(channel, user, msg, context, chatClient, data)
+		var messageToSend = await commandToRun.execute(channel, user, msg, context, chatClient, data)
+		if (channel) chatClient.say(channel, messageToSend)
+		else chatClient.whisper(user, messageToSend)
 	}
 	else {
 		if (!commandToRun) return
 		if (commandToRun.adminOnly) return
+		if (commandToRun.modOnly) return
 		logger.debug(`Executing !${commandToRun.name} from user: ${user} in whispers.`)
 		if (commandToRun.canWhisper) {
 			commandToRun.execute(null, user, msg, context, chatClient, data)
