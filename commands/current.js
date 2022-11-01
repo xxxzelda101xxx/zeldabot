@@ -3,7 +3,7 @@ const scoreCalculator = new ScoreCalculator()
 
 module.exports = {
 	name: "current",
-	aliases: [""],
+	aliases: [],
 	description: "",
 	canWhisper: true,
 	isOsuCommand: true,
