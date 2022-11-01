@@ -9,7 +9,7 @@ module.exports = {
 	isOsuCommand: true,
 	isPublic: false,
 	execute: async function(channel, user, msg, context, chatClient, data) {
-		if (data.menu.bm.rankedStatus >= 2) {
+		if (data.menu.bm.rankedStatus >= 5) {
 			var currentStats = data.getCurrentStats()
 			const result = await beatmapCalculator.calculate({ rulesetId: 0, beatmapId: data.beatmap_id, mods: currentStats.leaderboard.ourplayer.mods, accuracy: [] })
 			console.log(result)
