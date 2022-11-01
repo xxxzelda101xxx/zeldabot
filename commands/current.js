@@ -9,7 +9,7 @@ module.exports = {
 	isOsuCommand: true,
 	isPublic: false,
 	execute: async function(channel, user, msg, context, chatClient, data) {
-		if ((data.menu.state == 2 || data.menu.state == 7) && data.menu.bm.rankedStatus >= 2) {
+		if ((data.menu.state == 2 || data.menu.state == 7) && data.menu.bm.rankedStatus >= 5) {
 			var currentStats = data.getCurrentStats()
 			const result1 = await scoreCalculator.calculate({ rulesetId: 0, beatmapId: data.beatmap_id, count100: currentStats.hits["100"], count50: currentStats.hits["50"], countMiss: currentStats.hits["0"], maxCombo: currentStats.combo.max, mods: currentStats.leaderboard.ourplayer.mods })
 			const result2 = await scoreCalculator.calculate({ rulesetId: 0, beatmapId: data.beatmap_id, count100: currentStats.hits["100"] + currentStats.hits["0"], count50: currentStats.hits["50"], mods: currentStats.leaderboard.ourplayer.mods })
