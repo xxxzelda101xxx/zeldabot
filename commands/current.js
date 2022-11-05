@@ -17,12 +17,7 @@ module.exports = {
 			currentPP = result1.performance.totalPerformance.toFixed(2)
 			fcPP = result2.performance.totalPerformance.toFixed(2)
 			ssPP = result3.performance.totalPerformance.toFixed(2)
-			if (channel) {
-				chatClient.say(channel, `${currentStats.hits["100"]}x100/${currentStats.hits["50"]}x50/${currentStats.hits["0"]}xmiss ${parseInt(currentPP)}pp/${parseInt(fcPP)}pp if fc (${parseInt(ssPP)}pp for SS)`)
-			}
-			else {
-				chatClient.whisper(user, `${currentStats.hits["100"]}x100/${currentStats.hits["50"]}x50/${currentStats.hits["0"]}xmiss ${parseInt(currentPP)}pp/${parseInt(fcPP)}pp if fc (${parseInt(ssPP)}pp for SS)`)
-			}
+			return `${currentStats.hits["100"]}x100/${currentStats.hits["50"]}x50/${currentStats.hits["0"]}xmiss ${parseInt(currentPP)}pp/${parseInt(fcPP)}pp if fc (${parseInt(ssPP)}pp for SS)`
 		}
 		else if ((data.menu.state == 2 || data.menu.state == 7) && data.beatmap_id > 0) {
 			var currentStats = data.getCurrentStats()
@@ -32,33 +27,14 @@ module.exports = {
 			currentPP = result1.performance.totalPerformance.toFixed(2)
 			fcPP = result2.performance.totalPerformance.toFixed(2)
 			ssPP = result3.performance.totalPerformance.toFixed(2)
-			if (channel) {
-				chatClient.say(channel, `${currentStats.hits["100"]}x100/${currentStats.hits["50"]}x50/${currentStats.hits["0"]}xmiss ${parseInt(currentPP)}pp/${parseInt(fcPP)}pp if fc (${parseInt(ssPP)}pp for SS)`)
-			}
-			else {
-				chatClient.whisper(user, `${currentStats.hits["100"]}x100/${currentStats.hits["50"]}x50/${currentStats.hits["0"]}xmiss ${parseInt(currentPP)}pp/${parseInt(fcPP)}pp if fc (${parseInt(ssPP)}pp for SS)`)
-			}
+			return `${currentStats.hits["100"]}x100/${currentStats.hits["50"]}x50/${currentStats.hits["0"]}xmiss ${parseInt(currentPP)}pp/${parseInt(fcPP)}pp if fc (${parseInt(ssPP)}pp for SS)`
 		}
 		else {
-			if (data.getGameMode() != 0) {
-				if (channel) {
-					chatClient.say(channel, "Only osu!standard is supported.")
-				}
-				else {
-					chatClient.whisper(user, "Only osu!standard is supported.")        
-				}
-				return
-			}
 			var currentStats = data.getCurrentStats()
 			var currentPP = await data.getCurrentPP()
 			var fcPP = await data.getPPIfFc()
 			var ssPP = await data.getSSPP()
-			if (channel) {
-				chatClient.say(channel, `${currentStats.hits["100"]}x100/${currentStats.hits["50"]}x50/${currentStats.hits["0"]}xmiss ${parseInt(currentPP)}pp/${parseInt(fcPP)}pp if fc (${parseInt(ssPP)}pp for SS)`)
-			}
-			else {
-				chatClient.whisper(user, `${currentStats.hits["100"]}x100/${currentStats.hits["50"]}x50/${currentStats.hits["0"]}xmiss ${parseInt(currentPP)}pp/${parseInt(fcPP)}pp if fc (${parseInt(ssPP)}pp for SS)`)
-			}
+			return `${currentStats.hits["100"]}x100/${currentStats.hits["50"]}x50/${currentStats.hits["0"]}xmiss ${parseInt(currentPP)}pp/${parseInt(fcPP)}pp if fc (${parseInt(ssPP)}pp for SS)`
 		}
 	}
 }

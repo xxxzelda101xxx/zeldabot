@@ -19,11 +19,6 @@ module.exports = {
 		else {
 			contents +=`${dlUrl}${data.beatmap_id}`
 		}
-		if (channel) {
-			chatClient.say(channel, contents)
-		}
-		else {
-			chatClient.whisper(user, contents)
-		}
+		return contents
 	}
 }

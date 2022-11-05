@@ -15,11 +15,6 @@ module.exports = {
 		if (data.resultsScreen["0"] > 0) scorepostString += `${results["0"]}xmiss `
 		scorepostString += `| ${pp}pp `
 		if (data.getUR() > 0) scorepostString += `| ${data.getUR()} ur`
-		if (channel) {
-			chatClient.say(channel, scorepostString)
-		}
-		else {
-			chatClient.whisper(user, scorepostString)
-		}
+		return scorepostString
 	}
 }

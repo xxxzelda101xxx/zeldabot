@@ -16,7 +16,7 @@ module.exports = {
 		if (predictionAction == "start") {
 			if (predictionName == "dice") {
 				await shigeapiClient.helix.predictions.createPrediction(user, {  autoLockAfter: 300, outcomes: ["even", "odd"], title: "Will dice be even or odd" })
-				chatClient.say(channel, "Prediction started.")
+				return "Prediction started."
 			}
 		}
 		else if (predictionAction == "delete" || predictionAction == "cancel") {
@@ -24,7 +24,7 @@ module.exports = {
 			prediction = prediction.data[0]
 			if (prediction.status.toLowerCase() == "active") {
 				shigeapiClient.helix.predictions.cancelPrediction(user, prediction.id)
-				chatClient.say(channel, "Prediction cancelled.")
+				return "Prediction cancelled."
 			}
 		}
 		else if (predictionAction == "lock") {
@@ -32,7 +32,7 @@ module.exports = {
 			prediction = prediction.data[0]
 			if (prediction.status.toLowerCase() == "active") {
 				shigeapiClient.helix.predictions.lockPrediction(user, prediction.id)
-				chatClient.say(channel, "Prediction locked.")
+				return "Prediction locked."
 			}
 		}
 		else if (predictionAction == "payout") {
@@ -45,7 +45,7 @@ module.exports = {
 						for (var i = 0; i < prediction.outcomes.length; i++) {
 							if (prediction.outcomes[i].title.toLowerCase() == "even") {
 								await shigeapiClient.helix.predictions.resolvePrediction(user, prediction.id, prediction.outcomes[i].id)
-								chatClient.say(channel, "Channel points payed out to even.")
+								return "Channel points payed out to even."
 							}
 						} 
 					}
@@ -53,7 +53,7 @@ module.exports = {
 						for (var i = 0; i < prediction.outcomes.length; i++) {
 							if (prediction.outcomes[i].title.toLowerCase() == "odd") {
 								await shigeapiClient.helix.predictions.resolvePrediction(user, prediction.id, prediction.outcomes[i].id)
-								chatClient.say(channel, "Channel points payed out to odd.")
+								return "Channel points payed out to odd."
 							}
 						} 
 					}

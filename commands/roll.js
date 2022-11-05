@@ -12,6 +12,6 @@ module.exports = {
 		var maxDice = 6
 		if (!isNaN(numberToRoll) && numberToRoll > 0) maxDice = numberToRoll
 		var randomDice = Math.floor(maxDice*Math.random()) + 1
-		chatClient.say(channel, randomDice)
+		return randomDice
 	}
 }

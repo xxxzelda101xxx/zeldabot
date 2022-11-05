@@ -8,6 +8,6 @@ module.exports = {
 	isPublic: false,
 	execute: async function(channel, user, msg, context, chatClient, data) {
 		await open("osu://spectate/chocomint")
-		chatClient.say(channel, "Hopefully it started spectating...")
+		return "Hopefully it started spectating..."
 	}
 }

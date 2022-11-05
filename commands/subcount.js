@@ -10,6 +10,6 @@ module.exports = {
 	execute: async function(channel, user, msg, context, chatClient, data) {
 		user = await shigeapiClient.users.getUserByName("shigetora")
 		const subs = await shigeapiClient.subscriptions.getSubscriptions(user)
-		chatClient.say(channel, `Subs: ${subs.total}, Sub Points: ${subs.points}`)
+		return `Subs: ${subs.total}, Sub Points: ${subs.points}`
 	}
 }

@@ -13,10 +13,10 @@ module.exports = {
 		getUserIdByUsername(username)
 			.then(async function(user_id) {
 				await sqlQuery(`UPDATE messages_test SET total = total - ${Number(messagesToRemove)} WHERE channel_id = ${context.channelId} AND user_id = ${user_id}`)
-				chatClient.say(channel, `${messagesToRemove} messages have been removed from ${username}.`)
+				return `${messagesToRemove} messages have been removed from ${username}.`
 			})
 			.catch((e) => {
-				chatClient.say(channel, e)
+				return e
 			})
 	}
 }
