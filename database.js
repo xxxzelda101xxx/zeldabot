@@ -1,3 +1,4 @@
+const e = require("express")
 const config = require("./config.json")
 const emotes = config.twitch.emotes
 //const { logger } = require("./logger.js")
@@ -115,7 +116,8 @@ async function unwhitelistUser(user_id) {
 
 async function getWhitelistStatus(user_id) {
 	let data = await db_get("SELECT whitelisted FROM users WHERE user_id = ?", [user_id])
-	return data.whitelisted
+	if (data)	return data.whitelisted
+	else return 0
 }
 
 module.exports.getUserIdByUsername = getUserIdByUsername
