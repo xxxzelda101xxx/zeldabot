@@ -48,7 +48,6 @@ module.exports = {
 			var totalObjects = await data.getTotalObjects()
 			var numberOf100sNeeded = await data.estimate100s(accuracy, totalObjects)
 			const score = await scoreCalculator.calculate({ rulesetId: 0, fileURL: osuFile, count100: numberOf100sNeeded, mods: fixed_mods_string })
-			console.log(totalObjects, numberOf100sNeeded, score)
 			var calculateAccuracy = score.scoreInfo.accuracy * 100
 			calculateAccuracy = calculateAccuracy.toFixed(2)
 			return `${score.performance.totalPerformance.toFixed(2)}pp for a ${calculateAccuracy}% (${score.scoreInfo.count100}x100) ${fixed_mods_string.toUpperCase()} fc.`
