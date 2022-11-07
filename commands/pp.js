@@ -1,3 +1,6 @@
+const { ScoreCalculator } = require("@kionell/osu-pp-calculator")
+const scoreCalculator = new ScoreCalculator()
+
 module.exports = {
 	name: "pp",
 	aliases: ["nppp"],
@@ -41,9 +44,12 @@ module.exports = {
 			if (msg.indexOf("+") < 0) accuracy = Number(msg.toLowerCase().split(" ")[1]).toFixed(2)
 			if (accuracy > 100) accuracy = 100
 			if (accuracy < 33.33) accuracy = 33.33
-			var [pp, count100] = await data.getPPCustom(accuracy, mods)
-			if (count100 == 0) accuracy = 100
-			return `${pp}pp for a ${accuracy}% (${count100}x100) ${fixed_mods_string.toUpperCase()} fc.`
+			var osuFile = await data.getOsuFile()
+			var numberOf100sNeeded = await data.estimate100s(accuracy, totalObjects)
+			const score = await scoreCalculator.calculate({ rulesetId: 0, fileURL: osuFile, count100: numberOf100sNeeded, mods: fixed_mods_string })
+			var calculateAccuracy = score.scoreInfo.accuracy * 100
+			calculateAccuracy = calculateAccuracy.toFixed(2)
+			return `${score.performance.totalPerformance.toFixed(2)}pp for a ${calculateAccuracy}% (${score.scoreInfo.count100}x100) ${fixed_mods_string.toUpperCase()} fc.`
 		}
 		else {
 			return "Invalid command usage. Example usage: \"!pp +HDHR 100"
