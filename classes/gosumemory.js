@@ -49,9 +49,7 @@ class GosuMemory {
 		return this.menu.bm.metadata.mapper
 	}
 	async getPPCustom(accuracy, mods) {
-		var osuFile = await this.getOsuFile()
-		var beatmap = parser.parseContent(fs.readFileSync(osuFile))
-		var totalObjects = beatmap["nbCircles"] + beatmap["nbSliders"] + beatmap["nbSpinners"]
+		var totalObjects = this.getTotalObjects()
 		var numberOf100sNeeded = await this.estimate100s(accuracy, totalObjects)
 		var commandString
 		var converted_mods = getMods(mods)
@@ -59,6 +57,12 @@ class GosuMemory {
 		else commandString = `dotnet ${liveppCalcDLL} simulate osu "${osuFile}" -G ${numberOf100sNeeded} ${converted_mods} --json`
 		var PP = await calculatePP(commandString)
 		return [PP, numberOf100sNeeded]
+	}
+	async getTotalObjects() {
+		var osuFile = await this.getOsuFile()
+		var beatmap = parser.parseContent(fs.readFileSync(osuFile))
+		var totalObjects = beatmap["nbCircles"] + beatmap["nbSliders"] + beatmap["nbSpinners"]
+		return totalObjects
 	}
 	hasLeaderboard() {
 		if (this.gameplay.leaderboard.slots != null) {

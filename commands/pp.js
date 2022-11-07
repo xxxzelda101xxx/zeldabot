@@ -45,6 +45,7 @@ module.exports = {
 			if (accuracy > 100) accuracy = 100
 			if (accuracy < 33.33) accuracy = 33.33
 			var osuFile = await data.getOsuFile()
+			var totalObjects = data.getTotalObjects()
 			var numberOf100sNeeded = await data.estimate100s(accuracy, totalObjects)
 			const score = await scoreCalculator.calculate({ rulesetId: 0, fileURL: osuFile, count100: numberOf100sNeeded, mods: fixed_mods_string })
 			var calculateAccuracy = score.scoreInfo.accuracy * 100
