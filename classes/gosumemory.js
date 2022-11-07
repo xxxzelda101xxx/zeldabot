@@ -52,7 +52,7 @@ class GosuMemory {
 		var osuFile = await this.getOsuFile()
 		var beatmap = parser.parseContent(fs.readFileSync(osuFile))
 		var totalObjects = beatmap["nbCircles"] + beatmap["nbSliders"] + beatmap["nbSpinners"]
-		var numberOf100sNeeded = totalObjects - Math.floor(totalObjects * (accuracy / 100))
+		var numberOf100sNeeded = await estimate100s(accuracy, totalObjects)
 		var commandString
 		var converted_mods = getMods(mods)
 		if (!mods) commandString = `dotnet ${liveppCalcDLL} simulate osu "${osuFile}" -G ${numberOf100sNeeded} ${this.getModsForPPCalc()} --json`
@@ -281,4 +281,15 @@ async function downloadOsuFile(beatmap_id) {
 	var data = await axios.get(`${baseUrl}${beatmap_id}`)
 	const savePath = path.join(songsFolder, beatmap_id + ".osu")
 	fs.writeFileSync(savePath, data.data, function () {})
+}
+
+async function estimate100s(accuracy, numObjects) {
+	var numberOf100sNeeded
+	for (var i = 0; i < numObjects; i++) {
+		var num = i * (2/3) 
+		if (((numObjects - num) / numObjects * 100) < accuracy) {
+			numberOf100sNeeded = i - 1
+			return numberOf100sNeeded
+		}
+	}
 }
