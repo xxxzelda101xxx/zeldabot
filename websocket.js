@@ -25,6 +25,7 @@ function startWebsocket() {
 		if (data) {
 			data = new GosuMemory(data)
 			osuData = data
+			console.log("test", osuData)
 		}
 	}
 }
