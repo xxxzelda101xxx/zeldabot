@@ -2,7 +2,7 @@ const config = require("./config.json")
 const url = config.osu.gosumemory_address
 const WebSocket = require("ws")
 const { GosuMemory } = require("./classes/gosumemory.js")
-global.gosumemoryData = null
+let osuData = {}
 
 function startWebsocket() {
 	const connection = new WebSocket(url)
@@ -22,12 +22,12 @@ function startWebsocket() {
 	})
 	connection.onmessage = (e) => {
 		var data = JSON.parse(e.data)
-		// eslint-disable-next-line no-undef
 		if (data) {
 			data = new GosuMemory(data)
-			global.gosumemoryData = data
+			osuData = data
 		}
 	}
 }
 
 module.exports.startWebsocket = startWebsocket
+module.exports.osuData = osuData

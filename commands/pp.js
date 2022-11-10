@@ -32,7 +32,7 @@ module.exports = {
 				var valid_mods = ["nf", "ez", "td", "hd", "hr", "ht", "dt", "nc", "fl", "so"]
 				var selected_mods = mods.match(/.{1,2}/g)
 
-				for (var i = 0; i < selected_mods.length; i++) {
+				for (let i = 0; i < selected_mods.length; i++) {
 					valid_mods.filter(mod => {
 						if (mod == selected_mods[i]) {
 							if (fixed_mods_string.indexOf(mod) < 0) fixed_mods_string += mod

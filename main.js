@@ -9,6 +9,7 @@ const { logger } = require("./logger.js")
 const { chatClient } = require("./utils/chatclient.js")
 const { startRouter } = require("./routes/index.js")
 var { incrementMessages } = require("./routes/index.js")
+var { osuData } = require("./websocket2.js")
 
 async function main() {
 	startWebsocket()
@@ -34,10 +35,10 @@ async function main() {
 	})
 	chatClient.onMessage(async function (channel, user, msg, context) {
 		incrementMessages()
-		messageHandler(channel, user, msg, context)
+		messageHandler(channel, user, msg, context, osuData)
 	})
 	chatClient.onWhisper(async function (user, msg, context) {
-		messageHandler(null, user, msg, context)
+		messageHandler(null, user, msg, context, osuData)
 	})
 }
 

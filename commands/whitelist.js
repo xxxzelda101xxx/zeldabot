@@ -9,7 +9,7 @@ module.exports = {
 	modOnly: true, 
 	isPublic: false,
 	execute: async function(channel, user, msg, context, chatClient, data) {
-		user_id = await getUserIdByUsername(msg.toLowerCase().split(" ")[1])
+		var user_id = await getUserIdByUsername(msg.toLowerCase().split(" ")[1])
 		if (user_id) {
 			await whitelistUser(user_id)
 			return `${msg.toLowerCase().split(" ")[1]} has been added to the whitelist.`

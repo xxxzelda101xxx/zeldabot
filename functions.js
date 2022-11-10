@@ -1,19 +1,7 @@
 const { changeTwitchStreamStatus } = require("./database.js")
 //const { logger } = require("./logger.js")
 const { apiClient } = require("./utils/apiclient")
-//const { exec } = require("child_process")
-//var ffi = require("ffi-napi")
 const { chatClient } = require("./utils/chatclient.js")
-
-/*function getOsuWindowTitle() {
-	return new Promise(function(resolve){
-		exec("tasklist /fi \"imagename eq osu!.exe\" /fo list /v", { windowsHide: true }, async function(err, stdout, stderr) {
-			var data = stdout.split("\n")
-			data = data[9].substring(14)
-			resolve(data.trim())
-		})
-	})
-}*/
 
 async function isStreamOnline(channel, firstRun) {
 	if (firstRun) {
@@ -48,30 +36,30 @@ async function banRNG(channel, user, context) {
 	var randomNumber2 = Math.floor(Math.random() * 1000000 + 1)
 	if (randomNumber == 727 && randomNumber2 == 727) {
 		await chatClient.say(channel, `${user} somehow managed to hit a 1 in 10,000 AND a 1 IN A MILLION chance at the SAME TIME!!! actually fucking impossible"`)
-		await chatClient.ban(channel, user, `????????????????????????????`)
+		await chatClient.ban(channel, user, "????????????????????????????")
 	}
 	else if (randomNumber == 727) {
 		if (context.userInfo.isBroadcaster) {
-			await chatClient.say(channel, `Somehow shige hit the 1/10,000 chance to get banned. Is that good luck or bad luck?`)
+			await chatClient.say(channel, "Somehow shige hit the 1/10,000 chance to get banned. Is that good luck or bad luck?")
 		}
 		else if (context.userInfo.isMod) {
 			await chatClient.say(channel, `${user} hit the 1/10,000 chance to get banned but is immune. smh.... shigeSumika`)
 		}
 		else {
 			await chatClient.say(channel, `${user} hit the 1/10,000 chance to get banned lmao."`)
-			await chatClient.ban(channel, user, `You hit the 1/10,000 chance to get banned get rekt lmao.`)
+			await chatClient.ban(channel, user, "You hit the 1/10,000 chance to get banned get rekt lmao.")
 		}
 	}
 	else if (randomNumber2 == 727) {
 		if (context.userInfo.isBroadcaster) {
-			await chatClient.say(channel, `Shige hit the 1/1,000,000 change to get banned????`)
+			await chatClient.say(channel, "Shige hit the 1/1,000,000 change to get banned????")
 		}
 		else if (context.userInfo.isMod) {
 			await chatClient.say(channel, `${user} hit the 1/1,000,000 chance to get banned but is immune. Ping shige and tell him to ban them anyways :)`)
 		}
 		else {
 			await chatClient.say(channel, `${user} hit the 1/1,000,000 chance to get banned????? That's some god tier rng!!!"`)
-			await chatClient.ban(channel, user, `You hit the 1/1,000,000 to get banned???????????????`)
+			await chatClient.ban(channel, user, "You hit the 1/1,000,000 to get banned???????????????")
 		}
 	}
 }
