@@ -9,7 +9,7 @@ const { logger } = require("./logger.js")
 const { chatClient } = require("./utils/chatclient.js")
 const { startRouter } = require("./routes/index.js")
 var { incrementMessages } = require("./routes/index.js")
-var { osuData } = require("./websocket2.js")
+var { osuData } = require("./websocket.js")
 
 async function main() {
 	startWebsocket()
