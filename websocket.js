@@ -14,7 +14,7 @@ function startWebsocket() {
 	connection.onerror = () => {}
 
 	connection.on("close", () => {
-		global.gosumemoryData = null
+		osuData = {}
 		connection.terminate()
 		setTimeout(function() {
 			startWebsocket()

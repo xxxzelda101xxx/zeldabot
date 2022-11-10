@@ -10,6 +10,7 @@ const isWhitelistEnabled = config.twitch.enable_whitelist
 const admins = config.twitch.admins
 
 async function messageHandler(channel, user, msg, context, osuData) {
+	console.log(osuData)
 	// eslint-disable-next-line no-undef
 	msg = msg.trim()
 	const user_id = context.userInfo.userId
