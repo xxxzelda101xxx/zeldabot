@@ -4,7 +4,7 @@ const { addToDB, addEmoteToDB, getTwitchStreamStatus, addTwitchUserToDB, getWhit
 const { kagamiBanRNG, banRNG } = require("../functions.js")
 const { logger } = require("../logger.js")
 const { Commands } = require("../helpers/commandshelper.js")
-const { GosuMemory } = require("./classes/gosumemory.js")
+const { GosuMemory } = require("../classes/gosumemory.js")
 const { chatClient } = require("../utils/chatclient.js")
 const config = require("../config.json")
 const isWhitelistEnabled = config.twitch.enable_whitelist
