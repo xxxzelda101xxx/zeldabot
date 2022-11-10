@@ -12,6 +12,8 @@ const admins = config.twitch.admins
 
 async function messageHandler(channel, user, msg, context, osuData) {
 	if(Object.keys(osuData).length === 0) osuData = new GosuMemory(osuData)
+	else osuData = null
+	console.log(Object.keys(osuData).length === 0)
 	msg = msg.trim()
 	const user_id = context.userInfo.userId
 	const channel_id = context.channelId
