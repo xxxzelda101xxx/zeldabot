@@ -4,14 +4,14 @@ const { addToDB, addEmoteToDB, getTwitchStreamStatus, addTwitchUserToDB, getWhit
 const { kagamiBanRNG, banRNG } = require("../functions.js")
 const { logger } = require("../logger.js")
 const { Commands } = require("../helpers/commandshelper.js")
-const config = require("../config.json")
+const { GosuMemory } = require("./classes/gosumemory.js")
 const { chatClient } = require("../utils/chatclient.js")
+const config = require("../config.json")
 const isWhitelistEnabled = config.twitch.enable_whitelist
 const admins = config.twitch.admins
 
 async function messageHandler(channel, user, msg, context, osuData) {
-	console.log(osuData)
-	// eslint-disable-next-line no-undef
+	osuData = new GosuMemory(osuData)
 	msg = msg.trim()
 	const user_id = context.userInfo.userId
 	const channel_id = context.channelId
