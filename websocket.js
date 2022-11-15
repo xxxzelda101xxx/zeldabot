@@ -39,13 +39,12 @@ function startWebsocket() {
 			var osuFile = path.join(songsFolder, data.menu.bm.path.folder, data.menu.bm.path.file)
 			var result = await scoreCalculator.calculate({ rulesetId: 0, fileURL: osuFile, count100: data.gameplay.hits["100"], count50: data.gameplay.hits["50"], countMiss: data.gameplay.hits["0"], maxCombo: data.gameplay.combo.max, mods: mods })
 			var currentPP = result.performance.totalPerformance.toFixed(2)
-			//console.log("state: ", data.menu.state)
-			//console.log("current time: ", data.menu.bm.time.current)
-			//console.log("last time: ", osuData.menu.bm.time.current)
-			//console.log("Current PP", currentPP)
-			//console.log("Last PP", osuData.maxPP)
-			console.log(osuData.menu)
-			if (data.menu.state == 2 && data.menu.bm.time.current > osuData.menu.bm.time.current && currentPP > osuData.maxPP) {
+			console.log("state: ", data?.menu?.state)
+			console.log("current time: ", data?.menu?.bm?.time?.current)
+			console.log("last time: ", osuData?.menu?.bm?.time?.current)
+			console.log("Current PP", currentPP)
+			console.log("Last PP", osuData?.maxPP)
+			if (data?.menu?.state == 2 && data?.menu?.bm?.time?.current > osuData?.menu?.bm?.time?.current && currentPP > osuData.maxPP) {
 				osuData.maxPP = currentPP
 			}
 			data = new GosuMemory(data)
