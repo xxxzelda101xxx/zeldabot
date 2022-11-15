@@ -28,7 +28,8 @@ function startWebsocket() {
 		if (data) {
 			var mods = data.gameplay.leaderboard.ourplayer.mods != "" ? data.gameplay.leaderboard.ourplayer.mods : data.menu.mods.str
 			console.log(osuData)
-
+			data = new GosuMemory(data)
+			Object.assign(osuData, data)
 		}
 	}
 }
