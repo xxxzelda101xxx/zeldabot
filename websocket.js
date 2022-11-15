@@ -6,7 +6,8 @@ const url = config.osu.gosumemory_address
 const WebSocket = require("ws")
 const { GosuMemory } = require("./classes/gosumemory.js")
 const path = require("path")
-var osuData = { maxPP: 0}
+var osuData = {}
+var lastPP = 0
 var songsFolder
 if (isRemote) {
 	songsFolder = config.osu.osu_files_folder
@@ -47,8 +48,8 @@ function startWebsocket() {
 			console.log(data?.menu?.state == 2)
 			console.log(data?.menu?.bm?.time?.current > osuData?.menu?.bm?.time?.current)
 			console.log(currentPP > osuData.maxPP)
-			if (data?.menu?.state == 2 && data?.menu?.bm?.time?.current > osuData?.menu?.bm?.time?.current && currentPP > osuData.maxPP) {
-				data.maxPP = currentPP
+			if (data?.menu?.state == 2 && data?.menu?.bm?.time?.current > osuData?.menu?.bm?.time?.current && currentPP > lastPP) {
+				data.maxPP = lastPP = currentPP
 			}
 			data = new GosuMemory(data)
 			Object.assign(osuData, data)
