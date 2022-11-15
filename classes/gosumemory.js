@@ -24,6 +24,7 @@ class GosuMemory {
 		this.resultsScreen = data.resultsScreen
 		this.beatmap_id = data.menu.bm.id
 		this.beatmapset_id = data.menu.bm.set
+		this.maxPP = data.maxPP
 	}
   
 	getGameMode() {

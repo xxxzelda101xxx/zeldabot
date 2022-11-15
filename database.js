@@ -1,4 +1,3 @@
-const e = require("express")
 const config = require("./config.json")
 const emotes = config.twitch.emotes
 //const { logger } = require("./logger.js")
