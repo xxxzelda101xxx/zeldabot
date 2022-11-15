@@ -27,7 +27,7 @@ function startWebsocket() {
 		var data = JSON.parse(e.data)
 		if (data) {
 			var mods = data.gameplay.leaderboard.ourplayer.mods != "" ? data.gameplay.leaderboard.ourplayer.mods : data.menu.mods.str
-			var osuFile = await data.getOsuFile()
+			var osuFile = await osuData.getOsuFile()
 			var result = await scoreCalculator.calculate({ rulesetId: 0, fileURL: osuFile, count100: data.gameplay.hits["100"], count50: data.gameplay.hits["50"], countMiss: data.gameplay.hits["0"], maxCombo: data.gameplay.combo.max, mods: mods })
 			var currentPP = result.performance.totalPerformance.toFixed(2)
 			if (data.menu.state == 2 && data.menu.bm.time.current > osuData.menu.bm.time.current && currentPP > osuData.maxPP) {
