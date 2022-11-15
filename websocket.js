@@ -47,7 +47,7 @@ function startWebsocket() {
 			console.log(data?.menu?.state == 2)
 			console.log(data?.menu?.bm?.time?.current > osuData?.menu?.bm?.time?.current)
 			console.log(currentPP > osuData.maxPP)
-			if (data?.menu?.state == 2 && data?.menu?.bm?.time?.current > osuData?.menu?.bm?.time?.current && currentPP > lastPP) {
+			if (data?.menu?.state == 2 && data?.menu?.bm?.time?.current > osuData?.menu?.bm?.time?.current && currentPP > osuData.maxPP) {
 				data.maxPP = currentPP
 			}
 			else {
