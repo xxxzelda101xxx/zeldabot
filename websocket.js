@@ -45,7 +45,7 @@ function startWebsocket() {
 			console.log("Current PP", currentPP)
 			console.log("Last PP", osuData?.maxPP)
 			if (data?.menu?.state == 2 && data?.menu?.bm?.time?.current > osuData?.menu?.bm?.time?.current && currentPP > osuData.maxPP) {
-				osuData.maxPP = currentPP
+				data.maxPP = currentPP
 			}
 			data = new GosuMemory(data)
 			Object.assign(osuData, data)
