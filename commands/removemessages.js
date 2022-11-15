@@ -6,7 +6,7 @@ module.exports = {
 	canWhisper: false,
 	adminOnly: true, 
 	isPublic: false,
-	execute: async function(channel, user, msg, context, chatClient) {
+	execute: async function(msg, context) {
 		if (msg.toLowerCase().split(" ").length != 3) return
 		var username = msg.toLowerCase().split(" ")[1]
 		var messagesToRemove = msg.toLowerCase().split(" ")[2]

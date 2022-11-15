@@ -8,8 +8,8 @@ module.exports = {
 	isOsuCommand: false,
 	modOnly: true, 
 	isPublic: false,
-	execute: async function(channel, user, msg, context, chatClient, data) {
-		user_id = await getUserIdByUsername(msg.toLowerCase().split(" ")[1])
+	execute: async function(msg, context, data) {
+		let user_id = await getUserIdByUsername(msg.toLowerCase().split(" ")[1])
 		if (user_id) {
 			await unwhitelistUser(user_id)
 			return `${msg.toLowerCase().split(" ")[1]} has been removed from the whitelist.`

@@ -6,8 +6,9 @@ module.exports = {
 	canWhisper: false,
 	offlineOnly: true,
 	isPublic: false,
-	execute: async function(channel, user, msg, context, chatClient) {
+	execute: async function(msg, context) {
 		var user_id = context.userInfo.userId
+		var username = context.userInfo.userName
 		var originalMessage = msg
 		var emoteToSearch = originalMessage.split(" ")[1]
 		var isUsername, isTotal
@@ -42,7 +43,7 @@ module.exports = {
 			if (!msg.toLowerCase().split(" ")[1]) return
 			var emote = await getEmotes(user_id, context.channelId, emoteToSearch)
 			if (emote) {
-				return `${user} has used the emote ${emote.emote} ${emote.uses} times.`
+				return `${username} has used the emote ${emote.emote} ${emote.uses} times.`
 			}
 			else {
 				return "Emote not Found or not tracked."

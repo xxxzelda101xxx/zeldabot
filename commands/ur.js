@@ -5,7 +5,7 @@ module.exports = {
 	canWhisper: true,
 	isOsuCommand: true,
 	isPublic: false,
-	execute: async function(channel, user, msg, context, chatClient, data) {
+	execute: async function(msg, context, data) {
 		return `${data.getUR()} ur`
 	}
 }

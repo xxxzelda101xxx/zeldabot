@@ -7,8 +7,8 @@ module.exports = {
 	canWhisper: false,
 	modOnly: true, 
 	isPublic: false,
-	execute: async function(channel, user, msg, context, chatClient, data) {
-		user = await shigeapiClient.users.getUserByName("shigetora")
+	execute: async function(msg, context, data) {
+		let user = await shigeapiClient.users.getUserByName("shigetora")
 		const description = msg.replace("!mark", "") 
 		if (description) await shigeapiClient.streams.createStreamMarker(user, description)
 		else await shigeapiClient.streams.createStreamMarker(user)

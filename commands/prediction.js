@@ -7,9 +7,9 @@ module.exports = {
 	canWhisper: false,
 	modOnly: true, 
 	isPublic: false,
-	execute: async function(channel, user, msg, context, chatClient, data) {
+	execute: async function(msg, context, data) {
 		if (!context.userInfo.isMod && !context.userInfo.isBroadcaster) return
-		user = await shigeapiClient.users.getUserByName("shigetora")
+		let user = await shigeapiClient.users.getUserByName("shigetora")
 		const predictionAction = msg.toLowerCase().split(" ")[1].toLowerCase()
 		const predictionName = msg.toLowerCase().split(" ")[2]
 		var prediction

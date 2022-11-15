@@ -7,7 +7,7 @@ module.exports = {
 	isOsuCommand: true,
 	requiredState: 7,
 	isPublic: false,
-	execute: async function(channel, user, msg, context, chatClient, data) {
+	execute: async function(msg, context, data) {
 		var results = data.getResultsScreen()
 		var pp = await data.getCurrentPP()
 		var newSR = await data.getNewSR()

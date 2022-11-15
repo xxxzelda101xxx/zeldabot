@@ -5,8 +5,8 @@ module.exports = {
 	canWhisper: true,
 	isOsuCommand: true,
 	isPublic: true,
-	execute: async function(channel, user, msg, context, chatClient, data) {
+	execute: async function(msg, context, data) {
 		var contents = data.getMods()
-		return chatClient.say(channel, contents)
+		return contents
 	}
 }

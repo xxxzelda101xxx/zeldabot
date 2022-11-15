@@ -9,7 +9,7 @@ module.exports = {
 	canWhisper: true,
 	isOsuCommand: true,
 	isPublic: false,
-	execute: async function(channel, user, msg, context, chatClient, data) {
+	execute: async function(msg, context, data) {
 		if (data.menu.state == 2 || data.menu.state == 7) {	
 			var currentStats = data.getCurrentStats()
 			var osuFile = await data.getOsuFile()

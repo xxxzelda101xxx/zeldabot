@@ -42,7 +42,7 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		}
 		setCooldown(command)
 		logger.debug(`Executing !${commandToRun.name} from user: ${user} in channel: ${channel}.`)
-		let messageToSend = await commandToRun.execute(channel, user, msg, context, chatClient, osuData)
+		let messageToSend = await commandToRun.execute(msg, context, osuData)
 		chatClient.say(channel, messageToSend)
 	}
 	else {
@@ -51,7 +51,7 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		if (commandToRun.modOnly) return
 		logger.debug(`Executing !${commandToRun.name} from user: ${user} in whispers.`)
 		if (commandToRun.canWhisper) {
-			let messageToSend = await commandToRun.execute(channel, user, msg, context, chatClient, osuData)
+			let messageToSend = await commandToRun.execute(msg, context, osuData)
 			chatClient.whisper(user, messageToSend)
 		}
 	}
