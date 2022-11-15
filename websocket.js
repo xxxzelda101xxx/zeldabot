@@ -1,5 +1,5 @@
 const config = require("./config.json")
-const { ScoreCalculator } = require("osu-pp-calculator")
+const { ScoreCalculator } = require("@kionell/osu-pp-calculator")
 const scoreCalculator = new ScoreCalculator()
 const url = config.osu.gosumemory_address
 const WebSocket = require("ws")
