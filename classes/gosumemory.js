@@ -54,6 +54,7 @@ class GosuMemory {
 		var numberOf100sNeeded = await this.estimate100s(accuracy, totalObjects)
 		var commandString
 		var converted_mods = getMods(mods)
+		var osuFile = await this.getOsuFile()
 		if (!mods) commandString = `dotnet ${liveppCalcDLL} simulate osu "${osuFile}" -G ${numberOf100sNeeded} ${this.getModsForPPCalc()} --json`
 		else commandString = `dotnet ${liveppCalcDLL} simulate osu "${osuFile}" -G ${numberOf100sNeeded} ${converted_mods} --json`
 		var PP = await calculatePP(commandString)
@@ -115,9 +116,6 @@ class GosuMemory {
 	}
 	getModsForPPCalc() {
 		return getMods(this.menu.mods.num)
-	}
-	getMaxCombo() {
-		return this.menu.bm.stats.maxCombo
 	}
 	getMods() {
 		return this.menu.mods.str
@@ -232,7 +230,7 @@ function getMods(mods) {
 		return returnString
 	}
 	else {
-		var returnString = ""
+		let returnString = ""
 		//var mods_string = mods.match(/.{1,2}/g)
 		var mods_string = [...new Set(mods.match(/.{1,2}/g))];
 		for (var i = 0; i < mods_string.length; i++) {

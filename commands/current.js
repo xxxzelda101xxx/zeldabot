@@ -23,5 +23,6 @@ module.exports = {
 			var maxPP = await getMaxPP()
 			return `${currentStats.hits["100"]}x100/${currentStats.hits["50"]}x50/${currentStats.hits["0"]}xmiss ${parseInt(currentPP)}pp/${parseInt(fcPP)}pp if fc (${parseInt(ssPP)}pp for SS) Peak: ${maxPP}pp`
 		}
+		else return "Not currently in a map or on the score screen."
 	}
 }
