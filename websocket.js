@@ -44,10 +44,10 @@ function startWebsocket() {
 			console.log("current time: ", data?.menu?.bm?.time?.current)
 			console.log("last time: ", osuData?.menu?.bm?.time?.current)
 			console.log("Current PP", currentPP)
-			console.log("Last PP", osuData?.maxPP)
+			console.log("Max PP", maxPP)
 			console.log(data?.menu?.state == 2)
 			console.log(data?.menu?.bm?.time?.current > osuData?.menu?.bm?.time?.current)
-			console.log(currentPP > osuData.maxPP)
+			console.log(currentPP > maxPP)
 			if (data?.menu?.state == 2 && data?.menu?.bm?.time?.current > osuData?.menu?.bm?.time?.current && currentPP > maxPP) {
 				maxPP = currentPP
 			}
