@@ -57,6 +57,10 @@ function startWebsocket() {
 	}
 }
 
+async function getMaxPP() {
+	return parseInt(maxPP)
+}
+
 module.exports.startWebsocket = startWebsocket
 module.exports.osuData = osuData
-module.exports.maxPP = maxPP
+module.exports.getMaxPP = getMaxPP

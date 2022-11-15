@@ -1,5 +1,5 @@
 const { ScoreCalculator } = require("@kionell/osu-pp-calculator")
-const { maxPP } = require("../websocket.js")
+const { getMaxPP } = require("../websocket.js")
 const scoreCalculator = new ScoreCalculator()
 
 module.exports = {
@@ -20,6 +20,7 @@ module.exports = {
 			var currentPP = result1.performance.totalPerformance.toFixed(2)
 			var fcPP = result2.performance.totalPerformance.toFixed(2)
 			var ssPP = result3.performance.totalPerformance.toFixed(2)
+			var maxPP = await getMaxPP()
 			return `${currentStats.hits["100"]}x100/${currentStats.hits["50"]}x50/${currentStats.hits["0"]}xmiss ${parseInt(currentPP)}pp/${parseInt(fcPP)}pp if fc (${parseInt(ssPP)}pp for SS) Peak: ${maxPP}pp`
 		}
 	}
