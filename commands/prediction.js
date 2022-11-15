@@ -7,7 +7,7 @@ module.exports = {
 	canWhisper: false,
 	modOnly: true, 
 	isPublic: false,
-	execute: async function(msg, context, data) {
+	execute: async function(msg, context) {
 		if (!context.userInfo.isMod && !context.userInfo.isBroadcaster) return
 		let user = await shigeapiClient.users.getUserByName("shigetora")
 		const predictionAction = msg.toLowerCase().split(" ")[1].toLowerCase()
@@ -50,7 +50,7 @@ module.exports = {
 						} 
 					}
 					if (outcome == "odd") {
-						for (var i = 0; i < prediction.outcomes.length; i++) {
+						for (let i = 0; i < prediction.outcomes.length; i++) {
 							if (prediction.outcomes[i].title.toLowerCase() == "odd") {
 								await shigeapiClient.helix.predictions.resolvePrediction(user, prediction.id, prediction.outcomes[i].id)
 								return "Channel points payed out to odd."

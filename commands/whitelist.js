@@ -8,7 +8,7 @@ module.exports = {
 	isOsuCommand: false,
 	modOnly: true, 
 	isPublic: false,
-	execute: async function(msg, context, data) {
+	execute: async function(msg) {
 		var user_id = await getUserIdByUsername(msg.toLowerCase().split(" ")[1])
 		if (user_id) {
 			await whitelistUser(user_id)

@@ -6,7 +6,7 @@ module.exports = {
 	canWhisper: true,
 	modOnly: true, 
 	isPublic: false,
-	execute: async function(msg, context, data) {
+	execute: async function() {
 		await open("osu://spectate/chocomint")
 		return "Hopefully it started spectating..."
 	}

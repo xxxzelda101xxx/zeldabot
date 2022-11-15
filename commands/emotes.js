@@ -26,7 +26,7 @@ module.exports = {
 		}
 		else if (isUsername) {
 			user_id = await getUserIdByUsername(msg.toLowerCase().split(" ")[2])
-			var emote = await getEmotes(user_id, context.channelId, emoteToSearch)
+			let emote = await getEmotes(user_id, context.channelId, emoteToSearch)
 			if (user_id == null) {
 				return "User not found."
 			}
@@ -41,7 +41,7 @@ module.exports = {
 		}
 		else {
 			if (!msg.toLowerCase().split(" ")[1]) return
-			var emote = await getEmotes(user_id, context.channelId, emoteToSearch)
+			let emote = await getEmotes(user_id, context.channelId, emoteToSearch)
 			if (emote) {
 				return `${username} has used the emote ${emote.emote} ${emote.uses} times.`
 			}
