@@ -23,7 +23,7 @@ async function main() {
 	})
 
 	router.get("/mappack", function(req, res){
-		const file = "/var/www/html/shige_maps.zip"
+		const file = "/var/www/html/shige_maps_updated_2.zip"
 		res.download(file) // Set disposition and send it.
 	})
 
