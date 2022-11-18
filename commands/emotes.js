@@ -1,4 +1,6 @@
 const { getEmotes, getUserIdByUsername } = require("../database.js")
+const { numberWithCommas } = require("../functions.js")
+
 module.exports = {
 	name: "emotes",
 	aliases: [],
@@ -18,7 +20,7 @@ module.exports = {
 		if (isTotal) {
 			var emote = await getEmotes(null, context.channelId, emoteToSearch)
 			if (emote.emote != null) {
-				return `${emote.emote} has been used ${emote.total} times.`
+				return `${emote.emote} has been used ${numberWithCommas(emote.total)} times.`
 			}
 			else {
 				return "Emote not Found or not tracked."
@@ -32,7 +34,7 @@ module.exports = {
 			}
 			else {
 				if (emote) {
-					return `${msg.toLowerCase().split(" ")[2]} has used the emote ${emote.emote} ${emote.uses} times.`
+					return `${msg.toLowerCase().split(" ")[2]} has used the emote ${emote.emote} ${numberWithCommas(emote.uses)} times.`
 				}
 				else {
 					return "Emote not Found or not tracked."
@@ -43,7 +45,7 @@ module.exports = {
 			if (!msg.toLowerCase().split(" ")[1]) return
 			let emote = await getEmotes(user_id, context.channelId, emoteToSearch)
 			if (emote) {
-				return `${username} has used the emote ${emote.emote} ${emote.uses} times.`
+				return `${username} has used the emote ${emote.emote} ${numberWithCommas(emote.uses)} times.`
 			}
 			else {
 				return "Emote not Found or not tracked."

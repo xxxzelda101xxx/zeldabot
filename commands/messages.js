@@ -1,4 +1,5 @@
 const { getUserIdByUsername, getMessages } = require("../database.js")
+const { numberWithCommas } = require("../functions.js")
 module.exports = {
 	name: "messages",
 	aliases: [],
@@ -15,12 +16,14 @@ module.exports = {
 		else if (msg.toLowerCase().split(" ").length == 2) isUsername = true
 		if (isTotal) {
 			totalMessages = await getMessages(null, context.channelId)
+			totalMessages = numberWithCommas(totalMessages)
 			return `A total of ${totalMessages} messages have been sent in this channel.`
 		}
 		else if (isUsername) {
 			user_id = await getUserIdByUsername(msg.toLowerCase().split(" ")[1])
 			if (user_id) {
 				totalMessages = await getMessages(user_id, context.channelId)
+				totalMessages = numberWithCommas(totalMessages)
 				return `${msg.toLowerCase().split(" ")[1]} has sent ${totalMessages} messages in this channel.`
 			}
 			else {
@@ -29,6 +32,7 @@ module.exports = {
 		}
 		else {
 			totalMessages = await getMessages(user_id, context.channelId)
+			totalMessages = numberWithCommas(totalMessages)
 			return `${username} has sent ${totalMessages} messages in this channel.`
 		}
 	}
