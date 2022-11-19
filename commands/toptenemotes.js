@@ -2,6 +2,7 @@ const { getTopTenEmotes, getTopTenEmotesByUserID } = require("../database.js")
 
 module.exports = {
 	name: "toptenemotes",
+	aliases: [],
 	description: "",
 	canWhisper: false,
 	offlineOnly: true,
