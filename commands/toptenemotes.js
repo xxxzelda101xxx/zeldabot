@@ -18,10 +18,11 @@ module.exports = {
 			const user_id = await getUserIdByUsername(msg.toLowerCase().split(" ")[1])
 			if (user_id) {
 				let emotes = await getTopTenEmotesByUserID(context.channelId, user_id)
-				var messageToSend = ""
+				let messageToSend = ""
 				for (let i = 0; i < 10; i++) messageToSend += `${emotes[i].emote} `
 				return messageToSend
 			}
+			else return "User not found."
 		}
 	}
 }
