@@ -1,4 +1,4 @@
-const { getTopTenEmotes, getTopTenEmotesByUserID } = require("../database.js")
+const { getTopTenEmotes, getTopTenEmotesByUserID, getUserIdByUsername } = require("../database.js")
 
 module.exports = {
 	name: "toptenemotes",
@@ -13,6 +13,15 @@ module.exports = {
 			var messageToSend = ""
 			for (let i = 0; i < 10; i++) messageToSend += `${emotes[i].emote} `
 			return messageToSend
+		}
+		else if (msg.toLowerCase().split(" ").length == 2) {
+			const user_id = await getUserIdByUsername(msg.toLowerCase().split(" ")[1])
+			if (user_id) {
+				let emotes = await getTopTenEmotesByUserID(context.channelId, user_id)
+				var messageToSend = ""
+				for (let i = 0; i < 10; i++) messageToSend += `${emotes[i].emote} `
+				return messageToSend
+			}
 		}
 	}
 }
