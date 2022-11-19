@@ -27,6 +27,35 @@ async function db_get(query, queryArray){
 	})
 }
 
+async function db_all(query, queryArray){
+	return new Promise(function(resolve,reject){
+		if (queryArray) {
+			db.all(query, queryArray, function(err,rows){
+				if(err){return reject(err)}
+				resolve(rows)
+			})
+		}
+		else {
+			db.all(query, queryArray, function(err,rows){
+				if(err){return reject(err)}
+				resolve(rows)
+			})
+		}
+	})
+}
+
+async function getTopTenEmotes(channel_id) {
+	let data = await db_all("SELECT emote, SUM(uses) AS total FROM emotes WHERE channel_id = ? GROUP BY emote ORDER BY total DESC LIMIT 10", [channel_id])
+	if (data) return data
+	return null
+}
+
+async function getTopTenEmotesByUserID(channel_id, user_id) {
+	let data = await db_get("SELECT emote, SUM(uses) AS total FROM emotes WHERE channel_id = ? AND user_id = ? GROUP BY emote ORDER BY total DESC LIMIT 10", [channel_id, user_id])
+	if (data) return data
+	return null
+}
+
 function addTwitchUserToDB(user_id, username) {
 	db.run("INSERT INTO users(username, user_id) VALUES(?, ?) ON CONFLICT DO UPDATE SET username = ?", [username, user_id, username])
 	return
@@ -132,3 +161,5 @@ module.exports.getUsernameById = getUsernameById
 module.exports.whitelistUser = whitelistUser
 module.exports.unwhitelistUser = unwhitelistUser
 module.exports.getWhitelistStatus = getWhitelistStatus
+module.exports.getTopTenEmotes = getTopTenEmotes
+module.exports.getTopTenEmotesByUserID = getTopTenEmotesByUserID

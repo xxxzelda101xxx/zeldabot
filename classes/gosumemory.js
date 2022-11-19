@@ -3,8 +3,6 @@ const { logger } = require("../logger.js")
 const path = require("path")
 var parser = require("osu-parser")
 var fs = require("fs")
-const axios = require("axios")
-const baseUrl = "https://osu.ppy.sh/osu/"
 const liveppCalcDLL = config.osu.PerformanceCalculator_Live
 const reworkppCalcDLL = config.osu.PerformanceCalculator_Rework
 const isRemote = config.osu.isRemote
@@ -101,18 +99,7 @@ class GosuMemory {
 		return this.resultsScreen.name
 	}
 	async getOsuFile() {
-		if (isRemote) {
-			var fileExists = await osuFileExists(this.menu.bm.id.toString())
-			if (!fileExists) {
-				await downloadOsuFile(this.menu.bm.id.toString())
-			}
-
-			return path.join(songsFolder, this.menu.bm.id.toString() + ".osu")
-		}
-        
-		else {
-			return path.join(songsFolder, this.menu.bm.path.folder, this.menu.bm.path.file)
-		}
+		return path.join(songsFolder, this.menu.bm.path.folder, this.menu.bm.path.file)
 	}
 	getModsForPPCalc() {
 		return getMods(this.menu.mods.num)
@@ -232,7 +219,7 @@ function getMods(mods) {
 	else {
 		let returnString = ""
 		//var mods_string = mods.match(/.{1,2}/g)
-		var mods_string = [...new Set(mods.match(/.{1,2}/g))];
+		var mods_string = [...new Set(mods.match(/.{1,2}/g))]
 		for (var i = 0; i < mods_string.length; i++) {
 			if (mods_string[i] == "nf") returnString += "-m NF "
 			if (mods_string[i] == "ez") returnString += "-m EZ "
@@ -282,16 +269,4 @@ async function calculatePP(calcString, isSr) {
 			}
 		})
 	})
-}
-
-async function osuFileExists(beatmap_id) {
-	if (fs.existsSync(path.join(songsFolder, beatmap_id + ".osu"))) {
-		return true
-	} 
-	else return false
-}
-async function downloadOsuFile(beatmap_id) {
-	var data = await axios.get(`${baseUrl}${beatmap_id}`)
-	const savePath = path.join(songsFolder, beatmap_id + ".osu")
-	fs.writeFileSync(savePath, data.data, function () {})
 }
