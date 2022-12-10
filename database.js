@@ -50,6 +50,14 @@ async function getTopTenEmotes(channel_id) {
 	return null
 }
 
+async function removeMessagesFromUser(channel_id, user_id, numberOfMessagesToRemove) {
+	db.run("UPDATE messages SET total = total - ? WHERE channel_id = ? AND user_id = ?", [numberOfMessagesToRemove, channel_id, user_id])
+}
+
+async function addMessagesToUser(channel_id, user_id, numberOfMessagesToAdd) {
+	db.run("UPDATE messages SET total = total + ? WHERE channel_id = ? AND user_id = ?", [numberOfMessagesToAdd, channel_id, user_id])
+}
+
 async function getTopTenEmotesByUserID(channel_id, user_id) {
 	let data = await db_all("SELECT emote, SUM(uses) AS total FROM emotes WHERE channel_id = ? AND user_id = ? GROUP BY emote ORDER BY total DESC LIMIT 10", [channel_id, user_id])
 	if (data) return data
@@ -163,3 +171,5 @@ module.exports.unwhitelistUser = unwhitelistUser
 module.exports.getWhitelistStatus = getWhitelistStatus
 module.exports.getTopTenEmotes = getTopTenEmotes
 module.exports.getTopTenEmotesByUserID = getTopTenEmotesByUserID
+module.exports.removeMessagesFromUser = removeMessagesFromUser
+module.exports.addMessagesToUser = addMessagesToUser
