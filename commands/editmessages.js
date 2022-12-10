@@ -13,8 +13,8 @@ module.exports = {
 		var user_id = await getUserIdByUsername(username)
 		var channel_id = context.channelId
 		if (messagesToAddOrRemove < 0 && user_id) {
-			removeMessagesFromUser(channel_id, user_id, messagesToAddOrRemove)
-			return `Removed ${messagesToAddOrRemove} messages from ${username}.`
+			removeMessagesFromUser(channel_id, user_id, Math.abs(messagesToAddOrRemove))
+			return `Removed ${Math.abs(messagesToAddOrRemove)} messages from ${username}.`
 		}
 		else if (messagesToAddOrRemove > 0 && user_id) {
 			addMessagesToUser(channel_id, user_id, messagesToAddOrRemove)
