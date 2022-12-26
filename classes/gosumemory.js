@@ -157,7 +157,16 @@ class GosuMemory {
 		return this.menu.bm.stats["OD"]
 	}
 	getLength() {
-		return millisToMinutesAndSeconds(this.menu.bm.time.full)
+		var mods = this.gameplay.leaderboard.ourplayer.mods != "" ? this.gameplay.leaderboard.ourplayer.mods : this.menu.mods.str
+		if (mods.indexOf("DT") || mods.indexOf("NC")) {
+			return millisToMinutesAndSeconds(this.menu.bm.time.full / 1.5)
+		}
+		else if (mods.indexOf("HT")) {
+			return millisToMinutesAndSeconds(this.menu.bm.time.full * 1.33)
+		}
+		else {
+			return millisToMinutesAndSeconds(this.menu.bm.time.full)
+		}
 	}
 	getUR() {
 		return this.gameplay.hits.unstableRate.toFixed(2)
