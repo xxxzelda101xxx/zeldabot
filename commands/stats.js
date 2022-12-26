@@ -10,8 +10,10 @@ module.exports = {
 	isPublic: false,
 	execute: async function(msg, context, data) {
 		var currentStats = data.getCurrentStats()
-		const result = await beatmapCalculator.calculate({ rulesetId: 0, beatmapId: data.beatmap_id, mods: currentStats.leaderboard.ourplayer.mods, accuracy: [] })
+		var osuFile = await data.getOsuFile()
+		var mods = currentStats.leaderboard.ourplayer.mods != "" ? currentStats.leaderboard.ourplayer.mods : data.menu.mods.str
+		const result = await beatmapCalculator.calculate({ rulesetId: 0, fileURL: osuFile, mods: mods, accuracy: [] })
 		let newSR = result.difficulty.starRating.toFixed(2)
 		return `SR: ${newSR}★, Max Combo: ${data.getMaxCombo()}, ${data.getLength()}, ${data.getBpm()}bpm,  AR${data.getAR()}, CS${data.getCS()}, OD${data.getOD()}, HP${data.getHP()}`
 	}
-}
+} 
