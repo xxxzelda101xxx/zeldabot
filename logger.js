@@ -3,6 +3,7 @@ const { combine, timestamp, printf } = format
 
 function setConsoleColor(level) {
 	if (level.level == "info") return "\x1b[32m"
+	else if (level.level == "verbose") return "\x1b[35m"
 	else if (level.level == "warn") return "\x1b[33m"
 	else if (level.level == "error") return "\x1b[31m"
 	else if (level.level == "debug") return "\x1b[34m"
