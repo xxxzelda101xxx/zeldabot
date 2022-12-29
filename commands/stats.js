@@ -14,7 +14,7 @@ module.exports = {
 		var mods = currentStats.leaderboard.ourplayer.mods != "" ? currentStats.leaderboard.ourplayer.mods : data.menu.mods.str
 		const result = await beatmapCalculator.calculate({ rulesetId: 0, fileURL: osuFile, mods: mods, accuracy: [] })
 		.catch(e => {
-			console.log(e)
+			console.log(e.code)
 			throw new Error('Failed to calculate.');
 		})
 		let newSR = result.difficulty.starRating.toFixed(2)
