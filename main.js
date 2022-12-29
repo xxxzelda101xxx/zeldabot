@@ -7,7 +7,6 @@ const { subHandler } = require("./handlers/subhandler.js")
 const { banHandler } = require("./handlers/banhandler.js")
 const { logger } = require("./logger.js")
 const { chatClient } = require("./utils/chatclient.js")
-const { startRouter } = require("./routes/index.js")
 var { osuData } = require("./websocket.js")
 
 async function main() {
