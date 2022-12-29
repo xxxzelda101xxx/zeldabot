@@ -48,7 +48,7 @@ async function messageHandler(channel, user, msg, context, osuData) {
 			chatClient.say(channel, messageToSend, { replyTo: context })
 		}
 		catch (e) {
-			logger.error(e)
+			logger.error("Command failed: " + e)
 			chatClient.say(channel, e, { replyTo: context })
 		}
 	}
