@@ -10,7 +10,7 @@ module.exports = {
 	execute: async function(msg, context) {
 		var user_id = context.userInfo.userId
 		var username = context.userInfo.userName
-		var isUsername, isTotal, totalMessages
+		var isUsername, isTotal, isAllChannels, totalMessages
 		msg = msg.replace(/@/g, "")
 		if (msg.toLowerCase().split(" ")[1] == "total") isTotal = true
 		if (msg.toLowerCase().split(" ")[1] == "allchannels") isAllChannels = true
