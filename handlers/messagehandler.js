@@ -43,8 +43,13 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		}
 		setCooldown(command)
 		logger.verbose(`Executing !${commandToRun.name} from user: ${user} in channel: ${channel}.`)
-		let messageToSend = await commandToRun.execute(msg, context, osuData)
-		chatClient.say(channel, messageToSend, { replyTo: context })
+		try {
+			let messageToSend = await commandToRun.execute(msg, context, osuData)
+			chatClient.say(channel, messageToSend, { replyTo: context })
+		}
+		catch (e) {
+			chatClient.say(channel, "Command Failed: " + e, { replyTo: context })
+		}
 	}
 	else {
 		if (!commandToRun) return
