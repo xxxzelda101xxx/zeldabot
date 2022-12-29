@@ -20,6 +20,7 @@ let alignColorsAndTime = combine(
 const logger = createLogger({
 	level: "verbose",
 	transports: [
+		new transports.File({ filename: "./logs/verbose.log", level: "verbose" }),
 		new transports.File({ filename: "./logs/error.log", level: "error" }),
 		new transports.File({ filename: "./logs/combined.log" }),
 		new transports.Console({ format: alignColorsAndTime })

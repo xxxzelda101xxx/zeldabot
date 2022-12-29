@@ -14,6 +14,7 @@ async function main() {
 	await chatClient.connect()
 	chatClient.onRegister(() => {
 		logger.info("Connected to Twitch!")
+		logger.verbose("Connected to: " + JSON.stringify(channels))
 		for (var i = 0; i < channels.length; i++) {
 			isStreamOnline(channels[i], true)
 		}
