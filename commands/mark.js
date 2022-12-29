@@ -7,6 +7,7 @@ module.exports = {
 	canWhisper: false,
 	modOnly: true, 
 	isPublic: false,
+	isOsuCommand: false,
 	execute: async function(msg) {
 		let user = await shigeapiClient.users.getUserByName("shigetora")
 		const description = msg.replace("!mark", "") 

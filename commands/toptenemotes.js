@@ -6,6 +6,7 @@ module.exports = {
 	description: "",
 	canWhisper: false,
 	offlineOnly: true,
+	isOsuCommand: false,
 	isPublic: false,
 	execute: async function(msg, context) {
 		if (msg.toLowerCase().split(" ").length == 1) {

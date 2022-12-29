@@ -8,6 +8,7 @@ module.exports = {
 	canWhisper: false,
 	offlineOnly: true,
 	isPublic: false,
+	isOsuCommand: false,
 	execute: async function(msg, context) {
 		var user_id = context.userInfo.userId
 		var username = context.userInfo.userName

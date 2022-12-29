@@ -6,6 +6,7 @@ module.exports = {
 	canWhisper: false,
 	adminOnly: true, 
 	isPublic: false,
+	isOsuCommand: false,
 	execute: async function(msg, context) {
 		if (msg.toLowerCase().split(" ").length != 3) return
 		var username = msg.toLowerCase().split(" ")[1]

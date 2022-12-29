@@ -6,7 +6,7 @@ module.exports = {
 	description: "",
 	canWhisper: false,
 	isOsuCommand: false,
-	modOnly: true, 
+	adminOnly: true, 
 	isPublic: false,
 	execute: async function(msg) {
 		var user_id = await getUserIdByUsername(msg.toLowerCase().split(" ")[1])

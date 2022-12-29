@@ -7,6 +7,7 @@ module.exports = {
 	canWhisper: false,
 	modOnly: true, 
 	isPublic: false,
+	isOsuCommand: false,
 	execute: async function(msg, context) {
 		if (!context.userInfo.isMod && !context.userInfo.isBroadcaster) return
 		let user = await shigeapiClient.users.getUserByName("shigetora")
