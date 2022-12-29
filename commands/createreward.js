@@ -13,9 +13,10 @@ module.exports = {
 		const cost = msg.split(" ")[1]
 		const prompt = msg.match(/\(([^)]+)\)/)[1]
 		const title = msg.match(/\[([^)]+)\]/)[1]
-		console.log(cost)
-		console.log(prompt)
-		console.log(title)
-		//const rewards = await shigeapiClient.channelPoints.createCustomReward(user, data)
+		const rewards = await shigeapiClient.channelPoints.createCustomReward(user, { cost: cost, prompt: prompt, title: title })
+		.catch(e => {
+			throw new Error(e)
+		})
+		return `Created award ${title} with a cost of ${cost} channel points!`
 	}
 }
