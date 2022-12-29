@@ -25,11 +25,12 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		if (commandToRun.modOnly && !isMod) return
 	}
 	if (channel) {
-		if (user.toLowerCase() == "kagami_77") kagamiBanRNG(channel, user)
-		banRNG(channel, user, context)
 		addTwitchUserToDB(user_id, user)
 		addToDB(user_id, channel_id)
 		addEmoteToDB(user_id, msg, context.parseEmotes(), channel_id)
+		console.log(channel)
+		if (user.toLowerCase() == "kagami_77") kagamiBanRNG(channel, user)
+		banRNG(channel, user, context)
 		if (!commandToRun) return
 		if (!osuData && commandToRun.isOsuCommand == true) return
 		var online = await getTwitchStreamStatus(channel_id)
