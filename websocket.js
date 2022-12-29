@@ -39,9 +39,15 @@ function startWebsocket() {
 			var mods = data.gameplay.leaderboard.ourplayer.mods != "" ? data.gameplay.leaderboard.ourplayer.mods : data.menu.mods.str
 			var osuFile = path.join(songsFolder, data.menu.bm.path.folder, data.menu.bm.path.file)
 			var result = await scoreCalculator.calculate({ rulesetId: 0, fileURL: osuFile, count100: data.gameplay.hits["100"], count50: data.gameplay.hits["50"], countMiss: data.gameplay.hits["0"], maxCombo: data.gameplay.combo.max, mods: mods })
+			.catch(e => {
+				return
+			})
 			var currentPP = result.performance.totalPerformance.toFixed(2)
 			if (data?.menu?.state == 2 && currentPP > maxPP) {
 				maxPP = currentPP
+			}
+			else if (isNaN(maxPP)) {
+				maxPP = 0
 			}
 			else if (data?.menu?.state == 2 && osuData?.menu?.bm?.time?.current > data?.menu?.bm?.time?.current) {
 				maxPP = 0

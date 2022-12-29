@@ -58,8 +58,14 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		if (commandToRun.modOnly) return
 		logger.verbose(`Executing !${commandToRun.name} from user: ${user} in whispers.`)
 		if (commandToRun.canWhisper) {
-			let messageToSend = await commandToRun.execute(msg, context, osuData)
-			chatClient.whisper(user, messageToSend)
+			try {
+				let messageToSend = await commandToRun.execute(msg, context, osuData)
+				chatClient.whisper(user, messageToSend)
+			}
+			catch (e) {
+				logger.error(`Command ${command} Failed: ${e}`)
+				chatClient.whisper(user, messageToSend)
+			}
 		}
 	}
 }
