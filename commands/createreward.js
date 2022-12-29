@@ -10,7 +10,10 @@ module.exports = {
 	isPublic: false,
 	execute: async function(msg) {
 		let user = await shigeapiClient.users.getUserByName("shigetora")
-		const cost = msg.split(" ")[1]
+		const cost = parseInt(msg.split(" ")[1])
+		if (isNaN(cost)) return "Cost must be an integer!"
+		if (cost < 1) return "Cost must be a positive integer!"
+		if (cost > 2147483647) return "Cost must less than 2,147,483,647!"
 		const prompt = msg.match(/\(([^)]+)\)/)[1]
 		const title = msg.match(/\[([^)]+)\]/)[1]
 		const rewards = await shigeapiClient.channelPoints.createCustomReward(user, { cost: cost, prompt: prompt, title: title })
