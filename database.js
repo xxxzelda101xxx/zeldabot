@@ -116,6 +116,12 @@ async function getMessages(user_id, channel_id) {
 	return messages
 }
 
+async function getAllMessages() {
+	let data = await db_get("SELECT SUM(total) AS total FROM messages")
+	let messages = data.total
+	return messages
+}
+
 async function getUserIdByUsername(username) {
 	let data = await db_get("SELECT m.total, m.user_id, u.username FROM messages m INNER JOIN users u ON m.user_id = u.user_id WHERE u.username = ?", [username])
 	if (data) return data.user_id
@@ -162,6 +168,7 @@ module.exports.addToDB = addToDB
 module.exports.addEmoteToDB = addEmoteToDB
 module.exports.getEmotes = getEmotes
 module.exports.getMessages = getMessages
+module.exports.getAllMessages = getAllMessages
 module.exports.changeTwitchStreamStatus = changeTwitchStreamStatus
 module.exports.getTwitchStreamStatus = getTwitchStreamStatus
 module.exports.addChannelToDB = addChannelToDB
