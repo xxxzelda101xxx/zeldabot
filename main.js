@@ -13,7 +13,6 @@ async function main() {
 	startWebsocket()
 	await chatClient.connect()
 	chatClient.onRegister(() => {
-		startRouter()
 		logger.info("Connected to Twitch!")
 		for (var i = 0; i < channels.length; i++) {
 			isStreamOnline(channels[i], true)
