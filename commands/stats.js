@@ -13,6 +13,9 @@ module.exports = {
 		var osuFile = await data.getOsuFile()
 		var mods = currentStats.leaderboard.ourplayer.mods != "" ? currentStats.leaderboard.ourplayer.mods : data.menu.mods.str
 		const result = await beatmapCalculator.calculate({ rulesetId: 0, fileURL: osuFile, mods: mods, accuracy: [] })
+		.catch(e => {
+			console.log(e)
+		})
 		let newSR = result.difficulty.starRating.toFixed(2)
 		return `SR: ${newSR}★, Max Combo: ${data.getMaxCombo()}, ${data.getLength()}, ${data.getBpm()}bpm,  AR${data.getAR()}, CS${data.getCS()}, OD${data.getOD()}, HP${data.getHP()}`
 	}
