@@ -8,7 +8,6 @@ const { banHandler } = require("./handlers/banhandler.js")
 const { logger } = require("./logger.js")
 const { chatClient } = require("./utils/chatclient.js")
 const { startRouter } = require("./routes/index.js")
-var { incrementMessages } = require("./routes/index.js")
 var { osuData } = require("./websocket.js")
 
 async function main() {
@@ -34,7 +33,6 @@ async function main() {
 		banHandler(channel, user)
 	})
 	chatClient.onMessage(async function (channel, user, msg, context) {
-		incrementMessages()
 		messageHandler(channel, user, msg, context, osuData)
 	})
 	chatClient.onWhisper(async function (user, msg, context) {
