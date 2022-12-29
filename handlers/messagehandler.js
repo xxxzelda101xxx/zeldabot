@@ -28,7 +28,7 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		addTwitchUserToDB(user_id, user)
 		addToDB(user_id, channel_id)
 		addEmoteToDB(user_id, msg, context.parseEmotes(), channel_id)
-		console.log(channel)
+		if (channel != "#shigetora" && channel != "#zelda101_") return
 		if (user.toLowerCase() == "kagami_77") kagamiBanRNG(channel, user)
 		banRNG(channel, user, context)
 		if (!commandToRun) return
