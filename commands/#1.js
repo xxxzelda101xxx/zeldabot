@@ -1,6 +1,6 @@
 module.exports = {
 	name: "#1",
-	aliases: [],
+	aliases: ["number1"],
 	description: "",
 	canWhisper: true,
 	requiredState: 7,
