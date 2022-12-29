@@ -42,7 +42,7 @@ async function messageHandler(channel, user, msg, context, osuData) {
 			if (osuData && commandToRun.requiredState && osuData.menuState != commandToRun.requiredState) return chatClient.deleteMessage(channel, context)
 		}
 		setCooldown(command)
-		logger.debug(`Executing !${commandToRun.name} from user: ${user} in channel: ${channel}.`)
+		logger.verbose(`Executing !${commandToRun.name} from user: ${user} in channel: ${channel}.`)
 		let messageToSend = await commandToRun.execute(msg, context, osuData)
 		chatClient.say(channel, messageToSend, { replyTo: context })
 	}
@@ -50,7 +50,7 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		if (!commandToRun) return
 		if (commandToRun.adminOnly) return
 		if (commandToRun.modOnly) return
-		logger.debug(`Executing !${commandToRun.name} from user: ${user} in whispers.`)
+		logger.verbose(`Executing !${commandToRun.name} from user: ${user} in whispers.`)
 		if (commandToRun.canWhisper) {
 			let messageToSend = await commandToRun.execute(msg, context, osuData)
 			chatClient.whisper(user, messageToSend)
