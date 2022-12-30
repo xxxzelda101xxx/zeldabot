@@ -22,15 +22,11 @@ async function main() {
 			isStreamOnline(channels[i], true)
 		}
 	})
-	await shigeapiClient.channelPoints.deleteCustomReward(userId, "1222fecb-5589-4b2a-950d-354e3d0805e1")
+	//await shigeapiClient.channelPoints.deleteCustomReward(userId, "1222fecb-5589-4b2a-950d-354e3d0805e1")
 	//const rewards = await shigeapiClient.channelPoints.getCustomRewards('37575275');
 	//for (i = 0; i < rewards.length; i++) console.log(rewards[i].title + " " + rewards[i].id)
 	const onlineSubscription = await listener.subscribeToChannelRedemptionAddEventsForReward(userId, "34f48b7d-25e1-4aeb-b622-39e63a9291d8", e => {
-		console.log(`${e.user} used !blame3!`);
-		chatClient.say("#shigetora", "!blame3")
-	})
-	const onlineSubscription2 = await listener.subscribeToChannelRedemptionAddEventsForReward(userId, "1222fecb-5589-4b2a-950d-354e3d0805e1", e => {
-		console.log(`${e.user} used !blame3!`);
+		console.log(`${e.userName} used !blame3!`);
 		chatClient.say("#shigetora", "!blame3")
 	})
 	chatClient.onSubExtend(async function (channel, user, subInfo, context){
