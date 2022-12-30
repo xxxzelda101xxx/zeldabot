@@ -26,6 +26,7 @@ async function main() {
 	//for (i = 0; i < rewards.length; i++) console.log(rewards[i].title + " " + rewards[i].id)
 	const onlineSubscription = await listener.subscribeToChannelRedemptionAddEventsForReward(userId, "34f48b7d-25e1-4aeb-b622-39e63a9291d8", e => {
 		console.log(`${e.user} used !blame3!`);
+		chatClient.say("#shigetora", "!blame3")
 	})
 	chatClient.onSubExtend(async function (channel, user, subInfo, context){
 		subHandler(channel, user, subInfo, context)
