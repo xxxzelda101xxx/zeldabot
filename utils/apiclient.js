@@ -10,7 +10,7 @@ exports.apiClient = apiClient
 const { shigeAuthProvider } = require("./authprovider.js")
 authProvider = shigeAuthProvider
 
-const listener = new EventSubWsListener({ apiClient });
+const listener = new EventSubWsListener({ shigeAuthProvider });
 const shigeapiClient = new ApiClient({ shigeAuthProvider })
 
 exports.shigeapiClient = shigeapiClient
