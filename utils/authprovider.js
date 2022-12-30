@@ -6,7 +6,7 @@ const clientId = config.twitch.client_id
 const clientSecret = config.twitch.client_secret
 const zeldaTokenData = require("../tokens.json")
 const shigeTokenData = require("../shige_tokens.json")
-const StaticAuthProvider = new StaticAuthProvider(clientId, shigeTokenData.accessToken);
+const shigeStaticAuthProvider = new StaticAuthProvider(clientId, shigeTokenData.accessToken);
 
 const zeldaAuthProvider = new RefreshingAuthProvider({
 	clientId,
@@ -26,4 +26,4 @@ shigeTokenData
 
 exports.zeldaAuthProvider = zeldaAuthProvider
 exports.shigeAuthProvider = shigeAuthProvider
-exports.StaticAuthProvider = StaticAuthProvider
+exports.shigeStaticAuthProvider = shigeStaticAuthProvider
