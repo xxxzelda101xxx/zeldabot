@@ -23,7 +23,7 @@ async function main() {
 		}
 	})
 	const rewards = await shigeapiClient.channelPoints.getCustomRewards('37575275');
-	for (i = 0; i < rewards.length; i++) console.log(rewards[i])
+	for (i = 0; i < rewards.length; i++) console.log(rewards[i].title + " " + rewards[i].id)
 	//const onlineSubscription = await listener.subscribeToChannelRedemptionAddEventsForReward(userId, rewardId, handler)
 	chatClient.onSubExtend(async function (channel, user, subInfo, context){
 		subHandler(channel, user, subInfo, context)
