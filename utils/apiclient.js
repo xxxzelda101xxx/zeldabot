@@ -6,4 +6,4 @@ const shigeapiClient = new ApiClient({ authProvider: shigeAuthProvider })
 
 exports.apiClient = apiClient
 exports.shigeapiClient = shigeapiClient
-exports.listener = listener
+//exports.listener = listener
