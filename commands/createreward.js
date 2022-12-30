@@ -20,6 +20,6 @@ module.exports = {
 		.catch(e => {
 			throw new Error(e)
 		})
-		return `Created award ${title} with a cost of ${cost} channel points!`
+		return `Created award ${title} with a cost of ${cost} channel points! Reward ID: ${rewards.id}`
 	}
 }
