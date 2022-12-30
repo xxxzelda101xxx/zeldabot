@@ -14,7 +14,7 @@ const userId = '37575275';
 async function main() {
 	startWebsocket()
 	await chatClient.connect()
-	await listener.start();
+	//await listener.start();
 	chatClient.onRegister(() => {
 		logger.info("Connected to Twitch!")
 		logger.verbose("Connected to: " + JSON.stringify(channels))
