@@ -8,6 +8,8 @@ const { banHandler } = require("./handlers/banhandler.js")
 const { logger } = require("./logger.js")
 const { chatClient } = require("./utils/chatclient.js")
 var { osuData } = require("./websocket.js")
+const { shigeapiClient, listener } = require("./utils/apiclient.js")
+const userId = '37575275';
 
 async function main() {
 	startWebsocket()
@@ -19,6 +21,9 @@ async function main() {
 			isStreamOnline(channels[i], true)
 		}
 	})
+	const rewards = await shigeapiClient.channelPoints.getCustomRewards('37575275');
+	console.log(rewards)
+	//const onlineSubscription = await listener.subscribeToChannelRedemptionAddEventsForReward(userId, rewardId, handler)
 	chatClient.onSubExtend(async function (channel, user, subInfo, context){
 		subHandler(channel, user, subInfo, context)
 	})
