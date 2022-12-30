@@ -3,7 +3,7 @@ const ApiClient = require ("@twurple/api").ApiClient
 const { EventSubWsListener } = require('@twurple/eventsub-ws')
 const apiClient = new ApiClient({ authProvider: zeldaAuthProvider })
 const shigeapiClient = new ApiClient({ authProvider: shigeAuthProvider })
-
+const listener = new EventSubWsListener({ shigeapiClient });
 exports.apiClient = apiClient
 exports.shigeapiClient = shigeapiClient
-//exports.listener = listener
+exports.listener = listener
