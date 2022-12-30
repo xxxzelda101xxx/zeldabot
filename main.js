@@ -28,7 +28,7 @@ async function main() {
 		console.log(`${e.user} used !blame3!`);
 		chatClient.say("#shigetora", "!blame3")
 	})
-	const onlineSubscription = await listener.subscribeToChannelRedemptionAddEventsForReward(userId, "1222fecb-5589-4b2a-950d-354e3d0805e1", e => {
+	const onlineSubscription2 = await listener.subscribeToChannelRedemptionAddEventsForReward(userId, "1222fecb-5589-4b2a-950d-354e3d0805e1", e => {
 		console.log(`${e.user} used !blame3!`);
 		chatClient.say("#shigetora", "!blame3")
 	})
