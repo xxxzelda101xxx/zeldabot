@@ -27,6 +27,11 @@ module.exports = {
 				}
 			}
 
+			if (mods.length == 0) {
+				var currentStats = data.getCurrentStats()
+				mods = currentStats.leaderboard.ourplayer.mods != "" ? currentStats.leaderboard.ourplayer.mods : data.menu.mods.str
+			}
+
 			var fixed_mods_string = ""
 			if (mods.length > 0) {
 				var valid_mods = ["nf", "ez", "td", "hd", "hr", "ht", "dt", "nc", "fl", "so"]

@@ -51,7 +51,7 @@ function startWebsocket() {
 				else if (isNaN(maxPP)) {
 					maxPP = 0
 				}
-				else if (data?.menu?.state == 2 && osuData?.menu?.bm?.time?.current > data?.menu?.bm?.time?.current) {
+				else if (osuData?.menu?.bm?.time?.current > data?.menu?.bm?.time?.current) {
 					maxPP = 0
 				}
 				data = new GosuMemory(data)
