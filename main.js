@@ -10,6 +10,7 @@ const { chatClient } = require("./utils/chatclient.js")
 var { osuData } = require("./websocket.js")
 const { shigeapiClient, listener } = require("./utils/apiclient.js")
 const userId = '37575275';
+const fs = require('fs');
 
 async function main() {
 	startWebsocket()
@@ -28,6 +29,9 @@ async function main() {
 	const onlineSubscription = await listener.subscribeToChannelRedemptionAddEventsForReward(userId, "34f48b7d-25e1-4aeb-b622-39e63a9291d8", e => {
 		console.log(`${e.userName} used !blame3!`);
 		chatClient.say("#shigetora", "!blame3")
+	})
+	const banEvents = await listener.subscribeToChannelBanEvents(userId, e => {
+		console.log(`${e.reason}`);
 	})
 	chatClient.onSubExtend(async function (channel, user, subInfo, context){
 		subHandler(channel, user, subInfo, context)
