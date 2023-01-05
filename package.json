@@ -17,15 +17,15 @@
   "license": "ISC",
   "dependencies": {
     "@kionell/osu-pp-calculator": "github:kionell/osu-pp-calculator",
-    "@nut-tree/nut-js": "^2.0.1",
-    "@twurple/api": "^5.0.18",
-    "@twurple/auth": "^5.0.18",
-    "@twurple/chat": "^5.0.18",
-    "axios": "^0.26.1",
-    "express": "^4.17.3",
+    "@nut-tree/nut-js": "^2.3.0",
+    "@twurple/api": "^5.3.1",
+    "@twurple/auth": "^5.3.1",
+    "@twurple/chat": "^5.3.1",
+    "axios": "^1.2.2",
+    "express": "^4.18.2",
     "ffi-napi": "^4.0.3",
-    "flatted": "^3.2.5",
-    "jquery": "^3.6.0",
+    "flatted": "^3.2.7",
+    "jquery": "^3.6.3",
     "mysql2": "^2.3.3",
     "open": "^8.4.0",
     "osu-parser": "^0.3.3",
@@ -33,11 +33,11 @@
     "readline-sync": "^1.4.10",
     "request": "^2.88.2",
     "sqlite": "^4.1.2",
-    "sqlite3": "^5.1.2",
-    "winston": "^3.6.0",
-    "ws": "^8.5.0"
+    "sqlite3": "^5.1.4",
+    "winston": "^3.8.2",
+    "ws": "^8.11.0"
   },
   "devDependencies": {
-    "eslint": "^8.9.0"
+    "eslint": "^8.31.0"
   }
 }
