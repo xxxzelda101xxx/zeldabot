@@ -47,6 +47,9 @@ async function main() {
 	chatClient.onWhisper(async function (user, msg, context) {
 		messageHandler(null, user, msg, context, osuData)
 	})
+	chatClient.onDisconnect(async function (manually, reason) {
+		console.log(reason)
+	})
 }
 
 main()
