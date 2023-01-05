@@ -30,9 +30,9 @@ async function main() {
 		console.log(`${e.userName} used !blame3!`);
 		chatClient.say("#shigetora", "!blame3")
 	})
-	const banEvents = await listener.subscribeToChannelBanEvents(userId, e => {
-		console.log(`${e.reason}`);
-	})
+	//const banEvents = await listener.subscribeToChannelBanEvents(userId, e => {
+	//	console.log(`${e.reason}`);
+	//})
 	chatClient.onSubExtend(async function (channel, user, subInfo, context){
 		subHandler(channel, user, subInfo, context)
 	})
