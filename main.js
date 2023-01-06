@@ -46,7 +46,6 @@ async function main() {
 		banHandler(channel, user)
 	})
 	chatClient.onMessage(async function (channel, user, msg, context) {
-		console.log(osuData)
 		messageHandler(channel, user, msg, context, osuData)
 	})
 	chatClient.onWhisper(async function (user, msg, context) {
