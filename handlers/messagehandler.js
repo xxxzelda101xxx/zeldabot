@@ -11,6 +11,7 @@ const isWhitelistEnabled = config.twitch.enable_whitelist
 const admins = config.twitch.admins
 
 async function messageHandler(channel, user, msg, context, osuData) {
+	console.log(osuData)
 	if (Object.keys(osuData).length != 0) osuData = new GosuMemory(osuData)
 	else osuData = null
 	msg = msg.trim()
