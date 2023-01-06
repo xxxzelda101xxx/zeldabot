@@ -37,7 +37,6 @@ function startWebsocket() {
 	connection.onmessage = async(e)  => {
 		try {
 			var data = JSON.parse(e.data)
-			console.log(data)
 			if (data) {
 				var mods = data.gameplay.leaderboard.ourplayer.mods != "" ? data.gameplay.leaderboard.ourplayer.mods : data.menu.mods.str
 				var osuFile = path.join(songsFolder, data.menu.bm.path.folder, data.menu.bm.path.file)
