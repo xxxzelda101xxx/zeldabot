@@ -60,7 +60,9 @@ function startWebsocket() {
 				Object.assign(osuData, data)
 			}
 		}
-		catch (e) {}
+		catch (e) {
+			osuData = null
+		}
 	}
 }
 

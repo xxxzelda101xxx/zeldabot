@@ -9,6 +9,8 @@ const { chatClient } = require("../utils/chatclient.js")
 const config = require("../config.json")
 const isWhitelistEnabled = config.twitch.enable_whitelist
 const admins = config.twitch.admins
+const { apiClient } = require("../utils/apiclient")
+
 
 async function messageHandler(channel, user, msg, context, osuData) {
 	if (Object.keys(osuData).length != 0) osuData = new GosuMemory(osuData)
@@ -60,11 +62,11 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		if (commandToRun.canWhisper) {
 			try {
 				let messageToSend = await commandToRun.execute(msg, context, osuData)
-				chatClient.whisper(user, messageToSend)
+				await apiClient.whispers.sendWhisper('14163149', user, messageToSend);
 			}
 			catch (e) {
 				logger.error(`Command ${command} Failed: ${e}`)
-				chatClient.whisper(user, messageToSend)
+				await apiClient.whispers.sendWhisper('14163149', user, messageToSend);
 			}
 		}
 	}
