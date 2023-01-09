@@ -62,7 +62,7 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		if (commandToRun.canWhisper) {
 			try {
 				let messageToSend = await commandToRun.execute(msg, context, osuData)
-				await apiClient.whispers.sendWhisper('14163149', user_id, messageToSend);
+				await apiClient.whispers.sendWhisper("14163149", user_id, messageToSend)
 			}
 			catch (e) {
 				logger.error(`Command ${command} Failed: ${e}`)
