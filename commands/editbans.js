@@ -15,11 +15,11 @@ module.exports = {
 		var channel_id = context.channelId
 		if (bansToAddOrRemove < 0 && user_id) {
 			removeMessagesFromUser(channel_id, user_id, Math.abs(bansToAddOrRemove))
-			return `Removed ${Math.abs(bansToAddOrRemove)} messages from ${username}.`
+			return `Removed ${Math.abs(bansToAddOrRemove)} bans from ${username}.`
 		}
 		else if (bansToAddOrRemove > 0 && user_id) {
 			addBansToUser(channel_id, user_id, bansToAddOrRemove)
-			return `Added ${bansToAddOrRemove} messages to ${username}.`
+			return `Added ${bansToAddOrRemove} bans to ${username}.`
 		}
 		else {
 			return "Invalid Command Usage"
