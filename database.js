@@ -118,6 +118,17 @@ async function getMessages(user_id, channel_id) {
 	return messages
 }
 
+async function getBans(user_id, channel_id) {
+	let data = await db_get("SELECT bans FROM bans WHERE user_id = ? AND channel_id = ?", [user_id, channel_id])
+	if (data) return data.bans
+	else return 0
+}
+
+async function incrementBans(user_id, channel_id) {
+	db.run("INSERT INTO bans(user_id, channel_id, bans) VALUES(?, ?, 0) ON CONFLICT DO UPDATE SET bans = bans + 1", [user_id, channel_id])
+	return
+}
+
 async function getAllMessages() {
 	let data = await db_get("SELECT SUM(total) AS total FROM messages")
 	let messages = data.total
@@ -182,3 +193,5 @@ module.exports.getTopTenEmotes = getTopTenEmotes
 module.exports.getTopTenEmotesByUserID = getTopTenEmotesByUserID
 module.exports.removeMessagesFromUser = removeMessagesFromUser
 module.exports.addMessagesToUser = addMessagesToUser
+module.exports.getBans = getBans
+module.exports.incrementBans = incrementBans
