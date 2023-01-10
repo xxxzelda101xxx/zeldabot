@@ -199,3 +199,4 @@ module.exports.removeMessagesFromUser = removeMessagesFromUser
 module.exports.addMessagesToUser = addMessagesToUser
 module.exports.getBans = getBans
 module.exports.incrementBans = incrementBans
+module.exports.addBansToUser = addBansToUser
