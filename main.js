@@ -35,8 +35,8 @@ async function main() {
 	chatClient.onResub(async function (channel, user, subInfo, context){
 		subHandler(channel, user, subInfo, context)
 	})
-	chatClient.onBan(async function (channel, user) {
-		banHandler(channel, user)
+	chatClient.onBan(async function (channel, user, msg) {
+		banHandler(channel, user, msg)
 	})
 	chatClient.onMessage(async function (channel, user, msg, context) {
 		messageHandler(channel, user, msg, context, osuData)
