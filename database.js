@@ -60,6 +60,10 @@ async function addMessagesToUser(channel_id, user_id, numberOfMessagesToAdd) {
 	db.run("UPDATE messages SET total = total + ? WHERE channel_id = ? AND user_id = ?", [numberOfMessagesToAdd, channel_id, user_id])
 }
 
+async function addBansToUser(channel_id, user_id, numberOfBansToAdd) {
+	db.run("INSERT INTO bans(user_id, channel_id, bans) VALUES(?, ?, ?) ON CONFLICT DO UPDATE SET bans = bans + ?", [user_id, channel_id, numberOfBansToAdd, numberOfBansToAdd])
+}
+
 async function getTopTenEmotesByUserID(channel_id, user_id) {
 	let data = await db_all("SELECT emote, SUM(uses) AS total FROM emotes WHERE channel_id = ? AND user_id = ? GROUP BY emote ORDER BY total DESC LIMIT 10", [channel_id, user_id])
 	if (data) return data
@@ -125,7 +129,7 @@ async function getBans(user_id, channel_id) {
 }
 
 async function incrementBans(user_id, channel_id) {
-	db.run("INSERT INTO bans(user_id, channel_id, bans) VALUES(?, ?, 0) ON CONFLICT DO UPDATE SET bans = bans + 1", [user_id, channel_id])
+	db.run("INSERT INTO bans(user_id, channel_id, bans) VALUES(?, ?, 1) ON CONFLICT DO UPDATE SET bans = bans + 1", [user_id, channel_id])
 	return
 }
 
