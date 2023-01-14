@@ -1,6 +1,7 @@
 const url = "wss://events.7tv.io/v3"
 const WebSocket = require("ws")
 var test = {}
+const { getUserIdByUsername } = require('./database.js')
 
 function start7TVWebsocket(channels) {
 	const connection = new WebSocket(url)
