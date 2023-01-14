@@ -3,6 +3,7 @@ const { changeTwitchStreamStatus } = require("./database.js")
 const { apiClient } = require("./utils/apiclient")
 const { chatClient } = require("./utils/chatclient.js")
 const axios = require('axios');
+const { logger } = require("./logger.js");
 
 
 async function isStreamOnline(channel, firstRun) {
@@ -35,6 +36,9 @@ async function kagamiBanRNG(channel, user) {
 
 async function get7TVUserIDFromTwitchUserID(twitch_user_id) {
 	var data = await axios.get(`https://7tv.io/v3/users/twitch/1111111111`)
+	.catch(e => {
+		logger.error("Twitch user doesn't exist on 7TV")
+	})
 	if (data) {
 		return data.data.user.id
 	}
