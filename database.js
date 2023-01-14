@@ -70,6 +70,12 @@ async function getTopTenEmotesByUserID(channel_id, user_id) {
 	return null
 }
 
+async function getChannels() {
+	let data = (await db.all("SELECT channel_id FROM channels", [])).map((row) => row.channel_id);
+	console.log(data)
+	if (data) return data
+}
+
 function addTwitchUserToDB(user_id, username) {
 	db.run("INSERT INTO users(username, user_id) VALUES(?, ?) ON CONFLICT DO UPDATE SET username = ?", [username, user_id, username])
 	return
@@ -200,3 +206,4 @@ module.exports.addMessagesToUser = addMessagesToUser
 module.exports.getBans = getBans
 module.exports.incrementBans = incrementBans
 module.exports.addBansToUser = addBansToUser
+module.exports.getChannels = getChannels
