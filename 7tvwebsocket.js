@@ -1,7 +1,7 @@
 const url = "wss://events.7tv.io/v3"
 const WebSocket = require("ws")
 var test = {}
-const { getUserIdByUsername } = require('./database.js')
+const { getUserIdByUsername, add7TVEmoteToDB } = require('./database.js')
 
 function start7TVWebsocket(channels) {
 	const connection = new WebSocket(url)
@@ -34,9 +34,10 @@ function start7TVWebsocket(channels) {
         if (data.d?.body?.pushed) {
             var username = data.d.body.actor.username
             var channel_id = await getUserIdByUsername(username)
-            var emote
-            emote = data.d?.body?.pushed[0].value.data
-            console.log(username, channel_id, emote)
+            var emote = data.d?.body?.pushed[0].value.data
+            var emoteName = emote.name
+            var emoteID = emote.id
+            console.log(username, channel_id, emoteName, emoteID)
             await add7TVEmoteToDB(channel_id, emote)
         }
         if (data.d?.body?.pulled) {
