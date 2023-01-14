@@ -56,9 +56,9 @@ function startWebsocket() {
 				else if (osuData?.menu?.bm?.time?.current > data?.menu?.bm?.time?.current) {
 					maxPP = 0
 				}
-				data = new GosuMemory(data)
-				Object.assign(osuData, data)
 			}
+			data = new GosuMemory(data)
+			Object.assign(osuData, data)
 		}
 	}
 }
