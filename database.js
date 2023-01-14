@@ -1,6 +1,6 @@
 const config = require("./config.json")
 const emotes = config.twitch.emotes
-//const { logger } = require("./logger.js")
+const { logger } = require("./logger.js")
 const { setCooldown, getCooldown } = require("./helpers/cooldownhelper.js")
 const sqlite3 = require("sqlite3").verbose()
 const db = new sqlite3.Database("database.db")
