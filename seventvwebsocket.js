@@ -3,7 +3,7 @@ const WebSocket = require("ws")
 var test = {}
 const { getUserIdByUsername, addSevenTVEmoteToDB } = require('./database.js')
 
-function start7TVWebsocket(channels) {
+function startSevenTVWebsocket(channels) {
 	const connection = new WebSocket(url)
 
 	connection.onopen = () => {
@@ -46,4 +46,4 @@ function start7TVWebsocket(channels) {
 	}
 }
 
-module.exports.start7TVWebsocket = start7TVWebsocket
+module.exports.startSevenTVWebsocket = startSevenTVWebsocket
