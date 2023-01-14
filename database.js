@@ -71,7 +71,7 @@ async function getTopTenEmotesByUserID(channel_id, user_id) {
 }
 
 async function getChannels() {
-	let data = await db.all("SELECT * FROM channels")
+	let data = (await db_all("SELECT channel_id FROM channels", [])).map((row) => row.channel_id);
 	console.log(data)
 	if (data) return data
 }
