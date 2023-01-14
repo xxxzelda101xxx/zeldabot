@@ -29,9 +29,7 @@ function start7TVWebsocket(channels) {
 	connection.onmessage = async(e)  => {
         const symbolKey = Reflect.ownKeys(e).find(key => key.toString() === 'Symbol(kData)')
         var data = JSON.parse(e[symbolKey])
-        if (data) {
-            console.log(data.d)
-        }
+        console.log(data)
 	}
 }
 
