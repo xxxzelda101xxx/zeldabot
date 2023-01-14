@@ -1,5 +1,3 @@
-const config = require("./config.json")
-const emotes = config.twitch.emotes
 const { logger } = require("./logger.js")
 const { setCooldown, getCooldown } = require("./helpers/cooldownhelper.js")
 const sqlite3 = require("sqlite3").verbose()
@@ -100,8 +98,7 @@ async function addToDB(user_id, channel_id) {
 }
 
 async function addEmoteToDB(user_id, msg, twitchEmotes, channel_id) {
-	var sevenTVEmotes = await getSevenTVEmotesByChannelID(channel_id)
-	console.log(sevenTVEmotes)
+	var emotes = await getSevenTVEmotesByChannelID(channel_id)
 	const cooldown = await getCooldown(user_id)
 	if (cooldown) return
 	for (var i = 0; i < emotes.length; i++) {
