@@ -81,9 +81,14 @@ function addTwitchUserToDB(user_id, username) {
 	return
 }
 
-function add7TVEmoteToDB(channel_id, emote) {
-	//db.run("INSERT INTO users(username, user_id) VALUES(?, ?) ON CONFLICT DO UPDATE SET username = ?", [username, user_id, username])
+async function add7TVEmoteToDB(channel_id, emoteName, emoteID) {
+	db.run("INSERT OR IGNORE INTO 7tvemotes(channel_id, emote_name, emote_id) VALUES(?, ?, ?)", [channel_id, emoteName, emoteID])
 	return
+}
+
+async function get7TVEmotesByChannelID(channel_id) {
+	let data = (await db_all("SELECT emote_name FROM 7tvemotes WHERE channel_id = ?", [channel_id])).map((row) => row.emote_name);
+	return data
 }
 
 async function addToDB(user_id, channel_id) {
@@ -95,6 +100,8 @@ async function addToDB(user_id, channel_id) {
 }
 
 async function addEmoteToDB(user_id, msg, twitchEmotes, channel_id) {
+	var sevenTVEmotes = await get7TVEmotesByChannelID(channel_id)
+	console.log(emotes)
 	const cooldown = await getCooldown(user_id)
 	if (cooldown) return
 	for (var i = 0; i < emotes.length; i++) {
@@ -167,7 +174,7 @@ async function getTwitchStreamStatus(channel_id) {
 }
 
 async function addChannelToDB(channel) {
-	db.run("INSERT OR IGNORE INTO INTO channels(name, channel_id, online) VALUES(?, ?, 0)", ["#" + channel.name, channel.id])
+	db.run("INSERT OR IGNORE INTO channels(name, channel_id, online) VALUES(?, ?, 0)", ["#" + channel.name, channel.id])
 }
 
 async function getUsernameById(user_id) {
@@ -212,3 +219,5 @@ module.exports.getBans = getBans
 module.exports.incrementBans = incrementBans
 module.exports.addBansToUser = addBansToUser
 module.exports.getChannels = getChannels
+module.exports.add7TVEmoteToDB = add7TVEmoteToDB
+module.exports.get7TVEmotesByChannelID = get7TVEmotesByChannelID
