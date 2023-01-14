@@ -2,6 +2,8 @@ const { changeTwitchStreamStatus } = require("./database.js")
 //const { logger } = require("./logger.js")
 const { apiClient } = require("./utils/apiclient")
 const { chatClient } = require("./utils/chatclient.js")
+const axios = require('axios');
+
 
 async function isStreamOnline(channel, firstRun) {
 	if (firstRun) {
@@ -28,6 +30,13 @@ async function kagamiBanRNG(channel, user) {
 	if (randomNumber == 727) {
 		await chatClient.say(channel, "Kagami_77 hit the 1/1000 chance to get banned lmao.")
 		await chatClient.ban(channel, user, "You hit the 1/1000 chance lmao get rekt")
+	}
+}
+
+async function get7TVUserIDFromTwitchUserID(twitch_user_id) {
+	var data = await axios.get(`https://7tv.io/v3/users/twitch/${twitch_user_id}`)
+	if (data) {
+		console.log(data)
 	}
 }
 
@@ -72,3 +81,4 @@ module.exports.banRNG = banRNG
 module.exports.kagamiBanRNG = kagamiBanRNG
 module.exports.isStreamOnline = isStreamOnline
 module.exports.numberWithCommas = numberWithCommas
+module.exports.get7TVUserIDFromTwitchUserID = get7TVUserIDFromTwitchUserID

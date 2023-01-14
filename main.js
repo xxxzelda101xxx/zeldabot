@@ -1,9 +1,11 @@
 const config = require("./config.json")
 const { startWebsocket } = require("./websocket.js")
+const { start7TVWebsocket } = require("./7tvwebsocket.js")
 const { messageHandler } = require("./handlers/messagehandler.js")
 const { subHandler } = require("./handlers/subhandler.js")
 const { banHandler } = require("./handlers/banhandler.js")
 const { getChannels } = require("./database.js")
+const { get7TVUserIDFromTwitchUserID } = require("./functions.js")
 const { logger } = require("./logger.js")
 const { chatClient } = require("./utils/chatclient.js")
 var { osuData } = require("./websocket.js")
@@ -11,8 +13,11 @@ const { listener } = require("./utils/apiclient.js")
 const userId = "37575275"
 
 async function main() {
-	startWebsocket()
 	const channels = await getChannels()
+	var test = await get7TVUserIDFromTwitchUserID(userId)
+	console.log(test)
+	startWebsocket()
+	//start7TVWebsocket(channels)
 	await chatClient.connect()
 	await listener.start()
 	chatClient.onRegister(() => {
