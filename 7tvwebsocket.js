@@ -7,6 +7,7 @@ function start7TVWebsocket(channels) {
 
 	connection.onopen = () => {
         for (var i = 0; i < channels.length; i++) {
+            console.log(channels[i]["7tv_channel_id"])
             if (channels[i]["7tv_channel_id"] != null) {
                 var data = {
                     "op": 35,
