@@ -17,7 +17,7 @@ async function main() {
 	startWebsocket()
 	startSevenTVWebsocket(channels)
 	for (var i = 0; i < channels.length; i++) {
-		addAllSevenTVEmotesToDB(channels[i])
+		addAllSevenTVEmotesToDB(channels[i].channel_id)
 	}
 	await chatClient.connect()
 	await listener.start()
