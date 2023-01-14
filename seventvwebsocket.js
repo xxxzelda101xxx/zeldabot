@@ -35,6 +35,9 @@ function startSevenTVWebsocket(channels) {
             var username = data.d.body.actor.username
             var channel_id = await getUserIdByUsername(username)
             var emote = data.d?.body?.pushed[0].value.data
+            console.log(emote)
+            console.log(1)
+            console.log(data.d)
             var emoteName = emote.name
             var emoteID = emote.id
             console.log(username, channel_id, emoteName, emoteID)
