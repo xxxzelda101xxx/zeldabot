@@ -104,6 +104,7 @@ async function addToDB(user_id, channel_id) {
 
 async function addEmoteToDB(user_id, msg, twitchEmotes, channel_id) {
 	var emotes = await getSevenTVEmotesByChannelID(channel_id)
+	console.log("Emotes length: " + emotes.length)
 	const cooldown = await getCooldown(user_id)
 	if (cooldown) return
 	for (var i = 0; i < emotes.length; i++) {
