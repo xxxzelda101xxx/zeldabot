@@ -32,6 +32,7 @@ function start7TVWebsocket(channels) {
         var data = JSON.parse(e[symbolKey])
         if (data.d?.body?.pushed) {
             console.log(data.d?.body?.pushed[0])
+            console.log(data.d)
         }
         if (data.d?.body?.pulled) {
             console.log(data.d?.body?.pulled[0])
