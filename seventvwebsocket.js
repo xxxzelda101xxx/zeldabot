@@ -38,7 +38,7 @@ function startSevenTVWebsocket(channels) {
             var emoteName = emote.name
             var emoteID = emote.id
             console.log(username, channel_id, emoteName, emoteID)
-            await add7TVEmoteToDB(channel_id, emoteName, emoteID)
+            await addSevenTVEmoteToDB(channel_id, emoteName, emoteID)
         }
         if (data.d?.body?.pulled) {
             console.log(data.d?.body?.pulled[0])
