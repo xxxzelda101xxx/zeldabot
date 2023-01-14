@@ -41,8 +41,9 @@ function startWebsocket() {
 			var osuFile = path.join(songsFolder, data.menu.bm.path.folder, data.menu.bm.path.file)
 			var result = await scoreCalculator.calculate({ rulesetId: 0, fileURL: osuFile, count100: data.gameplay.hits["100"], count50: data.gameplay.hits["50"], countMiss: data.gameplay.hits["0"], maxCombo: data.gameplay.combo.max, mods: mods })
 			.catch(e => {
-				console.log(e)
-				logger.error(`Failed to calculate pp.`)
+				if (e.code != "ENOENT") {
+					logger.error(`Failed to calculate pp.`)
+				}
 			})
 			if (result) {
 				var currentPP = result.performance.totalPerformance.toFixed(2)
