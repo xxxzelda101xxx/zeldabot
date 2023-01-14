@@ -89,6 +89,12 @@ async function getSevenTVEmotesByChannelID(channel_id) {
 	return data
 }
 
+async function getChannelIDBySevenTVID(sevenTV_channel_id) {
+	let data = await db_get("SELECT channel_id FROM channels WHERE seventv_channel_id = ?", [sevenTV_channel_id])
+	console.log(data)
+	return data
+}
+
 async function addToDB(user_id, channel_id) {
 	const cooldown = await getCooldown(user_id)
 	if (cooldown) return
@@ -218,3 +224,4 @@ module.exports.addBansToUser = addBansToUser
 module.exports.getChannels = getChannels
 module.exports.addSevenTVEmoteToDB = addSevenTVEmoteToDB
 module.exports.getSevenTVEmotesByChannelID = getSevenTVEmotesByChannelID
+module.exports.getChannelIDBySevenTVID = getChannelIDBySevenTVID
