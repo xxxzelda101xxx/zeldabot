@@ -59,6 +59,7 @@ function startWebsocket() {
 			}
 		}
 		catch (e) {
+			console.log(e)
 			logger.error(`Couldn't parse received data.`)
 		}
 	}
