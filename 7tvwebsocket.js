@@ -30,9 +30,13 @@ function start7TVWebsocket(channels) {
 	connection.onmessage = async(e)  => {
         const symbolKey = Reflect.ownKeys(e).find(key => key.toString() === 'Symbol(kData)')
         var data = JSON.parse(e[symbolKey])
+        var username = data.d.body.actor.username
+        var channel_id = await getUserIdByUsername(username)
+        var emote
         if (data.d?.body?.pushed) {
-            console.log(data.d?.body?.pushed[0])
-            console.log(data.d)
+            emote = data.d?.body?.pushed[0].value.data
+            console.log(username, channel_id, emote)
+            await add7TVEmoteToDB(channel_id, emote)
         }
         if (data.d?.body?.pulled) {
             console.log(data.d?.body?.pulled[0])
