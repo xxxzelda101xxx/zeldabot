@@ -7,16 +7,18 @@ function start7TVWebsocket(channels) {
 
 	connection.onopen = () => {
         for (var i = 0; i < channels.length; i++) {
-            var data = {
-                "op": 35,
-                "d": {
-                    "type": "emote_set.update",
-                    "condition": {
-                        "object_id": "6196be3a6467596b1d626b7c"
+            if (channels[i]["7tv_channel_id"] != null) {
+                var data = {
+                    "op": 35,
+                    "d": {
+                        "type": "emote_set.update",
+                        "condition": {
+                            "object_id": channels[i]["7tv_channel_id"]
+                        }
                     }
                 }
+                connection.send(JSON.stringify(data)) 
             }
-            connection.send(JSON.stringify(data)) 
         }
 	}
 
@@ -28,10 +30,10 @@ function start7TVWebsocket(channels) {
         const symbolKey = Reflect.ownKeys(e).find(key => key.toString() === 'Symbol(kData)')
         var data = JSON.parse(e[symbolKey])
         if (data.d?.body?.pushed) {
-            //console.log(data.d?.body?.pushed)
+            console.log(data.d?.body?.pushed)
         }
         if (data.d?.body?.pulled) {
-            //console.log(data.d?.body?.pulled)
+            console.log(data.d?.body?.pulled)
         }
 	}
 }

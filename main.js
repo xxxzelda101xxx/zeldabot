@@ -14,10 +14,8 @@ const userId = "37575275"
 
 async function main() {
 	const channels = await getChannels()
-	var test = await get7TVUserIDFromTwitchUserID(userId)
-	console.log(test)
 	startWebsocket()
-	//start7TVWebsocket(channels)
+	start7TVWebsocket(channels)
 	await chatClient.connect()
 	await listener.start()
 	chatClient.onRegister(() => {
@@ -28,7 +26,7 @@ async function main() {
 		chatClient.say("#shigetora", "!blame3")
 	})
 	for (var i = 0; i < channels.length; i++) {
-		listener.subscribeToStreamOnlineEvents(channels[i], e => {
+		listener.subscribeToStreamOnlineEvents(channels[i].channel_id, e => {
 			console.log(e)
 		})
 	}
