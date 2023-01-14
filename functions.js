@@ -36,7 +36,7 @@ async function kagamiBanRNG(channel, user) {
 async function get7TVUserIDFromTwitchUserID(twitch_user_id) {
 	var data = await axios.get(`https://7tv.io/v3/users/twitch/${twitch_user_id}`)
 	if (data) {
-		return data.user.id
+		return data
 	}
 }
 
