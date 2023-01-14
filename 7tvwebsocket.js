@@ -31,10 +31,10 @@ function start7TVWebsocket(channels) {
         const symbolKey = Reflect.ownKeys(e).find(key => key.toString() === 'Symbol(kData)')
         var data = JSON.parse(e[symbolKey])
         if (data.d?.body?.pushed) {
-            console.log(data.d?.body?.pushed)
+            console.log(data.d?.body?.pushed[0])
         }
         if (data.d?.body?.pulled) {
-            console.log(data.d?.body?.pulled)
+            console.log(data.d?.body?.pulled[0])
         }
 	}
 }

@@ -81,6 +81,11 @@ function addTwitchUserToDB(user_id, username) {
 	return
 }
 
+function add7TVEmoteToDB(channel_id, emote) {
+	//db.run("INSERT INTO users(username, user_id) VALUES(?, ?) ON CONFLICT DO UPDATE SET username = ?", [username, user_id, username])
+	return
+}
+
 async function addToDB(user_id, channel_id) {
 	const cooldown = await getCooldown(user_id)
 	if (cooldown) return
