@@ -8,7 +8,6 @@ function startSevenTVWebsocket(channels) {
 
 	connection.onopen = () => {
         for (var i = 0; i < channels.length; i++) {
-            console.log(channels[i]["seventv_channel_id"])
             if (channels[i]["seventv_channel_id"] != null) {
                 var data = {
                     "op": 35,
@@ -36,7 +35,6 @@ function startSevenTVWebsocket(channels) {
             var sevenTVChannelID = data.d.body.id
             var channel_id = await getChannelIDBySevenTVID(sevenTVChannelID)
             var emote = data.d?.body?.pushed[0].value.data
-            console.log(data.d)
             var emoteName = emote.name
             var emoteID = emote.id
             console.log(username, channel_id, emoteName, emoteID)

@@ -91,8 +91,8 @@ async function getSevenTVEmotesByChannelID(channel_id) {
 
 async function getChannelIDBySevenTVID(sevenTV_channel_id) {
 	let data = await db_get("SELECT channel_id FROM channels WHERE seventv_channel_id = ?", [sevenTV_channel_id])
-	console.log(data)
-	return data
+	console.log(data.channel_id)
+	return data.channel_id
 }
 
 async function addToDB(user_id, channel_id) {
