@@ -44,6 +44,7 @@ function startWebsocket() {
 				.catch(e => {
 					logger.error(`Failed to calculate pp.`)
 				})
+				console.log(result)
 				var currentPP = result.performance.totalPerformance.toFixed(2)
 				if (data?.menu?.state == 2 && currentPP > maxPP) {
 					maxPP = currentPP
