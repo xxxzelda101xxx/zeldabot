@@ -1,6 +1,6 @@
 const config = require("./config.json")
 const { startWebsocket } = require("./websocket.js")
-const { start7TVWebsocket } = require("./7tvwebsocket.js")
+const { startSevenTVWebsocket } = require("./seventvwebsocket.js")
 const { messageHandler } = require("./handlers/messagehandler.js")
 const { subHandler } = require("./handlers/subhandler.js")
 const { banHandler } = require("./handlers/banhandler.js")
@@ -14,7 +14,7 @@ const userId = "37575275"
 async function main() {
 	const channels = await getChannels()
 	startWebsocket()
-	start7TVWebsocket(channels)
+	startSevenTVWebsocket(channels)
 	await chatClient.connect()
 	await listener.start()
 	chatClient.onRegister(() => {

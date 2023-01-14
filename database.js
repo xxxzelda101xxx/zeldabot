@@ -7,7 +7,7 @@ const db = new sqlite3.Database("database.db")
 
 db.run("CREATE TABLE IF NOT EXISTS `channels` (`name` varchar(32) NOT NULL, `channel_id` integer NOT NULL, `7tv_channel_id` varchar(24) DEFAULT NULL, `online` integer NOT NULL)")
 db.run("CREATE TABLE IF NOT EXISTS `emotes` (`user_id` integer NOT NULL,  `channel_id` integer NOT NULL, `emote` varchar(100) NOT NULL, `uses` integer NOT NULL, UNIQUE (`user_id`,`emote`,`channel_id`))")
-db.run("CREATE TABLE IF NOT EXISTS `7tvemotes` (`channel_id` integer NOT NULL, emote_name text NOT NULL, emote_id integer NOT NULL, UNIQUE (`channel_id`,`emote_id`))")
+db.run("CREATE TABLE IF NOT EXISTS `seventvemotes` (`channel_id` integer NOT NULL, emote_name text NOT NULL, emote_id integer NOT NULL, UNIQUE (`channel_id`,`emote_id`))")
 db.run("CREATE TABLE IF NOT EXISTS `messages` (`user_id` integer NOT NULL, `channel_id` integer NOT NULL, `total` integer NOT NULL, UNIQUE (`user_id`,`channel_id`))")
 db.run("CREATE TABLE IF NOT EXISTS `users` (`user_id` integer NOT NULL, `username` varchar(25) NOT NULL, `whitelisted` BOOLEAN NOT NULL DEFAULT 0, UNIQUE (`user_id`))")
 db.run("CREATE TABLE IF NOT EXISTS `bans` (`user_id` integer NOT NULL, `channel_id` integer NOT NULL, `bans` integer NOT NULL DEFAULT 0, UNIQUE (`user_id`,`channel_id`))")
@@ -81,13 +81,13 @@ function addTwitchUserToDB(user_id, username) {
 	return
 }
 
-async function add7TVEmoteToDB(channel_id, emoteName, emoteID) {
-	db.run("INSERT OR IGNORE INTO 7tvemotes(channel_id, emote_name, emote_id) VALUES(?, ?, ?)", [channel_id, emoteName, emoteID])
+async function addSevenTVEmoteToDB(channel_id, emoteName, emoteID) {
+	db.run("INSERT OR IGNORE INTO seventvemotes(channel_id, emote_name, emote_id) VALUES(?, ?, ?)", [channel_id, emoteName, emoteID])
 	return
 }
 
-async function get7TVEmotesByChannelID(channel_id) {
-	let data = (await db_all("SELECT emote_name FROM 7tvemotes WHERE channel_id = ?", [channel_id])).map((row) => row.emote_name);
+async function getSevenTVEmotesByChannelID(channel_id) {
+	let data = (await db_all("SELECT emote_name FROM seventvemotes WHERE channel_id = ?", [channel_id])).map((row) => row.emote_name);
 	return data
 }
 
@@ -100,8 +100,8 @@ async function addToDB(user_id, channel_id) {
 }
 
 async function addEmoteToDB(user_id, msg, twitchEmotes, channel_id) {
-	var sevenTVEmotes = await get7TVEmotesByChannelID(channel_id)
-	console.log(emotes)
+	var sevenTVEmotes = await getSevenTVEmotesByChannelID(channel_id)
+	console.log(sevenTVEmotes)
 	const cooldown = await getCooldown(user_id)
 	if (cooldown) return
 	for (var i = 0; i < emotes.length; i++) {
@@ -219,5 +219,5 @@ module.exports.getBans = getBans
 module.exports.incrementBans = incrementBans
 module.exports.addBansToUser = addBansToUser
 module.exports.getChannels = getChannels
-module.exports.add7TVEmoteToDB = add7TVEmoteToDB
-module.exports.get7TVEmotesByChannelID = get7TVEmotesByChannelID
+module.exports.addSevenTVEmoteToDB = addSevenTVEmoteToDB
+module.exports.getSevenTVEmotesByChannelID = getSevenTVEmotesByChannelID

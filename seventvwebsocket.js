@@ -1,21 +1,21 @@
 const url = "wss://events.7tv.io/v3"
 const WebSocket = require("ws")
 var test = {}
-const { getUserIdByUsername, add7TVEmoteToDB } = require('./database.js')
+const { getUserIdByUsername, addSevenTVEmoteToDB } = require('./database.js')
 
 function start7TVWebsocket(channels) {
 	const connection = new WebSocket(url)
 
 	connection.onopen = () => {
         for (var i = 0; i < channels.length; i++) {
-            console.log(channels[i]["7tv_channel_id"])
-            if (channels[i]["7tv_channel_id"] != null) {
+            console.log(channels[i]["seventv_channel_id"])
+            if (channels[i]["seventv_channel_id"] != null) {
                 var data = {
                     "op": 35,
                     "d": {
                         "type": "emote_set.update",
                         "condition": {
-                            "object_id": channels[i]["7tv_channel_id"]
+                            "object_id": channels[i]["seventv_channel_id"]
                         }
                     }
                 }
