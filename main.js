@@ -5,6 +5,7 @@ const { messageHandler } = require("./handlers/messagehandler.js")
 const { subHandler } = require("./handlers/subhandler.js")
 const { banHandler } = require("./handlers/banhandler.js")
 const { getChannels } = require("./database.js")
+const { addAllSevenTVEmotesToDB } = require("./functions.js")
 const { logger } = require("./logger.js")
 const { chatClient } = require("./utils/chatclient.js")
 var { osuData } = require("./websocket.js")
@@ -15,6 +16,9 @@ async function main() {
 	const channels = await getChannels()
 	startWebsocket()
 	startSevenTVWebsocket(channels)
+	for (var i = 0; i < channels.length; i++) {
+		addAllSevenTVEmotesToDB(channels[i])
+	}
 	await chatClient.connect()
 	await listener.start()
 	chatClient.onRegister(() => {

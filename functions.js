@@ -1,4 +1,4 @@
-const { changeTwitchStreamStatus } = require("./database.js")
+const { changeTwitchStreamStatus, addSevenTVEmoteToDB } = require("./database.js")
 //const { logger } = require("./logger.js")
 const { apiClient } = require("./utils/apiclient")
 const { chatClient } = require("./utils/chatclient.js")
@@ -35,7 +35,7 @@ async function kagamiBanRNG(channel, user) {
 }
 
 async function get7TVUserIDFromTwitchUserID(twitch_user_id) {
-	var data = await axios.get(`https://7tv.io/v3/users/twitch/1111111111`)
+	var data = await axios.get(`https://7tv.io/v3/users/twitch/${twitch_user_id}`)
 	.catch(e => {
 		logger.error("Twitch user doesn't exist on 7TV")
 		return
@@ -78,6 +78,15 @@ async function banRNG(channel, user, context) {
 	}
 }
 
+async function addAllSevenTVEmotesToDB(channel_id) {
+	var data = await axios.get(`https://7tv.io/v3/users/twitch/${channel_id}`)
+	var emotes = data.data.emote_set.emotes
+	console.log(emotes.length)
+	for (var i = 0; i < emotes.length; i++) {
+		addSevenTVEmoteToDB(channel_id, emotes[i].name, emotes[i].id)
+	}
+}
+
 function numberWithCommas(x) {
 	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 }
@@ -87,3 +96,4 @@ module.exports.kagamiBanRNG = kagamiBanRNG
 module.exports.isStreamOnline = isStreamOnline
 module.exports.numberWithCommas = numberWithCommas
 module.exports.get7TVUserIDFromTwitchUserID = get7TVUserIDFromTwitchUserID
+module.exports.addAllSevenTVEmotesToDB = addAllSevenTVEmotesToDB
