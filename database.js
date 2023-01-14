@@ -91,7 +91,6 @@ async function getSevenTVEmotesByChannelID(channel_id) {
 
 async function getChannelIDBySevenTVID(sevenTV_channel_id) {
 	let data = await db_get("SELECT channel_id FROM channels WHERE seventv_channel_id = ?", [sevenTV_channel_id])
-	console.log(data.channel_id)
 	return data.channel_id
 }
 
@@ -105,6 +104,7 @@ async function addToDB(user_id, channel_id) {
 
 async function addEmoteToDB(user_id, msg, twitchEmotes, channel_id) {
 	var emotes = await getSevenTVEmotesByChannelID(channel_id)
+	console.log(emotes)
 	const cooldown = await getCooldown(user_id)
 	if (cooldown) return
 	for (var i = 0; i < emotes.length; i++) {
