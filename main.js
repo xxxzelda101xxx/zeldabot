@@ -17,11 +17,6 @@ async function main() {
 	await listener.start()
 	chatClient.onRegister(() => {
 		logger.info("Connected to Twitch!")
-
-		logger.verbose("Connected to: " + JSON.stringify(channels))
-		for (var i = 0; i < channels.length; i++) {
-			isStreamOnline(channels[i], true)
-		}
 	})
 	listener.subscribeToChannelRedemptionAddEventsForReward(userId, "34f48b7d-25e1-4aeb-b622-39e63a9291d8", e => {
 		console.log(`${e.userName} used !blame3!`)
