@@ -38,6 +38,7 @@ async function get7TVUserIDFromTwitchUserID(twitch_user_id) {
 	var data = await axios.get(`https://7tv.io/v3/users/twitch/1111111111`)
 	.catch(e => {
 		logger.error("Twitch user doesn't exist on 7TV")
+		return
 	})
 	if (data) {
 		return data.data.user.id
