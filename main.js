@@ -9,10 +9,10 @@ const { chatClient } = require("./utils/chatclient.js")
 var { osuData } = require("./websocket.js")
 const { listener } = require("./utils/apiclient.js")
 const userId = "37575275"
-const channels = await getChannels()
 
 async function main() {
 	startWebsocket()
+	const channels = await getChannels()
 	await chatClient.connect()
 	await listener.start()
 	chatClient.onRegister(() => {
