@@ -9,6 +9,7 @@ const { chatClient } = require("./utils/chatclient.js")
 var { osuData } = require("./websocket.js")
 const { listener } = require("./utils/apiclient.js")
 const userId = "37575275"
+const channels = await getChannels()
 
 async function main() {
 	startWebsocket()
@@ -21,10 +22,11 @@ async function main() {
 		console.log(`${e.userName} used !blame3!`)
 		chatClient.say("#shigetora", "!blame3")
 	})
-	await getChannels()
-	//for (var i = 0; i < channels.length; i++) {
-//
-	//}
+	for (var i = 0; i < channels.length; i++) {
+		listener.subscribeToStreamOnlineEvents(channels[i], e => {
+			console.log(e)
+		})
+	}
 	chatClient.onSubExtend(async function (channel, user, subInfo, context){
 		subHandler(channel, user, subInfo, context)
 	})
