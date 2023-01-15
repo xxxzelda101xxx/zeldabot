@@ -28,11 +28,11 @@ async function main() {
 	for (var i = 0; i < channels.length; i++) {
 		listener.subscribeToStreamOnlineEvents(channels[i].channel_id, e => {
 			console.log(e)
-			changeTwitchStreamStatus(channels[i].channel_id, true)
+			changeTwitchStreamStatus(e.broadcasterId, true)
 		})
 		listener.subscribeToStreamOfflineEvents(channels[i].channel_id, e => {
 			console.log(e)
-			changeTwitchStreamStatus(channels[i].channel_id, false)
+			changeTwitchStreamStatus(e.broadcasterId, false)
 		})
 	}
 	chatClient.onSubExtend(async function (channel, user, subInfo, context){
