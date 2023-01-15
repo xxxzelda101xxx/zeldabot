@@ -12,6 +12,7 @@ const userId = "37575275"
 
 async function main() {
 	const channels = await getChannels()
+	console.log(channels[0].channel_id)
 	startWebsocket()
 	startSevenTVWebsocket(channels)
 	await chatClient.connect()
