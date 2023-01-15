@@ -5,27 +5,6 @@ const { chatClient } = require("./utils/chatclient.js")
 const axios = require('axios');
 const { logger } = require("./logger.js");
 
-
-async function isStreamOnline(channel, firstRun) {
-	if (firstRun) {
-		setTimeout(() => {
-			isStreamOnline(channel, false)
-		}, 60000)
-		return
-	}
-	var stream = await apiClient.streams.getStreamByUserName(channel)
-	if (stream) {
-		changeTwitchStreamStatus(stream.userId, true)
-	}
-	else {
-		var user = await apiClient.users.getUserByName(channel)
-		changeTwitchStreamStatus(user.id, false)
-	}
-	setTimeout(() => {
-		isStreamOnline(channel, false)
-	}, 60000)
-}
-
 async function kagamiBanRNG(channel, user) {
 	var randomNumber = Math.floor(Math.random() * 1001)
 	if (randomNumber == 727) {
@@ -93,7 +72,6 @@ function numberWithCommas(x) {
 
 module.exports.banRNG = banRNG
 module.exports.kagamiBanRNG = kagamiBanRNG
-module.exports.isStreamOnline = isStreamOnline
 module.exports.numberWithCommas = numberWithCommas
 module.exports.get7TVUserIDFromTwitchUserID = get7TVUserIDFromTwitchUserID
 module.exports.addAllSevenTVEmotesToDB = addAllSevenTVEmotesToDB
