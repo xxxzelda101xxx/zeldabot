@@ -165,11 +165,21 @@ async function getUserIdByUsername(username) {
 	else return null
 }
 
+
+ /**
+ * Updates a given streamer's online status
+ * @param {string} channel_id - The streamer to updates channel_id.
+ * @param {boolean} onlineStatus - Whether or not the stream is online.
+ */
 async function changeTwitchStreamStatus(channel_id, onlineStatus) {
-	if (onlineStatus) return db.run("UPDATE channels SET online = 1 WHERE channel_id = ?", [channel_id])
-	db.run("UPDATE channels SET online = 0 WHERE channel_id = ?", [channel_id])
+	if (onlineStatus) db.run("UPDATE channels SET online = 1 WHERE channel_id = ?", [channel_id])
+	else db.run("UPDATE channels SET online = 0 WHERE channel_id = ?", [channel_id])
 }
 
+ /**
+ * Get the stream status for a given channel_id.
+ * @param {string} channel_id
+ */
 async function getTwitchStreamStatus(channel_id) {
 	let data = await db_get("SELECT online FROM channels WHERE channel_id = ?", [channel_id])
 	return data.online

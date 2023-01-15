@@ -1,19 +1,8 @@
 const config = require("../config.json")
 const { logger } = require("../logger.js")
 const path = require("path")
-var parser = require("osu-parser")
-var fs = require("fs")
-const liveppCalcDLL = config.osu.PerformanceCalculator_Live
-const reworkppCalcDLL = config.osu.PerformanceCalculator_Rework
-const isRemote = config.osu.isRemote
+var songsFolder = config.osu.Songs_folder
 
-var songsFolder
-if (isRemote) {
-	songsFolder = config.osu.osu_files_folder
-}
-else {
-	songsFolder = config.osu.Songs_folder
-}
 const { exec } = require("child_process")
 class GosuMemory {
 	constructor(data) {
@@ -46,23 +35,6 @@ class GosuMemory {
 	}
 	getMapper() {
 		return this.menu.bm.metadata.mapper
-	}
-	async getPPCustom(accuracy, mods) {
-		var totalObjects = this.getTotalObjects()
-		var numberOf100sNeeded = await this.estimate100s(accuracy, totalObjects)
-		var commandString
-		var converted_mods = getMods(mods)
-		var osuFile = await this.getOsuFile()
-		if (!mods) commandString = `dotnet ${liveppCalcDLL} simulate osu "${osuFile}" -G ${numberOf100sNeeded} ${this.getModsForPPCalc()} --json`
-		else commandString = `dotnet ${liveppCalcDLL} simulate osu "${osuFile}" -G ${numberOf100sNeeded} ${converted_mods} --json`
-		var PP = await calculatePP(commandString)
-		return [PP, numberOf100sNeeded]
-	}
-	async getTotalObjects() {
-		var osuFile = await this.getOsuFile()
-		var beatmap = parser.parseContent(fs.readFileSync(osuFile))
-		var totalObjects = beatmap["nbCircles"] + beatmap["nbSliders"] + beatmap["nbSpinners"]
-		return totalObjects
 	}
 	hasLeaderboard() {
 		if (this.gameplay.leaderboard.slots != null) {
@@ -107,39 +79,8 @@ class GosuMemory {
 	getMods() {
 		return this.menu.mods.str
 	}
-	async getCurrentPP() {
-		var osuFile = await this.getOsuFile()
-		var commandString = `dotnet ${liveppCalcDLL} simulate osu "${osuFile}" -G ${this.gameplay.hits["100"]} -M ${this.gameplay.hits["50"]} -X ${this.gameplay.hits["0"]} -c ${this.gameplay.combo.max} ${this.getModsForPPCalc()} --json`
-		var currentPP = await calculatePP(commandString)
-		return currentPP
-	}
-	async getPPIfFc() {
-		var osuFile = await this.getOsuFile()
-		var adjusted100sCount = this.gameplay.hits["100"] + this.gameplay.hits["0"]
-		var commandString = `dotnet ${liveppCalcDLL} simulate osu "${osuFile}" -G ${adjusted100sCount} -M ${this.gameplay.hits["50"]} -X 0 -c ${this.getMaxCombo()} ${this.getModsForPPCalc()} --json`
-		var currentPP = await calculatePP(commandString)
-		return currentPP
-	}
-	async getSSPP() {
-		var osuFile = await this.getOsuFile()
-		var commandString = `dotnet ${liveppCalcDLL} simulate osu "${osuFile}" ${this.getModsForPPCalc()} --json`
-		var currentPP = await calculatePP(commandString)
-		return currentPP
-	}
-	async getReworkPP() {
-		var osuFile = await this.getOsuFile()
-		var commandString = `dotnet ${reworkppCalcDLL} simulate osu "${osuFile}" -G ${this.gameplay.hits["100"]} -M ${this.gameplay.hits["50"]} -X ${this.gameplay.hits["0"]} -c ${this.gameplay.combo.max} ${this.getModsForPPCalc()} --json`
-		var currentPP = await calculatePP(commandString)
-		return currentPP
-	}
 	getSR() {
 		return this.menu.bm.stats.fullSR
-	}
-	async getNewSR() {
-		var osuFile = await this.getOsuFile()
-		var commandString = `dotnet ${liveppCalcDLL} simulate osu "${osuFile}" ${this.getModsForPPCalc()} --json`
-		var newSR = await calculatePP(commandString, true)
-		return newSR
 	}
 	getBpm() {
 		return this.menu.bm.stats["BPM"].max
@@ -158,7 +99,7 @@ class GosuMemory {
 	}
 	getLength() {
 		var mods = this.gameplay.leaderboard.ourplayer.mods != "" ? this.gameplay.leaderboard.ourplayer.mods : this.menu.mods.str
-		if (mods.indexOf("DT") || mods.indexOf("NC")) {
+		if (mods.indexOf("DT") > -1 || mods.indexOf("NC") > -1) {
 			return millisToMinutesAndSeconds(this.menu.bm.time.full / 1.5)
 		}
 		else if (mods.indexOf("HT")) {
@@ -246,36 +187,4 @@ function getMods(mods) {
 		}
 		return returnString
 	}
-}
-
-async function calculatePP(calcString, isSr) {
-	return new Promise(function(resolve, reject) {
-		exec(calcString, { windowsHide: true }, async function(err, stdout) {
-			try {
-				var data = JSON.parse(stdout)
-				if (isSr) {
-					resolve(data["difficulty_attributes"]["star_rating"].toFixed(2))
-				}
-				else {
-					resolve(data["performance_attributes"]["pp"].toFixed(2))
-				}
-			}
-			catch (e) {
-				console.log(e)
-				if (err) {
-					if (err.toString().indexOf("Beatmap can not be converted for the ruleset") > 0) {
-						reject("Only osu!standard is supported.")
-						return
-					}
-					else {
-						logger.error(`Error calculating pp. Failing command: ${calcString}`)
-					}
-				}
-				else {
-					logger.error(`Error calculating pp. Failing command: ${calcString}`)
-					reject("An error occured while processing the beatmap.")
-				}
-			}
-		})
-	})
 }

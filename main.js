@@ -27,11 +27,11 @@ async function main() {
 	})
 	for (var i = 0; i < channels.length; i++) {
 		listener.subscribeToStreamOnlineEvents(channels[i].channel_id, e => {
-			console.log(e)
+			logger.verbose(`${e.broadcasterName} is live!`)
 			changeTwitchStreamStatus(e.broadcasterId, true)
 		})
 		listener.subscribeToStreamOfflineEvents(channels[i].channel_id, e => {
-			console.log(e)
+			logger.verbose(`${e.broadcasterName} is offline.`)
 			changeTwitchStreamStatus(e.broadcasterId, false)
 		})
 	}
