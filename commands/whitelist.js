@@ -2,7 +2,7 @@ const { getUserIdByUsername, whitelistUser } = require("../database.js")
 
 module.exports = {
 	name: "whitelist",
-	aliases: [],
+	aliases: ["wl"],
 	description: "",
 	canWhisper: false,
 	isOsuCommand: false,
