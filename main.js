@@ -13,7 +13,7 @@ var channels
 
 async function main() {
 	channels = await getChannels()
-	console.log(channels[0].channel_id)
+	console.log(channels[3].channel_id)
 	startWebsocket()
 	startSevenTVWebsocket(channels)
 	await chatClient.connect()
