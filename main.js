@@ -1,11 +1,9 @@
-const config = require("./config.json")
 const { startWebsocket } = require("./websocket.js")
 const { startSevenTVWebsocket } = require("./seventvwebsocket.js")
 const { messageHandler } = require("./handlers/messagehandler.js")
 const { subHandler } = require("./handlers/subhandler.js")
 const { banHandler } = require("./handlers/banhandler.js")
-const { getChannels } = require("./database.js")
-const { addAllSevenTVEmotesToDB } = require("./functions.js")
+const { getChannels, changeTwitchStreamStatus } = require("./database.js")
 const { logger } = require("./logger.js")
 const { chatClient } = require("./utils/chatclient.js")
 var { osuData } = require("./websocket.js")
@@ -28,6 +26,11 @@ async function main() {
 	for (var i = 0; i < channels.length; i++) {
 		listener.subscribeToStreamOnlineEvents(channels[i].channel_id, e => {
 			console.log(e)
+			changeTwitchStreamStatus(channels[i].channel_id, true)
+		})
+		listener.subscribeToStreamOfflineEvents(channels[i].channel_id, e => {
+			console.log(e)
+			changeTwitchStreamStatus(channels[i].channel_id, true)
 		})
 	}
 	chatClient.onSubExtend(async function (channel, user, subInfo, context){
