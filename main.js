@@ -13,7 +13,6 @@ var channels
 
 async function main() {
 	channels = await getChannels()
-	console.log(channels[3].channel_id)
 	startWebsocket()
 	startSevenTVWebsocket(channels)
 	await chatClient.connect()
@@ -22,7 +21,7 @@ async function main() {
 		logger.info("Connected to Twitch!")
 	})
 	listener.subscribeToChannelRedemptionAddEventsForReward(userId, "34f48b7d-25e1-4aeb-b622-39e63a9291d8", e => {
-		console.log(`${e.userName} used !blame3!`)
+		logger.verbose(`${e.userName} used !blame3!`)
 		chatClient.say("#shigetora", "!blame3")
 	})
 	for (var i = 0; i < channels.length; i++) {

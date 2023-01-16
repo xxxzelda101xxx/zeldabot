@@ -11,7 +11,7 @@ function setConsoleColor(level) {
 
 let alignColorsAndTime = combine(
 	timestamp({
-		format:"MM/DD/YY HH:MM:SS"
+		format:"MM/DD/YY HH:mm:ss"
 	}),
 	printf(
 		info => `${setConsoleColor(info)} [${info.timestamp}] [${info.level.toUpperCase()}] ${info.message} \x1b[0m`
