@@ -20,19 +20,14 @@ async function main() {
 	chatClient.onRegister(() => {
 		logger.info("Connected to Twitch!")
 	})
+	
 	listener.subscribeToChannelRedemptionAddEventsForReward(userId, "34f48b7d-25e1-4aeb-b622-39e63a9291d8", e => {
 		logger.verbose(`${e.userName} used !blame3!`)
 		chatClient.say("#shigetora", "!blame3")
 	})
 	for (var i = 0; i < channels.length; i++) {
-		listener.subscribeToStreamOnlineEvents(channels[i].channel_id, e => {
-			logger.verbose(`${e.broadcasterName} is live!`)
-			changeTwitchStreamStatus(e.broadcasterId, true)
-		})
-		listener.subscribeToStreamOfflineEvents(channels[i].channel_id, e => {
-			logger.verbose(`${e.broadcasterName} is offline.`)
-			changeTwitchStreamStatus(e.broadcasterId, false)
-		})
+		streamOnlineEvents(channels[i].channel_id)
+		streamOfflineEvents(channels[i].channel_id)
 	}
 	chatClient.onSubExtend(async function (channel, user, subInfo, context){
 		subHandler(channel, user, subInfo, context)
@@ -54,6 +49,20 @@ async function main() {
 	})
 	chatClient.onDisconnect(async function (manually, reason) {
 		console.log(reason)
+	})
+}
+
+function streamOnlineEvents(channel_id) {
+	listener.subscribeToStreamOnlineEvents(channel_id, e => {
+		logger.verbose(`${e.broadcasterName} is live!`)
+		changeTwitchStreamStatus(e.broadcasterId, true)
+	})
+}
+
+function streamOfflineEvents(channel_id) {
+	listener.subscribeToStreamOfflineEvents(channel_id, e => {
+		logger.verbose(`${e.broadcasterName} is offline.`)
+		changeTwitchStreamStatus(e.broadcasterId, false)
 	})
 }
 
