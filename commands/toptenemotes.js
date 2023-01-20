@@ -2,7 +2,7 @@ const { getTopTenEmotes, getTopTenEmotesByUserID, getUserIdByUsername } = requir
 
 module.exports = {
 	name: "toptenemotes",
-	aliases: [],
+	aliases: ["topemotes", "tte"],
 	description: "",
 	canWhisper: false,
 	offlineOnly: true,
@@ -12,7 +12,7 @@ module.exports = {
 		if (msg.toLowerCase().split(" ").length == 1) {
 			let emotes = await getTopTenEmotes(context.channelId)
 			var messageToSend = ""
-			for (let i = 0; i < 10; i++) messageToSend += `${emotes[i].emote} `
+			for (let i = 0; i < emotes.length; i++) messageToSend += `${emotes[i].emote} `
 			return messageToSend
 		}
 		else if (msg.toLowerCase().split(" ").length == 2) {

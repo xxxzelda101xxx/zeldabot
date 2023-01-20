@@ -52,7 +52,7 @@ module.exports = {
 			if (accuracy > 100) accuracy = 100
 			if (accuracy < 33.33) accuracy = 33.33
 			var osuFile = path.join(data.menu.bm.path.folder, data.menu.bm.path.file)
-			const score = await scoreCalculator.calculate({ rulesetId: 0, fileURL: unsubmittedDownloadPath + osuFile, accuracy: accuracy, mods: fixed_mods_string })
+			const score = await scoreCalculator.calculate({ rulesetId: 0, fileURL: unsubmittedDownloadPath + osuFile, accuracy: Number(accuracy), mods: fixed_mods_string })
 			var calculateAccuracy = score.scoreInfo.accuracy * 100
 			calculateAccuracy = calculateAccuracy.toFixed(2)
 			return `${score.performance.totalPerformance.toFixed(2)}pp for a ${calculateAccuracy}% (${score.scoreInfo.count100}x100) ${fixed_mods_string.toUpperCase()} fc.`
