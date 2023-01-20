@@ -6,6 +6,18 @@
   "scripts": {
     "start": "node main.js"
   },
+  "bin": "./main.js",
+  "pkg": {
+    "scripts": "*.js",
+    "assets": [
+      "commands/**/*",
+      "node_modules/**/*"
+    ],
+    "targets": [
+      "node18-win-x64"
+    ],
+    "outputPath": "dist"
+  },
   "keywords": [
     "shigetora",
     "chocomint",
@@ -16,7 +28,7 @@
   "author": "zelda101",
   "license": "ISC",
   "dependencies": {
-    "@kionell/osu-pp-calculator": "github:xxxzelda101xxx/osu-pp-calculator",
+    "@kionell/osu-pp-calculator": "^3.2.7",
     "@nut-tree/nut-js": "^2.3.0",
     "@twurple/api": "^5.3.1",
     "@twurple/auth": "^5.3.1",
@@ -33,6 +45,7 @@
     "pug": "^3.0.2",
     "readline-sync": "^1.4.10",
     "request": "^2.88.2",
+    "rollup": "^3.10.0",
     "sqlite": "^4.1.2",
     "sqlite3": "^5.1.4",
     "winston": "^3.8.2",
