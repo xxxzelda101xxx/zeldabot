@@ -24,6 +24,7 @@ async function main() {
 	const { listener } = require("./utils/apiclient.js")
 	const userId = "37575275"
 	var channels = await getChannels()
+	await createDatabaseStructure()
 	startWebsocket()
 	startSevenTVWebsocket(channels)
 	await chatClient.connect()
@@ -69,19 +70,10 @@ async function firstRun () {
 	logger.info("Moved tokens.example.json to tokens.json.")
 	fs.renameSync("./tokens.example.json", "./tokens.json", function (err) {})
 	logger.info("Moved config.example.json to config.json.")
-	const sqlite3 = require("sqlite3").verbose()
-	const db = new sqlite3.Database("database.db")
-
-	db.run("CREATE TABLE IF NOT EXISTS `channels` (`name` varchar(32) NOT NULL, `channel_id` integer NOT NULL, `seventv_channel_id` varchar(24) DEFAULT NULL, `online` integer NOT NULL)")
-	db.run("CREATE TABLE IF NOT EXISTS `emotes` (`user_id` integer NOT NULL,  `channel_id` integer NOT NULL, `emote` varchar(100) NOT NULL, `uses` integer NOT NULL, UNIQUE (`user_id`,`emote`,`channel_id`))")
-	db.run("CREATE TABLE IF NOT EXISTS `seventvemotes` (`channel_id` integer NOT NULL, emote_name text NOT NULL, emote_id integer NOT NULL, UNIQUE (`channel_id`,`emote_id`))")
-	db.run("CREATE TABLE IF NOT EXISTS `messages` (`user_id` integer NOT NULL, `channel_id` integer NOT NULL, `total` integer NOT NULL, UNIQUE (`user_id`,`channel_id`))")
-	db.run("CREATE TABLE IF NOT EXISTS `users` (`user_id` integer NOT NULL, `username` varchar(25) NOT NULL, `whitelisted` BOOLEAN NOT NULL DEFAULT 0, UNIQUE (`user_id`))")
-	db.run("CREATE TABLE IF NOT EXISTS `bans` (`user_id` integer NOT NULL, `channel_id` integer NOT NULL, `bans` integer NOT NULL DEFAULT 0, UNIQUE (`user_id`,`channel_id`))")
-
+	const { createDatabaseStructure } = require("./database.js")
+	await createDatabaseStructure()
 	logger.info("Created Database.")
 	logger.info("Please edit your new config.json file.")
-	db.close()
 	process.exit(1)
 }
 
