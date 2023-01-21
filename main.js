@@ -1,18 +1,5 @@
 const fs = require("fs")
 const { getChannels, changeTwitchStreamStatus, createDatabaseStructure } = require("./database.js")
-
-if (!fs.existsSync("./config.json")) {
-	createDatabaseStructure()
-	logger.info("Created Database.")
-	fs.rename("./config.example.json", "./config.json", function (err) {})
-	logger.info("Moved tokens.example.json to tokens.json")
-	fs.rename("./tokens.example.json", "./tokens.json", function (err) {})
-	main()
-}
-else {
-	main()
-}
-
 const { startWebsocket } = require("./websocket.js")
 const { startSevenTVWebsocket } = require("./seventvwebsocket.js")
 const { messageHandler } = require("./handlers/messagehandler.js")
@@ -26,6 +13,18 @@ var { osuData } = require("./websocket.js")
 const { listener } = require("./utils/apiclient.js")
 const userId = "37575275"
 var channels
+
+if (!fs.existsSync("./config.json")) {
+	createDatabaseStructure()
+	logger.info("Created Database.")
+	fs.rename("./config.example.json", "./config.json", function (err) {})
+	logger.info("Moved tokens.example.json to tokens.json")
+	fs.rename("./tokens.example.json", "./tokens.json", function (err) {})
+	main()
+}
+else {
+	main()
+}
 
 async function main() {
 	channels = await getChannels()
