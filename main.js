@@ -1,9 +1,25 @@
+const fs = require("fs")
+const { getChannels, changeTwitchStreamStatus, createDatabaseStructure } = require("./database.js")
+
+
+try {
+	if (fs.existsSync("./config.json")) {
+		main()
+	}
+} 
+catch(err) {
+	await createDatabaseStructure()
+	logger.info("Created Database.")
+	fs.rename("./config.example.json", "./config.json", function (err) {})
+	logger.info("Moved tokens.example.json to tokens.json")
+	fs.rename("./tokens.example.json", "./tokens.json", function (err) {})
+}
+
 const { startWebsocket } = require("./websocket.js")
 const { startSevenTVWebsocket } = require("./seventvwebsocket.js")
 const { messageHandler } = require("./handlers/messagehandler.js")
 const { subHandler } = require("./handlers/subhandler.js")
 const { banHandler } = require("./handlers/banhandler.js")
-const { getChannels, changeTwitchStreamStatus } = require("./database.js")
 const { logger } = require("./logger.js")
 const config = require("./config.json")
 const useSeparateBroadcasterToken = config.twitch.separateBroadcasterToken
@@ -12,21 +28,6 @@ var { osuData } = require("./websocket.js")
 const { listener } = require("./utils/apiclient.js")
 const userId = "37575275"
 var channels
-const fs = require("fs")
-
-try {
-	if (fs.existsSync("./config.json")) {
-		main()
-	}
-} 
-catch(err) {
-fs.rename("./config.example.json", "./config.json", function (err) {
-	console.log('Created config.json')
-})
-fs.rename("./tokens.example.json", "./tokens.json", function (err) {
-	console.log('Created tokens.json')
-})
-}
 
 async function main() {
 	channels = await getChannels()
