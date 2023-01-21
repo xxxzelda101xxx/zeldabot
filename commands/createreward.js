@@ -1,4 +1,6 @@
 const { shigeapiClient } = require("../utils/apiclient")
+const config = require("../config.json")
+const useSeparateBroadcasterToken = config.twitch.separateBroadcasterToken
 
 module.exports = {
 	name: "createreward",
@@ -9,6 +11,7 @@ module.exports = {
 	adminOnly: true, 
 	isPublic: false,
 	execute: async function(msg) {
+		if (!useSeparateBroadcasterToken) return ""
 		let user = await shigeapiClient.users.getUserByName("shigetora")
 		const cost = parseInt(msg.match(/\{([^)]+)\}/)[1])
 		if (isNaN(cost)) return "Cost must be an integer!"

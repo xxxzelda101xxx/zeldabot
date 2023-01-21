@@ -5,29 +5,47 @@ const { subHandler } = require("./handlers/subhandler.js")
 const { banHandler } = require("./handlers/banhandler.js")
 const { getChannels, changeTwitchStreamStatus } = require("./database.js")
 const { logger } = require("./logger.js")
+const config = require("./config.json")
+const useSeparateBroadcasterToken = config.twitch.separateBroadcasterToken
 const { chatClient } = require("./utils/chatclient.js")
 var { osuData } = require("./websocket.js")
 const { listener } = require("./utils/apiclient.js")
 const userId = "37575275"
 var channels
+const fs = require("fs")
+
+try {
+	if (fs.existsSync("./config.json")) {
+		main()
+	}
+} 
+catch(err) {
+fs.rename("./config.example.json", "./config.json", function (err) {
+	console.log('Created config.json')
+})
+fs.rename("./tokens.example.json", "./tokens.json", function (err) {
+	console.log('Created tokens.json')
+})
+}
 
 async function main() {
 	channels = await getChannels()
 	startWebsocket()
 	startSevenTVWebsocket(channels)
 	await chatClient.connect()
-	await listener.start()
 	chatClient.onRegister(() => {
 		logger.info("Connected to Twitch!")
 	})
-	
-	listener.subscribeToChannelRedemptionAddEventsForReward(userId, "34f48b7d-25e1-4aeb-b622-39e63a9291d8", e => {
-		logger.verbose(`${e.userName} used !blame3!`)
-		chatClient.say("#shigetora", "!blame3")
-	})
-	for (var i = 0; i < channels.length; i++) {
-		streamOnlineEvents(channels[i].channel_id)
-		streamOfflineEvents(channels[i].channel_id)
+	if (useSeparateBroadcasterToken) {
+		await listener.start()
+		listener.subscribeToChannelRedemptionAddEventsForReward(userId, "34f48b7d-25e1-4aeb-b622-39e63a9291d8", e => {
+			logger.verbose(`${e.userName} used !blame3!`)
+			chatClient.say("#shigetora", "!blame3")
+		})
+		for (var i = 0; i < channels.length; i++) {
+			streamOnlineEvents(channels[i].channel_id)
+			streamOfflineEvents(channels[i].channel_id)
+		}
 	}
 	chatClient.onSubExtend(async function (channel, user, subInfo, context){
 		subHandler(channel, user, subInfo, context)
@@ -65,8 +83,6 @@ function streamOfflineEvents(channel_id) {
 		changeTwitchStreamStatus(e.broadcasterId, false)
 	})
 }
-
-main()
 
 process
 	.on("unhandledRejection", (reason, p) => {

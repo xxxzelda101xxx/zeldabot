@@ -1,7 +1,7 @@
-const { zeldaAuthProvider, shigeAuthProvider } = require("./authprovider.js")
+const { authProvider, shigeAuthProvider } = require("./authprovider.js")
 const ApiClient = require ("@twurple/api").ApiClient
 const { EventSubWsListener } = require('@twurple/eventsub-ws')
-const apiClient = new ApiClient({ authProvider: zeldaAuthProvider })
+const apiClient = new ApiClient({ authProvider: authProvider })
 const shigeapiClient = new ApiClient({ authProvider: shigeAuthProvider })
 const listener = new EventSubWsListener({ apiClient: shigeapiClient })
 exports.apiClient = apiClient

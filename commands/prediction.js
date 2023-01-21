@@ -1,4 +1,6 @@
 const { shigeapiClient } = require("../utils/apiclient")
+const config = require("../config.json")
+const useSeparateBroadcasterToken = config.twitch.separateBroadcasterToken
 
 module.exports = {
 	name: "prediction",
@@ -9,6 +11,7 @@ module.exports = {
 	isPublic: false,
 	isOsuCommand: false,
 	execute: async function(msg, context) {
+		if (!useSeparateBroadcasterToken) return ""
 		if (!context.userInfo.isMod && !context.userInfo.isBroadcaster) return
 		let user = await shigeapiClient.users.getUserByName("shigetora")
 		const predictionAction = msg.toLowerCase().split(" ")[1].toLowerCase()

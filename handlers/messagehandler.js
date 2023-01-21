@@ -47,7 +47,10 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		logger.verbose(`Executing !${commandToRun.name} from user: ${user} in channel: ${channel}.`)
 		try {
 			let messageToSend = await commandToRun.execute(msg, context, osuData)
-			chatClient.say(channel, messageToSend)
+			console.log(messageToSend)
+			if (messageToSend != "") {
+				chatClient.say(channel, messageToSend)
+			}
 		}
 		catch (e) {
 			logger.error(`Command ${command} Failed: ${e}`)
@@ -62,7 +65,7 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		if (commandToRun.canWhisper) {
 			try {
 				let messageToSend = await commandToRun.execute(msg, context, osuData)
-				await apiClient.whispers.sendWhisper("14163149", user_id, messageToSend)
+				if (messageToSend != "") await apiClient.whispers.sendWhisper("14163149", user_id, messageToSend)
 			}
 			catch (e) {
 				logger.error(`Command ${command} Failed: ${e}`)
