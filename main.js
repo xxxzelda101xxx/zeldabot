@@ -8,7 +8,7 @@ try {
 	}
 } 
 catch(err) {
-	await createDatabaseStructure()
+	createDatabaseStructure()
 	logger.info("Created Database.")
 	fs.rename("./config.example.json", "./config.json", function (err) {})
 	logger.info("Moved tokens.example.json to tokens.json")
