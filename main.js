@@ -23,7 +23,7 @@ if (!fs.existsSync("./config.json")) {
 	main()
 }
 else {
-	main()
+	//main()
 }
 
 async function main() {
