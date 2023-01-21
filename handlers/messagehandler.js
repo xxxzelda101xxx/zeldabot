@@ -35,7 +35,7 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		if (user.toLowerCase() == "kagami_77") kagamiBanRNG(channel, user)
 		banRNG(channel, user, context)
 		if (!commandToRun) return
-		if (osuCommandsOnly && commandToRun.isOsuCommand == true) return
+		if (osuCommandsOnly && commandToRun.isOsuCommand == false) return
 		if (!osuData && commandToRun.isOsuCommand == true) return
 		var online = await getTwitchStreamStatus(channel_id)
 		const cooldown = getCooldown(command)
