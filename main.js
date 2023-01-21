@@ -11,7 +11,7 @@ else {
 }
 
 async function main() {
-	const { createDatabaseStructure, getChannels } = require("./database.js")
+	const { getChannels } = require("./database.js")
 	const { startWebsocket } = require("./websocket.js")
 	const { startSevenTVWebsocket } = require("./seventvwebsocket.js")
 	const { messageHandler } = require("./handlers/messagehandler.js")
@@ -23,7 +23,6 @@ async function main() {
 	var { osuData } = require("./websocket.js")
 	const { listener } = require("./utils/apiclient.js")
 	const userId = "37575275"
-	await createDatabaseStructure()
 	var channels = await getChannels()
 	startWebsocket()
 	startSevenTVWebsocket(channels)
@@ -70,9 +69,6 @@ async function firstRun () {
 	logger.info("Moved tokens.example.json to tokens.json.")
 	fs.renameSync("./tokens.example.json", "./tokens.json", function (err) {})
 	logger.info("Moved config.example.json to config.json.")
-	const { createDatabaseStructure } = require("./database.js")
-	await createDatabaseStructure()
-	logger.info("Created Database.")
 	logger.info("Please edit your new config.json file.")
 	process.exit(1)
 }
