@@ -20,7 +20,7 @@ if (!fs.existsSync("./config.json")) {
 	fs.rename("./config.example.json", "./config.json", function (err) {})
 	logger.info("Moved tokens.example.json to tokens.json")
 	fs.rename("./tokens.example.json", "./tokens.json", function (err) {})
-	main()
+	//main()
 }
 else {
 	//main()
