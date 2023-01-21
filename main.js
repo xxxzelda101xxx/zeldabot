@@ -7,7 +7,7 @@ if (!fs.existsSync("./config.json")) {
 }
 else {
 	const { changeTwitchStreamStatus } = require("./database.js")
-	main()
+	//main()
 }
 
 async function main() {
