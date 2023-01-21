@@ -1,5 +1,4 @@
 const config = require("./config.json")
-const isRemote = config.osu.isRemote
 const { ScoreCalculator } = require("@kionell/osu-pp-calculator")
 const scoreCalculator = new ScoreCalculator()
 const url = config.osu.gosumemory_address
@@ -10,13 +9,8 @@ const { logger } = require("./logger")
 const unsubmittedDownloadPath = "https://blameseouless.com/osufiles/"
 var osuData = {}
 var maxPP = 0
-var songsFolder
-if (isRemote) {
-	songsFolder = config.osu.osu_files_folder
-}
-else {
-	songsFolder = config.osu.Songs_folder
-}
+const songsFolder = config.osu.Songs_folder
+
 
 
 function startWebsocket() {
