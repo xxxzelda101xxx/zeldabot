@@ -1,17 +1,17 @@
 const fs = require("fs")
 const { logger } = require("./logger.js")
+const { changeTwitchStreamStatus } = require("./database.js")
 
 
 if (!fs.existsSync("./config.json")) {
 	firstRun()
 }
 else {
-	const { changeTwitchStreamStatus, createDatabaseStructure } = require("./database.js")
 	main()
 }
 
 async function main() {
-	const { getChannels } = require("./database.js")
+	const { createDatabaseStructure, getChannels } = require("./database.js")
 	const { startWebsocket } = require("./websocket.js")
 	const { startSevenTVWebsocket } = require("./seventvwebsocket.js")
 	const { messageHandler } = require("./handlers/messagehandler.js")
