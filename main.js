@@ -1,14 +1,14 @@
 const fs = require("fs")
 const { changeTwitchStreamStatus, createDatabaseStructure } = require("./database.js")
 
-
 if (!fs.existsSync("./config.json")) {
 	createDatabaseStructure()
 	logger.info("Created Database.")
 	fs.rename("./config.example.json", "./config.json", function (err) {})
 	logger.info("Moved tokens.example.json to tokens.json")
 	fs.rename("./tokens.example.json", "./tokens.json", function (err) {})
-	main()
+	logger.info("Please edit your new config.json file.")
+	process.exit(1)
 }
 else {
 	main()
