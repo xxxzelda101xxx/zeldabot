@@ -1,18 +1,6 @@
 const fs = require("fs")
-const { getChannels, changeTwitchStreamStatus, createDatabaseStructure } = require("./database.js")
-const { startWebsocket } = require("./websocket.js")
-const { startSevenTVWebsocket } = require("./seventvwebsocket.js")
-const { messageHandler } = require("./handlers/messagehandler.js")
-const { subHandler } = require("./handlers/subhandler.js")
-const { banHandler } = require("./handlers/banhandler.js")
-const { logger } = require("./logger.js")
-const config = require("./config.json")
-const useSeparateBroadcasterToken = config.twitch.separateBroadcasterToken
-const { chatClient } = require("./utils/chatclient.js")
-var { osuData } = require("./websocket.js")
-const { listener } = require("./utils/apiclient.js")
-const userId = "37575275"
-var channels
+const { changeTwitchStreamStatus, createDatabaseStructure } = require("./database.js")
+
 
 if (!fs.existsSync("./config.json")) {
 	createDatabaseStructure()
@@ -20,14 +8,27 @@ if (!fs.existsSync("./config.json")) {
 	fs.rename("./config.example.json", "./config.json", function (err) {})
 	logger.info("Moved tokens.example.json to tokens.json")
 	fs.rename("./tokens.example.json", "./tokens.json", function (err) {})
-	//main()
+	main()
 }
 else {
-	//main()
+	main()
 }
 
 async function main() {
-	channels = await getChannels()
+	const { getChannels } = require("./database.js")
+	const { startWebsocket } = require("./websocket.js")
+	const { startSevenTVWebsocket } = require("./seventvwebsocket.js")
+	const { messageHandler } = require("./handlers/messagehandler.js")
+	const { subHandler } = require("./handlers/subhandler.js")
+	const { banHandler } = require("./handlers/banhandler.js")
+	const { logger } = require("./logger.js")
+	var config = require("./config.json")
+	const useSeparateBroadcasterToken = config.twitch.separateBroadcasterToken
+	const { chatClient } = require("./utils/chatclient.js")
+	var { osuData } = require("./websocket.js")
+	const { listener } = require("./utils/apiclient.js")
+	const userId = "37575275"
+	var channels = await getChannels()
 	startWebsocket()
 	startSevenTVWebsocket(channels)
 	await chatClient.connect()
