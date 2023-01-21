@@ -1,6 +1,6 @@
 const fs = require("fs")
 const { logger } = require("./logger.js")
-const { changeTwitchStreamStatus } = require("./database.js")
+//const { changeTwitchStreamStatus } = require("./database.js")
 
 
 if (!fs.existsSync("./config.json")) {
