@@ -65,15 +65,14 @@ async function main() {
 }
 
 async function firstRun () {
-	fs.renameSync("./config.example.json", "./config.json", function (err) {
-		logger.info("Moved tokens.example.json to tokens.json")
-	})
-	fs.renameSync("./tokens.example.json", "./tokens.json", function (err) {
-		logger.info("Please edit your new config.json file.")
-	})
+	fs.renameSync("./config.example.json", "./config.json", function (err) {})
+	logger.info("Moved tokens.example.json to tokens.json.")
+	fs.renameSync("./tokens.example.json", "./tokens.json", function (err) {})
+	logger.info("Moved config.example.json to config.json.")
 	const { createDatabaseStructure } = require("./database.js")
-	createDatabaseStructure()
+	await createDatabaseStructure()
 	logger.info("Created Database.")
+	logger.info("Please edit your new config.json file.")
 	process.exit(1)
 }
 
