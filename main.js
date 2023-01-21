@@ -23,8 +23,8 @@ async function main() {
 	var { osuData } = require("./websocket.js")
 	const { listener } = require("./utils/apiclient.js")
 	const userId = "37575275"
-	var channels = await getChannels()
 	await createDatabaseStructure()
+	var channels = await getChannels()
 	startWebsocket()
 	startSevenTVWebsocket(channels)
 	await chatClient.connect()
