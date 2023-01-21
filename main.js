@@ -1,7 +1,5 @@
 const fs = require("fs")
 const { logger } = require("./logger.js")
-//const { changeTwitchStreamStatus } = require("./database.js")
-
 
 if (!fs.existsSync("./config.json")) {
 	firstRun()
@@ -11,7 +9,7 @@ else {
 }
 
 async function main() {
-	const { getChannels } = require("./database.js")
+	const { getChannels, changeTwitchStreamStatus } = require("./database.js")
 	const { startWebsocket } = require("./websocket.js")
 	const { startSevenTVWebsocket } = require("./seventvwebsocket.js")
 	const { messageHandler } = require("./handlers/messagehandler.js")
@@ -37,8 +35,8 @@ async function main() {
 			chatClient.say("#shigetora", "!blame3")
 		})
 		for (var i = 0; i < channels.length; i++) {
-			streamOnlineEvents(channels[i].channel_id)
-			streamOfflineEvents(channels[i].channel_id)
+			streamOnlineEvents(channels[i].channel_id, changeTwitchStreamStatus)
+			streamOfflineEvents(channels[i].channel_id, changeTwitchStreamStatus)
 		}
 	}
 	chatClient.onSubExtend(async function (channel, user, subInfo, context){
@@ -73,14 +71,14 @@ async function firstRun () {
 	process.exit(1)
 }
 
-function streamOnlineEvents(channel_id) {
+function streamOnlineEvents(channel_id, changeTwitchStreamStatus) {
 	listener.subscribeToStreamOnlineEvents(channel_id, e => {
 		logger.verbose(`${e.broadcasterName} is live!`)
 		changeTwitchStreamStatus(e.broadcasterId, true)
 	})
 }
 
-function streamOfflineEvents(channel_id) {
+function streamOfflineEvents(channel_id, changeTwitchStreamStatus) {
 	listener.subscribeToStreamOfflineEvents(channel_id, e => {
 		logger.verbose(`${e.broadcasterName} is offline.`)
 		changeTwitchStreamStatus(e.broadcasterId, false)
