@@ -7,6 +7,7 @@ const { Commands } = require("../helpers/commandshelper.js")
 const { GosuMemory } = require("../classes/gosumemory.js")
 const { chatClient } = require("../utils/chatclient.js")
 const config = require("../config.json")
+const osuCommandsOnly = config.twitch.osu_commands_only
 const isWhitelistEnabled = config.twitch.enable_whitelist
 const admins = config.twitch.admins
 const { apiClient } = require("../utils/apiclient")
@@ -34,6 +35,7 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		if (user.toLowerCase() == "kagami_77") kagamiBanRNG(channel, user)
 		banRNG(channel, user, context)
 		if (!commandToRun) return
+		if (osuCommandsOnly && commandToRun.isOsuCommand == true) return
 		if (!osuData && commandToRun.isOsuCommand == true) return
 		var online = await getTwitchStreamStatus(channel_id)
 		const cooldown = getCooldown(command)

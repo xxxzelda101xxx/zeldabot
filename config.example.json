@@ -10,7 +10,8 @@
     "command_cooldown": true,
     "command_cooldown_time": 10000,
     "message_cooldown_time": 5000,
-    "separateBroadcasterToken": false
+    "separateBroadcasterToken": false,
+    "osu_commands_only": false
   },
   "osu": {
     "Songs_folder": "",
