@@ -2,13 +2,7 @@ const fs = require("fs")
 const { changeTwitchStreamStatus, createDatabaseStructure } = require("./database.js")
 
 if (!fs.existsSync("./config.json")) {
-	createDatabaseStructure()
-	logger.info("Created Database.")
-	fs.rename("./config.example.json", "./config.json", function (err) {})
-	logger.info("Moved tokens.example.json to tokens.json")
-	fs.rename("./tokens.example.json", "./tokens.json", function (err) {})
-	logger.info("Please edit your new config.json file.")
-	process.exit(1)
+	firstRun()
 }
 else {
 	main()
@@ -67,6 +61,18 @@ async function main() {
 	chatClient.onDisconnect(async function (manually, reason) {
 		console.log(reason)
 	})
+}
+
+async function firstRun () {
+	fs.renameSync("./config.example.json", "./config.json", function (err) {
+		logger.info("Moved tokens.example.json to tokens.json")
+	})
+	fs.renameSync("./tokens.example.json", "./tokens.json", function (err) {
+		logger.info("Please edit your new config.json file.")
+	})
+	createDatabaseStructure()
+	logger.info("Created Database.")
+	process.exit(1)
 }
 
 function streamOnlineEvents(channel_id) {
