@@ -3,7 +3,6 @@ const { logger } = require("../logger.js")
 const path = require("path")
 var songsFolder = config.osu.Songs_folder
 
-const { exec } = require("child_process")
 class GosuMemory {
 	constructor(data) {
 		this.menu = data.menu
