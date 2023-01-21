@@ -1,4 +1,5 @@
 const fs = require("fs")
+const { logger } = require("./logger.js")
 
 
 if (!fs.existsSync("./config.json")) {
@@ -16,7 +17,6 @@ async function main() {
 	const { messageHandler } = require("./handlers/messagehandler.js")
 	const { subHandler } = require("./handlers/subhandler.js")
 	const { banHandler } = require("./handlers/banhandler.js")
-	const { logger } = require("./logger.js")
 	var config = require("./config.json")
 	const useSeparateBroadcasterToken = config.twitch.separateBroadcasterToken
 	const { chatClient } = require("./utils/chatclient.js")
