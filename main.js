@@ -6,7 +6,7 @@ if (!fs.existsSync("./config.json")) {
 	firstRun()
 }
 else {
-	const { changeTwitchStreamStatus } = require("./database.js")
+	const { changeTwitchStreamStatus, createDatabaseStructure } = require("./database.js")
 	main()
 }
 
