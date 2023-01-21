@@ -1,18 +1,16 @@
 const fs = require("fs")
 const { getChannels, changeTwitchStreamStatus, createDatabaseStructure } = require("./database.js")
 
-
-try {
-	if (fs.existsSync("./config.json")) {
-		main()
-	}
-} 
-catch(err) {
-	createDatabaseStructure()
+if (!fs.existsSync("./config.json")) {
+	await createDatabaseStructure()
 	logger.info("Created Database.")
 	fs.rename("./config.example.json", "./config.json", function (err) {})
 	logger.info("Moved tokens.example.json to tokens.json")
 	fs.rename("./tokens.example.json", "./tokens.json", function (err) {})
+	main()
+}
+else {
+	main()
 }
 
 const { startWebsocket } = require("./websocket.js")
