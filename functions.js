@@ -2,8 +2,8 @@ const { changeTwitchStreamStatus, addSevenTVEmoteToDB } = require("./database.js
 //const { logger } = require("./logger.js")
 const { apiClient } = require("./utils/apiclient")
 const { chatClient } = require("./utils/chatclient.js")
-const axios = require('axios');
-const { logger } = require("./logger.js");
+const axios = require('axios')
+const { logger } = require("./logger.js")
 
 async function kagamiBanRNG(channel, user) {
 	var randomNumber = Math.floor(Math.random() * 1001)

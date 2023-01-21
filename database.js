@@ -85,7 +85,7 @@ async function addSevenTVEmoteToDB(channel_id, emoteName, emoteID) {
 }
 
 async function getSevenTVEmotesByChannelID(channel_id) {
-	let data = (await db_all("SELECT emote_name FROM seventvemotes WHERE channel_id = ?", [channel_id])).map((row) => row.emote_name);
+	let data = (await db_all("SELECT emote_name FROM seventvemotes WHERE channel_id = ?", [channel_id])).map((row) => row.emote_name)
 	return data
 }
 
