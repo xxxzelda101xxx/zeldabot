@@ -232,4 +232,3 @@ module.exports.getChannels = getChannels
 module.exports.addSevenTVEmoteToDB = addSevenTVEmoteToDB
 module.exports.getSevenTVEmotesByChannelID = getSevenTVEmotesByChannelID
 module.exports.getChannelIDBySevenTVID = getChannelIDBySevenTVID
-module.exports.createDatabaseStructure = createDatabaseStructure
