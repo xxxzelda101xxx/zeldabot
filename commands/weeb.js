@@ -8,8 +8,8 @@ module.exports = {
 	isOsuCommand: false,
 	isPublic: false,
 	execute: async function(msg, context, data) {
-		var prompt = msg.split(" ").shift()
-		console.log(prompt)
+		var prompt = msg.split(" ")
+		console.log(prompt.shift())
 		var payload = {
 			"prompt": "maltese puppy",
 			"steps": 5
