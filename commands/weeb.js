@@ -28,6 +28,6 @@ module.exports = {
 			console.log(e)
 		})
 		let image = await request.data.images
-		console.log(request)
+		console.log(image)
 	}
 }
