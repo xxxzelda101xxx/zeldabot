@@ -42,7 +42,7 @@ module.exports = {
 			url: "https://blameseouless.com/files/upload.php", 
 			method: "POST",
 			data: form, 
-			headers: { "Content-Type": `multipart/form-data; boundary=${form._boundary}` }
+			headers: { "Content-Type": `multipart/form-data;` }
 		})
 	}
 }
