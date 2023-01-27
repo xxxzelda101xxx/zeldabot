@@ -1,4 +1,6 @@
 const axios = require('axios')
+const config = require('../config.json')
+const url = config.ai.url
 
 module.exports = {
 	name: "weeb",
@@ -8,6 +10,7 @@ module.exports = {
 	isOsuCommand: false,
 	isPublic: false,
 	execute: async function(msg, context, data) {
+		console.log(`${url}/sdapi/v1/txt2img`)
 		var prompt = msg.split(" ")
 		prompt.shift()
 		prompt = prompt.toString()
@@ -20,10 +23,10 @@ module.exports = {
 			"width": 448,
 			"height": 640
 		}
-		const request = await axios.post("http://127.0.0.1:7860/sdapi/v1/txt2img", {
+		const request = await axios.post(`${url}/sdapi/v1/txt2img`, {
             prompt: payload,
         });
 		let image = await request.data.images
-		console.log(request)
+		console.log(image)
 	}
 }
