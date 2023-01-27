@@ -10,6 +10,7 @@ module.exports = {
 	execute: async function(msg, context, data) {
 		var prompt = msg.split(" ")
 		prompt.shift()
+		prompt = prompt.toString()
 		console.log(prompt)
 		var payload = {
 			"prompt": "maltese puppy",
