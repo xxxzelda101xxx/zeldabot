@@ -1,5 +1,6 @@
 const axios = require('axios')
 const fs = require('fs')
+import { nanoid } from 'nanoid'
 const config = require('../config.json')
 const url = config.ai.url
 
@@ -11,7 +12,7 @@ module.exports = {
 	isOsuCommand: false,
 	isPublic: false,
 	execute: async function(msg, context, data) {
-		console.log(`${url}/sdapi/v1/txt2img`)
+		var file_id = nanoid()
 		var prompt = msg.split(" ")
 		prompt.shift()
 		prompt = prompt.toString()
@@ -29,9 +30,8 @@ module.exports = {
 			console.log(e)
 		})
 		let image = await request.data.images
-		fs.writeFileSync("out.png", image[0], 'base64', function(err) {
+		fs.writeFileSync(`./images/${file_id}.png`, image[0], 'base64', function(err) {
 			console.log(err);
 		  });
-		console.log(image)
 	}
 }
