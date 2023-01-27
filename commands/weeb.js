@@ -1,6 +1,6 @@
 const axios = require('axios')
 const fs = require('fs')
-const { nanoid } from 'nanoid'
+const { nanoid } = require ('nanoid')
 const config = require('../config.json')
 const url = config.ai.url
 
