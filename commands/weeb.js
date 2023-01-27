@@ -11,6 +11,7 @@ module.exports = {
 	canWhisper: false,
 	isOsuCommand: false,
 	isPublic: false,
+	modOnly: true, 
 	execute: async function(msg, context, data) {
 		var file_id = nanoid()
 		var prompt = msg.split(" ")
