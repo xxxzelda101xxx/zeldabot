@@ -24,6 +24,6 @@ module.exports = {
             prompt: payload,
         });
 		let image = await request.data.images
-		console.log(image)
+		console.log(request)
 	}
 }
