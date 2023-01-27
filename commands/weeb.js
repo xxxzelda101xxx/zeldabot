@@ -23,9 +23,7 @@ module.exports = {
 			"width": 448,
 			"height": 640
 		}
-		const request = await axios.post(`${url}/sdapi/v1/txt2img`, {
-            payload,
-        })
+		const request = await axios.post(`${url}/sdapi/v1/txt2img`, payload)
 		.catch (e => {
 			console.log(e)
 		})
