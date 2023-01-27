@@ -31,7 +31,6 @@ module.exports = {
 			console.log(e)
 		})
 		let image = await request.data.images
-		console.log(image[0])
 		const form = new FormData()
 		form.append('image', image[0], {
 			contentType: 'image/png',
