@@ -8,7 +8,7 @@ module.exports = {
 	name: "weeb",
 	aliases: [],
 	description: "",
-	canWhisper: true,
+	canWhisper: false,
 	isOsuCommand: false,
 	isPublic: false,
 	execute: async function(msg, context, data) {
@@ -20,7 +20,7 @@ module.exports = {
 		console.log(prompt)
 		var payload = {
 			"prompt": prompt,
-			"negative_prompt": "bed",
+			"negative_prompt": "lowres, bad anatomy, ((bad hands)), text, error, ((missing fingers)), cropped, jpeg artifacts, worst quality, low quality, signature, watermark, blurry, deformed, extra ears, deformed, disfigured, mutation, censored, (((nude))), (((sex))), (((cum)))",
 			"steps": 20,
 			"width": 448,
 			"height": 640
