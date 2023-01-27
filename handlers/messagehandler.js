@@ -49,7 +49,6 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		logger.verbose(`Executing !${commandToRun.name} from user: ${user} in channel: ${channel}.`)
 		try {
 			let messageToSend = await commandToRun.execute(msg, context, osuData)
-			console.log(messageToSend)
 			if (messageToSend != "") {
 				chatClient.say(channel, messageToSend)
 			}
