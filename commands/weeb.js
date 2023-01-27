@@ -1,5 +1,8 @@
 const axios = require('axios')
+const fs = require('fs')
+const FormData = require('form-data');
 const config = require('../config.json')
+const key = config.key
 const url = config.ai.url
 
 module.exports = {
@@ -28,6 +31,19 @@ module.exports = {
 			console.log(e)
 		})
 		let image = await request.data.images
-		console.log(image)
+		console.log(image[0])
+		const form = new FormData()
+		form.append('image', image[0], {
+			contentType: 'image/png',
+			name: 'fileupload',
+			filename: 'imageFileName.png',
+			key: key
+		})
+		let result = await axios({
+			url: "https://blameseouless.com/files/upload.php", 
+			method: "POST",
+			data: form, 
+			headers: { "Content-Type": `multipart/form-data; boundary=${form._boundary}` }
+		})
 	}
 }
