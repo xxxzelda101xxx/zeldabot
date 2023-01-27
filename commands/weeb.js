@@ -9,7 +9,8 @@ module.exports = {
 	isPublic: false,
 	execute: async function(msg, context, data) {
 		var prompt = msg.split(" ")
-		console.log(prompt.shift())
+		prompt.shift()
+		console.log(prompt)
 		var payload = {
 			"prompt": "maltese puppy",
 			"steps": 5
