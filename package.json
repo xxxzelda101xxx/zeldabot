@@ -6,7 +6,6 @@
   "scripts": {
     "start": "node main.js"
   },
-  "type": "module",
   "bin": "./main.js",
   "pkg": {
     "scripts": "*.js",
