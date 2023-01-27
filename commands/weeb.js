@@ -32,6 +32,7 @@ module.exports = {
 		let image = await request.data.images
 		fs.writeFileSync(`./images/${file_id}.png`, image[0], 'base64', function(err) {
 			console.log(err);
-		  });
+		});
+		return `https://blameseouless.com/aiimages/${file_id}.png`
 	}
 }
