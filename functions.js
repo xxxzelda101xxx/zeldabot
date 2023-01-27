@@ -59,6 +59,9 @@ async function banRNG(channel, user, context) {
 
 async function addAllSevenTVEmotesToDB(channel_id) {
 	var data = await axios.get(`https://7tv.io/v3/users/twitch/${channel_id}`)
+	.catch(e >= {
+		
+	})
 	var emotes = data.data.emote_set.emotes
 	for (var i = 0; i < emotes.length; i++) {
 		addSevenTVEmoteToDB(channel_id, emotes[i].name, emotes[i].id)
