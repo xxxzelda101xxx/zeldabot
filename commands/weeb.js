@@ -44,5 +44,6 @@ module.exports = {
 			data: form, 
 			headers: { "Content-Type": `multipart/form-data;` }
 		})
+		console.log(result)
 	}
 }
