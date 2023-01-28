@@ -22,7 +22,7 @@ module.exports = {
 			"steps": 100,
 			"width": 448,
 			"height": 640,
-			"sampler_index": "DPM++ 2S a Karras",
+			"sampler_index": "Euler a",
 		}
 		const request = await axios.post(`${url}/sdapi/v1/txt2img`, payload)
 		.catch (e => {
@@ -31,7 +31,7 @@ module.exports = {
 		let image = await request.data.images
 		var data = await request.data.info
 		data = JSON.parse(data)
-		console.log(data.seed)
+		console.log(data)
 		fs.writeFileSync(`./images/${file_id}.png`, image[0], 'base64', function(err) {
 			console.log(err);
 		});
