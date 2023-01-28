@@ -21,7 +21,7 @@ module.exports = {
 		var payload = {
 			"prompt": prompt,
 			"negative_prompt": "lowres, bad anatomy, ((bad hands)), text, error, ((missing fingers)), cropped, jpeg artifacts, worst quality, low quality, signature, watermark, blurry, deformed, extra ears, deformed, disfigured, mutation, censored",
-			"steps": 200,
+			"steps": 5,
 			"width": 448,
 			"height": 640
 		}
@@ -30,7 +30,7 @@ module.exports = {
 			console.log(e)
 		})
 		let image = await request.data.images
-		console.log(request.data.seed)
+		console.log(request.data)
 		fs.writeFileSync(`./images/${file_id}.png`, image[0], 'base64', function(err) {
 			console.log(err);
 		});
