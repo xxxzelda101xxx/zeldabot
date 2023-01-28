@@ -20,9 +20,9 @@ module.exports = {
 		var payload = {
 			"prompt": prompt.replace(/,/g, " "),
 			"negative_prompt": "lowres, bad anatomy, ((bad hands)), text, error, ((missing fingers)), cropped, jpeg artifacts, worst quality, low quality, signature, watermark, blurry, deformed, extra ears, deformed, disfigured, mutation, censored",
-			"steps": 20,
-			"width": 896,
-			"height": 1280,
+			"steps": 50,
+			"width": 672,
+			"height": 960,
 			"sampler_index": "DPM++ 2S a Karras",
 		}
 		const request = await axios.post(`${url}/sdapi/v1/txt2img`, payload)
