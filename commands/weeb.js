@@ -19,7 +19,7 @@ module.exports = {
 		var payload = {
 			"prompt": prompt,
 			"negative_prompt": "lowres, bad anatomy, ((bad hands)), text, error, ((missing fingers)), cropped, jpeg artifacts, worst quality, low quality, signature, watermark, blurry, deformed, extra ears, deformed, disfigured, mutation, censored",
-			"steps": 50,
+			"steps": 100,
 			"width": 448,
 			"height": 640,
 			"sampler_index": "DPM++ 2S a Karras",
