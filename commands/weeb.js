@@ -13,7 +13,7 @@ module.exports = {
 	isPublic: false,
 	execute: async function(msg, context, data) {
 		var file_id = nanoid()
-		var prompt = msg.substr(4)
+		var prompt = msg.substr(6)
 		//prompt = prompt.replace(/completely nude/g, "").replace(/nude/g, "").replace(/sex/g, "").replace(/cum/g, "").replace(/anal/g, "").replace(/anus/g, "").replace(/vagina/g, "").replace(/pussy/g, "").replace(/asshole/g, "").replace(/penis/g, "").replace(/nipples/g, "")
 		console.log(prompt)
 		var payload = {
