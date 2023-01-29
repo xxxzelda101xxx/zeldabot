@@ -22,6 +22,7 @@ module.exports = {
 			steps = prompt.split(" ")[1]
 			prompt = prompt.substr(8 + prompt.split(" ")[1].length + 1)
 		}
+		console.log(prompt.indexOf("--hq") > -1)
 		if (prompt.indexOf("--hq") > -1) {
 			hires_steps = 20
 			hr_resize_x = 896
