@@ -17,13 +17,17 @@ module.exports = {
 		var steps = 100
 		var width = 448
 		var height = 640
-		var hires_steps = hr_resize_x = hr_resize_y = 0
+		var hires_steps = 0
+		var hr_resize_x = 0
+		var hr_resize_y = 0
+		var enable_hr = false
 		if (prompt.indexOf("--steps") == 0 && !isNaN(prompt.split(" ")[1])) {
 			steps = prompt.split(" ")[1]
 			prompt = prompt.substr(8 + prompt.split(" ")[1].length + 1)
 		}
 		console.log(prompt.indexOf("--hq") > -1)
 		if (prompt.indexOf("--hq") > -1) {
+			enable_hr = true
 			hires_steps = 20
 			hr_resize_x = 896
 			hr_resize_y = 1280
@@ -36,6 +40,7 @@ module.exports = {
 			"width": width,
 			"height": height,
 			"sampler_index": "Euler a",
+			"enable_hr": enable_hr,
 			"hr_second_pass_steps": hires_steps,
 			"hr_resize_x": hr_resize_x,
 			"hr_resize_y": hr_resize_y,
