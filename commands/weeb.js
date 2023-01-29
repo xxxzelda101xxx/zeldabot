@@ -14,12 +14,16 @@ module.exports = {
 	execute: async function(msg, context, data) {
 		var file_id = nanoid()
 		var prompt = msg.substr(6)
+		var steps = 0
+		if (msg.indexOf("--steps") > 0 && !isNaN(msg.substr(msg.indexOf("--steps") + 8).split(" ")[0])) {
+			steps = msg.substr(msg.indexOf("--steps") + 8)
+		}
 		//prompt = prompt.replace(/completely nude/g, "").replace(/nude/g, "").replace(/sex/g, "").replace(/cum/g, "").replace(/anal/g, "").replace(/anus/g, "").replace(/vagina/g, "").replace(/pussy/g, "").replace(/asshole/g, "").replace(/penis/g, "").replace(/nipples/g, "")
 		console.log(prompt)
 		var payload = {
 			"prompt": prompt,
 			"negative_prompt": "lowres, bad anatomy, ((bad hands)), text, error, ((missing fingers)), cropped, jpeg artifacts, worst quality, low quality, signature, watermark, blurry, deformed, extra ears, deformed, (((disfigured))), mutation, censored",
-			"steps": 100,
+			"steps": steps > 0 ? steps : 100,
 			"width": 448,
 			"height": 640,
 			"sampler_index": "Euler a",
