@@ -21,7 +21,7 @@ module.exports = {
 		var hr_resize_x = 0
 		var hr_resize_y = 0
 		var enable_hr = false
-		if (prompt.indexOf("--steps") == 0 && !isNaN(prompt.split(" ")[1])) {
+		if (prompt.indexOf("--steps") == 0) {
 			steps = prompt.split(" ")[1]
 			prompt = prompt.substr(8 + prompt.split(" ")[1].length + 1)
 		}
