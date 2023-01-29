@@ -50,7 +50,7 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		try {
 			let messageToSend = await commandToRun.execute(msg, context, osuData)
 			console.log(commandToRun.name)
-			if (commandToRun.name == "!weeb") {
+			if (commandToRun.name == "weeb") {
 				chatClient.say(channel, messageToSend, { replyTo: context })
 			}
 			else if (messageToSend != "") {
