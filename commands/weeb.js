@@ -15,8 +15,9 @@ module.exports = {
 		var file_id = nanoid()
 		var prompt = msg.substr(6)
 		var steps = 0
-		if (msg.indexOf("--steps") > 0 && !isNaN(msg.substr(msg.indexOf("--steps") + 8).split(" ")[0])) {
-			steps = msg.substr(msg.indexOf("--steps") + 8)
+		if (prompt.indexOf("--steps") == 0 && prompt.indexOf("--steps") == 0) {
+			steps = prompt.split(" ")[1]
+			prompt = prompt.substr(8 + prompt.split(" ")[1].length + 1)
 		}
 		//prompt = prompt.replace(/completely nude/g, "").replace(/nude/g, "").replace(/sex/g, "").replace(/cum/g, "").replace(/anal/g, "").replace(/anus/g, "").replace(/vagina/g, "").replace(/pussy/g, "").replace(/asshole/g, "").replace(/penis/g, "").replace(/nipples/g, "")
 		console.log(prompt)
