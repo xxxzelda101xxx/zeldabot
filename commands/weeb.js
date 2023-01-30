@@ -12,7 +12,7 @@ module.exports = {
 	isOsuCommand: false,
 	isPublic: false,
 	execute: async function(msg, context, data, channel) {
-		if (channel != "#zelda101_") return
+		if (channel != "#zelda101_") return ""
 		var file_id = nanoid()
 		var prompt = msg.substr(6)
 		var steps = 100
