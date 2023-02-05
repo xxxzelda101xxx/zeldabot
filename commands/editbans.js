@@ -1,4 +1,4 @@
-const { getUserIdByUsername, addBansToUser } = require("../database.js")
+const { getUserIdByUsername, addBansToUser, removeMessagesFromUser } = require("../database.js")
 module.exports = {
 	name: "editbans",
 	aliases: [],
