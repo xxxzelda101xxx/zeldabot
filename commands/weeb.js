@@ -33,7 +33,6 @@ module.exports = {
 			hr_resize_y = 1280
 		}
 		prompt = prompt.replace("--hq", "")
-		console.log(prompt)
 		//prompt = prompt.replace(/completely nude/g, "").replace(/nude/g, "").replace(/sex/g, "").replace(/cum/g, "").replace(/anal/g, "").replace(/anus/g, "").replace(/vagina/g, "").replace(/pussy/g, "").replace(/asshole/g, "").replace(/penis/g, "").replace(/nipples/g, "")
 		var payload = {
 			"prompt": prompt,
