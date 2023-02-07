@@ -26,12 +26,12 @@ module.exports = {
 			steps = prompt.split(" ")[1]
 			prompt = prompt.substr(8 + prompt.split(" ")[1].length + 1)
 		}
-		if (prompt.indexOf("--hq") > -1) {
-			enable_hr = true
-			hires_steps = 20
-			hr_resize_x = 896
-			hr_resize_y = 1280
-		}
+		//if (prompt.indexOf("--hq") > -1) {
+		//	enable_hr = true
+		//	hires_steps = 20
+		//	hr_resize_x = 896
+		//	hr_resize_y = 1280
+		//}
 		prompt = prompt.replace("--hq", "")
 		//prompt = prompt.replace(/completely nude/g, "").replace(/nude/g, "").replace(/sex/g, "").replace(/cum/g, "").replace(/anal/g, "").replace(/anus/g, "").replace(/vagina/g, "").replace(/pussy/g, "").replace(/asshole/g, "").replace(/penis/g, "").replace(/nipples/g, "")
 		var payload = {
