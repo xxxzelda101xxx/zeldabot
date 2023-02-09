@@ -1,4 +1,4 @@
-const { getUserIdByUsername, addBansToUser, removeMessagesFromUser } = require("../database.js")
+const { getUserIdByUsername, addBansToUser, removeBansFromUser } = require("../database.js")
 module.exports = {
 	name: "editbans",
 	aliases: [],
@@ -14,7 +14,7 @@ module.exports = {
 		var user_id = await getUserIdByUsername(username)
 		var channel_id = context.channelId
 		if (bansToAddOrRemove < 0 && user_id) {
-			removeMessagesFromUser(channel_id, user_id, Math.abs(bansToAddOrRemove))
+			removeBansFromUser(channel_id, user_id, Math.abs(bansToAddOrRemove))
 			console.log(Math.abs(bansToAddOrRemove))
 			return `Removed ${Math.abs(bansToAddOrRemove)} bans from ${username}.`
 		}

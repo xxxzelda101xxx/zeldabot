@@ -61,6 +61,10 @@ async function addBansToUser(channel_id, user_id, numberOfBansToAdd) {
 	db.run("INSERT INTO bans(user_id, channel_id, bans) VALUES(?, ?, ?) ON CONFLICT DO UPDATE SET bans = bans + ?", [user_id, channel_id, numberOfBansToAdd, numberOfBansToAdd])
 }
 
+async function removeBansFromUser(channel_id, user_id, numberOfBansToRemove) {
+	db.run("INSERT INTO bans(user_id, channel_id, bans) VALUES(?, ?, ?) ON CONFLICT DO UPDATE SET bans = bans - ?", [user_id, channel_id, numberOfBansToRemove, numberOfBansToRemove])
+}
+
 async function getTopTenEmotesByUserID(channel_id, user_id) {
 	let data = await db_all("SELECT emote, SUM(uses) AS total FROM emotes WHERE channel_id = ? AND user_id = ? GROUP BY emote ORDER BY total DESC LIMIT 10", [channel_id, user_id])
 	if (data) return data
@@ -228,6 +232,7 @@ module.exports.addMessagesToUser = addMessagesToUser
 module.exports.getBans = getBans
 module.exports.incrementBans = incrementBans
 module.exports.addBansToUser = addBansToUser
+module.exports.removeBansFromUser = removeBansFromUser
 module.exports.getChannels = getChannels
 module.exports.addSevenTVEmoteToDB = addSevenTVEmoteToDB
 module.exports.getSevenTVEmotesByChannelID = getSevenTVEmotesByChannelID
