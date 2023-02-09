@@ -40,12 +40,13 @@ module.exports = {
 			"steps": steps > 0 ? steps : 100,
 			"width": width,
 			"height": height,
-			"sampler_index": "Euler a",
+			"sampler_index": "DDIM",
 			"enable_hr": enable_hr,
 			"hr_second_pass_steps": hires_steps,
 			"hr_resize_x": hr_resize_x,
 			"hr_resize_y": hr_resize_y,
-			"denoising_strength": 0.6
+			"denoising_strength": 0.6,
+			"cfg_scale": 12
 		}
 		const request = await axios.post(`${url}/sdapi/v1/txt2img`, payload)
 		let image = await request.data.images
