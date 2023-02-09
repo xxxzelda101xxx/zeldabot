@@ -15,6 +15,7 @@ module.exports = {
 		var channel_id = context.channelId
 		if (bansToAddOrRemove < 0 && user_id) {
 			removeMessagesFromUser(channel_id, user_id, Math.abs(bansToAddOrRemove))
+			console.log(Math.abs(bansToAddOrRemove))
 			return `Removed ${Math.abs(bansToAddOrRemove)} bans from ${username}.`
 		}
 		else if (bansToAddOrRemove > 0 && user_id) {
