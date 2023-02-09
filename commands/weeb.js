@@ -16,11 +16,11 @@ module.exports = {
 		var file_id = nanoid()
 		var prompt = msg.substr(6)
 		var steps = 50
-		var width = 448
-		var height = 640
+		var width = 512
+		var height = 512
 		var hires_steps = 20
-		var hr_resize_x = 896
-		var hr_resize_y = 1280
+		var hr_resize_x = 1024
+		var hr_resize_y = 1024
 		var enable_hr = true
 		if (prompt.indexOf("--steps") == 0) {
 			steps = prompt.split(" ")[1]
