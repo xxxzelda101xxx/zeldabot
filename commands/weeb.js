@@ -66,15 +66,14 @@ module.exports = {
 			return `https://blameseouless.com/aiimages/${file_id}.png`
 		} 
 		else {
-			var string = ""
-			for (var i = 0; i < image.length; i++) {
-				let file_id = nanoid()
-				fs.writeFileSync(`./images/${file_id}.png`, image[i], 'base64', function(err) {
-					console.log(err);
-				});
-				string += `https://blameseouless.com/aiimages/${file_id}.png || `
+			var payload2 = {
+				"imageList": []
 			}
-			console.log(string)
+			for (var i = 0; i < image.length; i++) {
+				payload2.imageList.push({ data: image[i], name: `image${i}`})
+			}
+			const request2 = await axios.post(`${url}/sdapi/v1/extra-batch-images`, payload2)
+			console.log(request2.data)
 			return string
 		}
 	}
