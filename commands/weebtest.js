@@ -19,6 +19,7 @@ module.exports = {
 		let image = await axios.get('https://www.blameseouless.com/files/a1Axn4.png', {responseType: 'arraybuffer'});
 		let test = Buffer.from(image.data, 'binary').toString('base64')
 		const payload = {
+			"include_init_images": true,
 			"resize_mode": 1,
 			"steps": steps,
 			"width": width,
