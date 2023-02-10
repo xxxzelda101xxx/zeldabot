@@ -32,7 +32,7 @@ module.exports = {
 		var data = await request.data.info
 		data = JSON.parse(data)
 		let images = await request.data.images
-		console.log(images)
+		console.log(images[0])
 		fs.writeFileSync(`./images/${file_id}.png`, image[0], 'base64', function(err) {
 			console.log(err);
 		});
