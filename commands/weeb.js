@@ -34,9 +34,8 @@ module.exports = {
 		//}
 
 		if (prompt.indexOf("--batch") > -1) {
-			batch_size = 2
+			batch_size = 8
 			enable_hr = false
-			steps = 1
 		}
 		prompt = prompt.replace("--hq", "")
 		prompt = prompt.replace("--batch", "")
@@ -67,16 +66,16 @@ module.exports = {
 			return `https://blameseouless.com/aiimages/${file_id}.png`
 		} 
 		else {
-			var payload2 = {
-				"imageList": []
-			}
+			var string = ""
 			for (var i = 0; i < image.length; i++) {
-				payload2.imageList.push({ data: image[i], name: `image${i}.png`})
+				let file_id = nanoid()
+				fs.writeFileSync(`./images/${file_id}.png`, image[i], 'base64', function(err) {
+					console.log(err);
+				});
+				string += `https://blameseouless.com/aiimages/${file_id}.png || `
 			}
-			console.log(payload2.imageList[0])
-			console.log(payload2.imageList[1])
-			const request2 = await axios.post(`${url}/sdapi/v1/extra-batch-images`, payload2)
-			return "test (check console)"
+			console.log(string)
+			return string
 		}
 	}
 }
