@@ -17,9 +17,9 @@ module.exports = {
 		var width = 512
 		var height = 512
 		let image = await axios.get('https://www.blameseouless.com/files/GRri4m.jpg', {responseType: 'arraybuffer'});
-		console.log(image)
 		let test = Buffer.from(image.data, 'binary').toString('base64')
 		const payload = {
+			"resize_mode": 1,
 			"steps": steps,
 			"width": width,
 			"height": height,
@@ -33,7 +33,7 @@ module.exports = {
 		var data = await request.data.info
 		data = JSON.parse(data)
 		let images = await request.data.images
-		var bitmap = new Buffer.from(test, 'base64');
+		var bitmap = new Buffer.from(images[0], 'base64');
 		fs.writeFileSync(`./images/${file_id}.png`, bitmap, function(err) {
 			console.log(err);
 		});
