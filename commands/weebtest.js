@@ -25,7 +25,8 @@ module.exports = {
 			"init_images": test,
 			"sampler_index": "DDIM",
 			"denoising_strength": 0.7,
-			"cfg_scale": 12
+			"cfg_scale": 12,
+			"resize_mode": 0
 		}
 		const request = await axios.post(`${url}/sdapi/v1/txt2img`, payload)
 		var data = await request.data.info
