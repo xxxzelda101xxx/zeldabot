@@ -19,8 +19,6 @@ module.exports = {
 		var height = 512
 		let image = await axios.get('https://www.blameseouless.com/files/GRri4m.jpg', {responseType: 'arraybuffer'});
 		let test = Buffer.from(image.data).toString('base64');
-		var dimensions = sizeOf(test);
-		console.log(dimensions.width, dimensions.height);
 		const payload = {
 			"steps": steps,
 			"width": width,
