@@ -72,7 +72,7 @@ module.exports = {
 				fs.writeFileSync(`./images/${file_id}.png`, image[i], 'base64', function(err) {
 					console.log(err);
 				});
-				string += `https://blameseouless.com/aiimages/${file_id}.png `
+				string += `https://blameseouless.com/aiimages/${file_id}.png || `
 			}
 			console.log(string)
 			return string
