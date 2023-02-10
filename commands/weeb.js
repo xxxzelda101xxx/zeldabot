@@ -70,9 +70,9 @@ module.exports = {
 			var payload2 = {
 				"imageList": []
 			}
-			for (var i = 0; i < image.length; i++) {
-				payload2.imageList.push({ data: image[i], name: `image${i}.png`})
-			}
+			//for (var i = 0; i < image.length; i++) {
+			//	payload2.imageList.push({ data: image[i], name: `image${i}.png`})
+			//}
 			const request2 = await axios.post(`${url}/sdapi/v1/extra-batch-images`, payload2)
 			console.log(request2)
 			return "test (check console)"
