@@ -22,7 +22,7 @@ module.exports = {
 			"steps": steps,
 			"width": width,
 			"height": height,
-			"init_images": test,
+			"init_images": [test],
 			"include_init_images": true,
 			"sampler_index": "DDIM",
 			"denoising_strength": 0,
