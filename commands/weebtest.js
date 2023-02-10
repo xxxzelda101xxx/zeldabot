@@ -3,7 +3,6 @@ const fs = require('fs')
 const { nanoid } = require('nanoid')
 const config = require('../config.json')
 const url = config.ai.url
-const sizeOf = require('image-size')
 
 module.exports = {
 	name: "weebtest",
@@ -19,8 +18,6 @@ module.exports = {
 		var height = 512
 		let image = await axios.get('https://www.blameseouless.com/files/GRri4m.jpg', {responseType: 'arraybuffer'});
 		let test = Buffer.from(image.data).toString('base64');
-		var dimensions = sizeOf("https://www.blameseouless.com/files/GRri4m.jpg");
-		console.log(dimensions.width, dimensions.height);
 		const payload = {
 			"steps": steps,
 			"width": width,
