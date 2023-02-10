@@ -13,10 +13,19 @@ module.exports = {
 	isPublic: false,
 	execute: async function(msg, context, data, channel) {
 		let file_id = nanoid()
-		let image = await axios.get('https://cdn.donmai.us/sample/87/68/__raiden_shogun_genshin_impact_drawn_by_houkisei__sample-8768552db0c40f6398916158c24d192f.jpg', {responseType: 'arraybuffer'});
+		var steps = 50
+		var width = 512
+		var height = 512
+		let image = await axios.get('https://www.blameseouless.com/files/GRri4m.jpg', {responseType: 'arraybuffer'});
 		let test = Buffer.from(image.data).toString('base64');
 		const payload = {
-			"init_images": test
+			"steps": steps,
+			"width": width,
+			"height": height,
+			"init_images": test,
+			"sampler_index": "DDIM",
+			"denoising_strength": 0.7,
+			"cfg_scale": 12
 		}
 		const request = await axios.post(`${url}/sdapi/v1/txt2img`, payload)
 		var data = await request.data.info
