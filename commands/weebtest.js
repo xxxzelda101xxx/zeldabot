@@ -33,7 +33,7 @@ module.exports = {
 		var data = await request.data.info
 		data = JSON.parse(data)
 		let images = await request.data.images
-		var bitmap = new Buffer.from(images[0], 'base64');
+		var bitmap = new Buffer.from(test, 'base64');
 		fs.writeFileSync(`./images/${file_id}.png`, bitmap, function(err) {
 			console.log(err);
 		});
