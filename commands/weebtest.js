@@ -3,6 +3,7 @@ const fs = require('fs')
 const { nanoid } = require('nanoid')
 const config = require('../config.json')
 const url = config.ai.url
+const sizeOf = require('image-size')
 
 module.exports = {
 	name: "weebtest",
