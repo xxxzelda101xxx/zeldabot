@@ -26,7 +26,7 @@ module.exports = {
 			"sampler_index": "DDIM",
 			"denoising_strength": 0.7,
 			"cfg_scale": 12,
-			"resize_mode": 0,
+			"resize_mode": 1,
 			"seed_resize_from_h": 512,
 			"seed_resize_from_w": 512
 		}
