@@ -19,7 +19,6 @@ module.exports = {
 		let image = await axios.get('https://www.blameseouless.com/files/GRri4m.jpg', {responseType: 'arraybuffer'});
 		console.log(image)
 		let test = Buffer.from(image.data, 'binary').toString('base64')
-		console.log(test)
 		const payload = {
 			"steps": steps,
 			"width": width,
