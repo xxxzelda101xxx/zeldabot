@@ -35,7 +35,7 @@ module.exports = {
 		//}
 
 		if (prompt.indexOf("--batch") > -1) {
-			batch_size = 10
+			batch_size = 8
 		}
 		prompt = prompt.replace("--hq", "")
 		var payload = {
