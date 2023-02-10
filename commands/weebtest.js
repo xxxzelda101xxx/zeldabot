@@ -32,8 +32,8 @@ module.exports = {
 		var data = await request.data.info
 		data = JSON.parse(data)
 		let images = await request.data.images
-		console.log(images[0])
-		fs.writeFileSync(`./images/${file_id}.png`, JSON.stringify(image[0]), 'base64', function(err) {
+		var bitmap = new Buffer.from(images[0], 'base64');
+		fs.writeFileSync(`./images/${file_id}.png`, bitmap, function(err) {
 			console.log(err);
 		});
 		return `https://blameseouless.com/aiimages/${file_id}.png`
