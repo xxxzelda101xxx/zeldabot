@@ -16,7 +16,6 @@ module.exports = {
 		const result = msg.match(imageRegex)
 		var prompt = msg.substr(11)
 		prompt = prompt.replace(result[1], "")
-		console.log(prompt)
 		let file_id = nanoid()
 		var steps = 50
 		var width = 512
@@ -30,7 +29,8 @@ module.exports = {
 		if (prompt.indexOf("--more")) {
 			denoising_strength = 0.8
 		}
-		prompt = prompt.replace("--more", "").replace("--less", "")
+		prompt = prompt.replace("--more", "")
+		prompt = prompt.replace("--less", "")
 		console.log(prompt)
 		const payload = {
 			"prompt": prompt,
