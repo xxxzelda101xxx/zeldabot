@@ -15,7 +15,7 @@ module.exports = {
 		const imageRegex = /((?:(?!(?:https?|ftp):\/\/[\S]*\.(?:png|jpe?g|gif|svg|webp)).)+)|((?:https?|ftp):\/\/[\S]*\.(?:png|jpe?g|gif|svg|webp)(?:\?\S+=\S*(?:&\S+=\S*)*)?)/g;
 		const result = msg.match(imageRegex)
 		console.log(result);
-		var prompt = msg.substr(6)
+		var prompt = msg.substr(11)
 		prompt = prompt.replace(result[1], "")
 		console.log(prompt)
 		let file_id = nanoid()
