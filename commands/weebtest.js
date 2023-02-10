@@ -16,7 +16,7 @@ module.exports = {
 		var steps = 50
 		var width = 512
 		var height = 512
-		let image = await axios.get('https://www.blameseouless.com/files/GRri4m.jpg', {responseType: 'arraybuffer'});
+		let image = await axios.get('https://www.blameseouless.com/files/a1Axn4.png', {responseType: 'arraybuffer'});
 		let test = Buffer.from(image.data, 'binary').toString('base64')
 		const payload = {
 			"resize_mode": 1,
