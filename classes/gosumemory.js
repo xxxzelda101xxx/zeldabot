@@ -101,7 +101,7 @@ class GosuMemory {
 		if (mods.indexOf("DT") > -1 || mods.indexOf("NC") > -1) {
 			return millisToMinutesAndSeconds(this.menu.bm.time.full / 1.5)
 		}
-		else if (mods.indexOf("HT")) {
+		else if (mods.indexOf("HT") > -1) {
 			return millisToMinutesAndSeconds(this.menu.bm.time.full * 1.33)
 		}
 		else {
