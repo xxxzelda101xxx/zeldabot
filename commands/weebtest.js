@@ -23,10 +23,10 @@ module.exports = {
 		var denoising_strength = 0.55
 		let image = await axios.get(result[1], {responseType: 'arraybuffer'});
 		let test = Buffer.from(image.data, 'binary').toString('base64')
-		if (prompt.indexOf("--less")) {
+		if (prompt.indexOf("--less") > -1) {
 			denoising_strength = 0.3
 		}
-		if (prompt.indexOf("--more")) {
+		else if (prompt.indexOf("--more")> -1 ) {
 			denoising_strength = 0.8
 		}
 		prompt = prompt.replace("--more", "")
