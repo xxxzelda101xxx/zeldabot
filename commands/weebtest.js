@@ -15,13 +15,17 @@ module.exports = {
 		const imageRegex = /((?:(?!(?:https?|ftp):\/\/[\S]*\.(?:png|jpe?g|gif|svg|webp)).)+)|((?:https?|ftp):\/\/[\S]*\.(?:png|jpe?g|gif|svg|webp)(?:\?\S+=\S*(?:&\S+=\S*)*)?)/g;
 		const result = msg.match(imageRegex)
 		console.log(result);
+		var prompt = msg.substr(6)
+		prompt = prompt.replace(result[1], "")
+		console.log(prompt)
 		let file_id = nanoid()
 		var steps = 50
 		var width = 512
 		var height = 512
-		let image = await axios.get('https://www.blameseouless.com/files/GRri4m.jpg', {responseType: 'arraybuffer'});
+		let image = await axios.get(result[1], {responseType: 'arraybuffer'});
 		let test = Buffer.from(image.data, 'binary').toString('base64')
 		const payload = {
+			"prompt": prompt,
 			"steps": steps,
 			"width": width,
 			"height": height,
