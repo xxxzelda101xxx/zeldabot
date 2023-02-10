@@ -69,7 +69,7 @@ module.exports = {
 			var string = ""
 			for (var i = 0; i < image.length; i++) {
 				let file_id = nanoid()
-				fs.writeFileSync(`./images/${file_id}.png`, image[0], 'base64', function(err) {
+				fs.writeFileSync(`./images/${file_id}.png`, image[i], 'base64', function(err) {
 					console.log(err);
 				});
 				string += `https://blameseouless.com/aiimages/${file_id}.png `
