@@ -31,7 +31,7 @@ module.exports = {
 		}
 		prompt = prompt.replace("--more", "")
 		prompt = prompt.replace("--less", "")
-		console.log(prompt)
+		console.log(prompt, denoising_strength)
 		const payload = {
 			"prompt": prompt,
 			"steps": steps,
