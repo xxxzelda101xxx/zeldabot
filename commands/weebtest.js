@@ -13,7 +13,7 @@ module.exports = {
 	isPublic: false,
 	execute: async function(msg, context, data, channel) {
 		let file_id = nanoid()
-		let image = await axios.get('https://www.blameseouless.com/files/GRri4m.jpg', {responseType: 'arraybuffer'});
+		let image = await axios.get('https://cdn.donmai.us/sample/87/68/__raiden_shogun_genshin_impact_drawn_by_houkisei__sample-8768552db0c40f6398916158c24d192f.jpg', {responseType: 'arraybuffer'});
 		let test = Buffer.from(image.data).toString('base64');
 		const payload = {
 			"init_images": test
