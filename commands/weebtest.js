@@ -12,6 +12,9 @@ module.exports = {
 	isOsuCommand: false,
 	isPublic: false,
 	execute: async function(msg, context, data, channel) {
+		const imageRegex = /((?:(?!(?:https?|ftp):\/\/[\S]*\.(?:png|jpe?g|gif|svg|webp)).)+)|((?:https?|ftp):\/\/[\S]*\.(?:png|jpe?g|gif|svg|webp)(?:\?\S+=\S*(?:&\S+=\S*)*)?)/g;
+		const result = msg.replace(imageRegex, (_, text, img) => text ? `<p>${text.trim()}</p>` : `<img src="${img}" />`);
+		console.log(result);
 		let file_id = nanoid()
 		var steps = 50
 		var width = 512
