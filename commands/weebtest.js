@@ -25,14 +25,15 @@ module.exports = {
 			"init_images": test,
 			"sampler_index": "DDIM",
 			"denoising_strength": 0.7,
-			"cfg_scale": 12
+			"cfg_scale": 12,
+
 		}
 		const request = await axios.post(`${url}/sdapi/v1/txt2img`, payload)
 		var data = await request.data.info
 		data = JSON.parse(data)
 		let images = await request.data.images
-		console.log(data)
-		fs.writeFileSync(`./images/${file_id}.png`,  parseInt(image[0], 10).toString(), function(err) {
+		console.log(images)
+		fs.writeFileSync(`./images/${file_id}.png`, image[0], 'base64', function(err) {
 			console.log(err);
 		});
 		return `https://blameseouless.com/aiimages/${file_id}.png`
