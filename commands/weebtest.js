@@ -16,13 +16,13 @@ module.exports = {
 		var steps = 50
 		var width = 512
 		var height = 512
-		let image = await axios.get('https://www.blameseouless.com/files/a1Axn4.png', {responseType: 'arraybuffer'});
+		let image = await axios.get('https://www.blameseouless.com/files/GRri4m.jpg', {responseType: 'arraybuffer'});
 		let test = Buffer.from(image.data, 'binary').toString('base64')
 		const payload = {
 			"steps": steps,
 			"width": width,
 			"height": height,
-			"init_images": [test],
+			"init_images": test,
 			"include_init_images": true,
 			"sampler_index": "DDIM",
 			"denoising_strength": 0,
