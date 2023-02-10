@@ -19,8 +19,11 @@ module.exports = {
 			"init_images": test
 		}
 		const request = await axios.post(`${url}/sdapi/v1/txt2img`, payload)
+		var data = await request.data.info
+		data = JSON.parse(data)
 		let images = await request.data.images
-		fs.writeFileSync(`./images/${file_id}.png`, image[0], 'base64', function(err) {
+		console.log(data)
+		fs.writeFileSync(`./images/${file_id}.png`,  parseInt(image[0], 10).toString(), 'base64', function(err) {
 			console.log(err);
 		});
 		return `https://blameseouless.com/aiimages/${file_id}.png`
