@@ -27,9 +27,10 @@ async function main() {
 		chatClient.say("#shigetora", "!blame3")
 	})
 	for (var i = 0; i < channels.length; i++) {
-		addAllSevenTVEmotesToDB(channels[i].channel_id)
+	//	addAllSevenTVEmotesToDB(channels[i].channel_id)
 		streamOnlineEvents(channels[i].channel_id)
 		streamOfflineEvents(channels[i].channel_id)
+		streamBanEvents(channels[i].channel_id)
 	}
 	chatClient.onSubExtend(async function (channel, user, subInfo, context){
 		subHandler(channel, user, subInfo, context)
@@ -65,6 +66,12 @@ function streamOfflineEvents(channel_id) {
 	listener.subscribeToStreamOfflineEvents(channel_id, e => {
 		logger.verbose(`${e.broadcasterName} is offline.`)
 		changeTwitchStreamStatus(e.broadcasterId, false)
+	})
+}
+
+function streamBanEvents(channel_id) {
+	listener.subscribeToChannelBanEvents(channel_id, e => {
+		console.log(e.userName)
 	})
 }
 
