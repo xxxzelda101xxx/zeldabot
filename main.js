@@ -30,7 +30,7 @@ async function main() {
 	//	addAllSevenTVEmotesToDB(channels[i].channel_id)
 		streamOnlineEvents(channels[i].channel_id)
 		streamOfflineEvents(channels[i].channel_id)
-		streamBanEvents(channels[i].channel_id)
+		//streamBanEvents(channels[i].channel_id)
 	}
 	chatClient.onSubExtend(async function (channel, user, subInfo, context){
 		subHandler(channel, user, subInfo, context)
