@@ -16,7 +16,8 @@ module.exports = {
 		let file_id = nanoid()
 		const imageRegex = /((?:(?!(?:https?|ftp):\/\/[\S]*\.(?:png|jpe?g|gif|svg|webp)).)+)|((?:https?|ftp):\/\/[\S]*\.(?:png|jpe?g|gif|svg|webp)(?:\?\S+=\S*(?:&\S+=\S*)*)?)/g;
 		const result = msg.match(imageRegex)
-		require("fs").writeFileSync(`./tempimages/temp_${file_id}`, base64Data, 'base64', function(err) {
+		var tempImage = new Buffer.from(images[0], 'base64');
+		require("fs").writeFileSync(`./tempimages/temp_${file_id}`, tempImage, 'base64', function(err) {
 			console.log(err);
 		});
 		sizeOf(`./tempimages/temp_${file_id}`, function (err, dimensions) {
