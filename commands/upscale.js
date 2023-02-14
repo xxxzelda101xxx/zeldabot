@@ -16,7 +16,9 @@ module.exports = {
 		let file_id = nanoid()
 		const imageRegex = /((?:(?!(?:https?|ftp):\/\/[\S]*\.(?:png|jpe?g|gif|svg|webp)).)+)|((?:https?|ftp):\/\/[\S]*\.(?:png|jpe?g|gif|svg|webp)(?:\?\S+=\S*(?:&\S+=\S*)*)?)/g;
 		const result = msg.match(imageRegex)
-		var tempImage = new Buffer.from(images[0], 'base64');
+		let image = await axios.get(result[1], {responseType: 'arraybuffer'});
+		let test = Buffer.from(image.data, 'binary').toString('base64')
+		var tempImage = new Buffer.from(image, 'base64');
 		require("fs").writeFileSync(`./tempimages/temp_${file_id}`, tempImage, 'base64', function(err) {
 			console.log(err);
 		});
@@ -27,8 +29,6 @@ module.exports = {
 		var width = 512
 		var height = 512
 		var denoising_strength = 0.4
-		let image = await axios.get(result[1], {responseType: 'arraybuffer'});
-		let test = Buffer.from(image.data, 'binary').toString('base64')
 		const payload = {
 			"prompt": "(((highly detailed)))",
 			"steps": steps,
