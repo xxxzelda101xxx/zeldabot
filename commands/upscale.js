@@ -51,6 +51,15 @@ module.exports = {
 		fs.writeFileSync(`./images/${file_id}.png`, bitmap, function(err) {
 			console.log(err);
 		});
-		return `https://blameseouless.com/aiimages/${file_id}.png`
+		var string = ""
+		for (var i = 0; i < images.length; i++) {
+			let file_id = nanoid()
+			fs.writeFileSync(`./images/${file_id}.png`, images[i], 'base64', function(err) {
+				console.log(err);
+			});
+			string += `https://blameseouless.com/aiimages/${file_id}.png || `
+		}
+		console.log(string)
+		return string
 	}
 }
