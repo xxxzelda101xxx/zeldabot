@@ -3,6 +3,7 @@ const fs = require('fs')
 const { nanoid } = require('nanoid')
 const config = require('../config.json')
 const url = config.ai.url
+const sizeOf = require('image-size')
 
 module.exports = {
 	name: "upscale",
@@ -12,9 +13,15 @@ module.exports = {
 	isOsuCommand: false,
 	isPublic: false,
 	execute: async function(msg, context, data, channel) {
+		let file_id = nanoid()
 		const imageRegex = /((?:(?!(?:https?|ftp):\/\/[\S]*\.(?:png|jpe?g|gif|svg|webp)).)+)|((?:https?|ftp):\/\/[\S]*\.(?:png|jpe?g|gif|svg|webp)(?:\?\S+=\S*(?:&\S+=\S*)*)?)/g;
 		const result = msg.match(imageRegex)
-		let file_id = nanoid()
+		require("fs").writeFileSync(`./tempimages/temp_${file_id}`, base64Data, 'base64', function(err) {
+			console.log(err);
+		});
+		sizeOf(`./tempimages/temp_${file_id}`, function (err, dimensions) {
+			console.log(dimensions.width, dimensions.height)
+		})
 		var steps = 200
 		var width = 512
 		var height = 512
