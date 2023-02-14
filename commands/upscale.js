@@ -18,7 +18,7 @@ module.exports = {
 		const result = msg.match(imageRegex)
 		let image = await axios.get(result[1], {responseType: 'arraybuffer'});
 		let test = Buffer.from(image.data, 'binary').toString('base64')
-		var tempImage = new Buffer.from(image, 'base64');
+		var tempImage = new Buffer.from(test, 'base64');
 		require("fs").writeFileSync(`./tempimages/temp_${file_id}`, tempImage, 'base64', function(err) {
 			console.log(err);
 		});
