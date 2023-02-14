@@ -19,16 +19,18 @@ module.exports = {
 		let image = await axios.get(result[1], {responseType: 'arraybuffer'});
 		let test = Buffer.from(image.data, 'binary').toString('base64')
 		var tempImage = new Buffer.from(test, 'base64');
+		var imagedimensions
 		require("fs").writeFileSync(`./tempimages/temp_${file_id}`, tempImage, 'base64', function(err) {
 			console.log(err);
 		});
 		sizeOf(`./tempimages/temp_${file_id}`, function (err, dimensions) {
+			imagedimensions = dimensions
 			console.log(dimensions.width, dimensions.height)
 		})
 		var steps = 200
-		var width = 512
-		var height = 512
-		var denoising_strength = 0.4
+		var width = imagedimensions.width
+		var height = imagedimensions.height
+		var denoising_strength = 0
 		const payload = {
 			"prompt": "(((highly detailed)))",
 			"steps": steps,
