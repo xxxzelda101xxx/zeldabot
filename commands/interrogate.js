@@ -20,6 +20,9 @@ module.exports = {
   			"model": "deepbooru"
 		}
 		const request = await axios.post(`${url}/sdapi/v1/interrogate`, payload)
+		.catch(e =>{
+			console.log(e)
+		})
 		var data = await request.data.info
 		data = JSON.parse(data)
 		console.log(data)
