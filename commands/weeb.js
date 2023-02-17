@@ -79,12 +79,13 @@ module.exports = {
 			}
 			console.log(string)
 			return string*/
+			let file_id = nanoid()
 			var imageArray = []
 			for (var i = 0; i < image.length; i++) {
 				var imageBuffer = Buffer.from(image[i], 'base64')
 				imageArray.push(imageBuffer)
 			}
-			joinImages(['image-1.png', 'image-2.jpg']).then((img) => {
+			joinImages(imageArray).then((img) => {
 				// Save image as file
 				img.toFile(`./images/${file_id}.png`);
 			});
