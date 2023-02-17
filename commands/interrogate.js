@@ -17,7 +17,7 @@ module.exports = {
 		let test = Buffer.from(image.data, 'binary').toString('base64')
 		const payload = {
 			"image": test,
-  			"model": "DeepBooru"
+  			"model": "clip"
 		}
 		console.log(`${url}/sdapi/v1/interrogate`)
 		const request = await axios.post(`${url}/sdapi/v1/interrogate`, payload)
