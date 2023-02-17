@@ -25,7 +25,6 @@ module.exports = {
 		})
 		var data = await request.data.caption
 		data = data.replace(/_/gi, " ")
-		data = data.replace(/\\/gi, "")
 		return data
 	}
 }
