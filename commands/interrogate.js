@@ -19,14 +19,13 @@ module.exports = {
 			"image": test,
   			"model": "deepdanbooru"
 		}
-		console.log(`${url}/sdapi/v1/interrogate`)
 		const request = await axios.post(`${url}/sdapi/v1/interrogate`, payload)
 		.catch(e =>{
 			console.log(e)
 		})
-		var data = await request.data.info
-		data = JSON.parse(data)
-		console.log(data)
+		//var data = await request.data.info
+		//data = JSON.parse(data)
+		console.log(request)
 		return string
 	}
 }
