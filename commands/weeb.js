@@ -3,6 +3,8 @@ const fs = require('fs')
 const { nanoid } = require('nanoid')
 const config = require('../config.json')
 const url = config.ai.url
+const { joinImages } = require('join-images')
+
 
 module.exports = {
 	name: "weeb",
@@ -47,6 +49,7 @@ module.exports = {
 			"height": height,
 			"sampler_index": "DDIM",
 			"enable_hr": enable_hr,
+			"hr_upscaler": "R-ESRGAN 4x+ Anime6B",
 			"hr_second_pass_steps": hires_steps,
 			"hr_resize_x": hr_resize_x,
 			"hr_resize_y": hr_resize_y,
@@ -66,7 +69,7 @@ module.exports = {
 			return `https://blameseouless.com/aiimages/${file_id}.png`
 		} 
 		else {
-			var string = ""
+			/*var string = ""
 			for (var i = 0; i < image.length; i++) {
 				let file_id = nanoid()
 				fs.writeFileSync(`./images/${file_id}.png`, image[i], 'base64', function(err) {
@@ -75,7 +78,17 @@ module.exports = {
 				string += `https://blameseouless.com/aiimages/${file_id}.png || `
 			}
 			console.log(string)
-			return string
+			return string*/
+			var imageArray = []
+			for (var i = 0; i < image.length; i++) {
+				var imageBuffer = Buffer.from(image[i], 'base64')
+				imageArray.push(imageBuffer)
+			}
+			joinImages(['image-1.png', 'image-2.jpg']).then((img) => {
+				// Save image as file
+				img.toFile(`./images/${file_id}.png`);
+			});
+			return `https://blameseouless.com/aiimages/${file_id}.png`
 		}
 	}
 }
