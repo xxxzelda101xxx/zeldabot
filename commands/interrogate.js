@@ -23,9 +23,9 @@ module.exports = {
 		.catch(e =>{
 			console.log(e)
 		})
-		//var data = await request.data.info
-		//data = JSON.parse(data)
-		console.log(request)
+		var data = await request.data.caption
+		data = JSON.parse(data)
+		console.log(data)
 		return string
 	}
 }
