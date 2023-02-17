@@ -19,6 +19,7 @@ module.exports = {
 			"image": test,
   			"model": "deepbooru"
 		}
+		console.log(`${url}/sdapi/v1/interrogate`)
 		const request = await axios.post(`${url}/sdapi/v1/interrogate`, payload)
 		.catch(e =>{
 			console.log(e)
