@@ -4,7 +4,7 @@ const config = require('../config.json')
 const url = config.ai.url
 
 module.exports = {
-	name: "upscale",
+	name: "interrogate",
 	aliases: [],
 	description: "",
 	canWhisper: false,
