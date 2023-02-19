@@ -45,7 +45,7 @@ module.exports = {
 			"width": width,
 			"height": height,
 			"sampler_index": "DDIM",
-			"enable_hr": enable_hr,
+			//"enable_hr": enable_hr,
 			"hr_upscaler": "R-ESRGAN 4x+ Anime6B",
 			"cfg_scale": 12,
 			"batch_size": batch_size
