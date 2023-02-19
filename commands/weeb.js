@@ -53,7 +53,6 @@ module.exports = {
 			"hr_second_pass_steps": hires_steps,
 			"hr_resize_x": hr_resize_x,
 			"hr_resize_y": hr_resize_y,
-			"denoising_strength": 0,
 			"cfg_scale": 12,
 			"batch_size": batch_size
 		}
