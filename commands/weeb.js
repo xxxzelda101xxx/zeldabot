@@ -19,6 +19,9 @@ module.exports = {
 		var steps = 50
 		var width = 512
 		var height = 512
+		var hires_steps = 20
+		var hr_resize_x = 1024
+		var hr_resize_y = 1024
 		var enable_hr = true
 		var batch_size = 1
 		if (prompt.indexOf("--steps") == 0) {
@@ -45,8 +48,12 @@ module.exports = {
 			"width": width,
 			"height": height,
 			"sampler_index": "DDIM",
-			//"enable_hr": enable_hr,
+			"enable_hr": enable_hr,
 			"hr_upscaler": "R-ESRGAN 4x+ Anime6B",
+			"hr_second_pass_steps": hires_steps,
+			"hr_resize_x": hr_resize_x,
+			"hr_resize_y": hr_resize_y,
+			"denoising_strength": 0.7,
 			"cfg_scale": 12,
 			"batch_size": batch_size
 		}
