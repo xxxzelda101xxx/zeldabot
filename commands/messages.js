@@ -40,7 +40,7 @@ module.exports = {
 		else {
 			totalMessages = await getMessages(user_id, context.channelId)
 			totalMessages = numberWithCommas(totalMessages)
-			var messageRank = await getMessageRank(user_id, channel_id)
+			var messageRank = await getMessageRank(user_id, context.channelId)
 			console.log(messageRank)
 			return `${username} has sent ${totalMessages} messages in this channel.`
 		}
