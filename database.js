@@ -144,6 +144,15 @@ async function getMessages(user_id, channel_id) {
 	return messages
 }
 
+async function getMessageRank(user_id, channel_id) {
+	let data = await db_get("SELECT *, RANK() OVER ( ORDER BY total DESC ) AS rank FROM messages WHERE channel_id = ?", [channel_id])
+	var i
+	for (i = 0; i < data.length; i++) {
+		if (data[i].user_id == user_id) break;
+	}
+	console.log(i)
+}
+
 async function getBans(user_id, channel_id) {
 	let data = await db_get("SELECT bans FROM bans WHERE user_id = ? AND channel_id = ?", [user_id, channel_id])
 	if (data) return data.bans
@@ -237,3 +246,4 @@ module.exports.getChannels = getChannels
 module.exports.addSevenTVEmoteToDB = addSevenTVEmoteToDB
 module.exports.getSevenTVEmotesByChannelID = getSevenTVEmotesByChannelID
 module.exports.getChannelIDBySevenTVID = getChannelIDBySevenTVID
+module.exports.getMessageRank = getMessageRank

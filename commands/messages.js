@@ -1,4 +1,4 @@
-const { getUserIdByUsername, getMessages, getAllMessages } = require("../database.js")
+const { getUserIdByUsername, getMessages, getAllMessages, getMessageRank } = require("../database.js")
 const { numberWithCommas } = require("../functions.js")
 module.exports = {
 	name: "messages",
@@ -40,6 +40,8 @@ module.exports = {
 		else {
 			totalMessages = await getMessages(user_id, context.channelId)
 			totalMessages = numberWithCommas(totalMessages)
+			var messageRank = await getMessageRank(user_id, channel_id)
+			console.log(messageRank)
 			return `${username} has sent ${totalMessages} messages in this channel.`
 		}
 	}
