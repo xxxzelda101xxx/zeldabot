@@ -146,6 +146,7 @@ async function getMessages(user_id, channel_id) {
 
 async function getMessageRank(user_id, channel_id) {
 	let data = await db_all("SELECT *, RANK() OVER ( ORDER BY total DESC ) AS rank FROM messages WHERE channel_id = ?", [channel_id])
+	console.log(data)
 	var i
 	for (i = 0; i < data.length; i++) {
 		if (data[i].user_id == user_id) break;
