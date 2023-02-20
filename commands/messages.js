@@ -29,9 +29,10 @@ module.exports = {
 		else if (isUsername) {
 			user_id = await getUserIdByUsername(msg.toLowerCase().split(" ")[1])
 			if (user_id) {
+				var messageRank = await getMessageRank(user_id, context.channelId)
 				totalMessages = await getMessages(user_id, context.channelId)
 				totalMessages = numberWithCommas(totalMessages)
-				return `${msg.toLowerCase().split(" ")[1]} has sent ${totalMessages} messages in this channel.`
+				return `${msg.toLowerCase().split(" ")[1]} has sent ${totalMessages} (#${messageRank}) messages in this channel.`
 			}
 			else {
 				return "User not found."
@@ -42,7 +43,7 @@ module.exports = {
 			totalMessages = numberWithCommas(totalMessages)
 			var messageRank = await getMessageRank(user_id, context.channelId)
 			console.log(messageRank)
-			return `${username} has sent ${totalMessages} messages in this channel.`
+			return `${username} has sent ${totalMessages} (#${messageRank}) messages in this channel.`
 		}
 	}
 }
