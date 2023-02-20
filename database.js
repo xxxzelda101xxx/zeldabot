@@ -146,12 +146,10 @@ async function getMessages(user_id, channel_id) {
 
 async function getMessageRank(user_id, channel_id) {
 	let data = await db_all("SELECT *, RANK() OVER ( ORDER BY total DESC ) AS rank FROM messages WHERE channel_id = ?", [channel_id])
-	console.log(data)
-	var i
+	console.log(data.length)
 	for (i = 0; i < data.length; i++) {
-		if (data[i].user_id == user_id) break;
+		if (data[i].user_id == user_id) return data[i].rank
 	}
-	console.log(i)
 }
 
 async function getBans(user_id, channel_id) {
