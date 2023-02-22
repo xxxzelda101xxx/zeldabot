@@ -15,7 +15,7 @@ module.exports = {
 		msg = msg.replace(/@/g, "")
 		if (msg.toLowerCase().split(" ")[1] == "total") isTotal = true
 		if (msg.toLowerCase().split(" ")[1] == "allchannels") isAllChannels = true
-		if (msg.toLowerCase().split(" ").length == 2) isUsername = true
+		if (msg.toLowerCase().split(" ").length >= 2) isUsername = true
 		if (isTotal) {
 			totalMessages = await getMessages(null, context.channelId)
 			totalMessages = numberWithCommas(totalMessages)
