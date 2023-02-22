@@ -43,7 +43,7 @@ module.exports = {
 
 		if (prompt.indexOf("--3d") > -1) {
 			override_settings = {
-				"sd_model_checkpoint": "chilloutmix_NiPrunedFp32Fix.safetensors [fc2511737a]"
+				"sd_model_checkpoint": "realisticVisionV13_v13.safetensors [c35782bad8]"
 			}
 		}
 
