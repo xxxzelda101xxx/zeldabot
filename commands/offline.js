@@ -1,4 +1,4 @@
-const { changeTwitchStreamStatus } = require("./database.js")
+const { changeTwitchStreamStatus } = require("../database.js")
 
 
 module.exports = {
