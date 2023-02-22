@@ -151,6 +151,12 @@ async function getMessageRank(user_id, channel_id) {
 	}
 }
 
+async function getMessageLeaderboard(channel_id, page) {
+	var limit = (page * 10)
+	let data = await db_all("SELECT u.username, m.user_id, m.total, RANK() OVER ( ORDER BY total DESC ) AS rank FROM messages m INNER JOIN users u ON m.user_id = u.user_id WHERE m.channel_id = ? LIMIT ?", [channel_id, limit, limit + 10])
+	return data
+}
+
 async function getBans(user_id, channel_id) {
 	let data = await db_get("SELECT bans FROM bans WHERE user_id = ? AND channel_id = ?", [user_id, channel_id])
 	if (data) return data.bans
@@ -245,3 +251,4 @@ module.exports.addSevenTVEmoteToDB = addSevenTVEmoteToDB
 module.exports.getSevenTVEmotesByChannelID = getSevenTVEmotesByChannelID
 module.exports.getChannelIDBySevenTVID = getChannelIDBySevenTVID
 module.exports.getMessageRank = getMessageRank
+module.exports.getMessageLeaderboard = getMessageLeaderboard

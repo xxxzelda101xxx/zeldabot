@@ -1,4 +1,4 @@
-const { getUserIdByUsername, getMessages, getAllMessages, getMessageRank } = require("../database.js")
+const { getUserIdByUsername, getMessages, getAllMessages, getMessageRank, getMessageLeaderboard } = require("../database.js")
 const { numberWithCommas } = require("../functions.js")
 module.exports = {
 	name: "messages",
@@ -12,11 +12,24 @@ module.exports = {
 		var user_id = context.userInfo.userId
 		var username = context.userInfo.userName
 		var isUsername, isTotal, isAllChannels, totalMessages
+		var isLeaderboard
 		msg = msg.replace(/@/g, "")
 		if (msg.toLowerCase().split(" ")[1] == "total") isTotal = true
 		if (msg.toLowerCase().split(" ")[1] == "allchannels") isAllChannels = true
-		if (msg.toLowerCase().split(" ").length >= 2) isUsername = true
-		if (isTotal) {
+		if (msg.toLowerCase().split(" ")[1] == "leaderboard") isLeaderboard = true
+		else if (msg.toLowerCase().split(" ").length >= 2) isUsername = true
+		if (isLeaderboard) {
+			var page = msg.toLowerCase().split(" ")[2]
+			if (isNaN(page)) page = 1
+			var leaderboard = getMessageLeaderboard(context.channelId, page - 1)
+			var leaderboardArray = []
+			console.log(leaderboard)
+			for (var i = 0; i < 10; i++) {
+				leaderboardArray.push(`#${leaderboard[i].rank} ${leaderboard[i].username} with ${numberWithCommas(leaderboard[i].total)} messages`)
+			}
+			return leaderboardArray
+		}
+		else if (isTotal) {
 			totalMessages = await getMessages(null, context.channelId)
 			totalMessages = numberWithCommas(totalMessages)
 			return `A total of ${totalMessages} messages have been sent in this channel.`
