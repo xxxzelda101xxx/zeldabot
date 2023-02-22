@@ -21,7 +21,7 @@ module.exports = {
 		if (isLeaderboard) {
 			var page = msg.toLowerCase().split(" ")[2]
 			if (isNaN(page)) page = 1
-			var leaderboard = getMessageLeaderboard(context.channelId, page - 1)
+			var leaderboard = await getMessageLeaderboard(context.channelId, page - 1)
 			var leaderboardArray = []
 			console.log(leaderboard)
 			for (var i = 0; i < 10; i++) {
