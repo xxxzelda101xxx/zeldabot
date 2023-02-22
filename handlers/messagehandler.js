@@ -51,10 +51,10 @@ async function messageHandler(channel, user, msg, context, osuData) {
 			let messageToSend = await commandToRun.execute(msg, context, osuData, channel)
 			if (Array.isArray(messageToSend)) {
 				for (var i = 0; i < messageToSend.length; i++) {
-					chatClient.say(channel, messageToSend[i])
+					chatClient.say(channel, messageToSend[i], {}, "throw")
 				}
 			}
-			if (commandToRun.name == "weeb") {
+			else if (commandToRun.name == "weeb") {
 				chatClient.say(channel, messageToSend, { replyTo: context })
 			}
 			else if (messageToSend != "") {
