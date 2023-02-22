@@ -27,7 +27,7 @@ async function main() {
 		chatClient.say("#shigetora", "!blame3")
 	})
 	for (var i = 0; i < channels.length; i++) {
-	//	addAllSevenTVEmotesToDB(channels[i].channel_id)
+		addAllSevenTVEmotesToDB(channels[i].channel_id)
 		streamOnlineEvents(channels[i].channel_id)
 		streamOfflineEvents(channels[i].channel_id)
 		//streamBanEvents(channels[i].channel_id)
