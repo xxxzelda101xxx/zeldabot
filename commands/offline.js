@@ -3,6 +3,7 @@ const { changeTwitchStreamStatus } = require("../database.js")
 
 module.exports = {
 	name: "offline",
+	aliases: [],
 	description: "",
 	canWhisper: false,
 	adminOnly: true, 
