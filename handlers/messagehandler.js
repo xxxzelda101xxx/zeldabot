@@ -40,10 +40,10 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		var online = await getTwitchStreamStatus(channel_id)
 		const cooldown = getCooldown(command)
 		if (!isMod && online) {
-			if (commandToRun.offlineOnly) return chatClient.deleteMessage(channel, context)
-			if (cooldown && !isMod) return chatClient.deleteMessage(channel, context)
-			if (isWhitelistEnabled && !whitelistStatus && !commandToRun.isPublic) return chatClient.deleteMessage(channel, context)
-			if (osuData && commandToRun.requiredState && osuData.menuState != commandToRun.requiredState) return chatClient.deleteMessage(channel, context)
+			if (commandToRun.offlineOnly) return apiClient.deleteChatMessages(channel_id, "14163149", context.id)
+			if (cooldown && !isMod) return apiClient.deleteChatMessages(channel_id, "14163149", context.id)
+			if (isWhitelistEnabled && !whitelistStatus && !commandToRun.isPublic) return apiClient.deleteChatMessages(channel_id, "14163149", context.id)
+			if (osuData && commandToRun.requiredState && osuData.menuState != commandToRun.requiredState) return apiClient.deleteChatMessages(channel_id, "14163149", context.id)
 		}
 		setCooldown(command)
 		logger.verbose(`Executing !${commandToRun.name} from user: ${user} in channel: ${channel}.`)
