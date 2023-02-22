@@ -22,7 +22,7 @@ module.exports = {
 		var hires_steps = 20
 		var hr_resize_x = 1024
 		var hr_resize_y = 1024
-		var enable_hr = true
+		var enable_hr = false
 		var batch_size = 1
 		var override_settings= {}
 		if (prompt.indexOf("--steps") == 0) {
