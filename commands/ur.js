@@ -1,11 +1,11 @@
 module.exports = {
 	name: "ur",
 	aliases: [],
-	description: "",
+	description: "Returns the current unstable rate.",
 	canWhisper: true,
 	isOsuCommand: true,
 	isPublic: false,
-	execute: async function(msg, context, data) {
+	execute: async function(msg, context, data, args) {
 		return `${data.getUR()} ur`
 	}
 }

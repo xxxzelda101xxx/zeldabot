@@ -5,7 +5,7 @@ module.exports = {
 	canWhisper: true,
 	isOsuCommand: true,
 	isPublic: true,
-	execute: async function(msg, context, data) {
+	execute: async function(msg, context, data, args) {
 		var contents = data.getMods()
 		return contents
 	}

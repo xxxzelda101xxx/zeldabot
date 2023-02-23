@@ -6,11 +6,11 @@ const path = require("path")
 module.exports = {
 	name: "pp",
 	aliases: ["nppp"],
-	description: "",
+	description: "Returns how much pp the current map is worth with the given mods and accuracy.",
 	canWhisper: true,
 	isOsuCommand: true,
 	isPublic: false,
-	execute: async function(msg, context, data) {
+	execute: async function(msg, context, data, args) {
 		if (msg.toLowerCase().split(" ").length == 1) {
 			var pp = await data.getCurrentPP()
 			return `${pp}pp`

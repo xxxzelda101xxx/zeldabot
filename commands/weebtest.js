@@ -7,11 +7,11 @@ const url = config.ai.url
 module.exports = {
 	name: "weebtest",
 	aliases: [],
-	description: "",
+	description: "Generates an image using AI.",
 	canWhisper: false,
 	isOsuCommand: false,
 	isPublic: false,
-	execute: async function(msg, context, data, channel) {
+	execute: async function(msg, context, args) {
 		const imageRegex = /((?:(?!(?:https?|ftp):\/\/[\S]*\.(?:png|jpe?g|gif|svg|webp)).)+)|((?:https?|ftp):\/\/[\S]*\.(?:png|jpe?g|gif|svg|webp)(?:\?\S+=\S*(?:&\S+=\S*)*)?)/g;
 		const result = msg.match(imageRegex)
 		var prompt = msg.substr(11)

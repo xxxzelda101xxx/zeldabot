@@ -7,11 +7,11 @@ const path = require("path")
 module.exports = {
 	name: "stats",
 	aliases: [],
-	description: "",
+	description: "Returns stats for the current map.",
 	canWhisper: true,
 	isOsuCommand: true,
 	isPublic: false,
-	execute: async function(msg, context, data) {
+	execute: async function(msg, context, data, args) {
 		var currentStats = data.getCurrentStats()
 		var osuFile = path.join(data.menu.bm.path.folder, data.menu.bm.path.file)
 		var mods = currentStats.leaderboard.ourplayer.mods != "" ? currentStats.leaderboard.ourplayer.mods : data.menu.mods.str

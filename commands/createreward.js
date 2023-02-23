@@ -5,12 +5,12 @@ const useSeparateBroadcasterToken = config.twitch.separateBroadcasterToken
 module.exports = {
 	name: "createreward",
 	aliases: [],
-	description: "",
+	description: "Creates a new channel point reward with the given information.",
 	canWhisper: false,
 	isOsuCommand: false,
 	adminOnly: true, 
 	isPublic: false,
-	execute: async function(msg) {
+	execute: async function(msg, context, args) {
 		if (!useSeparateBroadcasterToken) return ""
 		let user = await shigeapiClient.users.getUserByName("shigetora")
 		const cost = parseInt(msg.match(/\{([^)]+)\}/)[1])

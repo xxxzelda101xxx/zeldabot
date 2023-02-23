@@ -3,12 +3,12 @@ const { getTopTenEmotes, getTopTenEmotesByUserID, getUserIdByUsername } = requir
 module.exports = {
 	name: "toptenemotes",
 	aliases: ["topemotes", "tte"],
-	description: "",
+	description: "Returns top ten emotes for a given user or the entire channel.",
 	canWhisper: false,
 	offlineOnly: true,
 	isOsuCommand: false,
 	isPublic: false,
-	execute: async function(msg, context) {
+	execute: async function(msg, context, args) {
 		if (msg.toLowerCase().split(" ").length == 1) {
 			let emotes = await getTopTenEmotes(context.channelId)
 			var messageToSend = ""

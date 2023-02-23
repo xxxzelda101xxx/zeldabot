@@ -6,7 +6,7 @@ module.exports = {
 	isOsuCommand: false,
 	modOnly: true, 
 	isPublic: false,
-	execute: async function(msg) {
+	execute: async function(msg, context, args) {
 		var numberToRoll = msg.split(" ").filter(item => item)
 		numberToRoll = numberToRoll[1]
 		var maxDice = 6

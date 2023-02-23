@@ -6,11 +6,11 @@ const url = config.ai.url
 module.exports = {
 	name: "interrogate",
 	aliases: [],
-	description: "",
+	description: "Returns tags from stable diffusion's interrogate feature for a given image.",
 	canWhisper: false,
 	isOsuCommand: false,
 	isPublic: false,
-	execute: async function(msg, context, data, channel) {
+	execute: async function(msg, context, args) {
 		const imageRegex = /((?:(?!(?:https?|ftp):\/\/[\S]*\.(?:png|jpe?g|gif|svg|webp)).)+)|((?:https?|ftp):\/\/[\S]*\.(?:png|jpe?g|gif|svg|webp)(?:\?\S+=\S*(?:&\S+=\S*)*)?)/g;
 		const result = msg.match(imageRegex)
 		let image = await axios.get(result[1], {responseType: 'arraybuffer'});

@@ -1,13 +1,13 @@
-const { getUserIdByUsername, getMessages, getBans } = require("../database.js")
+const { getUserIdByUsername, getBans } = require("../database.js")
 module.exports = {
 	name: "bans",
 	aliases: [],
-	description: "Sends information on the song/map that is currently playing.",
+	description: "Returns how many bans a specified user has.",
 	canWhisper: false,
 	offlineOnly: true,
 	isPublic: false,
 	isOsuCommand: false,
-	execute: async function(msg, context) {
+	execute: async function(msg, context, args) {
 		var user_id = context.userInfo.userId
 		var username = context.userInfo.userName
 		var isUsername, numberOfBans

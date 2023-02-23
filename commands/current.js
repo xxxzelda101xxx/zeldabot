@@ -7,11 +7,11 @@ const path = require("path")
 module.exports = {
 	name: "current",
 	aliases: [],
-	description: "",
+	description: "Returns the current data for the ongoing osu play.",
 	canWhisper: true,
 	isOsuCommand: true,
 	isPublic: false,
-	execute: async function(msg, context, data) {
+	execute: async function(msg, context, data, args) {
 		if (data.menu.state == 2 || data.menu.state == 7) {	
 			var currentStats = data.getCurrentStats()
 			var osuFile = path.join(data.menu.bm.path.folder, data.menu.bm.path.file)

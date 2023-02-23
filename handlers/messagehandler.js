@@ -31,10 +31,10 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		addTwitchUserToDB(user_id, user)
 		addToDB(user_id, channel_id)
 		addEmoteToDB(user_id, msg, context.parseEmotes(), channel_id)
-		if (channel != "#shigetora" && channel != "#zelda101_") return
-		if (user.toLowerCase() == "kagami_77") kagamiBanRNG(channel, user)
-		banRNG(channel, user, context)
 		if (!commandToRun) return
+		if (channel != "#shigetora" && channel != "#zelda101_") return
+		if (user.toLowerCase() == "kagami_77") kagamiBanRNG(channel, user) // 1/1k chance to ban kagami
+		banRNG(channel, user, context) // 1/10k chance to ban anyone
 		if (osuCommandsOnly && commandToRun.isOsuCommand == false) return
 		if (!osuData && commandToRun.isOsuCommand == true) return
 		var online = await getTwitchStreamStatus(channel_id)
@@ -48,7 +48,14 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		setCooldown(command)
 		logger.verbose(`Executing !${commandToRun.name} from user: ${user} in channel: ${channel}.`)
 		try {
-			let messageToSend = await commandToRun.execute(msg, context, osuData, channel)
+			let args = msg.slice(1).split(' ')
+			var messageToSend
+			if (commandToRun.isOsuCommand) {
+				messageToSend = await commandToRun.execute(msg, context, osuData, args)
+			}
+			else {
+				messageToSend = await commandToRun.execute(msg, context, args)
+			}
 			if (Array.isArray(messageToSend)) {
 				for (var i = 0; i < messageToSend.length; i++) {
 					chatClient.say(channel, messageToSend[i], {}, "throw")

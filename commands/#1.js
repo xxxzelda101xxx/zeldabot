@@ -1,11 +1,11 @@
 module.exports = {
 	name: "#1",
 	aliases: ["number1"],
-	description: "",
+	description: "Returns the #1 score for the current map.",
 	canWhisper: true,
 	isOsuCommand: true,
 	isPublic: false,
-	execute: async function(msg, context, data) {
+	execute: async function(msg, context, data, args) {
 		if (data.menu.state == 2 || data.menu.state == 7) {
 			var numberOneScore = data.getNumber1Score()
 			if (!numberOneScore) return "Not in a map or map is unranked/no local scores."

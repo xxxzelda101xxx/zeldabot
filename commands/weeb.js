@@ -9,12 +9,12 @@ const { joinImages } = require('join-images')
 module.exports = {
 	name: "weeb",
 	aliases: [],
-	description: "",
+	description: "Generates an image using AI.",
 	canWhisper: false,
 	isOsuCommand: false,
 	isPublic: false,
-	execute: async function(msg, context, data, channel) {
-		if (channel != "#zelda101_") return ""
+	execute: async function(msg, context, args) {
+		if (context.channelId != 14163149) return ""
 		var prompt = msg.substr(6)
 		var steps = 50
 		var width = 512
@@ -22,7 +22,7 @@ module.exports = {
 		var hires_steps = 20
 		var hr_resize_x = 1024
 		var hr_resize_y = 1024
-		var enable_hr = false
+		var enable_hr = true
 		var batch_size = 1
 		var override_settings= {}
 		if (prompt.indexOf("--steps") == 0) {

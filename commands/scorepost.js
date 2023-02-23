@@ -1,12 +1,12 @@
 module.exports = {
 	name: "scorepost",
 	aliases: [],
-	description: "",
+	description: "Meme command to generate a reddit score post title.",
 	canWhisper: true,
 	isOsuCommand: true,
 	requiredState: 7,
 	isPublic: false,
-	execute: async function(msg, context, data) {
+	execute: async function(msg, context, data, args) {
 		var results = data.getResultsScreen()
 		var pp = await data.getCurrentPP()
 		var newSR = await data.getNewSR()

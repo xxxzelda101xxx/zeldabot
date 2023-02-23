@@ -7,7 +7,7 @@ module.exports = {
 	canWhisper: true,
 	isOsuCommand: true,
 	isPublic: true,
-	execute: async function(msg, context, data) {
+	execute: async function(msg, context, data, args) {
 		//contents = `${mapData.artist} - ${mapData.title} [${mapData.difficulty}] +${osuMods} (${rankedStatus}, Mapset by ${mapData.mapper}) Download: `
 		var contents = `${data.getArtist()} - ${data.getTitle()} [${data.getDifficulty()}] +${data.getMods()} `
 		if (data.beatmap_id == 0 && data.beatmapset_id > 0) {

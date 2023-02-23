@@ -10,7 +10,7 @@ module.exports = {
 	modOnly: true, 
 	isPublic: false,
 	isOsuCommand: false,
-	execute: async function(msg, context) {
+	execute: async function(msg, context, args) {
 		if (!useSeparateBroadcasterToken) return ""
 		if (!context.userInfo.isMod && !context.userInfo.isBroadcaster) return
 		let user = await shigeapiClient.users.getUserByName("shigetora")

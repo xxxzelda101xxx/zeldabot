@@ -3,12 +3,12 @@ const { numberWithCommas } = require("../functions.js")
 module.exports = {
 	name: "messages",
 	aliases: [],
-	description: "Sends information on the song/map that is currently playing.",
+	description: "Returns how many messages a user has or number of messages sent in an entire channel.",
 	canWhisper: false,
 	offlineOnly: true,
 	isPublic: false,
 	isOsuCommand: false,
-	execute: async function(msg, context) {
+	execute: async function(msg, context, args) {
 		var user_id = context.userInfo.userId
 		var username = context.userInfo.userName
 		var isUsername, isTotal, isAllChannels, totalMessages

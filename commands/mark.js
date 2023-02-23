@@ -10,7 +10,7 @@ module.exports = {
 	modOnly: true, 
 	isPublic: false,
 	isOsuCommand: false,
-	execute: async function(msg) {
+	execute: async function(msg, context, args) {
 		if (!useSeparateBroadcasterToken) return ""
 		let user = await shigeapiClient.users.getUserByName("shigetora")
 		const description = msg.replace("!mark", "") 

@@ -8,11 +8,11 @@ const sizeOf = require('image-size')
 module.exports = {
 	name: "upscale",
 	aliases: [],
-	description: "",
+	description: "AI upscales a given image.",
 	canWhisper: false,
 	isOsuCommand: false,
 	isPublic: false,
-	execute: async function(msg, context, data, channel) {
+	execute: async function(msg, context, args) {
 		let file_id = nanoid()
 		const imageRegex = /((?:(?!(?:https?|ftp):\/\/[\S]*\.(?:png|jpe?g|gif|svg|webp)).)+)|((?:https?|ftp):\/\/[\S]*\.(?:png|jpe?g|gif|svg|webp)(?:\?\S+=\S*(?:&\S+=\S*)*)?)/g;
 		const result = msg.match(imageRegex)
