@@ -49,6 +49,9 @@ module.exports = {
 		if (prompt.indexOf("aqua \\(konosuba\\)") > -1) {
 			prompt = "  <lora:aquaKonosubaLora_1:0.6>, " + prompt
 		}
+		if (prompt.indexOf("chibi") > -1) {
+			prompt = " <lora:komowataHarukaChibiArt_v20:1>, chibi" + prompt
+		}
 		prompt = prompt.replace(/--hq/gi, "")
 		prompt = prompt.replace(/--batch/gi, "")
 		prompt = prompt.replace(/--3d/gi, "")
