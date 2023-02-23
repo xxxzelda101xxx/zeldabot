@@ -61,7 +61,7 @@ module.exports = {
 			"hr_scale": hr_scale,
 			"denoising_strength": 0.7,
 			"override_settings": override_settings,
-			"cfg_scale": 12,
+			"cfg_scale": 8.5,
 			"batch_size": batch_size
 		}
 		const request = await axios.post(`${url}/sdapi/v1/txt2img`, payload)
