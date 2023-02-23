@@ -20,9 +20,7 @@ module.exports = {
 		var width = 384
 		var height = 512
 		var hires_steps = 20
-		var hr_resize_x = 1024
-		var hr_resize_y = 1024
-		var hr_scale = 0
+		var hr_scale = 2
 		var enable_hr = true
 		var batch_size = 1
 		var override_settings= {}
@@ -33,13 +31,11 @@ module.exports = {
 		//if (prompt.indexOf("--hq") > -1) {
 		//	enable_hr = true
 		//	hires_steps = 20
-		//	hr_resize_x = 896
-		//	hr_resize_y = 1280
 		//}
 
 		if (prompt.indexOf("--batch") > -1) {
 			batch_size = 8
-			hr_scale = 1.5
+			hr_scale = 1
 		}
 
 		if (prompt.indexOf("--3d") > -1) {
@@ -62,9 +58,7 @@ module.exports = {
 			"enable_hr": enable_hr,
 			"hr_upscaler": "R-ESRGAN 4x+ Anime6B",
 			"hr_second_pass_steps": hires_steps,
-			"hr_resize_x": hr_scale > 0 ? 0 : hr_resize_x,
-			"hr_resize_y": hr_scale > 0 ? 0 : hr_resize_y,
-			"hr_scale": hr_scale > 0 ? hr_scale : 0,
+			"hr_scale": hr_scale,
 			"denoising_strength": 0.7,
 			"override_settings": override_settings,
 			"cfg_scale": 12,
