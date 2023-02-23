@@ -17,7 +17,7 @@ module.exports = {
 		if (context.channelId != 14163149) return ""
 		var prompt = msg.substr(6)
 		var steps = 50
-		var width = 512
+		var width = 384
 		var height = 512
 		var hires_steps = 20
 		var hr_resize_x = 1024
@@ -38,7 +38,6 @@ module.exports = {
 
 		if (prompt.indexOf("--batch") > -1) {
 			batch_size = 8
-			enable_hr = false
 		}
 
 		if (prompt.indexOf("--3d") > -1) {
@@ -47,9 +46,9 @@ module.exports = {
 			}
 		}
 
-		prompt = prompt.replace("--hq", "")
-		prompt = prompt.replace("--batch", "")
-		prompt = prompt.replace("--3d", "")
+		prompt = prompt.replace(/--hq/gi, "")
+		prompt = prompt.replace(/--batch/gi, "")
+		prompt = prompt.replace(/--3d/gi, "")
 		console.log(prompt)
 		var payload = {
 			"prompt": prompt,
