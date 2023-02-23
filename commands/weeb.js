@@ -43,7 +43,9 @@ module.exports = {
 				"sd_model_checkpoint": "realisticVisionV13_v13.safetensors [c35782bad8]"
 			}
 		}
-
+		if (prompt.indexOf("hitori gotou") > -1 || prompt.indexOf("hitori goto") > -1) {
+			prompt = " <lora:hitoriGotohBocchiThe_v1:1>, hair ornament, cube hair ornament, blue eyes, pink long hair, pink track jacket, bangs, hair between eyes, " + prompt
+		}
 		prompt = prompt.replace(/--hq/gi, "")
 		prompt = prompt.replace(/--batch/gi, "")
 		prompt = prompt.replace(/--3d/gi, "")
