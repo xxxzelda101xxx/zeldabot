@@ -47,7 +47,10 @@ module.exports = {
 			prompt = " <lora:hitoriGotohBocchiThe_v1:1>, hair ornament, cube hair ornament, blue eyes, pink long hair, pink track jacket, bangs, hair between eyes, " + prompt
 		}
 		if (prompt.indexOf("aqua \\(konosuba\\)") > -1) {
-			prompt = "  <lora:aquaKonosubaLora_1:0.6>, " + prompt
+			prompt = "<lora:aquaKonosubaLora_1:0.6>, " + prompt
+		}
+		if (prompt.indexOf("ru_qun") > -1) {
+			prompt = "<lora:elegantHanfuRuqun_v10:1>, " + prompt
 		}
 		if (prompt.indexOf("chibi") > -1) {
 			prompt = " <lora:komowataHarukaChibiArt_v20:1>, chibi, " + prompt
