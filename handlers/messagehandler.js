@@ -42,7 +42,7 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		if (!isMod && online) {
 			if (commandToRun.offlineOnly) return apiClient.moderation.deleteChatMessages(channel_id, "14163149", context.id)
 			if (cooldown && !isMod) return apiClient.moderation.deleteChatMessages(channel_id, "14163149", context.id)
-			if (isWhitelistEnabled && !whitelistStatus && !commandToRun.isPublic) return apiClientmoderation.deleteChatMessages(channel_id, "14163149", context.id)
+			if (isWhitelistEnabled && !whitelistStatus && !commandToRun.isPublic) return apiClient.moderation.deleteChatMessages(channel_id, "14163149", context.id)
 			if (osuData && commandToRun.requiredState && osuData.menuState != commandToRun.requiredState) return apiClient.moderation.deleteChatMessages(channel_id, "14163149", context.id)
 		}
 		setCooldown(command)
