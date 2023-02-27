@@ -1,9 +1,10 @@
-const { changeTwitchStreamStatus, addSevenTVEmoteToDB } = require("./database.js")
-//const { logger } = require("./logger.js")
+const { addSevenTVEmoteToDB } = require("./database.js")
+const { logger } = require("./logger.js")
 const { apiClient } = require("./utils/apiclient")
 const { chatClient } = require("./utils/chatclient.js")
 const axios = require('axios')
 const { logger } = require("./logger.js")
+const config = require("../config.json")
 
 async function kagamiBanRNG(channel, user) {
 	var randomNumber = Math.floor(Math.random() * 1001)
@@ -29,7 +30,7 @@ async function banRNG(channel, user, context) {
 	var randomNumber2 = Math.floor(Math.random() * 1000000 + 1)
 	if (randomNumber == 727 && randomNumber2 == 727) {
 		await chatClient.say(channel, `${user} somehow managed to hit a 1 in 10,000 AND a 1 IN A MILLION chance at the SAME TIME!!! actually fucking impossible"`)
-		await apiClient.moderation.banUser(context.channelId, "14163149", { user: user, reason: "????????????????????????????" })
+		await apiClient.moderation.banUser(context.channelId, config.twitch.moderator_id, { user: user, reason: "????????????????????????????" })
 	}
 	else if (randomNumber == 727) {
 		if (context.userInfo.isBroadcaster) {
@@ -40,7 +41,7 @@ async function banRNG(channel, user, context) {
 		}
 		else {
 			await chatClient.say(channel, `${user} hit the 1/10,000 chance to get banned lmao."`)
-			await apiClient.moderation.banUser(context.channelId, "14163149", { user: user, reason: "You hit the 1/10,000 chance to get banned get rekt lmao." })
+			await apiClient.moderation.banUser(context.channelId, config.twitch.moderator_id, { user: user, reason: "You hit the 1/10,000 chance to get banned get rekt lmao." })
 		}
 	}
 	else if (randomNumber2 == 727) {
@@ -52,7 +53,7 @@ async function banRNG(channel, user, context) {
 		}
 		else {
 			await chatClient.say(channel, `${user} hit the 1/1,000,000 chance to get banned????? That's some god tier rng!!!"`)
-			await apiClient.moderation.banUser(context.channelId, "14163149", { user: user, reason: "You hit the 1/1,000,000 to get banned???????????????" })
+			await apiClient.moderation.banUser(context.channelId, config.twitch.moderator_id, { user: user, reason: "You hit the 1/1,000,000 to get banned???????????????" })
 		}
 	}
 }
