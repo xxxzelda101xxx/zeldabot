@@ -18,13 +18,13 @@ module.exports = {
 			var osuFile = path.join(songsFolder, data.menu.bm.path.folder, data.menu.bm.path.file)
 			console.log(osuFile)
 			var mods = currentStats.leaderboard.ourplayer.mods != "" ? currentStats.leaderboard.ourplayer.mods : data.menu.mods.str
-			const result1 = await scoreCalculator.calculate({ rulesetId: 0, fileURL: osuFile, count100: currentStats.hits["100"], count50: currentStats.hits["50"], countMiss: currentStats.hits["0"], maxCombo: currentStats.combo.max, mods: mods })
+			const result1 = await scoreCalculator.calculate({ rulesetId: 0, fileURL: "file:///" + osuFile, count100: currentStats.hits["100"], count50: currentStats.hits["50"], countMiss: currentStats.hits["0"], maxCombo: currentStats.combo.max, mods: mods })
 			.catch(e => {
 				if (e.code == "ENOENT") throw new Error('Failed to calculate. Beatmap not found.')
 				else throw new Error(e)
 			})
-			const result2 = await scoreCalculator.calculate({ rulesetId: 0, fileURL: osuFile, count100: currentStats.hits["100"] + currentStats.hits["0"], count50: currentStats.hits["50"], mods: mods })
-			const result3 = await scoreCalculator.calculate({ rulesetId: 0, fileURL: osuFile, mods: mods })
+			const result2 = await scoreCalculator.calculate({ rulesetId: 0, fileURL: "file:///" + osuFile, count100: currentStats.hits["100"] + currentStats.hits["0"], count50: currentStats.hits["50"], mods: mods })
+			const result3 = await scoreCalculator.calculate({ rulesetId: 0, fileURL: "file:///" + osuFile, mods: mods })
 			var currentPP = result1.performance.totalPerformance.toFixed(2)
 			var fcPP = result2.performance.totalPerformance.toFixed(2)
 			var ssPP = result3.performance.totalPerformance.toFixed(2)
