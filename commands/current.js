@@ -2,7 +2,7 @@ const { ScoreCalculator } = require("@kionell/osu-pp-calculator")
 const { getMaxPP } = require("../websocket.js")
 const scoreCalculator = new ScoreCalculator()
 const path = require("path")
-const config = require("./config.json")
+const config = require("../config.json")
 const songsFolder = config.osu.Songs_folder
 
 module.exports = {
