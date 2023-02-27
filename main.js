@@ -1,6 +1,6 @@
 const { startWebsocket } = require("./websocket.js")
 const { startSevenTVWebsocket } = require("./seventvwebsocket.js")
-const { addAllSevenTVEmotesToDB } = require("./functions.js")
+const { addAllSevenTVEmotesToDB, getChannelDataAndSaveToDB } = require("./functions.js")
 const { messageHandler } = require("./handlers/messagehandler.js")
 const { subHandler } = require("./handlers/subhandler.js")
 const { banHandler } = require("./handlers/banhandler.js")
@@ -9,10 +9,12 @@ const { logger } = require("./logger.js")
 const { chatClient } = require("./utils/chatclient.js")
 var { osuData } = require("./websocket.js")
 const { listener } = require("./utils/apiclient.js")
+const config = require("./config.json")
 const userId = "37575275"
 var channels
 
 async function main() {
+	await getChannelDataAndSaveToDB(config.twitch.channels)
 	channels = await getChannels()
 	startWebsocket()
 	startSevenTVWebsocket(channels)

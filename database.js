@@ -43,6 +43,10 @@ async function db_all(query, queryArray){
 	})
 }
 
+async function saveChannelToDB(name, channel_id, seventv_channel_id) {
+	db.run("INSERT OR IGNORE INTO channels(name, channel_id, seventv_channel_id, online) VALUES(?, ?, ?, 0) ON CONFLICT DO UPDATE SET username = ?", [name, channel_id, seventv_channel_id])
+}
+
 async function getTopTenEmotes(channel_id) {
 	let data = await db_all("SELECT emote, SUM(uses) AS total FROM emotes WHERE channel_id = ? GROUP BY emote ORDER BY total DESC LIMIT 10", [channel_id])
 	if (data) return data
@@ -253,3 +257,4 @@ module.exports.getSevenTVEmotesByChannelID = getSevenTVEmotesByChannelID
 module.exports.getChannelIDBySevenTVID = getChannelIDBySevenTVID
 module.exports.getMessageRank = getMessageRank
 module.exports.getMessageLeaderboard = getMessageLeaderboard
+module.exports.saveChannelToDB = saveChannelToDB
