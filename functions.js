@@ -45,7 +45,7 @@ async function banRNG(channel, user, context) {
 	}
 	else if (randomNumber2 == 727) {
 		if (context.userInfo.isBroadcaster) {
-			await chatClient.say(channel, "Shige hit the 1/1,000,000 change to get banned????")
+			await chatClient.say(channel, "Shige hit the 1/1,000,000 chance to get banned????")
 		}
 		else if (context.userInfo.isMod) {
 			await chatClient.say(channel, `${user} hit the 1/1,000,000 chance to get banned but is immune. Ping shige and tell him to ban them anyways :)`)
