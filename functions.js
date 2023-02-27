@@ -76,7 +76,6 @@ function numberWithCommas(x) {
 }
 
 async function getChannelDataAndSaveToDB(channels) {
-	console.log(channels)
 	for (var i = 0; i < channels.length; i++) {
 		await getChannelData(channels[i])
 	}
@@ -85,7 +84,6 @@ async function getChannelDataAndSaveToDB(channels) {
 async function getChannelData(channel_name) {
 	var channel = await apiClient.users.getUserByName(channel_name)
 	var seventv_channel_id = await get7TVUserIDFromTwitchUserID(channel.id)
-	console.log(channel_name, channel.id, seventv_channel_id)
 	await saveChannelToDB(channel_name, channel.id, seventv_channel_id)
 } 
 
