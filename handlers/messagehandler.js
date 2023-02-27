@@ -40,10 +40,10 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		var online = await getTwitchStreamStatus(channel_id)
 		const cooldown = getCooldown(command)
 		if (!isMod && online) {
-			if (commandToRun.offlineOnly) return apiClient.moderation.deleteChatMessages(channel_id, "14163149", context.id)
-			if (cooldown && !isMod) return apiClient.moderation.deleteChatMessages(channel_id, "14163149", context.id)
-			if (isWhitelistEnabled && !whitelistStatus && !commandToRun.isPublic) return apiClient.moderation.deleteChatMessages(channel_id, "14163149", context.id)
-			if (osuData && commandToRun.requiredState && osuData.menuState != commandToRun.requiredState) return apiClient.moderation.deleteChatMessages(channel_id, "14163149", context.id)
+			if (commandToRun.offlineOnly) return apiClient.moderation.deleteChatMessages(channel_id, config.twitch.moderator_id, context.id)
+			if (cooldown && !isMod) return apiClient.moderation.deleteChatMessages(channel_id, config.twitch.moderator_id, context.id)
+			if (isWhitelistEnabled && !whitelistStatus && !commandToRun.isPublic) return apiClient.moderation.deleteChatMessages(channel_id, config.twitch.moderator_id, context.id)
+			if (osuData && commandToRun.requiredState && osuData.menuState != commandToRun.requiredState) return apiClient.moderation.deleteChatMessages(channel_id, config.twitch.moderator_id, context.id)
 		}
 		setCooldown(command)
 		logger.verbose(`Executing !${commandToRun.name} from user: ${user} in channel: ${channel}.`)
@@ -81,7 +81,7 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		if (commandToRun.canWhisper) {
 			try {
 				let messageToSend = await commandToRun.execute(msg, context, osuData)
-				if (messageToSend != "") await apiClient.whispers.sendWhisper("14163149", user_id, messageToSend)
+				if (messageToSend != "") await apiClient.whispers.sendWhisper(config.twitch.moderator_id, user_id, messageToSend)
 			}
 			catch (e) {
 				logger.error(`Command ${command} Failed: ${e}`)

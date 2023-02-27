@@ -2,6 +2,7 @@
   "twitch": {
     "channels": [],
     "client_id": "",
+    "moderator_id": "",
     "client_secret": "",
     "access_token": "",
     "refresh_token": "",
