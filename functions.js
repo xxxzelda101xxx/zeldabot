@@ -16,7 +16,7 @@ async function kagamiBanRNG(channel, user) {
 async function get7TVUserIDFromTwitchUserID(twitch_user_id) {
 	var data = await axios.get(`https://7tv.io/v3/users/twitch/${twitch_user_id}`)
 	.catch(e => {
-		logger.error("Twitch user doesn't exist on 7TV")
+		logger.error(`Twitch ID ${twitch_user_id} doesn't exist on 7TV`)
 		return
 	})
 	if (data) {
@@ -60,7 +60,7 @@ async function banRNG(channel, user, context) {
 async function addAllSevenTVEmotesToDB(channel_id) {
 	var data = await axios.get(`https://7tv.io/v3/users/twitch/${channel_id}`)
 	.catch(e => {
-		logger.error("Twitch user doesn't exist on 7TV")
+		logger.error(`Twitch ID ${channel_id} doesn't exist on 7TV`)
 		return
 	})
 	var emotes = data.data.emote_set.emotes
