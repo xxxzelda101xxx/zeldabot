@@ -3,7 +3,7 @@ const { apiClient } = require("./utils/apiclient")
 const { chatClient } = require("./utils/chatclient.js")
 const axios = require('axios')
 const { logger } = require("./logger.js")
-const config = require("../config.json")
+const config = require("./config.json")
 
 async function kagamiBanRNG(channel, user) {
 	var randomNumber = Math.floor(Math.random() * 1001)
