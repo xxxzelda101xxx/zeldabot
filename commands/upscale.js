@@ -4,6 +4,7 @@ const { nanoid } = require('nanoid')
 const config = require('../config.json')
 const url = config.ai.url
 const sizeOf = require('image-size')
+const useSeparateBroadcasterToken = config.twitch.separateBroadcasterToken
 
 module.exports = {
 	name: "upscale",
@@ -13,6 +14,7 @@ module.exports = {
 	isOsuCommand: false,
 	isPublic: false,
 	execute: async function(msg, context, args) {
+		if (!useSeparateBroadcasterToken) return ""
 		let file_id = nanoid()
 		const imageRegex = /((?:(?!(?:https?|ftp):\/\/[\S]*\.(?:png|jpe?g|gif|svg|webp)).)+)|((?:https?|ftp):\/\/[\S]*\.(?:png|jpe?g|gif|svg|webp)(?:\?\S+=\S*(?:&\S+=\S*)*)?)/g;
 		const result = msg.match(imageRegex)

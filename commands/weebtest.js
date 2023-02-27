@@ -3,6 +3,7 @@ const fs = require('fs')
 const { nanoid } = require('nanoid')
 const config = require('../config.json')
 const url = config.ai.url
+const useSeparateBroadcasterToken = config.twitch.separateBroadcasterToken
 
 module.exports = {
 	name: "weebtest",
@@ -12,6 +13,7 @@ module.exports = {
 	isOsuCommand: false,
 	isPublic: false,
 	execute: async function(msg, context, args) {
+		if (!useSeparateBroadcasterToken) return ""
 		const imageRegex = /((?:(?!(?:https?|ftp):\/\/[\S]*\.(?:png|jpe?g|gif|svg|webp)).)+)|((?:https?|ftp):\/\/[\S]*\.(?:png|jpe?g|gif|svg|webp)(?:\?\S+=\S*(?:&\S+=\S*)*)?)/g;
 		const result = msg.match(imageRegex)
 		var prompt = msg.substr(11)

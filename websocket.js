@@ -6,7 +6,6 @@ const WebSocket = require("ws")
 const { GosuMemory } = require("./classes/gosumemory.js")
 const path = require("path")
 const { logger } = require("./logger")
-const unsubmittedDownloadPath = "https://blameseouless.com/osufiles/"
 var osuData = {}
 var maxPP = 0
 const songsFolder = config.osu.Songs_folder

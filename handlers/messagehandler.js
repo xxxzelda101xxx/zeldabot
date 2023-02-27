@@ -32,9 +32,11 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		addToDB(user_id, channel_id)
 		addEmoteToDB(user_id, msg, context.parseEmotes(), channel_id)
 		if (!commandToRun) return
-		if (channel != "#shigetora" && channel != "#zelda101_") return
-		if (user.toLowerCase() == "kagami_77") kagamiBanRNG(channel, user) // 1/1k chance to ban kagami
-		banRNG(channel, user, context) // 1/10k chance to ban anyone
+		if (config.twitch.is_official_bot) {
+			if (channel != "#shigetora" && channel != "#zelda101_") return
+			if (user.toLowerCase() == "kagami_77") kagamiBanRNG(channel, user) // 1/1k chance to ban kagami
+			banRNG(channel, user, context) // 1/10k chance to ban anyone
+		}
 		if (osuCommandsOnly && commandToRun.isOsuCommand == false) return
 		if (!osuData && commandToRun.isOsuCommand == true) return
 		var online = await getTwitchStreamStatus(channel_id)

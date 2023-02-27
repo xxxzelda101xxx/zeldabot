@@ -2,6 +2,7 @@ const axios = require('axios')
 const fs = require('fs')
 const config = require('../config.json')
 const url = config.ai.url
+const useSeparateBroadcasterToken = config.twitch.separateBroadcasterToken
 
 module.exports = {
 	name: "interrogate",
@@ -11,6 +12,7 @@ module.exports = {
 	isOsuCommand: false,
 	isPublic: false,
 	execute: async function(msg, context, args) {
+		if (!useSeparateBroadcasterToken) return ""
 		const imageRegex = /((?:(?!(?:https?|ftp):\/\/[\S]*\.(?:png|jpe?g|gif|svg|webp)).)+)|((?:https?|ftp):\/\/[\S]*\.(?:png|jpe?g|gif|svg|webp)(?:\?\S+=\S*(?:&\S+=\S*)*)?)/g;
 		const result = msg.match(imageRegex)
 		let image = await axios.get(result[1], {responseType: 'arraybuffer'});

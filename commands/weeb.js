@@ -4,7 +4,7 @@ const { nanoid } = require('nanoid')
 const config = require('../config.json')
 const url = config.ai.url
 const { joinImages } = require('join-images')
-
+const useSeparateBroadcasterToken = config.twitch.separateBroadcasterToken
 
 module.exports = {
 	name: "weeb",
@@ -14,6 +14,7 @@ module.exports = {
 	isOsuCommand: false,
 	isPublic: false,
 	execute: async function(msg, context, args) {
+		if (!useSeparateBroadcasterToken) return ""
 		if (context.channelId != 14163149) return ""
 		var prompt = msg.substr(6)
 		var steps = 50
