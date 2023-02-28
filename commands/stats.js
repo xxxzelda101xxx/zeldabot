@@ -1,8 +1,8 @@
 const { BeatmapCalculator } = require("@kionell/osu-pp-calculator")
 const beatmapCalculator = new BeatmapCalculator()
-const unsubmittedDownloadPath = "https://blameseouless.com/osufiles/"
 const path = require("path")
-
+const config = require("../config.json")
+const songsFolder = config.osu.Songs_folder
 
 module.exports = {
 	name: "stats",
@@ -13,9 +13,9 @@ module.exports = {
 	isPublic: false,
 	execute: async function(msg, context, data, args) {
 		var currentStats = data.getCurrentStats()
-		var osuFile = path.join(data.menu.bm.path.folder, data.menu.bm.path.file)
+		var osuFile = path.join(songsFolder, data.menu.bm.path.folder, data.menu.bm.path.file)
 		var mods = currentStats.leaderboard.ourplayer.mods != "" ? currentStats.leaderboard.ourplayer.mods : data.menu.mods.str
-		const result = await beatmapCalculator.calculate({ rulesetId: 0, fileURL: unsubmittedDownloadPath + osuFile, mods: mods, accuracy: [] })
+		const result = await beatmapCalculator.calculate({ rulesetId: 0, fileURL: osuFile, mods: mods, accuracy: [] })
 		.catch(e => {
 			if (e.code == "ENOENT") throw new Error('Failed to calculate. Beatmap not found.')
 			else throw new Error(e)
