@@ -96,6 +96,9 @@ async function messageHandler(channel, user, msg, context, osuData) {
 					}
 				}
 				else if (messageToSend != "") {
+					console.log(messageToSend)
+					console.log(config.twitch.moderator_id)
+					console.log(user_id)
 					apiClient.whispers.sendWhisper(config.twitch.moderator_id, user_id, messageToSend)
 				}
 			}
