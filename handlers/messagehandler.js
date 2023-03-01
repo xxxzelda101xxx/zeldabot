@@ -82,8 +82,22 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		logger.verbose(`Executing !${commandToRun.name} from user: ${user} in whispers.`)
 		if (commandToRun.canWhisper) {
 			try {
-				let messageToSend = await commandToRun.execute(msg, context, osuData)
-				if (messageToSend != "") await apiClient.whispers.sendWhisper(config.twitch.moderator_id, user_id, messageToSend)
+				let args = msg.slice(1).split(' ')
+				var messageToSend
+				if (commandToRun.isOsuCommand) {
+					messageToSend = await commandToRun.execute(msg, context, osuData, args)
+				}
+				else {
+					messageToSend = await commandToRun.execute(msg, context, args)
+				}
+				if (Array.isArray(messageToSend)) {
+					for (var i = 0; i < messageToSend.length; i++) {
+						apiClient.whispers.sendWhisper(config.twitch.moderator_id, user_id, messageToSend[i])
+					}
+				}
+				else if (messageToSend != "") {
+					apiClient.whispers.sendWhisper(config.twitch.moderator_id, user_id, messageToSend)
+				}
 			}
 			catch (e) {
 				logger.error(`Command ${command} Failed: ${e}`)
