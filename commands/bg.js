@@ -9,5 +9,6 @@ module.exports = {
 		if (data.beatmapset_id > -1) {
 			return data.getBackgroundLink()
 		}
+		else return "Unable to get bg because beatmapset_id is 0"
 	}
 }
