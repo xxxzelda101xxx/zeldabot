@@ -20,7 +20,6 @@ module.exports = {
 		else if (msg.toLowerCase().split(" ").length > 1 && msg.toLowerCase().split(" ").length < 4) {
 			var mods = ""
 			var accuracy = 100
-			console.log(accuracy)
 			if (msg.indexOf("+") > -1) {
 				var msgArray = msg.split(" ")
 				for (var i = 0; i < msgArray.length; i++) {
@@ -31,6 +30,11 @@ module.exports = {
 						else accuracy = Number(msg.toLowerCase().split(" ")[1]).toFixed(2)
 					}
 				}
+			}
+			console.log(msg.toLowerCase().split(" ")[1])
+			else if (isNaN(msg.toLowerCase().split(" ")[1])) {
+				mods = msg.toLowerCase().split(" ")[1]
+				console.log(mods)
 			}
 
 			if (mods.length == 0) {
