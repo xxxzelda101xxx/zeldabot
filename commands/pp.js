@@ -28,10 +28,10 @@ module.exports = {
 						else if (i == 1) accuracy = Number(msg.toLowerCase().split(" ")[2]).toFixed(2)
 						else accuracy = Number(msg.toLowerCase().split(" ")[1]).toFixed(2)
 					}
-					else {
-						return "invalid command usage"
-					}
 				}
+			}
+			else {
+				accuracy = 100
 			}
 
 			if (mods.length == 0) {
