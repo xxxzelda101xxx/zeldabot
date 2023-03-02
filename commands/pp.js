@@ -18,7 +18,8 @@ module.exports = {
 			return `${pp}pp`
 		}
 		else if (msg.toLowerCase().split(" ").length > 1 && msg.toLowerCase().split(" ").length < 4) {
-			var mods = "", accuracy = 100
+			var mods = ""
+			var accuracy = 100
 			if (msg.indexOf("+") > -1) {
 				var msgArray = msg.split(" ")
 				for (var i = 0; i < msgArray.length; i++) {
