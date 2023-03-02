@@ -21,6 +21,8 @@ async function main() {
 	await chatClient.connect()
 	await listener.start()
 	if (config.twitch.is_official_bot) {
+		var subs = await shigeapiClient.eventSub.getSubscriptions()
+		console.log(subs)
 		await shigeapiClient.eventSub.deleteAllSubscriptions()
 	}
 	chatClient.onRegister(() => {
