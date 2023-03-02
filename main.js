@@ -20,12 +20,6 @@ async function main() {
 	startSevenTVWebsocket(channels)
 	await chatClient.connect()
 	await listener.start()
-	if (config.twitch.is_official_bot) {
-		var subs = await shigeapiClient.eventSub.getSubscriptions()
-		for (var i = 0; i < subs.data.length; i++) {
-			await shigeapiClient.eventSub.deleteSubscription(subs.data[i].id)
-		}
-	}
 	chatClient.onRegister(() => {
 		logger.info("Connected to Twitch!")
 	})
