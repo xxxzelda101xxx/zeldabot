@@ -26,8 +26,10 @@ module.exports = {
 						mods = msgArray[i].substring(1).toLowerCase()
 						if (msgArray.length == 2) accuracy = 100
 						else if (i == 1) accuracy = Number(msg.toLowerCase().split(" ")[2]).toFixed(2)
-						else if (!isNaN(msg.toLowerCase().split(" ")[1])) accuracy = Number(msg.toLowerCase().split(" ")[1]).toFixed(2)
-						else return ""
+						else accuracy = Number(msg.toLowerCase().split(" ")[1]).toFixed(2)
+					}
+					else {
+						return "invalid command usage"
 					}
 				}
 			}
