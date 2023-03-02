@@ -18,3 +18,5 @@ config.json
 /shige_tokens.json
 database.db
 cache/
+images/
+tempimages/

@@ -29,11 +29,7 @@ module.exports = {
 			steps = prompt.split(" ")[1]
 			prompt = prompt.substr(8 + prompt.split(" ")[1].length + 1)
 		}
-		//if (prompt.indexOf("--hq") > -1) {
-		//	enable_hr = true
-		//	hires_steps = 20
-		//}
-
+		
 		if (prompt.indexOf("--batch") > -1) {
 			batch_size = 8
 			hr_scale = 1
@@ -66,7 +62,7 @@ module.exports = {
 			"steps": steps > 0 ? steps : 50,
 			"width": width,
 			"height": height,
-			"sampler_index": "DDIM",
+			"sampler_index": "DPM++ SDE Karras",
 			"enable_hr": enable_hr,
 			"hr_upscaler": "R-ESRGAN 4x+ Anime6B",
 			"hr_second_pass_steps": hires_steps,
@@ -88,16 +84,6 @@ module.exports = {
 			return `https://blameseouless.com/aiimages/${file_id}.png`
 		} 
 		else {
-			/*var string = ""
-			for (var i = 0; i < image.length; i++) {
-				let file_id = nanoid()
-				fs.writeFileSync(`./images/${file_id}.png`, image[i], 'base64', function(err) {
-					console.log(err);
-				});
-				string += `https://blameseouless.com/aiimages/${file_id}.png || `
-			}
-			console.log(string)
-			return string*/
 			let file_id = nanoid()
 			var imageArray = []
 			for (var i = 0; i < image.length; i++) {
@@ -105,7 +91,6 @@ module.exports = {
 				imageArray.push(imageBuffer)
 			}
 			joinImages(imageArray).then((img) => {
-				// Save image as file
 				img.toFile(`./images/${file_id}.png`);
 			});
 			return `https://blameseouless.com/aiimages/${file_id}.png`
