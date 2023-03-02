@@ -23,9 +23,9 @@ async function main() {
 	if (config.twitch.is_official_bot) {
 		var subs = await shigeapiClient.eventSub.getSubscriptions()
 		console.log(subs)
-		//for (var i = 0; i < subs.length; i++) {
-		//	await shigeapiClient.eventSub.deleteSubscription(subs[i].id)
-		//}
+		for (var i = 0; i < subs.data.length; i++) {
+			await shigeapiClient.eventSub.deleteSubscription(subs.data[i].id)
+		}
 	}
 	chatClient.onRegister(() => {
 		logger.info("Connected to Twitch!")
