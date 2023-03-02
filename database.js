@@ -2,7 +2,7 @@ const { logger } = require("./logger.js")
 const { setCooldown, getCooldown } = require("./helpers/cooldownhelper.js")
 const sqlite3 = require("sqlite3").verbose()
 const db = new sqlite3.Database("database.db")
-db.run("CREATE TABLE IF NOT EXISTS `channels` (`name` varchar(32) NOT NULL, `channel_id` integer NOT NULL, `seventv_channel_id` varchar(24) DEFAULT NULL, `online` integer NOT NULL)")
+db.run("CREATE TABLE IF NOT EXISTS `channels` (`name` varchar(32) NOT NULL, `channel_id` integer NOT NULL, `seventv_channel_id` varchar(24) DEFAULT NULL, `online` integer NOT NULL, UNIQUE (`channel_id`))")
 db.run("CREATE TABLE IF NOT EXISTS `emotes` (`user_id` integer NOT NULL,  `channel_id` integer NOT NULL, `emote` varchar(100) NOT NULL, `uses` integer NOT NULL, UNIQUE (`user_id`,`emote`,`channel_id`))")
 db.run("CREATE TABLE IF NOT EXISTS `seventvemotes` (`channel_id` integer NOT NULL, emote_name text NOT NULL, emote_id integer NOT NULL, UNIQUE (`channel_id`,`emote_id`))")
 db.run("CREATE TABLE IF NOT EXISTS `messages` (`user_id` integer NOT NULL, `channel_id` integer NOT NULL, `total` integer NOT NULL, UNIQUE (`user_id`,`channel_id`))")
@@ -44,7 +44,7 @@ async function db_all(query, queryArray){
 }
 
 async function saveChannelToDB(name, channel_id, seventv_channel_id) {
-	db.run("INSERT OR IGNORE INTO channels(name, channel_id, seventv_channel_id, online) VALUES(?, ?, ?, 0) ON CONFLICT DO UPDATE SET username = ?", [name, channel_id, seventv_channel_id])
+	db.run("INSERT OR IGNORE INTO channels(name, channel_id, seventv_channel_id, online) VALUES(?, ?, ?, 0)", [name, channel_id, seventv_channel_id])
 }
 
 async function getTopTenEmotes(channel_id) {
