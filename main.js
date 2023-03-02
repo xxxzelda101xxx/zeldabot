@@ -8,7 +8,7 @@ const { getChannels, changeTwitchStreamStatus } = require("./database.js")
 const { logger } = require("./logger.js")
 const { chatClient } = require("./utils/chatclient.js")
 var { osuData } = require("./websocket.js")
-const { listener } = require("./utils/apiclient.js")
+const { listener, shigeapiClient } = require("./utils/apiclient.js")
 const config = require("./config.json")
 const userId = "37575275"
 var channels
@@ -20,6 +20,7 @@ async function main() {
 	startSevenTVWebsocket(channels)
 	await chatClient.connect()
 	await listener.start()
+	if (config.twitch.is_official_bot) shigeapiClient.eventSub.deleteAllSubscriptions()
 	chatClient.onRegister(() => {
 		logger.info("Connected to Twitch!")
 	})
