@@ -20,6 +20,7 @@ module.exports = {
 		else if (msg.toLowerCase().split(" ").length > 1 && msg.toLowerCase().split(" ").length < 4) {
 			var mods = ""
 			var accuracy = 100
+			console.log(accuracy)
 			if (msg.indexOf("+") > -1) {
 				var msgArray = msg.split(" ")
 				for (var i = 0; i < msgArray.length; i++) {
