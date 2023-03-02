@@ -20,7 +20,6 @@ module.exports = {
 		else if (msg.toLowerCase().split(" ").length > 1 && msg.toLowerCase().split(" ").length < 4) {
 			var mods = ""
 			var accuracy = 100
-			console.log(msg.toLowerCase().split(" ")[1])
 			if (msg.indexOf("+") > -1) {
 				var msgArray = msg.split(" ")
 				for (var i = 0; i < msgArray.length; i++) {
@@ -34,7 +33,6 @@ module.exports = {
 			}
 			else if (isNaN(msg.toLowerCase().split(" ")[1])) {
 				mods = msg.toLowerCase().split(" ")[1]
-				console.log(mods)
 			}
 
 			if (mods.length == 0) {
@@ -55,7 +53,6 @@ module.exports = {
 					})
 				}
 			}
-			console.log(fixed_mods_string)
 			if (fixed_mods_string.indexOf("dt") > -1 && fixed_mods_string.indexOf("nc") > -1) fixed_mods_string = fixed_mods_string.replace(/dt/ig, "")
 			if (msg.indexOf("+") < 0 && !isNaN(msg.toLowerCase().split(" ")[1])) accuracy = Number(msg.toLowerCase().split(" ")[1]).toFixed(2)
 			if (accuracy > 100) accuracy = 100
