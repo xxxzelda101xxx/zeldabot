@@ -29,7 +29,6 @@ async function main() {
 			chatClient.say("#shigetora", "!blame3")
 		})
 	}
-	console.log(channels)
 	for (var i = 0; i < channels.length; i++) {
 		if (config.twitch.is_official_bot) {
 			streamOnlineEvents(channels[i].channel_id)
