@@ -55,7 +55,8 @@ module.exports = {
 					})
 				}
 			}
-			if (fixed_mods_string.indexOf("DT") > -1 && fixed_mods_string.indexOf("NC") > -1) fixed_mods_string = fixed_mods_string.replace(/NC/ig, "")
+			console.log(fixed_mods_string)
+			if (fixed_mods_string.indexOf("dt") > -1 && fixed_mods_string.indexOf("nc") > -1) fixed_mods_string = fixed_mods_string.replace(/NC/ig, "")
 			if (msg.indexOf("+") < 0 && !isNaN(msg.toLowerCase().split(" ")[1])) accuracy = Number(msg.toLowerCase().split(" ")[1]).toFixed(2)
 			if (accuracy > 100) accuracy = 100
 			if (accuracy < 33.33) accuracy = 33.33
