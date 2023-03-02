@@ -55,7 +55,7 @@ module.exports = {
 					})
 				}
 			}
-			//if (msg.indexOf("+") < 0) accuracy = Number(msg.toLowerCase().split(" ")[1]).toFixed(2)
+			if (msg.indexOf("+") < 0 && !isNaN(msg.toLowerCase().split(" ")[1])) accuracy = Number(msg.toLowerCase().split(" ")[1]).toFixed(2)
 			if (accuracy > 100) accuracy = 100
 			if (accuracy < 33.33) accuracy = 33.33
 			var osuFile = path.join(songsFolder, data.menu.bm.path.folder, data.menu.bm.path.file)
