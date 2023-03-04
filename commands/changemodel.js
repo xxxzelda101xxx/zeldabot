@@ -1,6 +1,7 @@
 const axios = require('axios')
 const config = require('../config.json')
 const url = config.ai.url
+const useSeparateBroadcasterToken = config.twitch.separateBroadcasterToken
 
 module.exports = {
 	name: "changemodel",
@@ -10,6 +11,8 @@ module.exports = {
 	isOsuCommand: false,
 	isPublic: false,
 	execute: async function(msg, context, args) {
+        if (!useSeparateBroadcasterToken) return ""
+		if (context.channelId != 14163149) return ""
         const request = await axios.get(`${url}/sdapi/v1/sd-models`)
         var data = request.data
         var modelsArray = []
