@@ -12,7 +12,12 @@ module.exports = {
 	execute: async function(msg, context, args) {
         if (args.length == 1) {
             const request = await axios.get(`${url}/sdapi/v1/sd-models`)
-            console.log(request)
+            var data = request.data
+            var modelsArray = []
+            for (var i = 0; i < request.data.length; i++) {
+                modelsArray.push(`[${i + 1}] ${request.data[i].model_name}`)
+            }
+            return modelsArray
         }
 		return ""
 	}
