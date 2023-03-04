@@ -23,7 +23,6 @@ module.exports = {
 			if (isNaN(page)) page = 1
 			var leaderboard = await getMessageLeaderboard(context.channelId, page - 1)
 			var leaderboardArray = []
-			console.log(leaderboard)
 			for (var i = 0; i < 10; i++) {
 				leaderboardArray.push(`#${leaderboard[i].rank} ${leaderboard[i].username} with ${numberWithCommas(leaderboard[i].total)} messages`)
 			}
@@ -55,7 +54,6 @@ module.exports = {
 			totalMessages = await getMessages(user_id, context.channelId)
 			totalMessages = numberWithCommas(totalMessages)
 			var messageRank = await getMessageRank(user_id, context.channelId)
-			console.log(messageRank)
 			return `${username} has sent ${totalMessages} (#${messageRank}) messages in this channel.`
 		}
 	}
