@@ -51,7 +51,6 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		logger.verbose(`Executing !${commandToRun.name} from user: ${user} in channel: ${channel}.`)
 		try {
 			let args = msg.slice(1).split(' ')
-			console.log(args)
 			var messageToSend
 			if (commandToRun.isOsuCommand) {
 				messageToSend = await commandToRun.execute(msg, context, osuData, args)
