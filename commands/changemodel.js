@@ -9,7 +9,7 @@ module.exports = {
 	canWhisper: false,
 	isOsuCommand: false,
 	isPublic: false,
-	execute: async function(msg, context, data, args) {
+	execute: async function(msg, context, args) {
         if (args.length == 1) {
             const request = await axios.post(`${url}/sdapi/v1/sd-models`, payload)
             console.log(request)
