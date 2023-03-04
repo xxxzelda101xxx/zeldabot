@@ -1,0 +1,19 @@
+const axios = require('axios')
+const config = require('../config.json')
+const url = config.ai.url
+
+module.exports = {
+	name: "changemodel",
+	aliases: [],
+	description: "Changes the model for stable diffusion.",
+	canWhisper: false,
+	isOsuCommand: false,
+	isPublic: false,
+	execute: async function(msg, context, data, args) {
+        if (args.length == 1) {
+            const request = await axios.post(`${url}/sdapi/v1/sd-models`, payload)
+            console.log(request)
+        }
+		return ""
+	}
+}
