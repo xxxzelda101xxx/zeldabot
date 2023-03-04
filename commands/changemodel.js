@@ -19,7 +19,6 @@ module.exports = {
         for (var i = 0; i < data.length; i++) {
             modelsArray.push(`[${i + 1}] ${data[i].model_name}`)
         }
-        modelsArray = Object.values(modelsArray).sort()
         if (args.length == 1) {
             return modelsArray
         }
