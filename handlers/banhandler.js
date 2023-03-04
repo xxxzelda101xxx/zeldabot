@@ -3,6 +3,7 @@ const { incrementBans, getUserIdByUsername } = require("../database.js")
 
 async function banHandler(channel, user, msg) {
 	var user_id = await getUserIdByUsername(user)
+	if (user_id == null) return
 	var channel_id = msg.channelId
 	await incrementBans(user_id, channel_id)
 	if (user == "hiagg") chatClient.say(channel, "Hiagg has been banned.")
