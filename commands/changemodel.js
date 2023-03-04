@@ -20,14 +20,17 @@ module.exports = {
                 modelMatchIndex = i
             }
         }
+        console.log(modelMatchIndex)
         if (args.length == 1) {
             return modelsArray
         }
         else if (args.length == 2 && !isNaN(args[1]) && args[1] > 0 && args[1] <= data.length) {
+            console.log(1)
             const request2 = await axios.post(`${url}/sdapi/v1/options`, { sd_model_checkpoint: data[args[1] - 1].title})
             return `Changed model to ${data[args[1] - 1].model_name}`
         }
         else if (args.length == 2 && modelMatchIndex > -1) {
+            console.log(2)
             const request2 = await axios.post(`${url}/sdapi/v1/options`, { sd_model_checkpoint: data[modelMatchIndex].title})
             return `Changed model to ${data[modelMatchIndex].model_name}`
         }
