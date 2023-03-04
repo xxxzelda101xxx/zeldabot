@@ -27,6 +27,7 @@ async function get7TVUserIDFromTwitchUserID(twitch_user_id) {
 async function banRNG(channel, user, context) {
 	var randomNumber = Math.floor(Math.random() * 10000 + 1)
 	var randomNumber2 = Math.floor(Math.random() * 1000000 + 1)
+	console.log(context.channelId, config.twitch.moderator_id, user)
 	if (randomNumber == 727 && randomNumber2 == 727) {
 		await chatClient.say(channel, `${user} somehow managed to hit a 1 in 10,000 AND a 1 IN A MILLION chance at the SAME TIME!!! actually fucking impossible"`)
 		await apiClient.moderation.banUser(context.channelId, config.twitch.moderator_id, { user: user, reason: "????????????????????????????" })
