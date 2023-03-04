@@ -34,9 +34,8 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		if (!commandToRun) return
 		if (config.twitch.is_official_bot) {
 			if (channel != "#shigetora" && channel != "#zelda101_") return
-			if (user.toLowerCase() == "kagami_77") kagamiBanRNG(channel, user) // 1/1k chance to ban kagami
-			console.log(context.channelId, config.twitch.moderator_id, user)
-			banRNG(channel, user, context) // 1/10k chance to ban anyone
+			if (user.toLowerCase() == "kagami_77") kagamiBanRNG(channel, user, user_id) // 1/1k chance to ban kagami
+			banRNG(channel, user, user_id, context) // 1/10k chance to ban anyone
 		}
 		if (osuCommandsOnly && commandToRun.isOsuCommand == false) return
 		if (!osuData && commandToRun.isOsuCommand == true) return
