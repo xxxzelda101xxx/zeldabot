@@ -31,8 +31,8 @@ module.exports = {
         }
         else if (args.length == 2 && modelMatchIndex > -1) {
             console.log(2)
-            const request2 = await axios.post(`${url}/sdapi/v1/options`, { sd_model_checkpoint: data[modelMatchIndex].title})
-            return `Changed model to ${data[modelMatchIndex].model_name}`
+            const request2 = await axios.post(`${url}/sdapi/v1/options`, { sd_model_checkpoint: data[modelMatchIndex - 1].title})
+            return `Changed model to ${data[modelMatchIndex - 1].model_name}`
         }
 		return "dejj"
 	}
