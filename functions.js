@@ -9,7 +9,7 @@ async function kagamiBanRNG(channel, user, user_id) {
 	var randomNumber = Math.floor(Math.random() * 1001)
 	if (randomNumber == 727) {
 		await chatClient.say(channel, "Kagami_77 hit the 1/1000 chance to get banned lmao.")
-		await apiClient.moderation.banUser(context.channelId, config.twitch.moderator_id, { user: user_id, reason: "You hit the 1/10,000 chance to get banned get rekt lmao." })
+		await apiClient.moderation.banUser(context.channelId, config.twitch.moderator_id, { user: user_id, reason: "You hit the 1/1,000 chance to get banned get rekt lmao." })
 	}
 }
 
