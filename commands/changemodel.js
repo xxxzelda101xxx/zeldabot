@@ -11,7 +11,7 @@ module.exports = {
 	isPublic: false,
 	execute: async function(msg, context, args) {
         if (args.length == 1) {
-            const request = await axios.post(`${url}/sdapi/v1/sd-models`)
+            const request = await axios.get(`${url}/sdapi/v1/sd-models`)
             console.log(request)
         }
 		return ""
