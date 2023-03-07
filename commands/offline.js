@@ -8,7 +8,7 @@ module.exports = {
 	canWhisper: false,
 	adminOnly: true, 
 	isPublic: false,
-	isOsuCommand: false,
+	isOsuCommand: true,
 	execute: async function(msg, context, args) {
 		changeTwitchStreamStatus(context.channelId, false)
 		return "Stream has been marked as offline."
