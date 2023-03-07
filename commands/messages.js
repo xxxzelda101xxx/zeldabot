@@ -16,7 +16,7 @@ module.exports = {
 		msg = msg.replace(/@/g, "")
 		if (msg.toLowerCase().split(" ")[1] == "total") isTotal = true
 		if (msg.toLowerCase().split(" ")[1] == "allchannels") isAllChannels = true
-		if (msg.toLowerCase().split(" ")[1] == "leaderboard") isLeaderboard = true
+		//if (msg.toLowerCase().split(" ")[1] == "leaderboard") isLeaderboard = true
 		else if (msg.toLowerCase().split(" ").length >= 2) isUsername = true
 		if (isLeaderboard) {
 			var page = msg.toLowerCase().split(" ")[2]
