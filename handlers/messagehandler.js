@@ -24,7 +24,7 @@ async function messageHandler(channel, user, msg, context, osuData) {
 	const isMod = (context.userInfo.isMod || context.userInfo.isBroadcaster) ? true : false
 	const whitelistStatus = await getWhitelistStatus(user_id)
 	if (commandToRun) {
-		if (commandToRun.adminOnly && admins.indexOf(user) < 0) return
+		if (commandToRun.adminOnly && admins.indexOf(user.toLowerCase()) < 0) return
 		if (commandToRun.modOnly && !isMod) return
 	}
 	if (channel) {
