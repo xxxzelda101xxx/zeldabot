@@ -87,9 +87,14 @@ async function getChannelData(channel_name) {
 	await saveChannelToDB(channel_name, channel.id, seventv_channel_id)
 } 
 
+async function deleteMessage(channel_id, moderator_id, message_id) {
+	return await apiClient.moderation.deleteChatMessages(channel_id, moderator_id, message_id)
+}
+
 module.exports.banRNG = banRNG
 module.exports.kagamiBanRNG = kagamiBanRNG
 module.exports.numberWithCommas = numberWithCommas
 module.exports.get7TVUserIDFromTwitchUserID = get7TVUserIDFromTwitchUserID
 module.exports.addAllSevenTVEmotesToDB = addAllSevenTVEmotesToDB
 module.exports.getChannelDataAndSaveToDB = getChannelDataAndSaveToDB
+module.exports.deleteMessage = deleteMessage

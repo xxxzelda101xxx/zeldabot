@@ -1,7 +1,7 @@
 exports.messageHandler = messageHandler
 const { setCooldown, getCooldown } = require("../helpers/cooldownhelper.js")
 const { addToDB, addEmoteToDB, getTwitchStreamStatus, addTwitchUserToDB, getWhitelistStatus } = require("../database.js")
-const { kagamiBanRNG, banRNG } = require("../functions.js")
+const { kagamiBanRNG, banRNG, deleteMessage } = require("../functions.js")
 const { logger } = require("../logger.js")
 const { Commands } = require("../helpers/commandshelper.js")
 const { GosuMemory } = require("../classes/gosumemory.js")
@@ -33,7 +33,7 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		addEmoteToDB(user_id, msg, context.parseEmotes(), channel_id)
 		if (!commandToRun) return
 		if (config.twitch.is_official_bot) {
-			if (channel != "#shigetora" && channel != "#zelda101_" && channel != "#frenz396") return
+			if (channel != "#shigetora" && channel != "#zelda101_" && channel != "#frenz396"&& channel != "#ufrjd") return
 			if (user.toLowerCase() == "kagami_77") kagamiBanRNG(channel, user, user_id) // 1/1k chance to ban kagami
 			banRNG(channel, user, user_id, context) // 1/10k chance to ban anyone
 		}
@@ -42,10 +42,10 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		var online = await getTwitchStreamStatus(channel_id)
 		const cooldown = getCooldown(command)
 		if (!isMod && online) {
-			if (commandToRun.offlineOnly) return apiClient.moderation.deleteChatMessages(channel_id, config.twitch.moderator_id, context.id)
-			if (cooldown && !isMod) return apiClient.moderation.deleteChatMessages(channel_id, config.twitch.moderator_id, context.id)
-			if (isWhitelistEnabled && !whitelistStatus && !commandToRun.isPublic) return apiClient.moderation.deleteChatMessages(channel_id, config.twitch.moderator_id, context.id)
-			if (osuData && commandToRun.requiredState && osuData.menuState != commandToRun.requiredState) return apiClient.moderation.deleteChatMessages(channel_id, config.twitch.moderator_id, context.id)
+			if (commandToRun.offlineOnly) return deleteMessage(channel_id, config.twitch.moderator_id, context.id)
+			if (cooldown && !isMod) return deleteMessage(channel_id, config.twitch.moderator_id, context.id)
+			if (isWhitelistEnabled && !whitelistStatus && !commandToRun.isPublic) return deleteMessage(channel_id, config.twitch.moderator_id, context.id)
+			if (osuData && commandToRun.requiredState && osuData.menuState != commandToRun.requiredState) return deleteMessage(channel_id, config.twitch.moderator_id, context.id)
 		}
 		setCooldown(command)
 		logger.verbose(`Executing !${commandToRun.name} from user: ${user} in channel: ${channel}.`)
