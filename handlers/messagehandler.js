@@ -1,4 +1,3 @@
-exports.messageHandler = messageHandler
 const { setCooldown, getCooldown } = require("../helpers/cooldownhelper.js")
 const { addToDB, addEmoteToDB, getTwitchStreamStatus, addTwitchUserToDB, getWhitelistStatus } = require("../database.js")
 const { kagamiBanRNG, banRNG, deleteMessage } = require("../functions.js")

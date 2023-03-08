@@ -3,7 +3,7 @@ const { apiClient } = require("./utils/apiclient")
 const { chatClient } = require("./utils/chatclient.js")
 const axios = require('axios')
 const { logger } = require("./logger.js")
-const config = require("./config.json")
+const config = require("./config.json") 
 
 async function kagamiBanRNG(channel, user, user_id) {
 	var randomNumber = Math.floor(Math.random() * 1001)
@@ -60,7 +60,7 @@ async function banRNG(channel, user, user_id, context) {
 async function addAllSevenTVEmotesToDB(channel_id) {
 	var data = await axios.get(`https://7tv.io/v3/users/twitch/${channel_id}`)
 	.catch(e => {
-		logger.error(`Twitch ID ${channel_id} doesn't exist on 7TV`)
+		logger.verbose(`Twitch ID ${channel_id} doesn't exist on 7TV`)
 		return
 	})
 	if (data) {
