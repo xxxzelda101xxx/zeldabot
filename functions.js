@@ -92,8 +92,9 @@ async function deleteMessage(channel_id, moderator_id, message_id) {
 		await apiClient.moderation.deleteChatMessages(channel_id, moderator_id, message_id)
 	}
 	catch (e) {
-		console.log(e._statusCode)
-		logger.error("Unable to delete message.")
+		if (e._statusCode == 401) logger.error("Unable to delete message. 401 Unauthorized: You are likely missing the 'moderator:manage:chat_messages' scope.")
+		if (e._statusCode == 403) logger.error("Unable to delete message. 403 Forbidden: You don't have permission to perform that action.")
+		else logger.error("Unable to delete message. Status Code: " + e._statusCode)
 	}
 }
 
