@@ -88,7 +88,6 @@ async function getChannelData(channel_name) {
 } 
 
 async function deleteMessage(channel_id, moderator_id, message_id) {
-	console.log(test)
 	return await apiClient.moderation.deleteChatMessages(channel_id, moderator_id, message_id)
 }
 
