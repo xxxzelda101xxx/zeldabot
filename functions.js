@@ -91,7 +91,8 @@ async function deleteMessage(channel_id, moderator_id, message_id) {
 	try {
 		await apiClient.moderation.deleteChatMessages(channel_id, moderator_id, message_id)
 	}
-	catch {
+	catch (e) {
+		console.log(e)
 		logger.error("Unable to delete message.")
 	}
 }
