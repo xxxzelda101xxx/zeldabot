@@ -88,7 +88,10 @@ async function getChannelData(channel_name) {
 } 
 
 async function deleteMessage(channel_id, moderator_id, message_id) {
-	return await apiClient.moderation.deleteChatMessages(channel_id, moderator_id, message_id)
+	await apiClient.moderation.deleteChatMessages(channel_id, moderator_id, message_id)
+	.catch(e => {
+		console.log(e)
+	})
 }
 
 module.exports.banRNG = banRNG
