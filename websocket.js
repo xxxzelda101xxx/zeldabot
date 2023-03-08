@@ -19,7 +19,7 @@ function startWebsocket() {
 		connection.send("Message From Client") 
 	}
 
-	connection.on('error', console.error);
+	connection.onerror = () => {}
 
 	connection.on("close", () => {
 		osuData = {}
