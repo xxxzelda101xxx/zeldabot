@@ -49,7 +49,7 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		setCooldown(command)
 		logger.verbose(`Executing !${commandToRun.name} from user: ${user} in channel: ${channel}.`)
 		try {
-			let args = msg.slice(1).split(' ')
+			let args = msg.slice(1 + commandToRun.name.length).split(' ')
 			console.log(args)
 			var messageToSend
 			if (commandToRun.isOsuCommand) {
