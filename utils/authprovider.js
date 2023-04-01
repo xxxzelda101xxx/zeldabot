@@ -16,19 +16,18 @@ else {
 const authProvider = new RefreshingAuthProvider({
 	clientId,
 	clientSecret,
-	onRefresh: async (userId, newTokenData) => await fs.writeFileSync(`./tokens.${userId}.json`, JSON.stringify(newTokenData, null, 4), 'UTF-8')
+	onRefresh: async newTokenData => await fs.writeFileSync("../tokens.json", JSON.stringify(newTokenData, null, 4), "UTF-8")
 },
+tokenData
 )
-authProvider.addUserForToken(tokenData);
 
 const shigeAuthProvider = new RefreshingAuthProvider({
 	clientId,
 	clientSecret,
-	onRefresh: async (userId, newTokenData) => await fs.writeFileSync(`./tokens.${userId}.json`, JSON.stringify(newTokenData, null, 4), 'UTF-8')
+	onRefresh: async newTokenData => await fs.writeFileSync("../shige_tokens.json", JSON.stringify(newTokenData, null, 4), "UTF-8")
 },
+shigeTokenData
 )
-shigeAuthProvider.addUserForToken(tokenData);
-
 
 exports.authProvider = authProvider
 exports.shigeAuthProvider = shigeAuthProvider
