@@ -1,4 +1,4 @@
-import open from 'open';
+const open = require('open');
 
 module.exports = {
 	name: "fixbot",
