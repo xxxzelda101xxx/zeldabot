@@ -20,7 +20,7 @@ const authProvider = new RefreshingAuthProvider({
 },
 tokenData
 )
-await authProvider.addUserForToken(tokenData, ['chat']);
+authProvider.addUserForToken(tokenData, ['chat']);
 
 const shigeAuthProvider = new RefreshingAuthProvider({
 	clientId,
@@ -29,7 +29,7 @@ const shigeAuthProvider = new RefreshingAuthProvider({
 },
 shigeTokenData
 )
-await shigeAuthProvider.addUserForToken(tokenData, ['chat']);
+shigeAuthProvider.addUserForToken(tokenData, ['chat']);
 
 
 exports.authProvider = authProvider
