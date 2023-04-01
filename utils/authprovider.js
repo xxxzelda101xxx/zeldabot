@@ -29,7 +29,7 @@ const shigeAuthProvider = new RefreshingAuthProvider({
 },
 shigeTokenData
 )
-shigeAuthProvider.addUserForToken(tokenData);
+shigeAuthProvider.addUserForToken(shigeTokenData);
 
 
 exports.authProvider = authProvider
