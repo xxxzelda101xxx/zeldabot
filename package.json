@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "description": "A twitchbot for shigetora's twitch chat.",
   "main": "main.js",
-  "type": "module",
   "scripts": {
     "start": "node main.js"
   },
