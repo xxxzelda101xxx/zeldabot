@@ -24,7 +24,7 @@ async function main() {
 		logger.info("Connected to Twitch!")
 	})
 	if (config.twitch.is_official_bot) {
-		listener.subscribeToChannelRedemptionAddEventsForReward(userId, "34f48b7d-25e1-4aeb-b622-39e63a9291d8", e => {
+		listener.onChannelRedemptionAddForReward(userId, "34f48b7d-25e1-4aeb-b622-39e63a9291d8", e => {
 			logger.verbose(`${e.userName} used !blame3!`)
 			chatClient.say("#shigetora", "!blame3")
 		})
@@ -61,21 +61,21 @@ async function main() {
 }
 
 function streamOnlineEvents(channel_id) {
-	listener.subscribeToStreamOnlineEvents(channel_id, e => {
+	listener.onStreamOnline(channel_id, e => {
 		logger.verbose(`${e.broadcasterName} is live!`)
 		changeTwitchStreamStatus(e.broadcasterId, true)
 	})
 }
 
 function streamOfflineEvents(channel_id) {
-	listener.subscribeToStreamOfflineEvents(channel_id, e => {
+	listener.onStreamOffline(channel_id, e => {
 		logger.verbose(`${e.broadcasterName} is offline.`)
 		changeTwitchStreamStatus(e.broadcasterId, false)
 	})
 }
 
 function streamBanEvents(channel_id) {
-	listener.subscribeToChannelBanEvents(channel_id, e => {
+	listener.onChannelBan(channel_id, e => {
 		console.log(e.userName)
 	})
 }
