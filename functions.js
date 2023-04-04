@@ -5,7 +5,7 @@ import axios from 'axios'
 import { logger } from "./logger.js"
 import config from "./config.json" assert { type: "json" }
 
-async function kagamiBanRNG(channel, user, user_id) {
+async function kagamiBanRNG(channel, user, user_id, context) {
 	var randomNumber = Math.floor(Math.random() * 1001)
 	if (randomNumber == 727) {
 		await chatClient.say(channel, "Kagami_77 hit the 1/1000 chance to get banned lmao.")
