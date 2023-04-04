@@ -1,10 +1,10 @@
-const { BeatmapCalculator } = require("@kionell/osu-pp-calculator")
+import { BeatmapCalculator } from "@kionell/osu-pp-calculator"
 const beatmapCalculator = new BeatmapCalculator()
-const path = require("path")
-const config = require("../config.json")
+import path from "path"
+import config from '../config.json' assert { type: "json" }
 const songsFolder = config.osu.Songs_folder
 
-module.exports = {
+export default {
 	name: "stats",
 	aliases: [],
 	description: "Returns stats for the current map.",

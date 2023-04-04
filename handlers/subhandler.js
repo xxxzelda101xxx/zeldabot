@@ -1,4 +1,4 @@
-const { chatClient } = require("../utils/chatclient.js")
+import { chatClient } from "../utils/chatclient.js"
 
 function subHandler(channel, user, subInfo, context) {
 	if (channel == "#shigetora" || channel == "shigetora") {
@@ -9,4 +9,5 @@ function subHandler(channel, user, subInfo, context) {
 	}
 }
 
-exports.subHandler = subHandler
+const _subHandler = subHandler
+export { _subHandler as subHandler }

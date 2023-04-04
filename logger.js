@@ -1,4 +1,4 @@
-const { createLogger, format, transports } = require("winston")
+import { createLogger, format, transports } from "winston"
 const { combine, timestamp, printf } = format
 
 function setConsoleColor(level) {
@@ -28,4 +28,5 @@ const logger = createLogger({
 	],
 })
 
-module.exports.logger = logger
+const _logger = logger
+export { _logger as logger }

@@ -1,10 +1,10 @@
-const axios = require('axios')
-const fs = require('fs')
-const config = require('../config.json')
+import axios from 'axios'
+import fs from 'fs'
+import config from '../config.json' assert { type: "json" }
 const url = config.ai.url
 const useSeparateBroadcasterToken = config.twitch.separateBroadcasterToken
 
-module.exports = {
+export default {
 	name: "interrogate",
 	aliases: [],
 	description: "Returns tags from stable diffusion's interrogate feature for a given image.",

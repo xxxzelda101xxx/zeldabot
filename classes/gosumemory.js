@@ -1,6 +1,6 @@
-const config = require("../config.json")
-const { logger } = require("../logger.js")
-const path = require("path")
+import config from "../config.json"  assert { type: "json" }
+import { logger } from "../logger.js"
+import { join } from "path"
 var songsFolder = config.osu.Songs_folder
 
 class GosuMemory {
@@ -70,7 +70,7 @@ class GosuMemory {
 		return this.resultsScreen.name
 	}
 	async getOsuFile() {
-		return path.join(songsFolder, this.menu.bm.path.folder, this.menu.bm.path.file)
+		return join(songsFolder, this.menu.bm.path.folder, this.menu.bm.path.file)
 	}
 	getModsForPPCalc() {
 		return getMods(this.menu.mods.num)
@@ -123,7 +123,8 @@ class GosuMemory {
 	}
 }
   
-module.exports.GosuMemory = GosuMemory
+const _GosuMemory = GosuMemory
+export { _GosuMemory as GosuMemory }
 
 function millisToMinutesAndSeconds(millis) {
 	var minutes = Math.floor(millis / 60000)

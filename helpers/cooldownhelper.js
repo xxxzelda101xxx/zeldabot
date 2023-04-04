@@ -1,5 +1,5 @@
 const cooldowns = new Map()
-const config = require("../config.json")
+import config from "../config.json" assert { type: "json" }
 const commandCooldownTime = config.twitch.command_cooldown_time
 const messageCooldownTime = config.twitch.message_cooldown_time
 
@@ -19,5 +19,7 @@ function getCooldown(data) {
     return cooldowns.get(data)
 }
 
-module.exports.setCooldown = setCooldown
-module.exports.getCooldown = getCooldown
+const _setCooldown = setCooldown
+export { _setCooldown as setCooldown }
+const _getCooldown = getCooldown
+export { _getCooldown as getCooldown }

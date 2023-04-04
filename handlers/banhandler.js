@@ -1,5 +1,5 @@
-const { chatClient } = require("../utils/chatclient.js")
-const { incrementBans, getUserIdByUsername } = require("../database.js")
+import { chatClient } from "../utils/chatclient.js"
+import { incrementBans, getUserIdByUsername } from "../database.js"
 
 async function banHandler(channel, user, msg) {
 	var user_id = await getUserIdByUsername(user)
@@ -11,4 +11,5 @@ async function banHandler(channel, user, msg) {
 	if (user == "tarantemo77") chatClient.say(channel, "tarantemo77 is perma horny (and also perma banned.)")
 }
 
-exports.banHandler = banHandler
+const _banHandler = banHandler
+export { _banHandler as banHandler }

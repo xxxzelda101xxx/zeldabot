@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 	name: "ur",
 	aliases: [],
 	description: "Returns the current unstable rate.",

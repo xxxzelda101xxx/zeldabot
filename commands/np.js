@@ -1,6 +1,6 @@
 const dlUrl = "https://osu.ppy.sh/b/"
 const dlSetUrl = "https://osu.ppy.sh/s/"
-module.exports = {
+export default {
 	name: "np",
 	aliases: ["map", "song"],
 	description: "Sends information on the song/map that is currently playing.",

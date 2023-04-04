@@ -1,12 +1,11 @@
-const axios = require('axios')
-const fs = require('fs')
-const { nanoid } = require('nanoid')
-const config = require('../config.json')
+import axios from 'axios'
+import fs from 'fs'
+import { nanoid } from 'nanoid'
+import config from '../config.json' assert { type: "json" }
 const url = config.ai.url
 const useSeparateBroadcasterToken = config.twitch.separateBroadcasterToken
-const sizeOf = require('image-size')
 
-module.exports = {
+export default {
 	name: "weebtest",
 	aliases: [],
 	description: "Generates an image using AI.",

@@ -1,6 +1,6 @@
-const { getUserIdByUsername, whitelistUser } = require("../database.js")
+import { getUserIdByUsername, whitelistUser } from "../database.js"
 
-module.exports = {
+export default {
 	name: "whitelist",
 	aliases: ["wl"],
 	description: "Adds a given user to the whitelist.",

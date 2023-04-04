@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 	name: "scorepost",
 	aliases: [],
 	description: "Meme command to generate a reddit score post title.",

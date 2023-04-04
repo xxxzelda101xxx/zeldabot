@@ -1,9 +1,9 @@
-const axios = require('axios')
-const config = require('../config.json')
+import axios from 'axios'
+import config from '../config.json' assert { type: "json" }
 const url = config.ai.url
 const useSeparateBroadcasterToken = config.twitch.separateBroadcasterToken
 
-module.exports = {
+export default {
 	name: "changemodel",
 	aliases: ["cm"],
 	description: "Changes the model for stable diffusion.",

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 	name: "mods",
 	aliases: [],
 	description: "Sends current mod combination.",

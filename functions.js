@@ -1,9 +1,9 @@
-const { addSevenTVEmoteToDB, saveChannelToDB } = require("./database.js")
-const { apiClient } = require("./utils/apiclient")
-const { chatClient } = require("./utils/chatclient.js")
-const axios = require('axios')
-const { logger } = require("./logger.js")
-const config = require("./config.json") 
+import { addSevenTVEmoteToDB, saveChannelToDB } from "./database.js"
+import { apiClient } from "./utils/apiclient.js"
+import { chatClient } from "./utils/chatclient.js"
+import axios from 'axios'
+import { logger } from "./logger.js"
+import config from "./config.json" assert { type: "json" }
 
 async function kagamiBanRNG(channel, user, user_id) {
 	var randomNumber = Math.floor(Math.random() * 1001)
@@ -14,7 +14,7 @@ async function kagamiBanRNG(channel, user, user_id) {
 }
 
 async function get7TVUserIDFromTwitchUserID(twitch_user_id) {
-	var data = await axios.get(`https://7tv.io/v3/users/twitch/${twitch_user_id}`)
+	var data = await axios(`https://7tv.io/v3/users/twitch/${twitch_user_id}`)
 	.catch(e => {
 		logger.verbose(`Twitch ID ${twitch_user_id} doesn't exist on 7TV`)
 		return
@@ -58,7 +58,7 @@ async function banRNG(channel, user, user_id, context) {
 }
 
 async function addAllSevenTVEmotesToDB(channel_id) {
-	var data = await axios.get(`https://7tv.io/v3/users/twitch/${channel_id}`)
+	var data = await axios(`https://7tv.io/v3/users/twitch/${channel_id}`)
 	.catch(e => {
 		logger.verbose(`Twitch ID ${channel_id} doesn't exist on 7TV`)
 		return
@@ -98,10 +98,17 @@ async function deleteMessage(channel_id, moderator_id, message_id) {
 	}
 }
 
-module.exports.banRNG = banRNG
-module.exports.kagamiBanRNG = kagamiBanRNG
-module.exports.numberWithCommas = numberWithCommas
-module.exports.get7TVUserIDFromTwitchUserID = get7TVUserIDFromTwitchUserID
-module.exports.addAllSevenTVEmotesToDB = addAllSevenTVEmotesToDB
-module.exports.getChannelDataAndSaveToDB = getChannelDataAndSaveToDB
-module.exports.deleteMessage = deleteMessage
+const _banRNG = banRNG
+export { _banRNG as banRNG }
+const _kagamiBanRNG = kagamiBanRNG
+export { _kagamiBanRNG as kagamiBanRNG }
+const _numberWithCommas = numberWithCommas
+export { _numberWithCommas as numberWithCommas }
+const _get7TVUserIDFromTwitchUserID = get7TVUserIDFromTwitchUserID
+export { _get7TVUserIDFromTwitchUserID as get7TVUserIDFromTwitchUserID }
+const _addAllSevenTVEmotesToDB = addAllSevenTVEmotesToDB
+export { _addAllSevenTVEmotesToDB as addAllSevenTVEmotesToDB }
+const _getChannelDataAndSaveToDB = getChannelDataAndSaveToDB
+export { _getChannelDataAndSaveToDB as getChannelDataAndSaveToDB }
+const _deleteMessage = deleteMessage
+export { _deleteMessage as deleteMessage }

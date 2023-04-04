@@ -1,7 +1,6 @@
-const { changeTwitchStreamStatus } = require("../database.js")
+import { changeTwitchStreamStatus } from "../database.js"
 
-
-module.exports = {
+export default {
 	name: "online",
 	aliases: [],
 	description: "Marks the stream of online.",

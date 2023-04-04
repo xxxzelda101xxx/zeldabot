@@ -1,5 +1,5 @@
-const { getUserIdByUsername, getBans } = require("../database.js")
-module.exports = {
+import { getUserIdByUsername, getBans } from"../database.js"
+export default {
 	name: "bans",
 	aliases: [],
 	description: "Returns how many bans a specified user has.",

@@ -1,5 +1,5 @@
-const { getUserIdByUsername, addBansToUser, removeBansFromUser } = require("../database.js")
-module.exports = {
+import { getUserIdByUsername, addBansToUser, removeBansFromUser } from "../database.js"
+export default {
 	name: "editbans",
 	aliases: [],
 	description: "Allows you to edit the number of bans for a given user.",
@@ -8,7 +8,7 @@ module.exports = {
 	isPublic: false,
 	isOsuCommand: false,
 	execute: async function(msg, context, args) {
-		if (msg.toLowerCase().split(" ").length != 3) return
+		if (msg.toLowerCase().split(" ").length != 3) return "Invalid Command Usage"
 		var username = msg.toLowerCase().split(" ")[1]
 		var bansToAddOrRemove = msg.toLowerCase().split(" ")[2]
 		var user_id = await getUserIdByUsername(username)
@@ -21,9 +21,6 @@ module.exports = {
 		else if (bansToAddOrRemove > 0 && user_id) {
 			addBansToUser(channel_id, user_id, bansToAddOrRemove)
 			return `Added ${bansToAddOrRemove} bans to ${username}.`
-		}
-		else {
-			return "Invalid Command Usage"
 		}
 	}
 }

@@ -1,6 +1,6 @@
-const { getTopTenEmotes, getTopTenEmotesByUserID, getUserIdByUsername } = require("../database.js")
+import { getTopTenEmotes, getTopTenEmotesByUserID, getUserIdByUsername } from "../database.js"
 
-module.exports = {
+export default {
 	name: "toptenemotes",
 	aliases: ["topemotes", "tte"],
 	description: "Returns top ten emotes for a given user or the entire channel.",

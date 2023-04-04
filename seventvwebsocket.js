@@ -1,7 +1,7 @@
 const url = "wss://events.7tv.io/v3"
-const WebSocket = require("ws")
+import WebSocket from "ws"
 var test = {}
-const { getUserIdByUsername, addSevenTVEmoteToDB, getChannelIDBySevenTVID } = require('./database.js')
+import { getUserIdByUsername, addSevenTVEmoteToDB, getChannelIDBySevenTVID } from './database.js'
 
 function startSevenTVWebsocket(channels) {
 	const connection = new WebSocket(url)
@@ -45,4 +45,5 @@ function startSevenTVWebsocket(channels) {
 	}
 }
 
-module.exports.startSevenTVWebsocket = startSevenTVWebsocket
+const _startSevenTVWebsocket = startSevenTVWebsocket
+export { _startSevenTVWebsocket as startSevenTVWebsocket }

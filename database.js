@@ -1,6 +1,6 @@
-const { logger } = require("./logger.js")
-const { setCooldown, getCooldown } = require("./helpers/cooldownhelper.js")
-const sqlite3 = require("sqlite3").verbose()
+import { logger } from "./logger.js"
+import { setCooldown, getCooldown } from "./helpers/cooldownhelper.js"
+import sqlite3 from "sqlite3"
 const db = new sqlite3.Database("database.db")
 db.run("CREATE TABLE IF NOT EXISTS `channels` (`name` varchar(32) NOT NULL, `channel_id` integer NOT NULL, `seventv_channel_id` varchar(24) DEFAULT NULL, `online` integer NOT NULL, UNIQUE (`channel_id`))")
 db.run("CREATE TABLE IF NOT EXISTS `emotes` (`user_id` integer NOT NULL,  `channel_id` integer NOT NULL, `emote` varchar(100) NOT NULL, `uses` integer NOT NULL, UNIQUE (`user_id`,`emote`,`channel_id`))")
@@ -150,7 +150,7 @@ async function getMessages(user_id, channel_id) {
 
 async function getMessageRank(user_id, channel_id) {
 	let data = await db_all("SELECT *, RANK() OVER ( ORDER BY total DESC ) AS rank FROM messages WHERE channel_id = ?", [channel_id])
-	for (i = 0; i < data.length; i++) {
+	for (var i = 0; i < data.length; i++) {
 		if (data[i].user_id == user_id) return data[i].rank
 	}
 }
@@ -229,32 +229,61 @@ async function getWhitelistStatus(user_id) {
 	else return 0
 }
 
-module.exports.getUserIdByUsername = getUserIdByUsername
-module.exports.addTwitchUserToDB = addTwitchUserToDB
-module.exports.addToDB = addToDB
-module.exports.addEmoteToDB = addEmoteToDB
-module.exports.getEmotes = getEmotes
-module.exports.getMessages = getMessages
-module.exports.getAllMessages = getAllMessages
-module.exports.changeTwitchStreamStatus = changeTwitchStreamStatus
-module.exports.getTwitchStreamStatus = getTwitchStreamStatus
-module.exports.addChannelToDB = addChannelToDB
-module.exports.getUsernameById = getUsernameById
-module.exports.whitelistUser = whitelistUser
-module.exports.unwhitelistUser = unwhitelistUser
-module.exports.getWhitelistStatus = getWhitelistStatus
-module.exports.getTopTenEmotes = getTopTenEmotes
-module.exports.getTopTenEmotesByUserID = getTopTenEmotesByUserID
-module.exports.removeMessagesFromUser = removeMessagesFromUser
-module.exports.addMessagesToUser = addMessagesToUser
-module.exports.getBans = getBans
-module.exports.incrementBans = incrementBans
-module.exports.addBansToUser = addBansToUser
-module.exports.removeBansFromUser = removeBansFromUser
-module.exports.getChannels = getChannels
-module.exports.addSevenTVEmoteToDB = addSevenTVEmoteToDB
-module.exports.getSevenTVEmotesByChannelID = getSevenTVEmotesByChannelID
-module.exports.getChannelIDBySevenTVID = getChannelIDBySevenTVID
-module.exports.getMessageRank = getMessageRank
-module.exports.getMessageLeaderboard = getMessageLeaderboard
-module.exports.saveChannelToDB = saveChannelToDB
+const _getUserIdByUsername = getUserIdByUsername
+export { _getUserIdByUsername as getUserIdByUsername }
+const _addTwitchUserToDB = addTwitchUserToDB
+export { _addTwitchUserToDB as addTwitchUserToDB }
+const _addToDB = addToDB
+export { _addToDB as addToDB }
+const _addEmoteToDB = addEmoteToDB
+export { _addEmoteToDB as addEmoteToDB }
+const _getEmotes = getEmotes
+export { _getEmotes as getEmotes }
+const _getMessages = getMessages
+export { _getMessages as getMessages }
+const _getAllMessages = getAllMessages
+export { _getAllMessages as getAllMessages }
+const _changeTwitchStreamStatus = changeTwitchStreamStatus
+export { _changeTwitchStreamStatus as changeTwitchStreamStatus }
+const _getTwitchStreamStatus = getTwitchStreamStatus
+export { _getTwitchStreamStatus as getTwitchStreamStatus }
+const _addChannelToDB = addChannelToDB
+export { _addChannelToDB as addChannelToDB }
+const _getUsernameById = getUsernameById
+export { _getUsernameById as getUsernameById }
+const _whitelistUser = whitelistUser
+export { _whitelistUser as whitelistUser }
+const _unwhitelistUser = unwhitelistUser
+export { _unwhitelistUser as unwhitelistUser }
+const _getWhitelistStatus = getWhitelistStatus
+export { _getWhitelistStatus as getWhitelistStatus }
+const _getTopTenEmotes = getTopTenEmotes
+export { _getTopTenEmotes as getTopTenEmotes }
+const _getTopTenEmotesByUserID = getTopTenEmotesByUserID
+export { _getTopTenEmotesByUserID as getTopTenEmotesByUserID }
+const _removeMessagesFromUser = removeMessagesFromUser
+export { _removeMessagesFromUser as removeMessagesFromUser }
+const _addMessagesToUser = addMessagesToUser
+export { _addMessagesToUser as addMessagesToUser }
+const _getBans = getBans
+export { _getBans as getBans }
+const _incrementBans = incrementBans
+export { _incrementBans as incrementBans }
+const _addBansToUser = addBansToUser
+export { _addBansToUser as addBansToUser }
+const _removeBansFromUser = removeBansFromUser
+export { _removeBansFromUser as removeBansFromUser }
+const _getChannels = getChannels
+export { _getChannels as getChannels }
+const _addSevenTVEmoteToDB = addSevenTVEmoteToDB
+export { _addSevenTVEmoteToDB as addSevenTVEmoteToDB }
+const _getSevenTVEmotesByChannelID = getSevenTVEmotesByChannelID
+export { _getSevenTVEmotesByChannelID as getSevenTVEmotesByChannelID }
+const _getChannelIDBySevenTVID = getChannelIDBySevenTVID
+export { _getChannelIDBySevenTVID as getChannelIDBySevenTVID }
+const _getMessageRank = getMessageRank
+export { _getMessageRank as getMessageRank }
+const _getMessageLeaderboard = getMessageLeaderboard
+export { _getMessageLeaderboard as getMessageLeaderboard }
+const _saveChannelToDB = saveChannelToDB
+export { _saveChannelToDB as saveChannelToDB }

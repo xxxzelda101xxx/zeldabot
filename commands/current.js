@@ -1,11 +1,11 @@
-const { ScoreCalculator } = require("@kionell/osu-pp-calculator")
-const { getMaxPP } = require("../websocket.js")
+import { ScoreCalculator } from "@kionell/osu-pp-calculator"
+import { getMaxPP } from "../websocket.js"
 const scoreCalculator = new ScoreCalculator()
-const path = require("path")
-const config = require("../config.json")
+import path from "path"
+import config from "../config.json" assert { type: "json" }
 const songsFolder = config.osu.Songs_folder
 
-module.exports = {
+export default {
 	name: "current",
 	aliases: [],
 	description: "Returns the current data for the ongoing osu play.",

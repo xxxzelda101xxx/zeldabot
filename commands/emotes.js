@@ -1,7 +1,7 @@
-const { getEmotes, getUserIdByUsername } = require("../database.js")
-const { numberWithCommas } = require("../functions.js")
+import { getEmotes, getUserIdByUsername } from "../database.js"
+import { numberWithCommas } from "../functions.js"
 
-module.exports = {
+export default {
 	name: "emotes",
 	aliases: [],
 	description: "Returns how many times an emote has been used for given user or entire channel.",
@@ -43,7 +43,7 @@ module.exports = {
 			}
 		}
 		else {
-			if (!msg.toLowerCase().split(" ")[1]) return
+			if (!msg.toLowerCase().split(" ")[1]) return "Invalid Command Usage"
 			let emote = await getEmotes(user_id, context.channelId, emoteToSearch)
 			if (emote) {
 				return `${username} has used the emote ${emote.emote} ${numberWithCommas(emote.uses)} times.`

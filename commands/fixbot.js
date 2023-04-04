@@ -1,6 +1,6 @@
-const open = require('open');
+import open from'open'
 
-module.exports = {
+export default {
 	name: "fixbot",
 	aliases: ["fixosu"],
 	description: "Opens a link to start spectating chocomint.",

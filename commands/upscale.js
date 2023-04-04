@@ -1,12 +1,12 @@
-const axios = require('axios')
-const fs = require('fs')
-const { nanoid } = require('nanoid')
-const config = require('../config.json')
+import axios from 'axios'
+import fs from 'fs'
+import { nanoid } from 'nanoid'
+import config from '../config.json' assert { type: "json" }
 const url = config.ai.url
-const sizeOf = require('image-size')
+import sizeOf from 'image-size'
 const useSeparateBroadcasterToken = config.twitch.separateBroadcasterToken
 
-module.exports = {
+export default {
 	name: "upscale",
 	aliases: [],
 	description: "AI upscales a given image.",

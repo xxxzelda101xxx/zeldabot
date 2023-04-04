@@ -1,7 +1,8 @@
-const { authProvider } = require("./authprovider.js")
-const config = require("../config.json")
+import { authProvider } from "./authprovider.js"
+import config from "../config.json" assert { type: "json" }
 
-const ChatClient = require("@twurple/chat").ChatClient
+import { ChatClient } from "@twurple/chat"
 const chatClient = new ChatClient({ authProvider, channels: config.twitch.channels, isAlwaysMod: true })
 
-exports.chatClient = chatClient
+const _chatClient = chatClient
+export { _chatClient as chatClient }

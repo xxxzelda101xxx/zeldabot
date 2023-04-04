@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 	name: "bg",
 	aliases: [],
 	description: "Return the URL for the current maps background.",

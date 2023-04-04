@@ -1,6 +1,6 @@
-const { getUserIdByUsername, unwhitelistUser } = require("../database.js")
+import { getUserIdByUsername, unwhitelistUser } from "../database.js"
 
-module.exports = {
+export default {
 	name: "unwhitelist",
 	aliases: ["uwl"],
 	description: "Unwhitelist a given user.",

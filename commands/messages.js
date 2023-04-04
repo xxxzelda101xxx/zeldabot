@@ -1,6 +1,6 @@
-const { getUserIdByUsername, getMessages, getAllMessages, getMessageRank, getMessageLeaderboard } = require("../database.js")
-const { numberWithCommas } = require("../functions.js")
-module.exports = {
+import { getUserIdByUsername, getMessages, getAllMessages, getMessageRank, getMessageLeaderboard } from "../database.js"
+import { numberWithCommas } from "../functions.js"
+export default {
 	name: "messages",
 	aliases: [],
 	description: "Returns how many messages a user has or number of messages sent in an entire channel.",

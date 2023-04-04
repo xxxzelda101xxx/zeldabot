@@ -1,11 +1,11 @@
-const config = require("./config.json")
-const { ScoreCalculator } = require("@kionell/osu-pp-calculator")
+import config from "./config.json" assert { type: "json" }
+import { ScoreCalculator } from "@kionell/osu-pp-calculator"
 const scoreCalculator = new ScoreCalculator()
 const url = config.osu.gosumemory_address
-const WebSocket = require("ws")
-const { GosuMemory } = require("./classes/gosumemory.js")
-const path = require("path")
-const { logger } = require("./logger")
+import WebSocket from "ws"
+import { GosuMemory } from "./classes/gosumemory.js"
+import { join } from "path"
+import { logger } from "./logger.js"
 var osuData = {}
 var maxPP = 0
 const songsFolder = config.osu.Songs_folder
@@ -32,7 +32,7 @@ function startWebsocket() {
 		var data = JSON.parse(e.data)
 		if (data) {
 			var mods = data.gameplay.leaderboard.ourplayer.mods != "" ? data.gameplay.leaderboard.ourplayer.mods : data.menu.mods.str
-			var osuFile = path.join(songsFolder, data.menu.bm.path.folder, data.menu.bm.path.file)
+			var osuFile = join(songsFolder, data.menu.bm.path.folder, data.menu.bm.path.file)
 			var result = await scoreCalculator.calculate({ rulesetId: 0, fileURL: osuFile, count100: data.gameplay.hits["100"], count50: data.gameplay.hits["50"], countMiss: data.gameplay.hits["0"], maxCombo: data.gameplay.combo.max, mods: mods })
 			.catch(e => {
 				if (e.code != "ENOENT") {
@@ -62,6 +62,9 @@ async function getMaxPP() {
 	return parseInt(maxPP)
 }
 
-module.exports.startWebsocket = startWebsocket
-module.exports.osuData = osuData
-module.exports.getMaxPP = getMaxPP
+const _startWebsocket = startWebsocket
+export { _startWebsocket as startWebsocket }
+const _osuData = osuData
+export { _osuData as osuData }
+const _getMaxPP = getMaxPP
+export { _getMaxPP as getMaxPP }

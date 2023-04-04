@@ -1,6 +1,6 @@
-module.exports = {
-	name: "#1",
-	aliases: ["number1"],
+export default {
+	name: "number1",
+	aliases: ["#1"],
 	description: "Returns the #1 score for the current map.",
 	canWhisper: true,
 	isOsuCommand: true,

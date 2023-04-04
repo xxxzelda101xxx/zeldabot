@@ -1,15 +1,15 @@
-const { setCooldown, getCooldown } = require("../helpers/cooldownhelper.js")
-const { addToDB, addEmoteToDB, getTwitchStreamStatus, addTwitchUserToDB, getWhitelistStatus } = require("../database.js")
-const { kagamiBanRNG, banRNG, deleteMessage } = require("../functions.js")
-const { logger } = require("../logger.js")
-const { Commands } = require("../helpers/commandshelper.js")
-const { GosuMemory } = require("../classes/gosumemory.js")
-const { chatClient } = require("../utils/chatclient.js")
-const config = require("../config.json")
+import { setCooldown, getCooldown } from "../helpers/cooldownhelper.js"
+import { addToDB, addEmoteToDB, getTwitchStreamStatus, addTwitchUserToDB, getWhitelistStatus } from "../database.js"
+import { kagamiBanRNG, banRNG, deleteMessage } from "../functions.js"
+import { logger } from "../logger.js"
+import { GosuMemory } from "../classes/gosumemory.js"
+import { chatClient } from "../utils/chatclient.js"
+import * as Commands from "../commands/index.js";
+import config from "../config.json" assert { type: "json" }
 const osuCommandsOnly = config.twitch.osu_commands_only
 const isWhitelistEnabled = config.twitch.enable_whitelist
 const admins = config.twitch.admins
-const { apiClient } = require("../utils/apiclient")
+import { apiClient } from "../utils/apiclient.js"
 
 
 async function messageHandler(channel, user, msg, context, osuData) {
@@ -18,7 +18,7 @@ async function messageHandler(channel, user, msg, context, osuData) {
 	msg = msg.trim()
 	const user_id = context.userInfo.userId
 	const channel_id = context.channelId
-	const command = msg.trim().toLowerCase().split(" ")[0]
+	const command = msg.substring(1).trim().toLowerCase().split(" ")[0]
 	const commandToRun = Commands[command]
 	const isMod = (context.userInfo.isMod || context.userInfo.isBroadcaster) ? true : false
 	const whitelistStatus = await getWhitelistStatus(user_id)
@@ -66,6 +66,7 @@ async function messageHandler(channel, user, msg, context, osuData) {
 				chatClient.say(channel, messageToSend, { replyTo: context })
 			}
 			else if (messageToSend != "") {
+				console.log(messageToSend)
 				chatClient.say(channel, messageToSend)
 			}
 		}
@@ -108,4 +109,5 @@ async function messageHandler(channel, user, msg, context, osuData) {
 	}
 }
 
-exports.messageHandler = messageHandler
+const _messageHandler = messageHandler
+export { _messageHandler as messageHandler }

@@ -1,11 +1,11 @@
-const { ScoreCalculator } = require("@kionell/osu-pp-calculator")
+import { ScoreCalculator } from "@kionell/osu-pp-calculator"
 const scoreCalculator = new ScoreCalculator()
-const path = require("path")
-const config = require("../config.json")
+import path from "path"
+import config from '../config.json' assert { type: "json" }
 const songsFolder = config.osu.Songs_folder
 
 
-module.exports = {
+export default {
 	name: "pp",
 	aliases: ["nppp"],
 	description: "Returns how much pp the current map is worth with the given mods and accuracy.",

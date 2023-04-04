@@ -1,8 +1,8 @@
-const { shigeapiClient } = require("../utils/apiclient")
-const config = require("../config.json")
+import { shigeapiClient } from "../utils/apiclient.js"
+import config from '../config.json' assert { type: "json" }
 const useSeparateBroadcasterToken = config.twitch.separateBroadcasterToken
 
-module.exports = {
+export default {
 	name: "mark",
 	aliases: [],
 	description: "Creates a stream marker.",
