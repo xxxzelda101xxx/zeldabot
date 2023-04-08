@@ -1,6 +1,9 @@
 import { chatClient } from "../utils/chatclient.js"
+import config from "../config.json" assert { type: "json" };
+const enableSubHandler = config.twitch.enable_subhandler
 
 function subHandler(channel, user, subInfo, context) {
+	if (!enableSubHandler) return
 	if (channel == "#shigetora" || channel == "shigetora") {
 		if (subInfo.months == 12) chatClient.say(channel, `${user}, Thanks for subscribing for 1 year!`)
 		else if (subInfo.months == 24) chatClient.say(channel, `${user}, Thanks for subscribing for 2 years! Enjoy your shiny new whale sub badge.`)
