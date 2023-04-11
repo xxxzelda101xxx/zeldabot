@@ -19,7 +19,10 @@ async function messageHandler(channel, user, msg, context, osuData) {
 	const user_id = context.userInfo.userId
 	const channel_id = context.channelId
 	const command = msg.substring(1).trim().toLowerCase().split(" ")[0]
-	const commandToRun = Commands[command]
+	var commandToRun
+	if (msg.startsWith("!")) {
+		commandToRun = Commands[command]
+	}
 	const isMod = (context.userInfo.isMod || context.userInfo.isBroadcaster) ? true : false
 	const whitelistStatus = await getWhitelistStatus(user_id)
 	if (commandToRun) {
