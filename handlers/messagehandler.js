@@ -69,7 +69,6 @@ async function messageHandler(channel, user, msg, context, osuData) {
 				chatClient.say(channel, messageToSend, { replyTo: context })
 			}
 			else if (messageToSend != "") {
-				console.log(messageToSend)
 				chatClient.say(channel, messageToSend)
 			}
 		}
@@ -99,9 +98,6 @@ async function messageHandler(channel, user, msg, context, osuData) {
 					}
 				}
 				else if (messageToSend != "") {
-					console.log(messageToSend)
-					console.log(config.twitch.moderator_id)
-					console.log(user_id)
 					apiClient.whispers.sendWhisper(config.twitch.moderator_id, user_id, messageToSend)
 				}
 			}
