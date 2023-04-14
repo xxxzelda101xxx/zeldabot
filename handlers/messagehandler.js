@@ -33,7 +33,12 @@ async function messageHandler(channel, user, msg, context, osuData) {
 			banRNG(channel, user, user_id, context) // 1/10k chance to ban anyone
 		}
 		if (!commandToRun) return
-		if (admins.indexOf(user.toLowerCase()) < 0) await canRunCommand(commandToRun, osuData, context)
+		//console.log(user.toLowerCase())
+		//console.log( < 0)
+		const canUserUseCommand = await canRunCommand(commandToRun, osuData, context)
+		console.log(canUserUseCommand)
+		console.log(admins.indexOf(user.toLowerCase()) < 0)
+		if (!canUserUseCommand && admins.indexOf(user.toLowerCase()) < 0) return await deleteMessage(channel_id, config.twitch.moderator_id, context.id)
 		logger.verbose(`Executing !${commandToRun.name} from user: ${user} in channel: ${channel}.`)
 		let args = msg.slice(1).split(' ')
 		if (commandToRun.isOsuCommand) await runOsuCommand(commandToRun, channel, msg, context, osuData, args)
@@ -55,19 +60,20 @@ async function canRunCommand(commandToRun, osuData, context) {
 	const channel_id = context.channelId
 	const isMod = (context.userInfo.isMod || context.userInfo.isBroadcaster) ? true : false
 	const whitelistStatus = await getWhitelistStatus(user_id)
-	if (commandToRun.adminOnly && admins.indexOf(user.toLowerCase()) < 0) return
-	if (commandToRun.modOnly && !isMod) return
-	if (osuCommandsOnly && !commandToRun.isOsuCommand && !commandToRun.adminOnly) return
-	if (!osuData && commandToRun.isOsuCommand == true) return
+	if (commandToRun.adminOnly && admins.indexOf(user.toLowerCase()) < 0) return false
+	if (commandToRun.modOnly && !isMod) return false
+	if (osuCommandsOnly && !commandToRun.isOsuCommand && !commandToRun.adminOnly) return false
+	if (!osuData && commandToRun.isOsuCommand == true) return false
 	var online = await getTwitchStreamStatus(channel_id)
 	const cooldown = getCooldown(commandToRun)
 	if (!isMod && online) {
-		if (commandToRun.offlineOnly) return deleteMessage(channel_id, config.twitch.moderator_id, context.id) //Delete message if stream is live and command can only be used while stream is offline
-		if (cooldown && !isMod) return deleteMessage(channel_id, config.twitch.moderator_id, context.id) //Delete message is command is on cooldown and the user isn't a mod
-		if (isWhitelistEnabled && !whitelistStatus && !commandToRun.isPublic) return deleteMessage(channel_id, config.twitch.moderator_id, context.id) //Delete message if an unwhitelisted user tried to use a whitelist only command
-		if (osuData && commandToRun.requiredState && osuData.menuState != commandToRun.requiredState) return deleteMessage(channel_id, config.twitch.moderator_id, context.id)
+		if (commandToRun.offlineOnly) return false //Delete message if stream is live and command can only be used while stream is offline
+		if (cooldown && !isMod) return false //Delete message is command is on cooldown and the user isn't a mod
+		if (isWhitelistEnabled && !whitelistStatus && !commandToRun.isPublic) return false //Delete message if an unwhitelisted user tried to use a whitelist only command
+		if (osuData && commandToRun.requiredState && osuData.menuState != commandToRun.requiredState) return false
 	}
 	setCooldown(commandToRun)
+	return true
 }
 
 async function runCommand(command, channel, msg, context, args) {
