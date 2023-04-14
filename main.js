@@ -22,14 +22,14 @@ async function main() {
 	await chatClient.connect()
 	await listener.start()
 	if (config.twitch.is_official_bot) {
-		listener.onChannelRedemptionAddForReward(userId, "34f48b7d-25e1-4aeb-b622-39e63a9291d8", e => {
-			logger.verbose(`${e.userName} used !blame3!`)
-			chatClient.say("#shigetora", "!blame3")
-		})
+		//listener.onChannelRedemptionAddForReward(userId, "34f48b7d-25e1-4aeb-b622-39e63a9291d8", e => {
+		//	logger.verbose(`${e.userName} used !blame3!`)
+		////	chatClient.say("#shigetora", "!blame3")
+		//})
+		//streamOnlineEvents(userId)
+		//streamOfflineEvents(userId)
 	}
 	for (var i = 0; i < channels.length; i++) {
-		streamOnlineEvents(channels[i].channel_id)
-		streamOfflineEvents(channels[i].channel_id)
 		addAllSevenTVEmotesToDB(channels[i].channel_id)
 		//if (config.twitch.is_official_bot) {
 			//streamBanEvents(channels[i].channel_id)

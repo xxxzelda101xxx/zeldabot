@@ -23,12 +23,6 @@ async function messageHandler(channel, user, msg, context, osuData) {
 	if (msg.startsWith("!")) {
 		commandToRun = Commands[command]
 	}
-	const isMod = (context.userInfo.isMod || context.userInfo.isBroadcaster) ? true : false
-	const whitelistStatus = await getWhitelistStatus(user_id)
-	if (commandToRun) {
-		if (commandToRun.adminOnly && admins.indexOf(user.toLowerCase()) < 0) return
-		if (commandToRun.modOnly && !isMod) return
-	}
 	if (channel) {
 		addTwitchUserToDB(user_id, user)
 		addToDB(user_id, channel_id)
@@ -39,72 +33,64 @@ async function messageHandler(channel, user, msg, context, osuData) {
 			banRNG(channel, user, user_id, context) // 1/10k chance to ban anyone
 		}
 		if (!commandToRun) return
-		if (osuCommandsOnly && !commandToRun.isOsuCommand && !commandToRun.adminOnly) return
-		if (!osuData && commandToRun.isOsuCommand == true) return
-		var online = await getTwitchStreamStatus(channel_id)
-		const cooldown = getCooldown(command)
-		if (!isMod && online) {
-			if (commandToRun.offlineOnly) return deleteMessage(channel_id, config.twitch.moderator_id, context.id)
-			if (cooldown && !isMod) return deleteMessage(channel_id, config.twitch.moderator_id, context.id)
-			if (isWhitelistEnabled && !whitelistStatus && !commandToRun.isPublic) return deleteMessage(channel_id, config.twitch.moderator_id, context.id)
-			if (osuData && commandToRun.requiredState && osuData.menuState != commandToRun.requiredState) return deleteMessage(channel_id, config.twitch.moderator_id, context.id)
-		}
-		setCooldown(command)
+		if (admins.indexOf(user.toLowerCase() < 0)) await canRunCommand(commandToRun, osuData, context)
 		logger.verbose(`Executing !${commandToRun.name} from user: ${user} in channel: ${channel}.`)
-		try {
+		let args = msg.slice(1).split(' ')
+		if (commandToRun.isOsuCommand) await runOsuCommand(commandToRun, channel, msg, context, osuData, args)
+		else await runCommand(commandToRun, channel, msg, context, args)
+}
+	else {
+		if (!commandToRun || commandToRun.adminOnly || commandToRun.modOnly) return
+		if (commandToRun.canWhisper) {
+			logger.verbose(`Executing !${commandToRun.name} from user: ${user} in whispers.`)
 			let args = msg.slice(1).split(' ')
-			var messageToSend
-			if (commandToRun.isOsuCommand) {
-				messageToSend = await commandToRun.execute(msg, context, osuData, args)
-			}
-			else {
-				messageToSend = await commandToRun.execute(msg, context, args)
-			}
-			if (Array.isArray(messageToSend)) {
-				for (var i = 0; i < messageToSend.length; i++) {
-					chatClient.say(channel, messageToSend[i], {}, "throw")
-				}
-			}
-			else if (commandToRun.name == "weeb") {
-				chatClient.say(channel, messageToSend, { replyTo: context })
-			}
-			else if (messageToSend != "") {
-				chatClient.say(channel, messageToSend)
-			}
-		}
-		catch (e) {
-			logger.error(`Command ${command} Failed: ${e}`)
-			chatClient.say(channel, e, { replyTo: context })
+			if (commandToRun.isOsuCommand) await runOsuCommand(commandToRun, null, msg, context, osuData, args)
+			else await runCommand(commandToRun, null, msg, context, args)
 		}
 	}
-	else {
-		if (!commandToRun) return
-		if (commandToRun.adminOnly) return
-		if (commandToRun.modOnly) return
-		logger.verbose(`Executing !${commandToRun.name} from user: ${user} in whispers.`)
-		if (commandToRun.canWhisper) {
-			try {
-				let args = msg.slice(1).split(' ')
-				var messageToSend
-				if (commandToRun.isOsuCommand) {
-					messageToSend = await commandToRun.execute(msg, context, osuData, args)
-				}
-				else {
-					messageToSend = await commandToRun.execute(msg, context, args)
-				}
-				if (Array.isArray(messageToSend)) {
-					for (var i = 0; i < messageToSend.length; i++) {
-						apiClient.whispers.sendWhisper(config.twitch.moderator_id, user_id, messageToSend[i])
-					}
-				}
-				else if (messageToSend != "") {
-					apiClient.whispers.sendWhisper(config.twitch.moderator_id, user_id, messageToSend)
-				}
-			}
-			catch (e) {
-				logger.error(`Command ${command} Failed: ${e}`)
-			}
-		}
+}
+
+async function canRunCommand(commandToRun, osuData, context) {
+	const user_id = context.userInfo.userId
+	const channel_id = context.channelId
+	const isMod = (context.userInfo.isMod || context.userInfo.isBroadcaster) ? true : false
+	const whitelistStatus = await getWhitelistStatus(user_id)
+	if (commandToRun.adminOnly && admins.indexOf(user.toLowerCase()) < 0) return
+	if (commandToRun.modOnly && !isMod) return
+	if (osuCommandsOnly && !commandToRun.isOsuCommand && !commandToRun.adminOnly) return
+	if (!osuData && commandToRun.isOsuCommand == true) return
+	var online = await getTwitchStreamStatus(channel_id)
+	const cooldown = getCooldown(commandToRun)
+	if (!isMod && online) {
+		if (commandToRun.offlineOnly) return deleteMessage(channel_id, config.twitch.moderator_id, context.id) //Delete message if stream is live and command can only be used while stream is offline
+		if (cooldown && !isMod) return deleteMessage(channel_id, config.twitch.moderator_id, context.id) //Delete message is command is on cooldown and the user isn't a mod
+		if (isWhitelistEnabled && !whitelistStatus && !commandToRun.isPublic) return deleteMessage(channel_id, config.twitch.moderator_id, context.id) //Delete message if an unwhitelisted user tried to use a whitelist only command
+		if (osuData && commandToRun.requiredState && osuData.menuState != commandToRun.requiredState) return deleteMessage(channel_id, config.twitch.moderator_id, context.id)
+	}
+	setCooldown(commandToRun)
+}
+
+async function runCommand(command, channel, msg, context, args) {
+	try {
+		var messageToSend = await command.execute(msg, context, args)
+		if (channel) chatClient.say(channel, messageToSend)
+		else apiClient.whispers.sendWhisper(config.twitch.moderator_id, user_id, messageToSend)
+	}
+	catch (e) {
+		logger.error(`Command ${command.name} Failed: ${e}`)
+		console.log(e)
+		chatClient.say(channel, e.toString(), { replyTo: context })
+	}
+}
+async function runOsuCommand(command, channel, msg, context, osuData, args) {
+	try {
+		var messageToSend = await command.execute(msg, context, osuData, args)
+		if (channel) chatClient.say(channel, messageToSend)
+		else apiClient.whispers.sendWhisper(config.twitch.moderator_id, user_id, messageToSend)
+	}
+	catch (e) {
+		logger.error(`Command ${command.name} Failed: ${e}`)
+		chatClient.say(channel, e.toString())
 	}
 }
 
