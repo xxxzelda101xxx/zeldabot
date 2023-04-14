@@ -33,8 +33,6 @@ async function messageHandler(channel, user, msg, context, osuData) {
 			banRNG(channel, user, user_id, context) // 1/10k chance to ban anyone
 		}
 		if (!commandToRun) return
-		console.log(user.toLowerCase())
-		console.log(admins.indexOf(user.toLowerCase()) < 0)
 		if (admins.indexOf(user.toLowerCase()) < 0) await canRunCommand(commandToRun, osuData, context)
 		logger.verbose(`Executing !${commandToRun.name} from user: ${user} in channel: ${channel}.`)
 		let args = msg.slice(1).split(' ')
