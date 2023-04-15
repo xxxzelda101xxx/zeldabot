@@ -22,6 +22,7 @@ async function main() {
 	await chatClient.connect()
 	await listener.start()
 	if (config.twitch.is_official_bot) {
+		await shigeapiClient.moderation.banUser(37575275, config.twitch.moderator_id, { user: 221185761, reason: test })
 		listener.onChannelRedemptionAddForReward(userId, "34f48b7d-25e1-4aeb-b622-39e63a9291d8", e => {
 			logger.verbose(`${e.userName} used !blame3!`)
 		})
