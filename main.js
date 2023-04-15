@@ -22,18 +22,15 @@ async function main() {
 	await chatClient.connect()
 	await listener.start()
 	if (config.twitch.is_official_bot) {
-		//listener.onChannelRedemptionAddForReward(userId, "34f48b7d-25e1-4aeb-b622-39e63a9291d8", e => {
-		//	logger.verbose(`${e.userName} used !blame3!`)
-		////	chatClient.say("#shigetora", "!blame3")
-		//})
-		//streamOnlineEvents(userId)
-		//streamOfflineEvents(userId)
+		listener.onChannelRedemptionAddForReward(userId, "34f48b7d-25e1-4aeb-b622-39e63a9291d8", e => {
+			logger.verbose(`${e.userName} used !blame3!`)
+		})
+		streamOnlineEvents(userId)
+		streamOfflineEvents(userId)
+		streamBanEvents(userId)
 	}
 	for (var i = 0; i < channels.length; i++) {
 		addAllSevenTVEmotesToDB(channels[i].channel_id)
-		//if (config.twitch.is_official_bot) {
-			//streamBanEvents(channels[i].channel_id)
-		//}
 	}
 	chatClient.onSubExtend(async function (channel, user, subInfo, context){
 		subHandler(channel, user, subInfo, context)
@@ -75,6 +72,11 @@ function streamOfflineEvents(channel_id) {
 function streamBanEvents(channel_id) {
 	listener.onChannelBan(channel_id, e => {
 		console.log(e.userName)
+		console.log(e.reason)
+		console.log(e.reason == "!blame3")
+		if (e.reason == "!blame3") {
+			chatClient.say("#shigetora", `${e.userName} was banned.`)
+		}
 	})
 }
 
