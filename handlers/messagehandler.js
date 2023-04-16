@@ -33,12 +33,9 @@ async function messageHandler(channel, user, msg, context, osuData) {
 			banRNG(channel, user, user_id, context) // 1/10k chance to ban anyone
 		}
 		if (!commandToRun) return
-		//console.log(user.toLowerCase())
-		//console.log( < 0)
 		const canUserUseCommand = await canRunCommand(commandToRun, osuData, context)
-		console.log(canUserUseCommand)
-		console.log(admins.indexOf(user.toLowerCase()) < 0)
 		if (!canUserUseCommand && admins.indexOf(user.toLowerCase()) < 0) return await deleteMessage(channel_id, config.twitch.moderator_id, context.id)
+		if (!osuData && commandToRun.isOsuCommand == true) return
 		logger.verbose(`Executing !${commandToRun.name} from user: ${user} in channel: ${channel}.`)
 		let args = msg.slice(1).split(' ')
 		if (commandToRun.isOsuCommand) await runOsuCommand(commandToRun, channel, msg, context, osuData, args)
