@@ -1,4 +1,4 @@
-import { getEmotes, getUserIdByUsername } from "../database.js"
+import { getEmotes, getEmoteRank, getUserIdByUsername } from "../database.js"
 import { numberWithCommas } from "../functions.js"
 
 export default {
@@ -21,7 +21,9 @@ export default {
 		if (isTotal) {
 			var emote = await getEmotes(null, context.channelId, emoteToSearch)
 			if (emote.emote != null) {
-				return `${emote.emote} has been used ${numberWithCommas(emote.total)} times.`
+				console.log(emote.emote)
+				var emoteRank = await getEmoteRank(emote.emote, context.channelId)
+				return `${emote.emote} has been used ${numberWithCommas(emote.total)} (#${emoteRank}) times.`
 			}
 			else {
 				return "Emote not Found or not tracked."

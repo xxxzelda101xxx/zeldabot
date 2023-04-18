@@ -71,9 +71,6 @@ function streamOfflineEvents(channel_id) {
 
 function streamBanEvents(channel_id) {
 	listener.onChannelBan(channel_id, e => {
-		console.log(e.userName)
-		console.log(e.reason)
-		console.log(e.reason == "!blame3")
 		if (e.reason == "!blame3") {
 			chatClient.say("#shigetora", `${e.userName} was banned.`)
 		}

@@ -155,6 +155,13 @@ async function getMessageRank(user_id, channel_id) {
 	}
 }
 
+async function getEmoteRank(emote, channel_id) {
+	let data = await db_all("SELECT DISTINCT emote, SUM(uses) AS total, RANK() OVER ( ORDER BY sum(uses) DESC ) AS rank FROM emotes WHERE channel_id = ? GROUP BY emote ORDER BY total DESC", [channel_id])
+	for (var i = 0; i < data.length; i++) {
+		if (data[i].emote == emote) return data[i].rank
+	}
+}
+
 async function getMessageLeaderboard(channel_id, page) {
 	var limit = (page * 10)
 	console.log(limit, limit + 10)
@@ -283,6 +290,8 @@ const _getChannelIDBySevenTVID = getChannelIDBySevenTVID
 export { _getChannelIDBySevenTVID as getChannelIDBySevenTVID }
 const _getMessageRank = getMessageRank
 export { _getMessageRank as getMessageRank }
+const _getEmoteRank = getEmoteRank
+export { _getEmoteRank as getEmoteRank }
 const _getMessageLeaderboard = getMessageLeaderboard
 export { _getMessageLeaderboard as getMessageLeaderboard }
 const _saveChannelToDB = saveChannelToDB
