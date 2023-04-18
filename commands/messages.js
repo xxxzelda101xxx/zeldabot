@@ -44,7 +44,7 @@ export default {
 				var messageRank = await getMessageRank(user_id, context.channelId)
 				totalMessages = await getMessages(user_id, context.channelId)
 				totalMessages = numberWithCommas(totalMessages)
-				return `${msg.toLowerCase().split(" ")[1]} has sent ${totalMessages} (#${messageRank}) messages in this channel.`
+				return `${msg.toLowerCase().split(" ")[1]} has sent ${totalMessages} messages in this channel. (#${messageRank})`
 			}
 			else {
 				return "User not found."
@@ -54,7 +54,7 @@ export default {
 			totalMessages = await getMessages(user_id, context.channelId)
 			totalMessages = numberWithCommas(totalMessages)
 			var messageRank = await getMessageRank(user_id, context.channelId)
-			return `${username} has sent ${totalMessages} (#${messageRank}) messages in this channel.`
+			return `${username} has sent ${totalMessages} messages in this channel. (#${messageRank})`
 		}
 	}
 }
