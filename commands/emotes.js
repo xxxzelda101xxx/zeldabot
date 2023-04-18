@@ -21,7 +21,6 @@ export default {
 		if (isTotal) {
 			var emote = await getEmotes(null, context.channelId, emoteToSearch)
 			if (emote.emote != null) {
-				console.log(emote.emote)
 				var emoteRank = await getEmoteRank(emote.emote, context.channelId)
 				return `${emote.emote} has been used ${numberWithCommas(emote.total)} times. (#${emoteRank})`
 			}
