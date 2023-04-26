@@ -39,7 +39,7 @@ async function banRNG(channel, user, user_id, context) {
 			await chatClient.say(channel, `${user} hit the 1/10,000 chance to get banned but is immune. smh.... shigeSumika`)
 		}
 		else {
-			await chatClient.say(channel, `${user} hit the 1/10,000 chance to get banned lmao."`)
+			await chatClient.say(channel, `${user} hit the 1/10,000 chance to get banned lmao RIPBOZO`)
 			await apiClient.moderation.banUser(context.channelId, config.twitch.moderator_id, { user: user_id, reason: "You hit the 1/10,000 chance to get banned get rekt lmao." })
 		}
 	}
