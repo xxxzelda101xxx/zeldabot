@@ -17,7 +17,7 @@ export default {
 			user_id = await getUserIdByUsername(msg.toLowerCase().split(" ")[1])
 			if (user_id) {
 				numberOfBans = await getBans(user_id, context.channelId)
-				return `${msg.toLowerCase().split(" ")[1]} has been banned ${numberOfBans} times this channel.`
+				return `${msg.toLowerCase().split(" ")[1]} has been banned ${numberOfBans} times in this channel.`
 			}
 			else {
 				return "User not found or no bans on record."
@@ -25,7 +25,7 @@ export default {
 		}
 		else {
 			numberOfBans = await getBans(user_id, context.channelId)
-			return `${username} has been banned ${numberOfBans} times this channel.`
+			return `${username} has been banned ${numberOfBans} times in this channel.`
 		}
 	}
 }
