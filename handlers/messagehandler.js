@@ -33,7 +33,7 @@ async function messageHandler(channel, user, msg, context, osuData) {
 			banRNG(channel, user, user_id, context) // 1/10k chance to ban anyone
 		}
 		if (!commandToRun) return
-		const canUserUseCommand = await canRunCommand(commandToRun, osuData, context)
+		const canUserUseCommand = await canRunCommand(commandToRun, user, osuData, context)
 		if (!canUserUseCommand && admins.indexOf(user.toLowerCase()) < 0) return await deleteMessage(channel_id, config.twitch.moderator_id, context.id)
 		if (!osuData && commandToRun.isOsuCommand == true) return
 		logger.verbose(`Executing !${commandToRun.name} from user: ${user} in channel: ${channel}.`)
@@ -52,7 +52,7 @@ async function messageHandler(channel, user, msg, context, osuData) {
 	}
 }
 
-async function canRunCommand(commandToRun, osuData, context) {
+async function canRunCommand(commandToRun, user, osuData, context) {
 	const user_id = context.userInfo.userId
 	const channel_id = context.channelId
 	const isMod = (context.userInfo.isMod || context.userInfo.isBroadcaster) ? true : false
