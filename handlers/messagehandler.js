@@ -24,7 +24,7 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		commandToRun = Commands[command]
 	}
 	if (channel) {
-		if (user_id !== 178317805 && user_id !== 36817125) {
+		if (user_id != 178317805 && user_id != 36817125) {
 			addTwitchUserToDB(user_id, user)
 			addToDB(user_id, channel_id)
 			addEmoteToDB(user_id, msg, context.parseEmotes(), channel_id)
