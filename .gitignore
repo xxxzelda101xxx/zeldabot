@@ -16,7 +16,7 @@ config.json
 /tokenstest.json
 /config.example.json
 /shige_tokens.json
-database.db
+*.db
 cache/
 images/
 tempimages/

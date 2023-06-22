@@ -24,15 +24,13 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		commandToRun = Commands[command]
 	}
 	if (channel) {
-		if (user_id != 178317805 && user_id != 36817125) {
-			addTwitchUserToDB(user_id, user)
-			addToDB(user_id, channel_id)
-			addEmoteToDB(user_id, msg, context.parseEmotes(), channel_id)
-			if (config.twitch.is_official_bot) {
-				if (channel != "#shigetora" && channel != "#zelda101_" && channel != "#frenz396" && channel != "#ufrjd") return
-				if (user.toLowerCase() == "kagami_77") kagamiBanRNG(channel, user, user_id, context) // 1/1k chance to ban kagami
-				banRNG(channel, user, user_id, context) // 1/10k chance to ban anyone
-			}
+		addTwitchUserToDB(user_id, user)
+		addToDB(user_id, channel_id)
+		addEmoteToDB(user_id, msg, context.parseEmotes(), channel_id)
+		if (config.twitch.is_official_bot) {
+			if (channel != "#shigetora" && channel != "#zelda101_" && channel != "#frenz396" && channel != "#ufrjd") return
+			if (user.toLowerCase() == "kagami_77") kagamiBanRNG(channel, user, user_id, context) // 1/1k chance to ban kagami
+			banRNG(channel, user, user_id, context) // 1/10k chance to ban anyone
 		}
 		if (!commandToRun) return
 		const canUserUseCommand = await canRunCommand(commandToRun, user, osuData, context)
