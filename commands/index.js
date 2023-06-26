@@ -1,5 +1,6 @@
 export {default as bans} from './bans.js'
 export {default as bg} from './bg.js'
+export {default as botstatus} from './botstatus.js'
 export {default as createreward} from './createreward.js'
 export {default as current} from './current.js'
 export {default as editbans} from './editbans.js'
