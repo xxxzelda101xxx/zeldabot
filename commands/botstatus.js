@@ -1,3 +1,4 @@
+import process from "process"
 
 export default {
 	name: "botstatus",
