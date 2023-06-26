@@ -10,7 +10,7 @@ export default {
 	isOsuCommand: false,
 	execute: async function(msg, context, args) {
 		var msgArray = []
-		let ut_sec = process.uptime
+		let ut_sec = process.uptime()
 		let ut_min = ut_sec / 60
 		let ut_hour = ut_min / 60
 		
