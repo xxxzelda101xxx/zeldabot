@@ -9,6 +9,7 @@ export default {
 	isPublic: false,
 	isOsuCommand: false,
 	execute: async function(msg, context, args) {
+		var msgArray = []
 		let ut_sec = os.uptime();
 		let ut_min = ut_sec / 60;
 		let ut_hour = ut_min / 60;
@@ -22,6 +23,8 @@ export default {
 		ut_sec = ut_sec % 60;
 		
 		var uptime = "Up time: " + ut_hour + " Hour(s) " + ut_min + " minute(s) and " + ut_sec + " second(s)"
-		return uptime, "test"
+		msgArray.push(uptime)
+		msgArray.push("test")
+		return msgArray
 	}
 }
