@@ -76,7 +76,13 @@ async function canRunCommand(commandToRun, user, osuData, context) {
 async function runCommand(command, channel, msg, context, args) {
 	try {
 		var messageToSend = await command.execute(msg, context, args)
-		if (channel) chatClient.say(channel, messageToSend)
+		console.log(Array.isArray(messageToSend))
+		if (channel && Array.isArray(messageToSend)) {
+			messageToSend.forEach(async (message) => {
+				chatClient.say(channel, message)
+			});
+		}
+		else if (channel) chatClient.say(channel, messageToSend)
 		else apiClient.whispers.sendWhisper(config.twitch.moderator_id, user_id, messageToSend)
 	}
 	catch (e) {
