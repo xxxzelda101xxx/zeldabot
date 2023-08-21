@@ -17,7 +17,7 @@ export default {
 		msg = msg.replace(/@/g, "")
 		if (msg.toLowerCase().split(" ")[1] == "total") isTotal = true
 		if (msg.toLowerCase().split(" ")[1] == "allchannels") isAllChannels = true
-		if (msg.toLowerCase().split(" ")[1] == "leaderboard" && isMod) isLeaderboard = true
+		if (msg.toLowerCase().split(" ")[1] == "leaderboard" && (isMod || context.userInfo.userId == 14163149)) isLeaderboard = true
 		else if (msg.toLowerCase().split(" ").length >= 2) isUsername = true
 		if (isLeaderboard) {
 			var page = msg.toLowerCase().split(" ")[2]
