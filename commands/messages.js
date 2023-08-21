@@ -12,11 +12,12 @@ export default {
 		var user_id = context.userInfo.userId
 		var username = context.userInfo.userName
 		var isUsername, isTotal, isAllChannels, totalMessages
+		const isMod = (context.userInfo.isMod || context.userInfo.isBroadcaster) ? true : false
 		var isLeaderboard
 		msg = msg.replace(/@/g, "")
 		if (msg.toLowerCase().split(" ")[1] == "total") isTotal = true
 		if (msg.toLowerCase().split(" ")[1] == "allchannels") isAllChannels = true
-		//if (msg.toLowerCase().split(" ")[1] == "leaderboard") isLeaderboard = true
+		if (msg.toLowerCase().split(" ")[1] == "leaderboard" && isMod) isLeaderboard = true
 		else if (msg.toLowerCase().split(" ").length >= 2) isUsername = true
 		if (isLeaderboard) {
 			var page = msg.toLowerCase().split(" ")[2]
