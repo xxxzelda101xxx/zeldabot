@@ -14,13 +14,12 @@ const userId = "37575275"
 var channels
 
 async function main() {
-	await shigeapiClient.eventSub.deleteAllSubscriptions()
 	await getChannelDataAndSaveToDB(config.twitch.channels)
 	channels = await getChannels()
 	startWebsocket()
 	startSevenTVWebsocket(channels)
-	await chatClient.connect()
-	await listener.start()
+	chatClient.connect()
+	listener.start()
 	if (config.twitch.is_official_bot) {
 		listener.onChannelRedemptionAddForReward(userId, "34f48b7d-25e1-4aeb-b622-39e63a9291d8", e => {
 			logger.verbose(`${e.userName} used !blame3!`)
@@ -32,6 +31,12 @@ async function main() {
 	for (var i = 0; i < channels.length; i++) {
 		addAllSevenTVEmotesToDB(channels[i].channel_id)
 	}
+	chatClient.onConnect(() => {
+		logger.info("Connected to Twitch Chat.")
+	})
+	chatClient.onDisconnect(() => {
+		logger.warn("Disconnected from Twitch Chat.")
+	})
 	chatClient.onSubExtend(async function (channel, user, subInfo, context){
 		subHandler(channel, user, subInfo, context)
 	})

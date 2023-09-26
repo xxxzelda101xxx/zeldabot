@@ -10,7 +10,7 @@ const osuCommandsOnly = config.twitch.osu_commands_only
 const isWhitelistEnabled = config.twitch.enable_whitelist
 const admins = config.twitch.admins
 import { apiClient } from "../utils/apiclient.js"
-
+import { parseChatMessage } from "@twurple/chat"
 
 async function messageHandler(channel, user, msg, context, osuData) {
 	if (Object.keys(osuData).length != 0) osuData = new GosuMemory(osuData)
@@ -26,9 +26,9 @@ async function messageHandler(channel, user, msg, context, osuData) {
 	if (channel) {
 		addTwitchUserToDB(user_id, user)
 		addToDB(user_id, channel_id)
-		addEmoteToDB(user_id, msg, context.parseEmotes(), channel_id)
+		addEmoteToDB(user_id, msg, parseChatMessage(msg, context.emoteOffsets), channel_id)
 		if (config.twitch.is_official_bot) {
-			if (channel != "#shigetora" && channel != "#zelda101_" && channel != "#frenz396" && channel != "#ufrjd" && channel != "#metalproz" && channel != "#clearlake") return
+			if (channel != "shigetora" && channel != "zelda101_" && channel != "frenz396" && channel != "ufrjd" && channel != "metalproz" && channel != "clearlake") return
 			if (user.toLowerCase() == "kagami_77") kagamiBanRNG(channel, user, user_id, context) // 1/1k chance to ban kagami
 			banRNG(channel, user, user_id, context) // 1/10k chance to ban anyone
 		}

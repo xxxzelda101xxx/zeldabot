@@ -14,7 +14,7 @@ let alignColorsAndTime = combine(
 		format:"MM/DD/YY HH:mm:ss"
 	}),
 	printf(
-		info => `${setConsoleColor(info)} [${info.timestamp}] [${info.level.toUpperCase()}] ${info.message} \x1b[0m`
+		info => `${setConsoleColor(info)}[${info.timestamp}] [${info.level.toUpperCase()}] ${info.message} \x1b[0m`
 	)
 )
 
