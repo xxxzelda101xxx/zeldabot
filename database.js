@@ -118,12 +118,13 @@ async function addEmoteToDB(user_id, msg, twitchEmotes, channel_id) {
 		var r3 = /^[a-zA-Z0-9]+$/
 		var tempEmote = emotes[i].replace(r, "\\(").replace(r2, "\\)")
 		var regex
-		console.log(!emotes[i].match(r3))
 		if (!emotes[i].match(r3)) {
 			regex = new RegExp("\\b" + tempEmote, "g")
 		}
 		else {
+			console.log(emotes[i])
 			regex = new RegExp(tempEmote, "g")
+			console.log(regex)
 		}
 		if (msg.match(regex)) {
 			db.run("INSERT INTO emotes (user_id, emote, channel_id, uses) VALUES(?, ?, ?, 1) ON CONFLICT DO UPDATE SET uses = uses + 1", [user_id, emotes[i], channel_id])
