@@ -113,7 +113,9 @@ async function addEmoteToDB(user_id, msg, twitchEmotes, channel_id) {
 	//const cooldown = await getCooldown(user_id)
 	//if (cooldown) return
 	for (var i = 0; i < emotes.length; i++) {
-		var tempEmote = emotes[i].replace("(", "\(").replace(")", "\)")
+		var r = new RegExp("\\(", 'g')
+		var r2 = new RegExp("\\)", 'g')
+		var tempEmote = emotes[i].replace(r, "\(").replace(r2, "\)")
 		console.log(tempEmote)
 		var regex = new RegExp("\\b" + tempEmote + "\\b", "g")
 		console.log(regex)
