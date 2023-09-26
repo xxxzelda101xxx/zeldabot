@@ -113,6 +113,7 @@ async function addEmoteToDB(user_id, msg, twitchEmotes, channel_id) {
 	//const cooldown = await getCooldown(user_id)
 	//if (cooldown) return
 	for (var i = 0; i < emotes.length; i++) {
+		console.log(emotes[i])
 		var regex = new RegExp("\\b" + emotes[i] + "\\b", "g")
 		if (msg.match(regex)) {
 			db.run("INSERT INTO emotes (user_id, emote, channel_id, uses) VALUES(?, ?, ?, 1) ON CONFLICT DO UPDATE SET uses = uses + 1", [user_id, emotes[i], channel_id])
