@@ -124,7 +124,6 @@ async function addEmoteToDB(user_id, msg, twitchEmotes, channel_id) {
 			console.log(regex)
 		}
 		else {
-			console.log(emotes[i])
 			regex = new RegExp(tempEmote, "g")
 		}
 		if (msg.match(regex)) {
