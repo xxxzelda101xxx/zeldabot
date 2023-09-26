@@ -119,9 +119,7 @@ async function addEmoteToDB(user_id, msg, twitchEmotes, channel_id) {
 		var tempEmote = emotes[i].replace(r, "\\(").replace(r2, "\\)")
 		var regex
 		if (!emotes[i].match(r3)) {
-			console.log(emotes[i])
 			regex = new RegExp(tempEmote, "g")
-			console.log(regex)
 		}
 		else {
 			regex = new RegExp("\\b" + tempEmote, "g")
