@@ -8,6 +8,8 @@ db.run("CREATE TABLE IF NOT EXISTS `seventvemotes` (`channel_id` integer NOT NUL
 db.run("CREATE TABLE IF NOT EXISTS `messages` (`user_id` integer NOT NULL, `channel_id` integer NOT NULL, `total` integer NOT NULL, UNIQUE (`user_id`,`channel_id`))")
 db.run("CREATE TABLE IF NOT EXISTS `users` (`user_id` integer NOT NULL, `username` varchar(25) NOT NULL, `whitelisted` BOOLEAN NOT NULL DEFAULT 0, UNIQUE (`user_id`))")
 db.run("CREATE TABLE IF NOT EXISTS `bans` (`user_id` integer NOT NULL, `channel_id` integer NOT NULL, `bans` integer NOT NULL DEFAULT 0, UNIQUE (`user_id`,`channel_id`))")
+db.run("CREATE TABLE IF NOT EXISTS `aliases` (`command` varchar(32) NOT NULL, `alias` varchar(32) NOT NULL, UNIQUE (`alias`))")
+
 
 async function db_get(query, queryArray){
 	return new Promise(function(resolve,reject){
@@ -45,6 +47,21 @@ async function db_all(query, queryArray){
 
 async function saveChannelToDB(name, channel_id, seventv_channel_id) {
 	db.run("INSERT OR IGNORE INTO channels(name, channel_id, seventv_channel_id, online) VALUES(?, ?, ?, 0)", [name, channel_id, seventv_channel_id])
+}
+
+async function saveAliasToDB(alias, command) {
+	db.run("INSERT INTO aliases(alias, command) VALUES(?, ?)", [alias, command])
+}
+
+
+async function deleteAliasFromDB(alias) {
+	db.run("DELETE FROM aliases WHERE alias = ?", [alias])
+}
+
+async function checkIfAliasExists(alias) {
+	var data = await db_get("SELECT alias FROM aliases WHERE alias = ?", [alias])
+	if (data) return true
+	else return false
 }
 
 async function getTopTenEmotes(channel_id) {
@@ -180,6 +197,12 @@ async function getMessageLeaderboard(channel_id, page) {
 	return data
 }
 
+async function getCommandFromAlias(alias) {
+	let data = await db_get("SELECT command FROM aliases WHERE alias = ?", [alias])
+	if (data) return data.command
+	else return null
+}
+
 async function getBans(user_id, channel_id) {
 	let data = await db_get("SELECT bans FROM bans WHERE user_id = ? AND channel_id = ?", [user_id, channel_id])
 	if (data) return data.bans
@@ -307,3 +330,7 @@ const _getMessageLeaderboard = getMessageLeaderboard
 export { _getMessageLeaderboard as getMessageLeaderboard }
 const _saveChannelToDB = saveChannelToDB
 export { _saveChannelToDB as saveChannelToDB }
+export { getCommandFromAlias as getCommandFromAlias }
+export { saveAliasToDB as saveAliasToDB }
+export { deleteAliasFromDB as deleteAliasFromDB }
+export { checkIfAliasExists as checkIfAliasExists }

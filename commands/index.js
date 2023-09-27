@@ -1,3 +1,4 @@
+export {default as alias} from './alias.js'
 export {default as bans} from './bans.js'
 export {default as bg} from './bg.js'
 export {default as botstatus} from './botstatus.js'

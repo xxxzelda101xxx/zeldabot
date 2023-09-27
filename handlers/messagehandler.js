@@ -1,5 +1,5 @@
 import { setCooldown, getCooldown } from "../helpers/cooldownhelper.js"
-import { addToDB, addEmoteToDB, getTwitchStreamStatus, addTwitchUserToDB, getWhitelistStatus } from "../database.js"
+import { addToDB, addEmoteToDB, getTwitchStreamStatus, addTwitchUserToDB, getWhitelistStatus, getCommandFromAlias } from "../database.js"
 import { kagamiBanRNG, banRNG, deleteMessage } from "../functions.js"
 import { logger } from "../logger.js"
 import { GosuMemory } from "../classes/gosumemory.js"
@@ -32,7 +32,11 @@ async function messageHandler(channel, user, msg, context, osuData) {
 			if (user.toLowerCase() == "kagami_77") kagamiBanRNG(channel, user, user_id, context) // 1/1k chance to ban kagami
 			banRNG(channel, user, user_id, context) // 1/10k chance to ban anyone
 		}
-		if (!commandToRun) return
+		if (!commandToRun) {
+			var alias = await getCommandFromAlias(command)
+			commandToRun = Commands[alias]
+			if (!commandToRun) return
+		}
 		const canUserUseCommand = await canRunCommand(commandToRun, user, osuData, context)
 		if (!canUserUseCommand && admins.indexOf(user.toLowerCase()) < 0) return await deleteMessage(channel_id, config.twitch.moderator_id, context.id)
 		if (!osuData && commandToRun.isOsuCommand == true) return
@@ -76,7 +80,6 @@ async function canRunCommand(commandToRun, user, osuData, context) {
 async function runCommand(command, channel, msg, context, args) {
 	try {
 		var messageToSend = await command.execute(msg, context, args)
-		console.log(Array.isArray(messageToSend))
 		if (channel && Array.isArray(messageToSend)) {
 			messageToSend.forEach(async (message) => {
 				chatClient.say(channel, message)
