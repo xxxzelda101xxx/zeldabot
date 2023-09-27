@@ -17,12 +17,12 @@ export default {
         if (aliasToAddOrRemove == "add" && msg.toLowerCase().split(" ").length == 4) {
             if (doesAliasExist) return "That alias is already in use, please delete it first."
             await saveAliasToDB(alias, command)
-            return `An alias for ${command} with the name ${alias} has been created.`
+            return `An alias for !${command} with the name !${alias} has been created.`
         }
         else if (aliasToAddOrRemove == "delete" || aliasToAddOrRemove == "remove" || aliasToAddOrRemove == "del") {
             if (!doesAliasExist) return "That alias doesn't exist in the first place!."
             deleteAliasFromDB(alias)
-            return `The alias ${alias} has been deleted.`
+            return `The alias !${alias} has been deleted.`
         }
 	}
 }
