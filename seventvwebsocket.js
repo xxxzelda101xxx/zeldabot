@@ -3,7 +3,7 @@ import WebSocket from "ws"
 var test = {}
 import { getUserIdByUsername, addSevenTVEmoteToDB, getChannelIDBySevenTVID } from './database.js'
 
-function startSevenTVWebsocket(channels) {
+export function startSevenTVWebsocket(channels) {
 	const connection = new WebSocket(url)
 
 	connection.onopen = () => {
@@ -44,6 +44,3 @@ function startSevenTVWebsocket(channels) {
         }
 	}
 }
-
-const _startSevenTVWebsocket = startSevenTVWebsocket
-export { _startSevenTVWebsocket as startSevenTVWebsocket }

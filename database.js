@@ -45,79 +45,78 @@ async function db_all(query, queryArray){
 	})
 }
 
-async function saveChannelToDB(name, channel_id, seventv_channel_id) {
+export async function saveChannelToDB(name, channel_id, seventv_channel_id) {
 	db.run("INSERT OR IGNORE INTO channels(name, channel_id, seventv_channel_id, online) VALUES(?, ?, ?, 0)", [name, channel_id, seventv_channel_id])
 }
 
-async function saveAliasToDB(alias, command) {
+export async function saveAliasToDB(alias, command) {
 	db.run("INSERT INTO aliases(alias, command) VALUES(?, ?)", [alias, command])
 }
 
-
-async function deleteAliasFromDB(alias) {
+export async function deleteAliasFromDB(alias) {
 	db.run("DELETE FROM aliases WHERE alias = ?", [alias])
 }
 
-async function checkIfAliasExists(alias) {
+export async function checkIfAliasExists(alias) {
 	var data = await db_get("SELECT alias FROM aliases WHERE alias = ?", [alias])
 	if (data) return true
 	else return false
 }
 
-async function getTopTenEmotes(channel_id) {
+export async function getTopTenEmotes(channel_id) {
 	let data = await db_all("SELECT emote, SUM(uses) AS total FROM emotes WHERE channel_id = ? GROUP BY emote ORDER BY total DESC LIMIT 10", [channel_id])
 	if (data) return data
 	return null
 }
 
-async function removeMessagesFromUser(channel_id, user_id, numberOfMessagesToRemove) {
+export async function removeMessagesFromUser(channel_id, user_id, numberOfMessagesToRemove) {
 	db.run("UPDATE messages SET total = total - ? WHERE channel_id = ? AND user_id = ?", [numberOfMessagesToRemove, channel_id, user_id])
 }
 
-async function addMessagesToUser(channel_id, user_id, numberOfMessagesToAdd) {
+export async function addMessagesToUser(channel_id, user_id, numberOfMessagesToAdd) {
 	db.run("UPDATE messages SET total = total + ? WHERE channel_id = ? AND user_id = ?", [numberOfMessagesToAdd, channel_id, user_id])
 }
 
-async function addBansToUser(channel_id, user_id, numberOfBansToAdd) {
+export async function addBansToUser(channel_id, user_id, numberOfBansToAdd) {
 	db.run("INSERT INTO bans(user_id, channel_id, bans) VALUES(?, ?, ?) ON CONFLICT DO UPDATE SET bans = bans + ?", [user_id, channel_id, numberOfBansToAdd, numberOfBansToAdd])
 }
 
-async function removeBansFromUser(channel_id, user_id, numberOfBansToRemove) {
+export async function removeBansFromUser(channel_id, user_id, numberOfBansToRemove) {
 	db.run("INSERT INTO bans(user_id, channel_id, bans) VALUES(?, ?, ?) ON CONFLICT DO UPDATE SET bans = bans - ?", [user_id, channel_id, numberOfBansToRemove, numberOfBansToRemove])
 }
 
-async function getTopTenEmotesByUserID(channel_id, user_id) {
+export async function getTopTenEmotesByUserID(channel_id, user_id) {
 	let data = await db_all("SELECT emote, SUM(uses) AS total FROM emotes WHERE channel_id = ? AND user_id = ? GROUP BY emote ORDER BY total DESC LIMIT 10", [channel_id, user_id])
 	if (data) return data
 	return null
 }
 
-async function getChannels() {
+export async function getChannels() {
 	let data = (await db_all("SELECT channel_id, seventv_channel_id FROM channels"))
 	if (data) return data
 }
 
-function addTwitchUserToDB(user_id, username) {
+export async function addTwitchUserToDB(user_id, username) {
 	db.run("INSERT INTO users(username, user_id) VALUES(?, ?) ON CONFLICT DO UPDATE SET username = ?", [username, user_id, username])
 	return
 }
 
-async function addSevenTVEmoteToDB(channel_id, emoteName, emoteID) {
+export async function addSevenTVEmoteToDB(channel_id, emoteName, emoteID) {
 	db.run("INSERT OR IGNORE INTO seventvemotes(channel_id, emote_name, emote_id) VALUES(?, ?, ?)", [channel_id, emoteName, emoteID])
 	return
 }
 
-async function getSevenTVEmotesByChannelID(channel_id) {
+export async function getSevenTVEmotesByChannelID(channel_id) {
 	let data = (await db_all("SELECT emote_name FROM seventvemotes WHERE channel_id = ?", [channel_id])).map((row) => row.emote_name)
 	return data
 }
 
-async function getChannelIDBySevenTVID(sevenTV_channel_id) {
+export async function getChannelIDBySevenTVID(sevenTV_channel_id) {
 	let data = await db_get("SELECT channel_id FROM channels WHERE seventv_channel_id = ?", [sevenTV_channel_id])
 	return data.channel_id
 }
 
-async function addToDB(user_id, channel_id) {
+export async function addToDB(user_id, channel_id) {
 	const cooldown = await getCooldown(user_id)
 	if (cooldown) return
 	db.run("INSERT INTO messages(total, channel_id, user_id) VALUES(1, ?, ?) ON CONFLICT DO UPDATE SET total = total + 1", [channel_id, user_id])
@@ -125,7 +124,7 @@ async function addToDB(user_id, channel_id) {
 	return
 }
 
-async function addEmoteToDB(user_id, msg, twitchEmotes, channel_id) {
+export async function addEmoteToDB(user_id, msg, twitchEmotes, channel_id) {
 	var emotes = await getSevenTVEmotesByChannelID(channel_id)
 	//const cooldown = await getCooldown(user_id)
 	//if (cooldown) return
@@ -154,7 +153,7 @@ async function addEmoteToDB(user_id, msg, twitchEmotes, channel_id) {
 	}
 }
 
-async function getEmotes(user_id, channel_id, emote) {
+export async function getEmotes(user_id, channel_id, emote) {
 	if (user_id) {
 		let data = await db_get("SELECT * FROM emotes WHERE user_id = ? AND channel_id = ? AND emote = ?", [user_id, channel_id, emote])
 		if (data) return data
@@ -165,7 +164,7 @@ async function getEmotes(user_id, channel_id, emote) {
 	return null
 }
 
-async function getMessages(user_id, channel_id) {
+export async function getMessages(user_id, channel_id) {
 	if (user_id) {
 		let data = await db_get("SELECT * FROM messages WHERE user_id = ? AND channel_id = ?", [user_id, channel_id])
 		let messages = data.total
@@ -176,51 +175,51 @@ async function getMessages(user_id, channel_id) {
 	return messages
 }
 
-async function getMessageRank(user_id, channel_id) {
+export async function getMessageRank(user_id, channel_id) {
 	let data = await db_all("SELECT *, RANK() OVER ( ORDER BY total DESC ) AS rank FROM messages WHERE channel_id = ?", [channel_id])
 	for (var i = 0; i < data.length; i++) {
 		if (data[i].user_id == user_id) return data[i].rank
 	}
 }
 
-async function getEmoteRank(emote, channel_id) {
+export async function getEmoteRank(emote, channel_id) {
 	let data = await db_all("SELECT DISTINCT emote, SUM(uses) AS total, RANK() OVER ( ORDER BY sum(uses) DESC ) AS rank FROM emotes WHERE channel_id = ? GROUP BY emote ORDER BY total DESC", [channel_id])
 	for (var i = 0; i < data.length; i++) {
 		if (data[i].emote == emote) return data[i].rank
 	}
 }
 
-async function getMessageLeaderboard(channel_id, page) {
+export async function getMessageLeaderboard(channel_id, page) {
 	var limit = (page * 10)
 	console.log(limit, limit + 10)
 	let data = await db_all("SELECT u.username, m.user_id, m.total, RANK() OVER ( ORDER BY total DESC ) AS rank FROM messages m INNER JOIN users u ON m.user_id = u.user_id WHERE m.channel_id = ? LIMIT ?,?", [channel_id, limit, limit + 10])
 	return data
 }
 
-async function getCommandFromAlias(alias) {
+export async function getCommandFromAlias(alias) {
 	let data = await db_get("SELECT command FROM aliases WHERE alias = ?", [alias])
 	if (data) return data.command
 	else return null
 }
 
-async function getBans(user_id, channel_id) {
+export async function getBans(user_id, channel_id) {
 	let data = await db_get("SELECT bans FROM bans WHERE user_id = ? AND channel_id = ?", [user_id, channel_id])
 	if (data) return data.bans
 	else return 0
 }
 
-async function incrementBans(user_id, channel_id) {
+export async function incrementBans(user_id, channel_id) {
 	db.run("INSERT INTO bans(user_id, channel_id, bans) VALUES(?, ?, 1) ON CONFLICT DO UPDATE SET bans = bans + 1", [user_id, channel_id])
 	return
 }
 
-async function getAllMessages() {
+export async function getAllMessages() {
 	let data = await db_get("SELECT SUM(total) AS total FROM messages")
 	let messages = data.total
 	return messages
 }
 
-async function getUserIdByUsername(username) {
+export async function getUserIdByUsername(username) {
 	let data = await db_get("SELECT m.total, m.user_id, u.username FROM messages m INNER JOIN users u ON m.user_id = u.user_id WHERE u.username = ?", [username])
 	if (data) return data.user_id
 	else return null
@@ -232,7 +231,7 @@ async function getUserIdByUsername(username) {
  * @param {string} channel_id - The streamer to updates channel_id.
  * @param {boolean} onlineStatus - Whether or not the stream is online.
  */
-async function changeTwitchStreamStatus(channel_id, onlineStatus) {
+export async function changeTwitchStreamStatus(channel_id, onlineStatus) {
 	if (onlineStatus) db.run("UPDATE channels SET online = 1 WHERE channel_id = ?", [channel_id])
 	else db.run("UPDATE channels SET online = 0 WHERE channel_id = ?", [channel_id])
 }
@@ -241,96 +240,31 @@ async function changeTwitchStreamStatus(channel_id, onlineStatus) {
  * Get the stream status for a given channel_id.
  * @param {string} channel_id
  */
-async function getTwitchStreamStatus(channel_id) {
+export async function getTwitchStreamStatus(channel_id) {
 	let data = await db_get("SELECT online FROM channels WHERE channel_id = ?", [channel_id])
 	return data.online
 }
 
-async function addChannelToDB(channel) {
+export async function addChannelToDB(channel) {
 	db.run("INSERT OR IGNORE INTO channels(name, channel_id, online) VALUES(?, ?, 0)", ["#" + channel.name, channel.id])
 }
 
-async function getUsernameById(user_id) {
+export async function getUsernameById(user_id) {
 	let data = await db_get("SELECT m.total, m.user_id, u.username FROM messages m INNER JOIN users u ON m.user_id = u.user_id WHERE m.user_id = ?", [user_id])
 	if (data) return data.username
 	else return null
 }
 
-async function whitelistUser(user_id) {
+export async function whitelistUser(user_id) {
 	db.run("UPDATE users SET whitelisted = 1 WHERE user_id = ?", [user_id])
 }
 
-async function unwhitelistUser(user_id) {
+export async function unwhitelistUser(user_id) {
 	db.run("UPDATE users SET whitelisted = 0 WHERE user_id = ?", [user_id])
 }
 
-async function getWhitelistStatus(user_id) {
+export async function getWhitelistStatus(user_id) {
 	let data = await db_get("SELECT whitelisted FROM users WHERE user_id = ?", [user_id])
 	if (data)	return data.whitelisted
 	else return 0
 }
-
-const _getUserIdByUsername = getUserIdByUsername
-export { _getUserIdByUsername as getUserIdByUsername }
-const _addTwitchUserToDB = addTwitchUserToDB
-export { _addTwitchUserToDB as addTwitchUserToDB }
-const _addToDB = addToDB
-export { _addToDB as addToDB }
-const _addEmoteToDB = addEmoteToDB
-export { _addEmoteToDB as addEmoteToDB }
-const _getEmotes = getEmotes
-export { _getEmotes as getEmotes }
-const _getMessages = getMessages
-export { _getMessages as getMessages }
-const _getAllMessages = getAllMessages
-export { _getAllMessages as getAllMessages }
-const _changeTwitchStreamStatus = changeTwitchStreamStatus
-export { _changeTwitchStreamStatus as changeTwitchStreamStatus }
-const _getTwitchStreamStatus = getTwitchStreamStatus
-export { _getTwitchStreamStatus as getTwitchStreamStatus }
-const _addChannelToDB = addChannelToDB
-export { _addChannelToDB as addChannelToDB }
-const _getUsernameById = getUsernameById
-export { _getUsernameById as getUsernameById }
-const _whitelistUser = whitelistUser
-export { _whitelistUser as whitelistUser }
-const _unwhitelistUser = unwhitelistUser
-export { _unwhitelistUser as unwhitelistUser }
-const _getWhitelistStatus = getWhitelistStatus
-export { _getWhitelistStatus as getWhitelistStatus }
-const _getTopTenEmotes = getTopTenEmotes
-export { _getTopTenEmotes as getTopTenEmotes }
-const _getTopTenEmotesByUserID = getTopTenEmotesByUserID
-export { _getTopTenEmotesByUserID as getTopTenEmotesByUserID }
-const _removeMessagesFromUser = removeMessagesFromUser
-export { _removeMessagesFromUser as removeMessagesFromUser }
-const _addMessagesToUser = addMessagesToUser
-export { _addMessagesToUser as addMessagesToUser }
-const _getBans = getBans
-export { _getBans as getBans }
-const _incrementBans = incrementBans
-export { _incrementBans as incrementBans }
-const _addBansToUser = addBansToUser
-export { _addBansToUser as addBansToUser }
-const _removeBansFromUser = removeBansFromUser
-export { _removeBansFromUser as removeBansFromUser }
-const _getChannels = getChannels
-export { _getChannels as getChannels }
-const _addSevenTVEmoteToDB = addSevenTVEmoteToDB
-export { _addSevenTVEmoteToDB as addSevenTVEmoteToDB }
-const _getSevenTVEmotesByChannelID = getSevenTVEmotesByChannelID
-export { _getSevenTVEmotesByChannelID as getSevenTVEmotesByChannelID }
-const _getChannelIDBySevenTVID = getChannelIDBySevenTVID
-export { _getChannelIDBySevenTVID as getChannelIDBySevenTVID }
-const _getMessageRank = getMessageRank
-export { _getMessageRank as getMessageRank }
-const _getEmoteRank = getEmoteRank
-export { _getEmoteRank as getEmoteRank }
-const _getMessageLeaderboard = getMessageLeaderboard
-export { _getMessageLeaderboard as getMessageLeaderboard }
-const _saveChannelToDB = saveChannelToDB
-export { _saveChannelToDB as saveChannelToDB }
-export { getCommandFromAlias as getCommandFromAlias }
-export { saveAliasToDB as saveAliasToDB }
-export { deleteAliasFromDB as deleteAliasFromDB }
-export { checkIfAliasExists as checkIfAliasExists }

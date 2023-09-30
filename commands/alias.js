@@ -20,7 +20,7 @@ export default {
             return `An alias for !${command} with the name !${alias} has been created.`
         }
         else if (aliasToAddOrRemove == "delete" || aliasToAddOrRemove == "remove" || aliasToAddOrRemove == "del") {
-            if (!doesAliasExist) return "That alias doesn't exist in the first place!."
+            if (!doesAliasExist) return "That alias doesn't exist in the first place!"
             deleteAliasFromDB(alias)
             return `The alias !${alias} has been deleted.`
         }

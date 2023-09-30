@@ -5,7 +5,7 @@ import axios from 'axios'
 import { logger } from "./logger.js"
 import config from "./config.json" assert { type: "json" }
 
-async function kagamiBanRNG(channel, user, user_id, context) {
+export async function kagamiBanRNG(channel, user, user_id, context) {
 	var randomNumber = Math.floor(Math.random() * 1001)
 	if (randomNumber == 727) {
 		await chatClient.say(channel, "Kagami_77 hit the 1/1000 chance to get banned lmao.")
@@ -13,7 +13,7 @@ async function kagamiBanRNG(channel, user, user_id, context) {
 	}
 }
 
-async function get7TVUserIDFromTwitchUserID(twitch_user_id) {
+export async function get7TVUserIDFromTwitchUserID(twitch_user_id) {
 	var data = await axios(`https://7tv.io/v3/users/twitch/${twitch_user_id}`)
 	.catch(e => {
 		logger.verbose(`Twitch ID ${twitch_user_id} doesn't exist on 7TV`)
@@ -24,7 +24,7 @@ async function get7TVUserIDFromTwitchUserID(twitch_user_id) {
 	}
 }
 
-async function banRNG(channel, user, user_id, context) {
+export async function banRNG(channel, user, user_id, context) {
 	var randomNumber = Math.floor(Math.random() * 10000 + 1)
 	var randomNumber2 = Math.floor(Math.random() * 1000000 + 1)
 	if (randomNumber == 727 && randomNumber2 == 727) {
@@ -57,7 +57,7 @@ async function banRNG(channel, user, user_id, context) {
 	}
 }
 
-async function addAllSevenTVEmotesToDB(channel_id) {
+export async function addAllSevenTVEmotesToDB(channel_id) {
 	var data = await axios(`https://7tv.io/v3/users/twitch/${channel_id}`)
 	.catch(e => {
 		logger.verbose(`Twitch ID ${channel_id} doesn't exist on 7TV`)
@@ -71,11 +71,11 @@ async function addAllSevenTVEmotesToDB(channel_id) {
 	}
 }
 
-function numberWithCommas(x) {
+export function numberWithCommas(x) {
 	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 }
 
-async function getChannelDataAndSaveToDB(channels) {
+export async function getChannelDataAndSaveToDB(channels) {
 	for (var i = 0; i < channels.length; i++) {
 		await getChannelData(channels[i])
 	}
@@ -87,7 +87,7 @@ async function getChannelData(channel_name) {
 	await saveChannelToDB(channel_name, channel.id, seventv_channel_id)
 } 
 
-async function deleteMessage(channel_id, message_id) {
+export async function deleteMessage(channel_id, message_id) {
 	try {
 		await apiClient.moderation.deleteChatMessages(channel_id, message_id)
 	}
@@ -98,17 +98,3 @@ async function deleteMessage(channel_id, message_id) {
 	}
 }
 
-const _banRNG = banRNG
-export { _banRNG as banRNG }
-const _kagamiBanRNG = kagamiBanRNG
-export { _kagamiBanRNG as kagamiBanRNG }
-const _numberWithCommas = numberWithCommas
-export { _numberWithCommas as numberWithCommas }
-const _get7TVUserIDFromTwitchUserID = get7TVUserIDFromTwitchUserID
-export { _get7TVUserIDFromTwitchUserID as get7TVUserIDFromTwitchUserID }
-const _addAllSevenTVEmotesToDB = addAllSevenTVEmotesToDB
-export { _addAllSevenTVEmotesToDB as addAllSevenTVEmotesToDB }
-const _getChannelDataAndSaveToDB = getChannelDataAndSaveToDB
-export { _getChannelDataAndSaveToDB as getChannelDataAndSaveToDB }
-const _deleteMessage = deleteMessage
-export { _deleteMessage as deleteMessage }

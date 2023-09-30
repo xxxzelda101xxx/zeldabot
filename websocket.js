@@ -6,13 +6,13 @@ import WebSocket from "ws"
 import { GosuMemory } from "./classes/gosumemory.js"
 import { join } from "path"
 import { logger } from "./logger.js"
-var osuData = {}
+export var osuData = {}
 var maxPP = 0
 const songsFolder = config.osu.Songs_folder
 
 
 
-function startWebsocket() {
+export function startWebsocket() {
 	const connection = new WebSocket(url)
 
 	connection.onopen = () => {
@@ -58,13 +58,6 @@ function startWebsocket() {
 	}
 }
 
-async function getMaxPP() {
+export async function getMaxPP() {
 	return parseInt(maxPP)
 }
-
-const _startWebsocket = startWebsocket
-export { _startWebsocket as startWebsocket }
-const _osuData = osuData
-export { _osuData as osuData }
-const _getMaxPP = getMaxPP
-export { _getMaxPP as getMaxPP }

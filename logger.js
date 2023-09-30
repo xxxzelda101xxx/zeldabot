@@ -18,7 +18,7 @@ let alignColorsAndTime = combine(
 	)
 )
 
-const logger = createLogger({
+export const logger = createLogger({
 	level: "verbose",
 	transports: [
 		new transports.File({ filename: "./logs/verbose.log", level: "verbose" }),
@@ -27,6 +27,3 @@ const logger = createLogger({
 		new transports.Console({ format: alignColorsAndTime })
 	],
 })
-
-const _logger = logger
-export { _logger as logger }

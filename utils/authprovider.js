@@ -7,13 +7,13 @@ const clientSecret = config.twitch.client_secret
 import tokenData from "../tokens.json" assert { type: "json" }
 import shigeTokenData from "../shige_tokens.json" assert { type: "json" }
 
-const authProvider = new RefreshingAuthProvider({
+export const authProvider = new RefreshingAuthProvider({
 	clientId,
 	clientSecret,
 	onRefresh: async (userId, newTokenData) => await writeFileSync(`./tokens.json`, JSON.stringify(newTokenData, null, 4), 'UTF-8')
 })
 
-const shigeAuthProvider = new RefreshingAuthProvider({
+export const shigeAuthProvider = new RefreshingAuthProvider({
 	clientId,
 	clientSecret,
 	onRefresh: async (userId, newTokenData) => await writeFileSync(`./shige_tokens.json`, JSON.stringify(newTokenData, null, 4), 'UTF-8')
@@ -26,9 +26,3 @@ var channels = await getChannels()
 for (var i = 0; i < channels.length; i++) {
 	shigeAuthProvider.addUser(channels[i].channel_id, shigeTokenData);
 }
-
-
-const _authProvider = authProvider
-export { _authProvider as authProvider }
-const _shigeAuthProvider = shigeAuthProvider
-export { _shigeAuthProvider as shigeAuthProvider }
