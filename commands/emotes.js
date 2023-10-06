@@ -36,7 +36,7 @@ export default {
 			}
 			else {
 				if (emote) {
-					if (emote.uses.toString().indexOf('727') > -1) return `NOIDONTTHINKSO`
+					if (emote.uses.toString().indexOf("727") > -1) return "NOIDONTTHINKSO"
 					return `${msg.toLowerCase().split(" ")[2]} has used the emote ${emote.emote} ${numberWithCommas(emote.uses)} times.`
 				}
 				else {
@@ -48,7 +48,7 @@ export default {
 			if (!msg.toLowerCase().split(" ")[1]) return "Invalid Command Usage"
 			let emote = await getEmotes(user_id, context.channelId, emoteToSearch)
 			if (emote) {
-				if (emote.uses.toString().indexOf('727') > -1) return `NOIDONTTHINKSO`
+				if (emote.uses.toString().indexOf("727") > -1) return "NOIDONTTHINKSO"
 				return `${username} has used the emote ${emote.emote} ${numberWithCommas(emote.uses)} times.`
 			}
 			else {

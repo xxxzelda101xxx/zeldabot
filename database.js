@@ -129,8 +129,8 @@ export async function addEmoteToDB(user_id, msg, twitchEmotes, channel_id) {
 	//const cooldown = await getCooldown(user_id)
 	//if (cooldown) return
 	for (var i = 0; i < emotes.length; i++) {
-		var r = new RegExp("\\(", 'g')
-		var r2 = new RegExp("\\)", 'g')
+		var r = new RegExp("\\(", "g")
+		var r2 = new RegExp("\\)", "g")
 		var r3 = /^[a-zA-Z0-9]+$/
 		var tempEmote = emotes[i].replace(r, "\\(").replace(r2, "\\)")
 		var regex
@@ -208,11 +208,17 @@ export async function getBans(user_id, channel_id) {
 	else return 0
 }
 
+/**
+ * Increments a user_id's for a given channel_id.
+ */
 export async function incrementBans(user_id, channel_id) {
 	db.run("INSERT INTO bans(user_id, channel_id, bans) VALUES(?, ?, 1) ON CONFLICT DO UPDATE SET bans = bans + 1", [user_id, channel_id])
 	return
 }
 
+/**
+ * Gets the total of all messages across all channels.
+ */
 export async function getAllMessages() {
 	let data = await db_get("SELECT SUM(total) AS total FROM messages")
 	let messages = data.total
@@ -225,8 +231,7 @@ export async function getUserIdByUsername(username) {
 	else return null
 }
 
-
- /**
+/**
  * Updates a given streamer's online status
  * @param {string} channel_id - The streamer to updates channel_id.
  * @param {boolean} onlineStatus - Whether or not the stream is online.
@@ -236,7 +241,7 @@ export async function changeTwitchStreamStatus(channel_id, onlineStatus) {
 	else db.run("UPDATE channels SET online = 0 WHERE channel_id = ?", [channel_id])
 }
 
- /**
+/**
  * Get the stream status for a given channel_id.
  * @param {string} channel_id
  */

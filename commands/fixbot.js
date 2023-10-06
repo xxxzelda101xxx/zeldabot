@@ -1,4 +1,4 @@
-import open from'open'
+import open from "open"
 
 export default {
 	name: "fixbot",
@@ -8,7 +8,7 @@ export default {
 	modOnly: true,
 	isPublic: false,
 	execute: async function(msg, context, data, args) {
-		await open('osu://spectate/chocomint')
+		await open("osu://spectate/chocomint")
 		return "Attempting to fix the bot..."
 	}
 }

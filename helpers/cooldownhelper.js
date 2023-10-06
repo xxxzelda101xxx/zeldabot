@@ -3,7 +3,7 @@ import config from "../config.json" assert { type: "json" }
 const commandCooldownTime = config.twitch.command_cooldown_time
 const messageCooldownTime = config.twitch.message_cooldown_time
 
-function setCooldown(data, isMessage) {
+export function setCooldown(data, isMessage) {
     if (isMessage) {
         cooldowns.set(data, Date.now() + messageCooldownTime)
 	    setTimeout(() => cooldowns.delete(data), messageCooldownTime)
@@ -15,11 +15,6 @@ function setCooldown(data, isMessage) {
     return
 }
 
-function getCooldown(data) {
+export function getCooldown(data) {
     return cooldowns.get(data)
 }
-
-const _setCooldown = setCooldown
-export { _setCooldown as setCooldown }
-const _getCooldown = getCooldown
-export { _getCooldown as getCooldown }

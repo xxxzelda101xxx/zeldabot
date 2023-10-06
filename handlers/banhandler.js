@@ -3,7 +3,7 @@ import { incrementBans, getUserIdByUsername } from "../database.js"
 import config from "../config.json" assert { type: "json" };
 const enableBanHandler = config.twitch.enable_banhandler
 
-async function banHandler(channel, user, msg) {
+export async function banHandler(channel, user, msg) {
 	if (!enableBanHandler) return
 	var user_id = await getUserIdByUsername(user)
 	if (user_id == null) return
@@ -13,6 +13,3 @@ async function banHandler(channel, user, msg) {
 	if (user == "seoulest") chatClient.say(channel, "Seouless (the sus weeb horror game streamer) has been banned. shigeSeouless")
 	if (user == "tarantemo77") chatClient.say(channel, "tarantemo77 is perma horny (and also perma banned.)")
 }
-
-const _banHandler = banHandler
-export { _banHandler as banHandler }
