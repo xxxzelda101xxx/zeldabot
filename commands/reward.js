@@ -1,4 +1,5 @@
 import { shigeapiClient } from "../utils/apiclient.js"
+import { numberWithCommas } from "../functions.js"
 import config from '../config.json' assert { type: "json" }
 const useSeparateBroadcasterToken = config.twitch.separateBroadcasterToken
 
@@ -15,17 +16,17 @@ export default {
 		if (rewardName == "scammed") {
 			var redemptions = await shigeapiClient.channelPoints.getRedemptionsForBroadcasterPaginated("37575275", "22d062fa-bedf-4ed9-af87-72eaa1aac00a", "UNFULFILLED", { limit: 50 })
 			var allRedemptions = await redemptions.getAll()
-			return `Scammed has been redeemed ${allRedemptions.length} times.`
+			return `Scammed has been redeemed ${allRedemptions.length} times. Total points wasted: ${numberWithCommas(allRedemptions.length * 100000)}`
 		}
 		if (rewardName == "megascammed") {
 			var redemptions = await shigeapiClient.channelPoints.getRedemptionsForBroadcasterPaginated("37575275", "92a7776d-9925-478d-9c96-13fa6ddbf17a", "UNFULFILLED", { limit: 50 })
 			var allRedemptions = await redemptions.getAll()
-			return `Mega Scammed has been redeemed ${allRedemptions.length} times.`
+			return `Mega Scammed has been redeemed ${allRedemptions.length} times. Total points wasted: ${numberWithCommas(allRedemptions.length * 500000)}`
 		}
 		if (rewardName == "blame3") {
 			var redemptions = await shigeapiClient.channelPoints.getRedemptionsForBroadcasterPaginated("37575275", "34f48b7d-25e1-4aeb-b622-39e63a9291d8", "UNFULFILLED", { limit: 50 })
 			var allRedemptions = await redemptions.getAll()
-			return `Blame3 has been redeemed ${allRedemptions.length} times.`
+			return `Blame3 has been redeemed ${allRedemptions.length} times. Total points wasted: ${numberWithCommas(allRedemptions.length * 100000)}`
 		}
 	}
 }
