@@ -60,9 +60,11 @@ async function canRunCommand(commandToRun, user, osuData, context) {
 	const user_id = context.userInfo.userId
 	const channel_id = context.channelId
 	const isMod = (context.userInfo.isMod || context.userInfo.isBroadcaster) ? true : false
+	const isVip = (context.userInfo.isVip || context.userInfo.isMod || context.userInfo.isBroadcaster) ? true : false
 	const whitelistStatus = await getWhitelistStatus(user_id)
 	if (commandToRun.adminOnly && admins.indexOf(user.toLowerCase()) < 0) return false
 	if (commandToRun.modOnly && !isMod) return false
+	if (commandToRun.vipOnly && !isVip) return false
 	if (osuCommandsOnly && !commandToRun.isOsuCommand && !commandToRun.adminOnly) return false
 	if (!osuData && commandToRun.isOsuCommand == true) return false
 	var online = await getTwitchStreamStatus(channel_id)
