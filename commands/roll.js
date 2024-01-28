@@ -12,6 +12,6 @@ export default {
 		var maxDice = 6
 		if (!isNaN(numberToRoll) && numberToRoll > 0) maxDice = numberToRoll
 		var randomDice = Math.floor(maxDice*Math.random()) + 1
-		return `${context.userInfo.userName} rolls ${randomDice.toString()}`
+		return `/me ${context.userInfo.userName} rolls ${randomDice.toString()}`
 	}
 }
