@@ -138,7 +138,7 @@ export async function addEmoteToDB(user_id, msg, twitchEmotes, channel_id) {
 			regex = new RegExp(tempEmote, "g")
 		}
 		else {
-			regex = new RegExp("\\b?!" + tempEmote, "g")
+			regex = new RegExp("\\b" + tempEmote, "g")
 		}
 		if (msg.match(regex)) {
 			console.log(" ")
