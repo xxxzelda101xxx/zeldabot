@@ -6,18 +6,26 @@
     "client_secret": "",
     "access_token": "",
     "refresh_token": "",
-    "admins": [],
+    "admins": [""],
     "enable_whitelist": true,
     "command_cooldown": true,
     "command_cooldown_time": 10000,
     "message_cooldown_time": 5000,
     "separateBroadcasterToken": false,
     "osu_commands_only": false,
-    "is_official_bot": false
+    "is_official_bot": false,
+    "enable_subhandler": false,
+    "enable_banhandler": false
+  },
+  "kick": {
+    "enabled": false,
+    "email": "",
+    "password": "",
+    "otc": 0
   },
   "osu": {
     "Songs_folder": "",
-    "gosumemory_address": "ws://127.0.0.1:24050/ws"
+    "gosumemory_address": "ws://0.0.0.0:24050/ws"
   },
   "ai": {
     "url": ""

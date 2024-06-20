@@ -1,7 +1,7 @@
 import { startWebsocket } from "./websocket.js"
 import { startSevenTVWebsocket } from "./seventvwebsocket.js"
 import { addAllSevenTVEmotesToDB, getChannelDataAndSaveToDB } from "./functions.js"
-import { messageHandler } from "./handlers/messagehandler.js"
+import { messageHandler, kickMessageHandler } from "./handlers/messagehandler.js"
 import { subHandler } from "./handlers/subhandler.js"
 import { banHandler } from "./handlers/banhandler.js"
 import { getChannels, changeTwitchStreamStatus } from "./database.js"
@@ -9,6 +9,7 @@ import { logger } from "./logger.js"
 import { chatClient } from "./utils/chatclient.js"
 import { osuData } from "./websocket.js"
 import { listener, shigeapiClient } from "./utils/apiclient.js"
+import { Events, Kient } from 'kient'
 import config from "./config.json" assert { type: "json" };
 const userId = "37575275"
 var channels
@@ -27,6 +28,23 @@ async function main() {
 		streamOnlineEvents(userId)
 		streamOfflineEvents(userId)
 		streamBanEvents(userId)
+	}
+	if (config.kick.enabled) {
+		const client = await Kient.create()
+		const channel = await client.api.channel.getChannel('shigetora')
+		await channel.connectToChatroom()
+		await client.api.authentication.login({
+			email: config.kick.email, // mail@example.com
+			password: config.kick.password, // qwerty123
+			otc: config.kick.otc // one-time code provided via TOTP or Email
+		})
+		//await client.api.chat.sendMessage(channel.data.chatroom.id, 'test')
+		client.on(Events.Chatroom.Message, (messageInstance) => {
+			const message = messageInstance.data
+			//console.log(message)
+			//console.log(`${message.sender.username}: ${message.content}`)
+			kickMessageHandler(client, message.sender.username, message.content, messageInstance, osuData)
+		})
 	}
 	for (var i = 0; i < channels.length; i++) {
 		addAllSevenTVEmotesToDB(channels[i].channel_id)

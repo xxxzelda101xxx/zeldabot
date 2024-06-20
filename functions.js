@@ -1,5 +1,5 @@
 import { addSevenTVEmoteToDB, saveChannelToDB } from "./database.js"
-import { apiClient } from "./utils/apiclient.js"
+import { apiClient, shigeapiClient } from "./utils/apiclient.js"
 import { chatClient } from "./utils/chatclient.js"
 import axios from 'axios'
 import { logger } from "./logger.js"
