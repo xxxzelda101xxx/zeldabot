@@ -11,8 +11,11 @@ export default {
 	isPublic: false,
 	isOsuCommand: false,
 	execute: async function(msg, context, args) {
+		console.log("a")		
 		if (!useSeparateBroadcasterToken) return ""
+		console.log("b")
 		if (!context.userInfo.isMod && !context.userInfo.isBroadcaster && !config.twitch.admins[0] != "zelda101_") return
+		console.log("c")
 		let user = await shigeapiClient.users.getUserByName("shigetora")
 		const predictionAction = msg.toLowerCase().split(" ")[1].toLowerCase()
 		const predictionName = msg.toLowerCase().split(" ")[2]
