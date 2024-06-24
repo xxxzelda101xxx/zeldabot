@@ -156,11 +156,11 @@ export async function getEmotes(user_id, channel_id, emote) {
 export async function getMessages(user_id, channel_id) {
 	if (user_id) {
 		let data = await queryDatabase("SELECT * FROM messages WHERE user_id = ? AND channel_id = ? LIMIT 1", [user_id, channel_id])
-		let messages = data.total
+		let messages = data[0].total
 		return messages
 	}
 	let data = await queryDatabase("SELECT SUM(total) AS total FROM messages WHERE channel_id = ?", [channel_id])
-	let messages = data.total
+	let messages = data[0].total
 	return messages
 }
 
