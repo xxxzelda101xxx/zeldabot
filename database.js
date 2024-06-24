@@ -24,6 +24,7 @@ async function queryDatabase(query, queryArray){
 		else {
 			connection.query(query, function(err, results, fields){
 				if(err){return reject(err)}
+				console.log(query)
 				console.log(results)
 				resolve(results)
 			})
