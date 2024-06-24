@@ -13,17 +13,17 @@ connection.connect();
 
 async function queryDatabase(query, queryArray){
 	return new Promise(function(resolve,reject){
-		console.log(query)
-		console.log(queryArray)
 		if (queryArray) {
 			connection.query({sql: query, values: queryArray }, function(err, results, fields){
 				if(err){return reject(err)}
+				console.log(results)
 				resolve(results)
 			})
 		}
 		else {
 			connection.query(query, function(err, results, fields){
 				if(err){return reject(err)}
+				console.log(results)
 				resolve(results)
 			})
 		}
@@ -82,8 +82,7 @@ export async function getChannels() {
 }
 
 export async function addTwitchUserToDB(user_id, username) {
-	let data = await queryDatabase("INSERT INTO users(username, user_id) VALUES(?, ?) ON DUPLICATE KEY UPDATE username = ?", [username, user_id, username])
-	console.log(data)
+	await queryDatabase("INSERT INTO users(username, user_id) VALUES(?, ?) ON DUPLICATE KEY UPDATE username = ?", [username, user_id, username])
 	return
 }
 
@@ -183,7 +182,6 @@ export async function getEmoteRank(emote, channel_id) {
 
 export async function getMessageLeaderboard(channel_id, page) {
 	var limit = (page * 10)
-	console.log(limit, limit + 10)
 	let data = await queryDatabase("SELECT u.username, m.user_id, m.total, RANK() OVER ( ORDER BY total DESC ) AS rank FROM messages m INNER JOIN users u ON m.user_id = u.user_id WHERE m.channel_id = ? LIMIT ?,?", [channel_id, limit, limit + 10])
 	return data
 }
