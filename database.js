@@ -165,14 +165,14 @@ export async function getMessages(user_id, channel_id) {
 }
 
 export async function getMessageRank(user_id, channel_id) {
-	let data = await queryDatabase("SELECT *, RANK() OVER ( ORDER BY total DESC ) AS rank FROM messages WHERE channel_id = ?", [channel_id])
+	let data = await queryDatabase("SELECT *, RANK() OVER ( ORDER BY total DESC ) AS `rank` FROM messages WHERE channel_id = ?", [channel_id])
 	for (var i = 0; i < data.length; i++) {
 		if (data[i].user_id == user_id) return data[i].rank
 	}
 }
 
 export async function getEmoteRank(emote, channel_id) {
-	let data = await queryDatabase("SELECT DISTINCT emote, SUM(uses) AS total, RANK() OVER ( ORDER BY sum(uses) DESC ) AS rank FROM emotes WHERE channel_id = ? GROUP BY emote ORDER BY total DESC", [channel_id])
+	let data = await queryDatabase("SELECT DISTINCT emote, SUM(uses) AS total, RANK() OVER ( ORDER BY sum(uses) DESC ) AS `rank` FROM emotes WHERE channel_id = ? GROUP BY emote ORDER BY total DESC", [channel_id])
 	for (var i = 0; i < data.length; i++) {
 		if (data[i].emote == emote) return data[i].rank
 	}
@@ -180,7 +180,7 @@ export async function getEmoteRank(emote, channel_id) {
 
 export async function getMessageLeaderboard(channel_id, page) {
 	var limit = (page * 10)
-	let data = await queryDatabase("SELECT u.username, m.user_id, m.total, RANK() OVER ( ORDER BY total DESC ) AS rank FROM messages m INNER JOIN users u ON m.user_id = u.user_id WHERE m.channel_id = ? LIMIT ?,?", [channel_id, limit, limit + 10])
+	let data = await queryDatabase("SELECT u.username, m.user_id, m.total, RANK() OVER ( ORDER BY total DESC ) AS `rank` FROM messages m INNER JOIN users u ON m.user_id = u.user_id WHERE m.channel_id = ? LIMIT ?,?", [channel_id, limit, limit + 10])
 	return data
 }
 
