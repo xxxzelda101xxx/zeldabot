@@ -8,10 +8,8 @@ import { getChannels, changeTwitchStreamStatus } from "./database.js"
 import { logger } from "./logger.js"
 import { chatClient } from "./utils/chatclient.js"
 import { osuData } from "./websocket.js"
-import { listener, shigeapiClient } from "./utils/apiclient.js"
-import { Events, Kient } from 'kient'
+import { listener } from "./utils/apiclient.js"
 import config from "./config.json" assert { type: "json" };
-const userId = "37575275"
 var channels
 
 async function main() {
@@ -21,31 +19,6 @@ async function main() {
 	startSevenTVWebsocket(channels)
 	chatClient.connect()
 	listener.start()
-	if (config.twitch.is_official_bot) {
-		listener.onChannelRedemptionAddForReward(userId, "34f48b7d-25e1-4aeb-b622-39e63a9291d8", e => {
-			logger.verbose(`${e.userName} used !blame3!`)
-		})
-		streamOnlineEvents(userId)
-		streamOfflineEvents(userId)
-		streamBanEvents(userId)
-	}
-	if (config.kick.enabled) {
-		const client = await Kient.create()
-		const channel = await client.api.channel.getChannel('shigetora')
-		await channel.connectToChatroom()
-		await client.api.authentication.login({
-			email: config.kick.email, // mail@example.com
-			password: config.kick.password, // qwerty123
-			otc: config.kick.otc // one-time code provided via TOTP or Email
-		})
-		//await client.api.chat.sendMessage(channel.data.chatroom.id, 'test')
-		client.on(Events.Chatroom.Message, (messageInstance) => {
-			const message = messageInstance.data
-			//console.log(message)
-			//console.log(`${message.sender.username}: ${message.content}`)
-			kickMessageHandler(client, message.sender.username, message.content, messageInstance, osuData)
-		})
-	}
 	for (var i = 0; i < channels.length; i++) {
 		addAllSevenTVEmotesToDB(channels[i].channel_id)
 	}
@@ -68,6 +41,7 @@ async function main() {
 		banHandler(channel, user, msg)
 	})
 	chatClient.onMessage(async function (channel, user, msg, context) {
+		console.log(1)
 		messageHandler(channel, user, msg, context, osuData)
 	})
 	chatClient.onWhisper(async function (user, msg, context) {
