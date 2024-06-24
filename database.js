@@ -149,7 +149,7 @@ export async function getEmotes(user_id, channel_id, emote) {
 		return null
 	}
 	let data = await queryDatabase("SELECT SUM(uses) AS total, emote FROM emotes WHERE emote = ? AND channel_id = ?", [emote, channel_id])
-	if (data) return data
+	if (data) return data[0]
 	return null
 }
 
