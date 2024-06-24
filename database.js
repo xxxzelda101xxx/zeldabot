@@ -16,16 +16,12 @@ async function queryDatabase(query, queryArray){
 		if (queryArray) {
 			connection.query({sql: query, values: queryArray }, function(err, results, fields){
 				if(err){return reject(err)}
-				console.log(query)
-				console.log(results)
 				resolve(results)
 			})
 		}
 		else {
 			connection.query(query, function(err, results, fields){
 				if(err){return reject(err)}
-				console.log(query)
-				console.log(results)
 				resolve(results)
 			})
 		}
