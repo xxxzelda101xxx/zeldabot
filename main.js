@@ -20,7 +20,7 @@ async function main() {
 	chatClient.connect()
 	listener.start()
 	for (var i = 0; i < channels.length; i++) {
-		//addAllSevenTVEmotesToDB(channels[i].channel_id)
+		addAllSevenTVEmotesToDB(channels[i].channel_id)
 	}
 	chatClient.onConnect(() => {
 		logger.info("Connected to Twitch Chat.")
@@ -41,7 +41,6 @@ async function main() {
 		banHandler(channel, user, msg)
 	})
 	chatClient.onMessage(async function (channel, user, msg, context) {
-		console.log(1)
 		messageHandler(channel, user, msg, context, osuData)
 	})
 	chatClient.onWhisper(async function (user, msg, context) {
