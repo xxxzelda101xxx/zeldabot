@@ -125,29 +125,12 @@ export async function addToDB(user_id, channel_id) {
 }
 
 export async function addEmoteToDB(user_id, msg, twitchEmotes, channel_id) {
+	var msgArray = msg.split(" ")
 	var emotes = await getSevenTVEmotesByChannelID(channel_id)
-	//const cooldown = await getCooldown(user_id)
-	//if (cooldown) return
-	for (var i = 0; i < emotes.length; i++) {
-		var r = new RegExp("\\(", "g")
-		var r2 = new RegExp("\\)", "g")
-		var r3 = /^[\w.-]+$/
-		var tempEmote = emotes[i].replace(r, "\\(").replace(r2, "\\)")
-		var regex
-		if (!emotes[i].match(r3)) {
-			regex = new RegExp(tempEmote, "g")
-		}
-		else {
-			regex = new RegExp("\\b" + tempEmote, "g")
-		}
-		if (msg.match(regex)) {
-			//console.log(" ")
-			//console.log("message: " + msg)
-			//console.log("emotes[i]: " + emotes[i])
-			//console.log("tempEmote: " + tempEmote)
-			//console.log("regex: " + regex)
-			//console.log(" ")
-			queryDatabase("INSERT INTO emotes (user_id, emote, channel_id, uses) VALUES(?, ?, ?, 1) ON DUPLICATE KEY UPDATE uses = uses + 1", [user_id, emotes[i], channel_id])
+	for (var i = 0; i < msgArray.length; i++) {
+		if (emotes.indexOf(msgArray[i])) {
+			console.log("Emote in Message: " + msgArray[i]+ "emote in DB : " + emotes[emotes.indexOf(msgArray[i])])
+			queryDatabase("INSERT INTO emotes (user_id, emote, channel_id, uses) VALUES(?, ?, ?, 1) ON DUPLICATE KEY UPDATE uses = uses + 1", [user_id, emotes[emotes.indexOf(msgArray[i])], channel_id])
 		}
 	}
 	var usedEmotes = []
