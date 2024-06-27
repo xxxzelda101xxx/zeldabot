@@ -81,7 +81,7 @@ export async function getChannels() {
 
 export async function getAllChannelNames() {
 	let data = (await queryDatabase("SELECT name FROM channels"))
-	if (data) return data
+	if (data) return JSON.parse(JSON.stringify(data))
 }
 
 
