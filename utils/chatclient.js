@@ -1,8 +1,6 @@
 import { authProvider } from "./authprovider.js"
 import { getAllChannelNames } from "../database.js"
-import config from "../config.json" assert { type: "json" }
 var channels = await getAllChannelNames()
-console.log(channels)
 
 import { ChatClient } from "@twurple/chat"
-export const chatClient = new ChatClient({ authProvider, channels: config.twitch.channels, isAlwaysMod: false })
+export const chatClient = new ChatClient({ authProvider, channels: channels, isAlwaysMod: false })
