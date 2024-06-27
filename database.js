@@ -102,7 +102,7 @@ export async function addTwitchUserToDB(user_id, username) {
 }
 
 export async function addSevenTVEmoteToDB(channel_id, emoteName, emoteID) {
-	queryDatabase("INSERT INTO seventvemotes(channel_id, emote_name, emote_id) VALUES(?, ?, ?)", [channel_id, emoteName, emoteID])
+	queryDatabase("INSERT IGNORE INTO seventvemotes(channel_id, emote_name, emote_id) VALUES(?, ?, ?)", [channel_id, emoteName, emoteID])
 	return
 }
 
