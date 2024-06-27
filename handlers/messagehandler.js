@@ -1,5 +1,5 @@
 import { setCooldown, getCooldown } from "../helpers/cooldownhelper.js"
-import { addToDB, addEmoteToDB, getTwitchStreamStatus, addTwitchUserToDB, getWhitelistStatus, getCommandFromAlias } from "../database.js"
+import { addToDB, addEmoteToDB, getTwitchStreamStatus, addTwitchUserToDB, getWhitelistStatus, getCommandFromAlias, isBotMutedInChannel } from "../database.js"
 import { kagamiBanRNG, banRNG, deleteMessage } from "../functions.js"
 import { logger } from "../logger.js"
 import { GosuMemory } from "../classes/gosumemory.js"
