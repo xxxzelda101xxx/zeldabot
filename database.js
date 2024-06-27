@@ -35,7 +35,7 @@ export async function saveChannelToDB(name, channel_id, seventv_channel_id) {
 export async function isBotMutedInChannel(channel) {
 	console.log(channel)
 	var data = await queryDatabase("SELECT muted FROM channels WHERE name = ? LIMIT 1", [channel])
-	console.log(data[0])
+	console.log(data[0].muted)
 	if (data[0].muted == true) return true
 	else return false
 }
