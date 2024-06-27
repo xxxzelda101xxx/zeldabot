@@ -29,11 +29,8 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		addEmoteToDB(user_id, msg, parseChatMessage(msg, context.emoteOffsets), channel_id)
 		const isBotMuted = await isBotMutedInChannel(channel)
 		if (isBotMuted) return
-		//if (config.twitch.is_official_bot) {
-		//	if (channel != "shigetora" && channel != "zelda101_" && channel != "frenz396" && channel != "ufrjd" && channel != "metalproz" && channel != "clearlake" && channel != "myonpasu") return
-		//	if (user.toLowerCase() == "kagami_77") kagamiBanRNG(channel, user, user_id, context) // 1/1k chance to ban kagami
-		//	banRNG(channel, user, user_id, context) // 1/10k chance to ban anyone
-		//}
+		//if (user.toLowerCase() == "kagami_77") kagamiBanRNG(channel, user, user_id, context) // 1/1k chance to ban kagami
+		//banRNG(channel, user, user_id, context) // 1/10k chance to ban anyone
 		if (!commandToRun) {
 			var alias = await getCommandFromAlias(command)
 			commandToRun = Commands[alias]
