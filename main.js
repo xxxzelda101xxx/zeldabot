@@ -10,11 +10,10 @@ import { chatClient } from "./utils/chatclient.js"
 import { osuData } from "./websocket.js"
 import { listener } from "./utils/apiclient.js"
 import config from "./config.json" assert { type: "json" };
-var channels
 
 async function main() {
 	await getChannelDataAndSaveToDB(config.twitch.channels)
-	channels = await getChannels()
+	var channels = await getChannels()
 	startWebsocket()
 	startSevenTVWebsocket(channels)
 	chatClient.connect()

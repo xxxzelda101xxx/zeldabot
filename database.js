@@ -79,6 +79,12 @@ export async function getChannels() {
 	if (data) return data
 }
 
+export async function getAllChannelNames() {
+	let data = (await queryDatabase("SELECT name FROM channels"))
+	if (data) return data
+}
+
+
 export async function addTwitchUserToDB(user_id, username) {
 	await queryDatabase("INSERT INTO users(username, user_id) VALUES(?, ?) ON DUPLICATE KEY UPDATE username = ?", [username, user_id, username])
 	return
