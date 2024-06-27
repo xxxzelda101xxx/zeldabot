@@ -33,6 +33,7 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		//banRNG(channel, user, user_id, context) // 1/10k chance to ban anyone
 		if (!commandToRun) {
 			var alias = await getCommandFromAlias(command)
+			console.log(alias)
 			commandToRun = Commands[alias]
 			if (!commandToRun) return
 		}
