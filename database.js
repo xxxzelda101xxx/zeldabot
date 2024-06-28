@@ -129,8 +129,6 @@ export async function addEmoteToDB(user_id, msg, twitchEmotes, channel_id) {
 	var emotes = await getSevenTVEmotesByChannelID(channel_id)
 	for (var i = 0; i < msgArray.length; i++) {
 		if (emotes.indexOf(msgArray[i]) > -1) {
-			console.log("Emotes index: " + emotes.indexOf(msgArray[i]))
-			console.log("Emote in Message: " + msgArray[i]+ " emote in DB : " + emotes[emotes.indexOf(msgArray[i])])
 			queryDatabase("INSERT INTO emotes (user_id, emote, channel_id, uses) VALUES(?, ?, ?, 1) ON DUPLICATE KEY UPDATE uses = uses + 1", [user_id, emotes[emotes.indexOf(msgArray[i])], channel_id])
 		}
 	}
@@ -216,7 +214,7 @@ export async function getAllMessages() {
 
 export async function getUserIdByUsername(username) {
 	let data = await queryDatabase("SELECT m.total, m.user_id, u.username FROM messages m INNER JOIN users u ON m.user_id = u.user_id WHERE u.username = ? LIMIT 1", [username])
-	if (data) return data.user_id
+	if (data) return data[0].user_id
 	else return null
 }
 
