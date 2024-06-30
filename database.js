@@ -191,7 +191,7 @@ export async function getCommandFromAlias(alias) {
 
 export async function getBans(user_id, channel_id) {
 	let data = await queryDatabase("SELECT bans FROM bans WHERE user_id = ? AND channel_id = ? LIMIT 1", [user_id, channel_id])
-	if (data) return data.bans
+	if (data) return data[0].bans
 	else return 0
 }
 
