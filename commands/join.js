@@ -8,14 +8,14 @@ export default {
 	description: "",
 	canWhisper: true,
 	execute: async function(msg, context, data, args) {
-		var channelToJoin = msg.toLowerCase().split(" ")[1]
+		var channelToJoin = context.toLowerCase().split(" ")[1]
 		if (!channelToJoin) {
-			console.log(msg.userInfo)
-			await getChannelData(msg.userInfo.userName)
-			chatClient.join(msg.userInfo.userName)
-			return `zeldabot has joined #${msg.userInfo.userName}. By default the bot is muted, use !unmute in YOUR chat to unmute zeldabot`
+			console.log(context.userInfo)
+			await getChannelData(context.userInfo.userName)
+			chatClient.join(context.userInfo.userName)
+			return `zeldabot has joined #${context.userInfo.userName}. By default the bot is muted, use !unmute in YOUR chat to unmute zeldabot`
 		}
-		if (channelToJoin && config.twitch.admins.indexOf(msg.userInfo.userName) > 0) {
+		if (channelToJoin && config.twitch.admins.indexOf(context.userInfo.userName) > 0) {
 			var channel = await apiClient.users.getUserByName(channelToJoin)
 			if (channel) {
 				await getChannelData(channel.name)
