@@ -78,7 +78,7 @@ export async function getTopTenEmotesByUserID(channel_id, user_id) {
 	let data = await queryDatabase("SELECT emote, SUM(uses) AS total FROM emotes WHERE channel_id = ? AND user_id = ? GROUP BY emote ORDER BY total DESC LIMIT 10", [channel_id, user_id])
 	if (data) return data
 	return null
-}
+} 
 
 export async function getChannels() {
 	let data = (await queryDatabase("SELECT channel_id, seventv_channel_id FROM channels"))
@@ -191,7 +191,7 @@ export async function getCommandFromAlias(alias) {
 
 export async function getBans(user_id, channel_id) {
 	let data = await queryDatabase("SELECT bans FROM bans WHERE user_id = ? AND channel_id = ? LIMIT 1", [user_id, channel_id])
-	if (data) return data[0].bans
+	if (data.length == 1) return data[0].bans
 	else return 0
 }
 
