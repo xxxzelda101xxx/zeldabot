@@ -48,7 +48,7 @@ export async function deleteAliasFromDB(alias) {
 
 export async function checkIfAliasExists(alias) {
 	var data = await queryDatabase("SELECT alias FROM aliases WHERE alias = ? LIMIT 1", [alias])
-	if (data) return true
+	if (data.length == 1) return true
 	else return false
 }
 
@@ -234,7 +234,7 @@ export async function changeTwitchStreamStatus(channel_id, onlineStatus) {
  */
 export async function getTwitchStreamStatus(channel_id) {
 	let data = await queryDatabase("SELECT online FROM channels WHERE channel_id = ? LIMIT 1", [channel_id])
-	return data.online
+	return data[0].online
 }
 
 export async function addChannelToDB(channel) {
@@ -243,7 +243,7 @@ export async function addChannelToDB(channel) {
 
 export async function getUsernameById(user_id) {
 	let data = await queryDatabase("SELECT m.total, m.user_id, u.username FROM messages m INNER JOIN users u ON m.user_id = u.user_id WHERE m.user_id = ? LIMIT 1", [user_id])
-	if (data) return data.username
+	if (data) return data[0].username
 	else return null
 }
 
@@ -257,6 +257,6 @@ export async function unwhitelistUser(user_id) {
 
 export async function getWhitelistStatus(user_id) {
 	let data = await queryDatabase("SELECT whitelisted FROM users WHERE user_id = ? LIMIT 1", [user_id])
-	if (data)	return data.whitelisted
+	if (data) return data[0].whitelisted
 	else return 0
 }
