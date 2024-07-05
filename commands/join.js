@@ -1,6 +1,6 @@
 import config from '../config.json' assert { type: "json" }
-import { getChannelData } from "./functions.js"
-import { chatClient } from "./utils/chatclient.js"
+import { getChannelData } from "../functions.js"
+import { chatClient } from "../utils/chatclient.js"
 
 export default {
 	name: "join",
