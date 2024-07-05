@@ -48,6 +48,9 @@ async function main() {
 	chatClient.onDisconnect(async function (manually, reason) {
 		console.log(reason)
 	})
+	chatClient.onJoin(async function (channel, user) {
+		console.log("Joined Channel: #" + channel)
+	})
 }
 
 function streamOnlineEvents(channel_id) {

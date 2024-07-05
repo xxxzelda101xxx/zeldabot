@@ -22,6 +22,7 @@ export async function get7TVUserIDFromTwitchUserID(twitch_user_id) {
 	if (data) {
 		return data.data.user.id
 	}
+	else return null
 }
 
 export async function banRNG(channel, user, user_id, context) {
@@ -81,7 +82,7 @@ export async function getChannelDataAndSaveToDB(channels) {
 	}
 }
 
-async function getChannelData(channel_name) {
+export async function getChannelData(channel_name) {
 	var channel = await apiClient.users.getUserByName(channel_name)
 	var seventv_channel_id = await get7TVUserIDFromTwitchUserID(channel.id)
 	await saveChannelToDB(channel_name, channel.id, seventv_channel_id)

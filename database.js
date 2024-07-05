@@ -29,7 +29,7 @@ async function queryDatabase(query, queryArray){
 }
 
 export async function saveChannelToDB(name, channel_id, seventv_channel_id) {
-	queryDatabase("INSERT IGNORE INTO channels(name, channel_id, seventv_channel_id, online) VALUES(?, ?, ?, 0)", [name, channel_id, seventv_channel_id])
+	queryDatabase("INSERT IGNORE INTO channels(name, channel_id, seventv_channel_id, online, muted) VALUES(?, ?, ?, 0, 1)", [name, channel_id, seventv_channel_id])
 }
 
 export async function isBotMutedInChannel(channel) {
