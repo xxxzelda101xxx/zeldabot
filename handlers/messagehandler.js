@@ -89,6 +89,7 @@ async function canRunCommand(commandToRun, user, osuData, context) {
 async function runCommand(command, channel, msg, context, args) {
 	try {
 		var messageToSend = await command.execute(msg, context, args)
+		if (!messageToSend) return
 		if (channel && Array.isArray(messageToSend)) {
 			messageToSend.forEach(async (message) => {
 				chatClient.say(channel, message)

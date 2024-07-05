@@ -12,7 +12,7 @@ export default {
 		if (!channelToJoin) {
 			await getChannelData(context.userInfo.userName)
 			chatClient.join(context.userInfo.userName)
-			return `zeldabot has joined #${context.userInfo.userName}. By default the bot is muted, use !unmute in YOUR chat to unmute zeldabot`
+			return `zeldabot has joined #${context.userInfo.userName}. By default the bot is muted, use !unmute in YOUR chat to unmute zeldabot.`
 		}
 		else if (channelToJoin && config.twitch.admins.indexOf(context.userInfo.userName) > 0) {
 			var channel = await apiClient.users.getUserByName(channelToJoin)
