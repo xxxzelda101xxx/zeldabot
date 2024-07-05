@@ -208,7 +208,7 @@ export async function incrementBans(user_id, channel_id) {
  */
 export async function getAllMessages() {
 	let data = await queryDatabase("SELECT SUM(total) AS total FROM messages")
-	let messages = data.total
+	let messages = data[0].total
 	return messages
 }
 
