@@ -28,8 +28,8 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		addToDB(user_id, channel_id)
 		addEmoteToDB(user_id, msg, parseChatMessage(msg, context.emoteOffsets), channel_id)
 		const isBotMuted = await isBotMutedInChannel(channel)
-		console.log(commandToRun)
-		if (isBotMuted && commandToRun != "unmute") return
+		console.log(command)
+		if (isBotMuted && command != "!unmute") return
 		//if (user.toLowerCase() == "kagami_77") kagamiBanRNG(channel, user, user_id, context) // 1/1k chance to ban kagami
 		//banRNG(channel, user, user_id, context) // 1/10k chance to ban anyone
 		if (!commandToRun) {
