@@ -11,6 +11,7 @@ export default {
 		var channelToJoin = msg.toLowerCase().split(" ")[1]
 		console.log(channelToJoin)
 		console.log(context.userInfo.userName)
+		console.log(config.twitch.admins)
 		console.log(config.twitch.admins.indexOf(context.userInfo.userName) > 0)
 		if (!channelToJoin) {
 			await getChannelData(context.userInfo.userName)
