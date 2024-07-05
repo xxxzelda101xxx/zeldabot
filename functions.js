@@ -66,7 +66,7 @@ export async function addAllSevenTVEmotesToDB(channel_id) {
 	})
 	if (data) {
 		console.log(channel_id)
-		console.log(data.data.emote_set.length)
+		console.log(data.data.emote_set.emotes.length)
 		var emotes = data.data.emote_set.emotes
 		for (var i = 0; i < emotes.length; i++) {
 			addSevenTVEmoteToDB(channel_id, emotes[i].name, emotes[i].id)
