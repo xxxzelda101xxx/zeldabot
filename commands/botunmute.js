@@ -1,7 +1,7 @@
 import { unmuteBotInChannel } from "../database.js"
 
 export default {
-	name: "unmute",
+	name: "botunmute",
 	aliases: [],
 	description: "",
 	canWhisper: true,
