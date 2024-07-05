@@ -7,7 +7,8 @@ export default {
 	canWhisper: true,
 	execute: async function(msg, context, data, args) {
 		if (context.userInfo.isMod || context.userInfo.isBroadcaster) {
-			unmuteBotInChannel(context.userInfo.id)
+			console.log(context.userInfo.id)
+			await unmuteBotInChannel(context.userInfo.id)
 			return "zeldabot has been unmuted."
 		}
 	}

@@ -33,6 +33,7 @@ export async function saveChannelToDB(name, channel_id, seventv_channel_id) {
 }
 
 export async function unmuteBotInChannel(channel_id) {
+	console.log(`UPDATE channels SET muted = 0 WHERE channel_id = ${channel_id}`)
 	queryDatabase("UPDATE channels SET muted = 0 WHERE channel_id = ?", [channel_id])
 }
 
