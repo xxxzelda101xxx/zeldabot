@@ -8,9 +8,8 @@ export default {
 	description: "",
 	canWhisper: true,
 	execute: async function(msg, context, data, args) {
-		var channelToJoin = context.toLowerCase().split(" ")[1]
+		var channelToJoin = msg.toLowerCase().split(" ")[1]
 		if (!channelToJoin) {
-			console.log(context.userInfo)
 			await getChannelData(context.userInfo.userName)
 			chatClient.join(context.userInfo.userName)
 			return `zeldabot has joined #${context.userInfo.userName}. By default the bot is muted, use !unmute in YOUR chat to unmute zeldabot`
