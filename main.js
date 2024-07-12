@@ -1,7 +1,7 @@
 import { startWebsocket } from "./websocket.js"
 import { startSevenTVWebsocket } from "./seventvwebsocket.js"
 import { addAllSevenTVEmotesToDB, getChannelDataAndSaveToDB } from "./functions.js"
-import { messageHandler, kickMessageHandler } from "./handlers/messagehandler.js"
+import { messageHandler } from "./handlers/messagehandler.js"
 import { subHandler } from "./handlers/subhandler.js"
 import { banHandler } from "./handlers/banhandler.js"
 import { getChannels, changeTwitchStreamStatus } from "./database.js"
@@ -9,10 +9,8 @@ import { logger } from "./logger.js"
 import { chatClient } from "./utils/chatclient.js"
 import { osuData } from "./websocket.js"
 import { listener } from "./utils/apiclient.js"
-import config from "./config.json" assert { type: "json" };
 
 async function main() {
-	await getChannelDataAndSaveToDB(config.twitch.channels)
 	var channels = await getChannels()
 	startWebsocket()
 	startSevenTVWebsocket(channels)
@@ -49,7 +47,7 @@ async function main() {
 		console.log(reason)
 	})
 	chatClient.onJoin(async function (channel, user) {
-		console.log("Joined Channel: #" + channel)
+		logger.verbose("Joined Channel: #" + channel)
 	})
 }
 

@@ -55,14 +55,6 @@ async function messageHandler(channel, user, msg, context, osuData) {
 	}
 }
 
-async function kickMessageHandler(client, username, message, messageInstance, osuData) {
-	console.log(message)
-	if (message == "test") console.log("test")
-	if (msg.startsWith("!")) {
-		commandToRun = Commands[command]
-	}
-}
-
 async function canRunCommand(commandToRun, user, osuData, context) {
 	const user_id = context.userInfo.userId
 	const channel_id = context.channelId
@@ -118,4 +110,3 @@ async function runOsuCommand(command, channel, msg, context, osuData, args) {
 
 const _messageHandler = messageHandler
 export { _messageHandler as messageHandler }
-export { kickMessageHandler }
