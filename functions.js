@@ -65,9 +65,11 @@ export async function addAllSevenTVEmotesToDB(channel_id) {
 		return
 	})
 	if (data) {
-		var emotes = data.data.emote_set.emotes
-		for (var i = 0; i < emotes.length; i++) {
+		if (data.data.emote_set) {
+			var emotes = data.data.emote_set.emotes
+			for (var i = 0; i < emotes.length; i++) {
 			addSevenTVEmoteToDB(channel_id, emotes[i].name, emotes[i].id)
+		}
 		}
 	}
 }
