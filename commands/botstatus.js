@@ -23,6 +23,6 @@ export default {
 		ut_min = ut_min % 60
 		ut_sec = ut_sec % 60
 		
-		return uptime = "Up time: " + ut_day + " Day(s) " + ut_hour + " Hour(s) " + ut_min + " minute(s) and " + ut_sec + " second(s)"
+		return "Up time: " + ut_day + " Day(s) " + ut_hour + " Hour(s) " + ut_min + " minute(s) and " + ut_sec + " second(s)"
 	}
 }
