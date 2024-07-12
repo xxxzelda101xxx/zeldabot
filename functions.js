@@ -64,7 +64,7 @@ export async function addAllSevenTVEmotesToDB(channel_id) {
 		logger.verbose(`Twitch ID ${channel_id} doesn't exist on 7TV`)
 		return
 	})
-	if (data.data.emote_set.emotes) {
+	if (data.data.emote_set.emotes != null) {
 		var emotes = data.data.emote_set.emotes
 		for (var i = 0; i < emotes.length; i++) {
 			addSevenTVEmoteToDB(channel_id, emotes[i].name, emotes[i].id)
