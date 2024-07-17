@@ -15,9 +15,9 @@ export default {
                 if (username == "" || username == null) return "Please set your osu! username using !osulink <osu! username>!"
                 const user = await api.getUser(username)
                 if (!lastMap[context.channelId]) return "Last beatmap not found."
-                const score = (await api.getBeatmapUserScore(lastMap[context.channelId], user))
+                const score = (await api.getBeatmapUserScores(lastMap[context.channelId], user))
                 console.log(score)
-                const beatmapDifficulty = await api.getBeatmapDifficultyAttributesOsu(lastMap[context.channelId], score.mods) // Specifying the mods so the SR is adapted to them
+                const beatmapDifficulty = await api.getBeatmapDifficultyAttributesOsu(score.beatmap, score.mods) // Specifying the mods so the SR is adapted to them
                 var pp
                 if (score.pp != null) pp = `${score.pp.toFixed(2)}pp `
                 else pp = ""
