@@ -15,7 +15,7 @@ export default {
         else username = msg.toLowerCase().split(" ")[1]
         if (username == "" || username == null) return "Please set your osu! username using !osulink <osu! username>!"
         const user = await api.getUser(username)
-        if (scoreIndex > 100) return "You can't have more than 100 top plays!"
+        if (scoreIndex > 9) return "You can't have more than 9 recent plays! (apparentely)"
         const score = (await api.getUserScores(user, "recent", osu.Ruleset.osu, {fails: true, lazer: true}, {limit: scoreIndex}))[scoreIndex - 1]
         const beatmapDifficulty = await api.getBeatmapDifficultyAttributesOsu(score.beatmap, score.mods) // Specifying the mods so the SR is adapted to them
         var pp
