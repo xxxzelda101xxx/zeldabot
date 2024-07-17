@@ -21,7 +21,6 @@ export default {
         if (!score) return "User has no recent scores!"
         const beatmapDifficulty = await api.getBeatmapDifficultyAttributesOsu(score.beatmap, score.mods) // Specifying the mods so the SR is adapted to them
         lastMap[context.channelId] = score.beatmap.id
-        console.log(score.beatmap.id)
         var pp
         if (score.pp != null) pp = `${score.pp.toFixed(2)}pp `
         else pp = ""
@@ -30,6 +29,6 @@ export default {
 
         const x = `${score.beatmapset.artist} - ${score.beatmapset.title} [${score.beatmap.version}]`
         const y = `${mods}${(score.accuracy * 100).toFixed(2)}% ${pp}(${beatmapDifficulty.star_rating.toFixed(2)}*)`
-        return `${x} ${y}`
+        return `${x} ${y} - https://osu.ppy.sh/b/${score.beatmap.id}`
 	}
 }

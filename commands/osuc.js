@@ -27,6 +27,6 @@ export default {
 
                 const x = `${beatmapSet.beatmapset.artist} - ${beatmapSet.beatmapset.title} [${score.beatmap.version}]`
                 const y = `${mods}${(score.accuracy * 100).toFixed(2)}% ${pp}(${beatmapDifficulty.star_rating.toFixed(2)}*)`
-                return `${x} ${y}`
+                return `${x} ${y} - https://osu.ppy.sh/b/${lastMap[context.channelId]}`
         }
 }
