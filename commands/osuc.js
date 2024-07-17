@@ -19,13 +19,15 @@ export default {
                 score = score.score
                 console.log(score)
                 const beatmapDifficulty = await api.getBeatmapDifficultyAttributesOsu(lastMap[context.channelId], score.mods) // Specifying the mods so the SR is adapted to them
+                const beatmapSet = await api.lookupBeatmap({id: lastMap[context.channelId]})
+                console.log(beatmapSet)
                 var pp
                 if (score.pp != null) pp = `${score.pp.toFixed(2)}pp `
                 else pp = ""
                 var mods = `+${score.mods.toString()} `
                 if (mods == "+ ") mods = ""
 
-                const x = `${score.beatmapset.artist} - ${score.beatmapset.title} [${score.beatmap.version}]`
+                const x = `${beatmapSet.artist} - ${beatmapSet.title} [${score.beatmap.version}]`
                 const y = `${mods}${(score.accuracy * 100).toFixed(2)}% ${pp}(${beatmapDifficulty.star_rating.toFixed(2)}*)`
                 return `${x} ${y}`
         }
