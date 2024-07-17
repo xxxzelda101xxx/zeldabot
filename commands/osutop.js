@@ -12,6 +12,8 @@ export default {
                 if (msg.toLowerCase().split(" ").length == 1) username = await getOsuUsername(context.userInfo.userId)
                 else username = msg.toLowerCase().split(" ")[1]
                 const user = await api.getUser(username)
+                const scoreIndex = msg.substring(7).trim().toLowerCase().split(" ")[0]
+                console.log(scoreIndex)
                 const score = (await api.getUserScores(user, "best", osu.Ruleset.osu, {lazer: false}, {limit: 1}))[0] // Specifying the Ruleset is optional
                 const beatmapDifficulty = await api.getBeatmapDifficultyAttributesOsu(score.beatmap, score.mods) // Specifying the mods so the SR is adapted to them
         
