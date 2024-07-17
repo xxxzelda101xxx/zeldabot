@@ -3,7 +3,7 @@ import config from '../config.json' assert { type: "json" }
 import { getOsuUsername } from "../database.js"
 
 export default {
-	name: "osutop",
+	name: "osurecent",
 	description: "",
 	canWhisper: true,
 	execute: async function(msg, context, data, args) {
@@ -16,11 +16,12 @@ export default {
         if (username == "" || username == null) return "Please set your osu! username using !osulink <osu! username>!"
         const user = await api.getUser(username)
         if (scoreIndex > 100) return "You can't have more than 100 top plays!"
-        const score = (await api.getUserScores(user, "best", osu.Ruleset.osu, {lazer: false}, {limit: scoreIndex}))[scoreIndex - 1]
+        const score = (await api.getUserScores(user, "recent", osu.Ruleset.osu, { lazer: true, fails: true }, {limit: scoreIndex}))[scoreIndex - 1]
+        console.log(score)
         const beatmapDifficulty = await api.getBeatmapDifficultyAttributesOsu(score.beatmap, score.mods) // Specifying the mods so the SR is adapted to them
 
         const x = `${score.beatmapset.artist} - ${score.beatmapset.title} [${score.beatmap.version}]`
         const y = `+${score.mods.toString()} ${(score.accuracy * 100).toFixed(2)}% ${score.pp.toFixed(2)}pp (${beatmapDifficulty.star_rating.toFixed(2)}*)`
-        return `#${scoreIndex}: ${x} ${y}`
+        return `${x} ${y}`
 	}
 }
