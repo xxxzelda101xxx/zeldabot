@@ -40,6 +40,11 @@ export async function setOsuUsername(user_id, osu_username) {
 	queryDatabase("UPDATE users SET osu_username = ? WHERE user_id = ?", [osu_username, user_id])
 }
 
+export async function getOsuUsername(user_id) {
+	queryDatabase("SELECT osu_username FROM users WHERE user_id = ?", [user_id])
+	return data[0].osu_username
+}
+
 export async function isBotMutedInChannel(channel) {
 	var data = await queryDatabase("SELECT muted FROM channels WHERE name = ? LIMIT 1", [channel])
 	if (data[0].muted == true) return true

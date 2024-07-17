@@ -1,5 +1,6 @@
 import * as osu from "osu-api-v2-js"
 import config from '../config.json' assert { type: "json" }
+import { getOsuUsername } from "../database.js"
 
 export default {
 	name: "osutop",
@@ -7,7 +8,9 @@ export default {
 	canWhisper: true,
 	execute: async function(msg, context, data, args) {
         const api = await osu.API.createAsync({id: config.osu.client_id, secret: config.osu.client_secret})
-        const username = "zelda101"
+        var username
+        if (msg.toLowerCase().split(" ").length == 1) username = await getOsuUsername(context.userInfo.userId)
+        else username = msg.toLowerCase().split(" ")[1]
         const user = await api.getUser(username)
         const score = (await api.getUserScores(user, "best", osu.Ruleset.osu, {lazer: false}, {limit: 2}))[1] // Specifying the Ruleset is optional
         const beatmapDifficulty = await api.getBeatmapDifficultyAttributesOsu(score.beatmap, score.mods) // Specifying the mods so the SR is adapted to them
