@@ -12,6 +12,7 @@ const admins = config.twitch.admins
 import { apiClient } from "../utils/apiclient.js"
 import { parseChatMessage } from "@twurple/chat"
 import * as osu from "osu-api-v2-js"
+import { getEndPoint } from "osu-parser/lib/slidercalc.js"
 const api = await osu.API.createAsync({id: config.osu.client_id, secret: config.osu.client_secret})
 export var lastMap = {}
 
@@ -100,6 +101,7 @@ async function runCommand(command, channel, msg, context, args) {
 		logger.error(`Command ${command.name} Failed: ${e}`)
 		console.log(e)
 		if (e?.status_code == 404) chatClient.say(channel, "That username doesn't exist!", { replyTo: context })
+		else if (e?.getEndPoint.indexOf("beatmaps") > -1) chatClient.say(channel, "User doesn't have a score on this map!", { replyTo: context })
 		else chatClient.say(channel, e.toString(), { replyTo: context })
 	}
 }
