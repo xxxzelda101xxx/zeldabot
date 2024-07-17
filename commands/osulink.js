@@ -12,6 +12,11 @@ export default {
         if (msg.toLowerCase().split(" ").length == 1) return "Please specify a username!"
         const username = msg.toLowerCase().split(" ")[1]
         const user = await api.getUser(username)
+        .catch(e => {
+            console.log(e)
+			//if (e.code == "ENOENT") throw new Error('Failed to calculate. Beatmap not found.')
+			//else throw new Error(e)
+		})
         console.log(user)
 	}
 }
