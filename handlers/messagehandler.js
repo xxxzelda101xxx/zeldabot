@@ -20,6 +20,7 @@ async function messageHandler(channel, user, msg, context, osuData) {
 	const channel_id = context.channelId
 	var command = msg.substring(1).trim().toLowerCase().split(" ")[0]
 	if (command.indexOf("osutop") > -1) command = "osutop"
+	if (command.indexOf("osurecent") > -1) command = "osurecent"
 	var commandToRun
 	if (msg.startsWith("!")) {
 		commandToRun = Commands[command]

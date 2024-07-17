@@ -17,13 +17,11 @@ export default {
         const user = await api.getUser(username)
         if (scoreIndex > 100) return "You can't have more than 100 top plays!"
         const score = (await api.getUserScores(user, "recent", osu.Ruleset.osu, { lazer: true, fails: true }, {limit: scoreIndex}))[scoreIndex - 1]
-        console.log(score)
         const beatmapDifficulty = await api.getBeatmapDifficultyAttributesOsu(score.beatmap, score.mods) // Specifying the mods so the SR is adapted to them
         var pp
         if (score.pp != null) pp = `${score.pp.toFixed(2)}pp `
         else pp = ""
         var mods = `+${score.mods.toString()} `
-        console.log(mods)
         if (mods == "+ ") mods = ""
 
         const x = `${score.beatmapset.artist} - ${score.beatmapset.title} [${score.beatmap.version}]`
