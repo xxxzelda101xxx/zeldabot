@@ -23,7 +23,6 @@ async function messageHandler(channel, user, msg, context, osuData) {
 	if (msg.startsWith("!")) {
 		commandToRun = Commands[command]
 	}
-	console.log(-2)
 	if (channel) {
 		addTwitchUserToDB(user_id, user)
 		addToDB(user_id, channel_id)
@@ -32,18 +31,14 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		if (isBotMuted && command != "botunmute") return
 		//if (user.toLowerCase() == "kagami_77") kagamiBanRNG(channel, user, user_id, context) // 1/1k chance to ban kagami
 		//banRNG(channel, user, user_id, context) // 1/10k chance to ban anyone
-		console.log(-1)
 		if (!commandToRun) {
 			var alias = await getCommandFromAlias(command)
 			commandToRun = Commands[alias]
 			if (!commandToRun) return
 		}
-		console.log(0)
 		const canUserUseCommand = await canRunCommand(commandToRun, user, osuData, context)
 		if (!canUserUseCommand && admins.indexOf(user.toLowerCase()) < 0) return await deleteMessage(channel_id, config.twitch.moderator_id, context.id)
-		console.log(1)
 		if (!osuData && commandToRun.isOsuCommand == true) return
-		console.log(2)
 		logger.verbose(`Executing !${commandToRun.name} from user: ${user} in channel: ${channel}.`)
 		let args = msg.slice(1).split(' ')
 		if (commandToRun.isOsuCommand) await runOsuCommand(commandToRun, channel, msg, context, osuData, args)
@@ -103,7 +98,6 @@ async function runCommand(command, channel, msg, context, args) {
 }
 async function runOsuCommand(command, channel, msg, context, osuData, args) {
 	try {
-		console.log(3)
 		var messageToSend = await command.execute(msg, context, osuData, args)
 		if (channel) chatClient.say(channel, messageToSend)
 		else apiClient.whispers.sendWhisper(config.twitch.moderator_id, user_id, messageToSend)
