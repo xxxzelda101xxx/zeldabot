@@ -41,7 +41,7 @@ export async function setOsuUsername(user_id, osu_username) {
 }
 
 export async function getOsuUsername(user_id) {
-	var data = queryDatabase("SELECT osu_username FROM users WHERE user_id = ? LIMIT 1", [user_id])
+	var data = await queryDatabase("SELECT osu_username FROM users WHERE user_id = ? LIMIT 1", [user_id])
 	console.log(data)
 	return data[0].osu_username
 }
