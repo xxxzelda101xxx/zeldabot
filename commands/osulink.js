@@ -13,5 +13,6 @@ export default {
         const username = msg.toLowerCase().split(" ")[1]
         const user = await api.getUser(username)
         setOsuUsername(context.userInfo.userId, user.username)
+        return "You have linked your account to " + user.username
 	}
 }
