@@ -12,7 +12,6 @@ export default {
         if (msg.toLowerCase().split(" ").length == 1) return "Please specify a username!"
         const username = msg.toLowerCase().split(" ")[1]
         const user = await api.getUser(username)
-        console.log(user.username)
-        //setOsuUsername(context.userInfo.userId, user.username)
+        setOsuUsername(context.userInfo.userId, user.username)
 	}
 }
