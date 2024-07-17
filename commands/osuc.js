@@ -14,18 +14,18 @@ export default {
                 else username = msg.toLowerCase().split(" ")[1]
                 if (username == "" || username == null) return "Please set your osu! username using !osulink <osu! username>!"
                 const user = await api.getUser(username)
+                console.log(lastMap[context.channelId])
                 const score = (await api.getBeatmapUserScore(lastMap[context.channelId], user))
-                console.log(score)
-                //const beatmapDifficulty = await api.getBeatmapDifficultyAttributesOsu(score.beatmap, score.mods) // Specifying the mods so the SR is adapted to them
-                //console.log(score.beatmap.id)
-                // var pp
-                        //if (score.pp != null) pp = `${score.pp.toFixed(2)}pp `
-                // else pp = ""
-                // var mods = `+${score.mods.toString()} `
-                // if (mods == "+ ") mods = ""
+                if (!score) return "User doesn't have a score on this map!"
+                const beatmapDifficulty = await api.getBeatmapDifficultyAttributesOsu(score.beatmap, score.mods) // Specifying the mods so the SR is adapted to them
+                var pp
+                if (score.pp != null) pp = `${score.pp.toFixed(2)}pp `
+                else pp = ""
+                var mods = `+${score.mods.toString()} `
+                if (mods == "+ ") mods = ""
 
-                // const x = `${score.beatmapset.artist} - ${score.beatmapset.title} [${score.beatmap.version}]`
-                // const y = `${mods}${(score.accuracy * 100).toFixed(2)}% ${pp}(${beatmapDifficulty.star_rating.toFixed(2)}*)`
-                // return `#${scoreIndex}: ${x} ${y}`
+                const x = `${score.beatmapset.artist} - ${score.beatmapset.title} [${score.beatmap.version}]`
+                const y = `${mods}${(score.accuracy * 100).toFixed(2)}% ${pp}(${beatmapDifficulty.star_rating.toFixed(2)}*)`
+                return `${x} ${y}`
         }
 }
