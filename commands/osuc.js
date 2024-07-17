@@ -27,7 +27,7 @@ export default {
                 var mods = `+${score.mods.toString()} `
                 if (mods == "+ ") mods = ""
 
-                const x = `${beatmapSet.artist} - ${beatmapSet.title} [${score.beatmap.version}]`
+                const x = `${beatmapSet.beatmapset.artist} - ${beatmapSet.beatmapset.title} [${score.beatmap.version}]`
                 const y = `${mods}${(score.accuracy * 100).toFixed(2)}% ${pp}(${beatmapDifficulty.star_rating.toFixed(2)}*)`
                 return `${x} ${y}`
         }
