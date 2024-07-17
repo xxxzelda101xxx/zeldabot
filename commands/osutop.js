@@ -12,15 +12,14 @@ export default {
                 if (msg.toLowerCase().split(" ").length == 1) username = await getOsuUsername(context.userInfo.userId)
                 else username = msg.toLowerCase().split(" ")[1]
                 const user = await api.getUser(username)
-                const scoreIndex = msg.substring(7).trim().toLowerCase().split(" ")[0]
-                console.log("test1")
+                const scoreIndex = parseInt(msg.substring(7).trim().toLowerCase().split(" ")[0])
                 console.log(scoreIndex)
-                console.log("test2")
-                const score = (await api.getUserScores(user, "best", osu.Ruleset.osu, {lazer: false}, {limit: 1}))[0] // Specifying the Ruleset is optional
+                if (isNaN(scoreIndex)) scoreIndex = 1
+                const score = (await api.getUserScores(user, "best", osu.Ruleset.osu, {lazer: false}, {limit: 1}))[0]
                 const beatmapDifficulty = await api.getBeatmapDifficultyAttributesOsu(score.beatmap, score.mods) // Specifying the mods so the SR is adapted to them
         
                 const x = `${score.beatmapset.artist} - ${score.beatmapset.title} [${score.beatmap.version}]`
                 const y = `+${score.mods.toString()} ${(score.accuracy * 100).toFixed(2)}% (${beatmapDifficulty.star_rating.toFixed(2)}*)`
-                return `#1: ${x} ${y}`
+                return `${scoreIndex}: ${x} ${y}`
 	}
 }
