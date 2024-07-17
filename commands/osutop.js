@@ -9,7 +9,7 @@ export default {
         const api = await osu.API.createAsync({id: config.osu.client_id, secret: config.osu.client_secret})
         const username = "zelda101"
         const user = await api.getUser(username)
-        const score = (await api.getUserScores(user, "best", osu.Ruleset.osu, {lazer: false}, {limit: 1}))[0] // Specifying the Ruleset is optional
+        const score = (await api.getUserScores(user, "best", osu.Ruleset.osu, {lazer: false}, {limit: 2}))[1] // Specifying the Ruleset is optional
         const beatmapDifficulty = await api.getBeatmapDifficultyAttributesOsu(score.beatmap, score.mods) // Specifying the mods so the SR is adapted to them
     
         const x = `${score.beatmapset.artist} - ${score.beatmapset.title} [${score.beatmap.version}]`
