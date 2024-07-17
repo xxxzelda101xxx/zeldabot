@@ -99,7 +99,7 @@ async function runCommand(command, channel, msg, context, args) {
 	catch (e) {
 		logger.error(`Command ${command.name} Failed: ${e}`)
 		console.log(e)
-		if (e?.endpoint.indexOf("beatmaps") > -1) chatClient.say(channel, "User doesn't have a score on this map!", { replyTo: context })
+		if (e?.endpoint?.indexOf("beatmaps") > -1) chatClient.say(channel, "User doesn't have a score on this map!", { replyTo: context })
 		else if (e?.status_code == 404) chatClient.say(channel, "That username doesn't exist!", { replyTo: context })
 		else chatClient.say(channel, e.toString(), { replyTo: context })
 	}
