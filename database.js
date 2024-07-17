@@ -36,6 +36,10 @@ export async function unmuteBotInChannel(channel_id) {
 	queryDatabase("UPDATE channels SET muted = 0 WHERE channel_id = ?", [channel_id])
 }
 
+export async function setOsuUsername(user_id, osu_username) {
+	queryDatabase("UPDATE users SET osu_username = ? WHERE user_id = ?", [osu_username, user_id])
+}
+
 export async function isBotMutedInChannel(channel) {
 	var data = await queryDatabase("SELECT muted FROM channels WHERE name = ? LIMIT 1", [channel])
 	if (data[0].muted == true) return true
