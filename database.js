@@ -41,7 +41,7 @@ export async function setOsuUsername(user_id, osu_username) {
 }
 
 export async function getOsuUsername(user_id) {
-	queryDatabase("SELECT osu_username FROM users WHERE user_id = ?", [user_id])
+	var data = queryDatabase("SELECT osu_username FROM users WHERE user_id = ?", [user_id])
 	return data[0].osu_username
 }
 
