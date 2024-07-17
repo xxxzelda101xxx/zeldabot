@@ -91,7 +91,7 @@ async function runCommand(command, channel, msg, context, args) {
 		else apiClient.whispers.sendWhisper(config.twitch.moderator_id, user_id, messageToSend)
 	}
 	catch (e) {
-		logger.error(`Command ${command.name} Failed: ${e}`)
+		logger.error(`Command ${command.name} Failed: ${e.status_code}`)
 		console.log(e)
 		chatClient.say(channel, e.toString(), { replyTo: context })
 	}
