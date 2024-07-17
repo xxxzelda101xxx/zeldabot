@@ -13,7 +13,7 @@ export default {
         const beatmapDifficulty = await api.getBeatmapDifficultyAttributesOsu(score.beatmap, score.mods) // Specifying the mods so the SR is adapted to them
     
         const x = `${score.beatmapset.artist} - ${score.beatmapset.title} [${score.beatmap.version}]`
-        const y = `+${score.mods.toString()} ${score.accuracy}% (${beatmapDifficulty.star_rating.toFixed(2)}*)`
+        const y = `+${score.mods.toString()} ${(Math.round( score.accuracy * 100 ) / 100).toFixed(2)}% (${beatmapDifficulty.star_rating.toFixed(2)}*)`
         console.log(`${username}'s top play is on: ${x} ${y}`)
         // Doomsday fanboy's top play is on: Yamajet feat. Hiura Masako - Sunglow [Harmony] +DT (8.72*)
 	}
