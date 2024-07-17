@@ -16,7 +16,7 @@ export default {
                 const user = await api.getUser(username)
                 if (!lastMap[context.channelId]) return "Last beatmap not found."
                 const score = (await api.getBeatmapUserScore(lastMap[context.channelId], user))
-                if (!score) return "User doesn't have a score on this map!"
+                console.log(score)
                 const beatmapDifficulty = await api.getBeatmapDifficultyAttributesOsu(score.beatmap, score.mods) // Specifying the mods so the SR is adapted to them
                 var pp
                 if (score.pp != null) pp = `${score.pp.toFixed(2)}pp `
