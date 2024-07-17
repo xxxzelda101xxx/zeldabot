@@ -20,7 +20,7 @@ export default {
                 const beatmapDifficulty = await api.getBeatmapDifficultyAttributesOsu(score.beatmap, score.mods) // Specifying the mods so the SR is adapted to them
         
                 const x = `${score.beatmapset.artist} - ${score.beatmapset.title} [${score.beatmap.version}]`
-                const y = `+${score.mods.toString()} ${(score.accuracy * 100).toFixed(2)}% (${beatmapDifficulty.star_rating.toFixed(2)}*)`
+                const y = `+${score.mods.toString()} ${(score.accuracy * 100).toFixed(2)}% ${score.pp.toFixed(2)}pp (${beatmapDifficulty.star_rating.toFixed(2)}*)`
                 return `#${scoreIndex}: ${x} ${y}`
 	}
 }
