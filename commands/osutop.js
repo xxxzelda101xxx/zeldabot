@@ -15,6 +15,7 @@ export default {
                 var scoreIndex = parseInt(msg.substring(7).trim().toLowerCase().split(" ")[0])
                 console.log(scoreIndex)
                 if (isNaN(scoreIndex)) scoreIndex = 1
+                if (scoreIndex > 100) return "You can't have more than 100 top plays!"
                 const score = (await api.getUserScores(user, "best", osu.Ruleset.osu, {lazer: false}, {limit: scoreIndex}))[scoreIndex - 1]
                 const beatmapDifficulty = await api.getBeatmapDifficultyAttributesOsu(score.beatmap, score.mods) // Specifying the mods so the SR is adapted to them
         
