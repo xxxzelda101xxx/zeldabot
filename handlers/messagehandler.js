@@ -11,6 +11,9 @@ const isWhitelistEnabled = config.twitch.enable_whitelist
 const admins = config.twitch.admins
 import { apiClient } from "../utils/apiclient.js"
 import { parseChatMessage } from "@twurple/chat"
+import * as osu from "osu-api-v2-js"
+const api = await osu.API.createAsync({id: config.osu.client_id, secret: config.osu.client_secret})
+export var lastMap = ""
 
 async function messageHandler(channel, user, msg, context, osuData) {
 	if (Object.keys(osuData).length != 0) osuData = new GosuMemory(osuData)

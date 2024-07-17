@@ -1,6 +1,7 @@
 import * as osu from "osu-api-v2-js"
 import config from '../config.json' assert { type: "json" }
 import { getOsuUsername } from "../database.js"
+import { lastMap } from "../handlers/messagehandler.js"
 
 export default {
 	name: "osutop",
@@ -18,6 +19,7 @@ export default {
         if (scoreIndex > 100) return "You can't have more than 100 top plays!"
         const score = (await api.getUserScores(user, "best", osu.Ruleset.osu, {lazer: false}, {limit: scoreIndex}))[scoreIndex - 1]
         const beatmapDifficulty = await api.getBeatmapDifficultyAttributesOsu(score.beatmap, score.mods) // Specifying the mods so the SR is adapted to them
+        console.log(score.beatmap.id)
         var pp
         if (score.pp != null) pp = `${score.pp.toFixed(2)}pp `
         else pp = ""
