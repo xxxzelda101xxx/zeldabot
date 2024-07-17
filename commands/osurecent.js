@@ -19,9 +19,12 @@ export default {
         const score = (await api.getUserScores(user, "recent", osu.Ruleset.osu, { lazer: true, fails: true }, {limit: scoreIndex}))[scoreIndex - 1]
         console.log(score)
         const beatmapDifficulty = await api.getBeatmapDifficultyAttributesOsu(score.beatmap, score.mods) // Specifying the mods so the SR is adapted to them
+        var pp
+        if (score.pp != null) pp = `${score.pp.toFixed(2)}pp `
+        else pp = ""
 
         const x = `${score.beatmapset.artist} - ${score.beatmapset.title} [${score.beatmap.version}]`
-        const y = `+${score.mods.toString()} ${(score.accuracy * 100).toFixed(2)}% ${score.pp.toFixed(2)}pp (${beatmapDifficulty.star_rating.toFixed(2)}*)`
+        const y = `+${score.mods.toString()} ${(score.accuracy * 100).toFixed(2)}% ${pp}(${beatmapDifficulty.star_rating.toFixed(2)}*)`
         return `${x} ${y}`
 	}
 }
