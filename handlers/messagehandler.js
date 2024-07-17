@@ -17,7 +17,6 @@ const api = await osu.API.createAsync({id: config.osu.client_id, secret: config.
 export var lastMap = {}
 
 async function messageHandler(channel, user, msg, context, osuData) {
-	console.log(lastMap)
 	if (Object.keys(osuData).length != 0) osuData = new GosuMemory(osuData)
 	else osuData = null
 	msg = msg.trim()
