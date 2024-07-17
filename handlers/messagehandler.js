@@ -91,9 +91,10 @@ async function runCommand(command, channel, msg, context, args) {
 		else apiClient.whispers.sendWhisper(config.twitch.moderator_id, user_id, messageToSend)
 	}
 	catch (e) {
-		logger.error(`Command ${command.name} Failed: ${e.status_code}`)
+		logger.error(`Command ${command.name} Failed: ${e}`)
 		console.log(e)
-		chatClient.say(channel, e.toString(), { replyTo: context })
+		if (e?.status_code == 404) chatClient.say(channel, "That username doesn't exist!", { replyTo: context })
+		else chatClient.say(channel, e.toString(), { replyTo: context })
 	}
 }
 async function runOsuCommand(command, channel, msg, context, osuData, args) {
