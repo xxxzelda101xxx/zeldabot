@@ -17,6 +17,6 @@ export default {
         
                 const x = `${score.beatmapset.artist} - ${score.beatmapset.title} [${score.beatmap.version}]`
                 const y = `+${score.mods.toString()} ${(score.accuracy * 100).toFixed(2)}% (${beatmapDifficulty.star_rating.toFixed(2)}*)`
-                return `${username}'s top play is on: ${x} ${y}`
+                return `#1: ${x} ${y}`
 	}
 }
