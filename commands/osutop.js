@@ -13,7 +13,7 @@ export default {
                 var username
                 if (msg.toLowerCase().split(" ").length == 1) username = await getOsuUsername(context.userInfo.userId)
                 else username = msg.toLowerCase().split(" ")[1]
-                if (username == "" || username == NULL) return "Please set your osu! username using !osulink <osu! username>!"
+                if (username == "" || username == null) return "Please set your osu! username using !osulink <osu! username>!"
                 const user = await api.getUser(username)
                 if (scoreIndex > 100) return "You can't have more than 100 top plays!"
                 const score = (await api.getUserScores(user, "best", osu.Ruleset.osu, {lazer: false}, {limit: scoreIndex}))[scoreIndex - 1]
