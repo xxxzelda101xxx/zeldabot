@@ -20,7 +20,7 @@ export default {
         const score = (await api.getUserScores(user, "recent", osu.Ruleset.osu, {fails: true, lazer: true}, {limit: scoreIndex}))[scoreIndex - 1]
         if (!score) return "User has no recent scores!"
         const beatmapDifficulty = await api.getBeatmapDifficultyAttributesOsu(score.beatmap, score.mods) // Specifying the mods so the SR is adapted to them
-        lastMap = score.beatmap.id
+        lastMap[context.channelId] = score.beatmap.id
         console.log(score.beatmap.id)
         var pp
         if (score.pp != null) pp = `${score.pp.toFixed(2)}pp `
