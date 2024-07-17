@@ -12,7 +12,7 @@ export default {
                 if (msg.toLowerCase().split(" ").length == 1) username = await getOsuUsername(context.userInfo.userId)
                 else username = msg.toLowerCase().split(" ")[1]
                 const user = await api.getUser(username)
-                const scoreIndex = parseInt(msg.substring(7).trim().toLowerCase().split(" ")[0])
+                var scoreIndex = parseInt(msg.substring(7).trim().toLowerCase().split(" ")[0])
                 console.log(scoreIndex)
                 if (isNaN(scoreIndex)) scoreIndex = 1
                 const score = (await api.getUserScores(user, "best", osu.Ruleset.osu, {lazer: false}, {limit: 1}))[0]
