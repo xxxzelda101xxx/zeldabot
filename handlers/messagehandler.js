@@ -40,13 +40,11 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		var aliasUsed
 		if (!commandToRun) {
 			var alias = await getCommandFromAlias(command.replace(/[0-9]/g, ''), channel_id)
-			console.log(alias)
-			console.log(typeof(alias))
-			if (alias.indexOf("osutop") > -1) command = "osutop"
-			if (alias.indexOf("osurecent") > -1) command = "osurecent"
 			commandToRun = Commands[alias]
 			if (!commandToRun) return
 			aliasUsed = command
+			if (alias.indexOf("osutop") > -1) command = "osutop"
+			if (alias.indexOf("osurecent") > -1) command = "osurecent"
 		}
 		const canUserUseCommand = await canRunCommand(commandToRun, user, osuData, context)
 		if (!canUserUseCommand && admins.indexOf(user.toLowerCase()) < 0) return await deleteMessage(channel_id, config.twitch.moderator_id, context.id)
