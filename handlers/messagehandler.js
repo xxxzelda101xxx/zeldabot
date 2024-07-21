@@ -37,10 +37,12 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		if (isBotMuted && command != "botunmute") return
 		//if (user.toLowerCase() == "kagami_77") kagamiBanRNG(channel, user, user_id, context) // 1/1k chance to ban kagami
 		//banRNG(channel, user, user_id, context) // 1/10k chance to ban anyone
+		var aliasUsed
 		if (!commandToRun) {
 			var alias = await getCommandFromAlias(command, channel_id)
 			commandToRun = Commands[alias]
 			if (!commandToRun) return
+			aliasUsed = command
 		}
 		const canUserUseCommand = await canRunCommand(commandToRun, user, osuData, context)
 		if (!canUserUseCommand && admins.indexOf(user.toLowerCase()) < 0) return await deleteMessage(channel_id, config.twitch.moderator_id, context.id)
@@ -86,7 +88,7 @@ async function canRunCommand(commandToRun, user, osuData, context) {
 
 async function runCommand(command, channel, msg, context, args) {
 	try {
-		var messageToSend = await command.execute(msg, context, args)
+		var messageToSend = await command.execute(msg, context, args, aliasUsed)
 		if (!messageToSend) return
 		if (channel && Array.isArray(messageToSend)) {
 			messageToSend.forEach(async (message) => {
