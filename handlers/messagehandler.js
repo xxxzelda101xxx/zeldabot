@@ -39,7 +39,7 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		//banRNG(channel, user, user_id, context) // 1/10k chance to ban anyone
 		var aliasUsed
 		if (!commandToRun) {
-			var alias = await getCommandFromAlias(command, channel_id)
+			var alias = await getCommandFromAlias(command.replace(/[0-9]/g, ''), channel_id)
 			console.log(alias)
 			console.log(typeof(alias))
 			if (alias.indexOf("osutop") > -1) command = "osutop"
