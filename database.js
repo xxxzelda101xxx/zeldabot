@@ -7,7 +7,7 @@ var connection = mysql.createConnection({
   user     : config.mysql.username,
   password : config.mysql.password,
   database : config.mysql.database
-});
+}); 
 
 connection.connect();
 
@@ -52,16 +52,16 @@ export async function isBotMutedInChannel(channel) {
 	else return false
 }
 
-export async function saveAliasToDB(alias, command) {
-	queryDatabase("INSERT INTO aliases(alias, command) VALUES(?, ?)", [alias, command])
+export async function saveAliasToDB(alias, command, channel_id) {
+	queryDatabase("INSERT INTO aliases(alias, command, channel_id) VALUES(?, ?, ?)", [alias, command, channel_id])
 }
 
-export async function deleteAliasFromDB(alias) {
-	queryDatabase("DELETE FROM aliases WHERE alias = ?", [alias])
+export async function deleteAliasFromDB(alias, channel_id) {
+	queryDatabase("DELETE FROM aliases WHERE alias = ? AND channel_id = ?", [alias, channel_id])
 }
 
-export async function checkIfAliasExists(alias) {
-	var data = await queryDatabase("SELECT alias FROM aliases WHERE alias = ? LIMIT 1", [alias])
+export async function checkIfAliasExists(alias, channel_id) {
+	var data = await queryDatabase("SELECT alias FROM aliases WHERE alias = ? AND channel_id = ? LIMIT 1", [alias, channel_id])
 	if (data.length == 1) return true
 	else return false
 }
