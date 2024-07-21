@@ -8,7 +8,7 @@ export default {
 	description: "",
 	canWhisper: true,
 	execute: async function(msg, context, args, alias) {
-        console.log(alias)
+        if (alias) console.log(alias)
         const api = await osu.API.createAsync({id: config.osu.client_id, secret: config.osu.client_secret})
         var scoreIndex = parseInt(msg.substring(10).trim().toLowerCase().split(" ")[0])
         if (isNaN(scoreIndex)) scoreIndex = 1
