@@ -8,7 +8,7 @@ import { getChannels, changeTwitchStreamStatus } from "./database.js"
 import { logger } from "./logger.js"
 import { chatClient } from "./utils/chatclient.js"
 import { osuData } from "./websocket.js"
-import { listener } from "./utils/apiclient.js"
+import { listener, shigeapiClient } from "./utils/apiclient.js"
 
 async function main() {
 	var channels = await getChannels()
@@ -35,8 +35,7 @@ async function main() {
 		subHandler(channel, user, subInfo, context)
 	})
 	chatClient.onBan(async function (channel, user, msg) {
-		console.log(channel)
-		console.log(user)
+		if (channel == "shigetora" && user == "zelda101_") await shigeapiClient.moderation.unbanUser(37575275, 14163149);
 		banHandler(channel, user, msg)
 	})
 	chatClient.onMessage(async function (channel, user, msg, context) {
