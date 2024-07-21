@@ -35,6 +35,8 @@ async function main() {
 		subHandler(channel, user, subInfo, context)
 	})
 	chatClient.onBan(async function (channel, user, msg) {
+		console.log(channel)
+		console.log(user)
 		banHandler(channel, user, msg)
 	})
 	chatClient.onMessage(async function (channel, user, msg, context) {
