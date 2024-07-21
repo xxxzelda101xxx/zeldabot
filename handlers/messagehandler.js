@@ -50,7 +50,7 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		logger.verbose(`Executing !${commandToRun.name} from user: ${user} in channel: ${channel}.`)
 		let args = msg.slice(1).split(' ')
 		if (commandToRun.isOsuCommand) await runOsuCommand(commandToRun, channel, msg, context, osuData, args)
-		else await runCommand(commandToRun, channel, msg, context, args)
+		else await runCommand(commandToRun, channel, msg, context, args, aliasUsed)
 }
 	else {
 		if (!commandToRun || commandToRun.adminOnly || commandToRun.modOnly) return
@@ -86,7 +86,7 @@ async function canRunCommand(commandToRun, user, osuData, context) {
 	return true
 }
 
-async function runCommand(command, channel, msg, context, args) {
+async function runCommand(command, channel, msg, context, args, aliasUsed) {
 	try {
 		var messageToSend = await command.execute(msg, context, args, aliasUsed)
 		if (!messageToSend) return
