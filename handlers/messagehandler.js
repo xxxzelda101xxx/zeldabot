@@ -40,10 +40,10 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		var aliasUsed
 		if (!commandToRun) {
 			var alias = await getCommandFromAlias(command, channel_id)
-			console.log(alias.toString())
-			console.log(typeof(alias.toString()))
-			if (alias.toString().indexOf("osutop") > -1) command = "osutop"
-			if (alias.toString().indexOf("osurecent") > -1) command = "osurecent"
+			console.log(alias)
+			console.log(typeof(alias))
+			if (alias.indexOf("osutop") > -1) command = "osutop"
+			if (alias.indexOf("osurecent") > -1) command = "osurecent"
 			commandToRun = Commands[alias]
 			if (!commandToRun) return
 			aliasUsed = command
