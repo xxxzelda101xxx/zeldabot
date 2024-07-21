@@ -197,8 +197,8 @@ export async function getMessageLeaderboard(channel_id, page) {
 	return data
 }
 
-export async function getCommandFromAlias(alias) {
-	let data = await queryDatabase("SELECT command FROM aliases WHERE alias = ? LIMIT 1", [alias])
+export async function getCommandFromAlias(alias, channel_id) {
+	let data = await queryDatabase("SELECT command FROM aliases WHERE alias = ? AND channel_id = ? LIMIT 1", [alias, channel_id])
 	if (data.length > 0) return data[0].command
 	else return null
 }

@@ -38,7 +38,7 @@ async function messageHandler(channel, user, msg, context, osuData) {
 		//if (user.toLowerCase() == "kagami_77") kagamiBanRNG(channel, user, user_id, context) // 1/1k chance to ban kagami
 		//banRNG(channel, user, user_id, context) // 1/10k chance to ban anyone
 		if (!commandToRun) {
-			var alias = await getCommandFromAlias(command)
+			var alias = await getCommandFromAlias(command, channel_id)
 			commandToRun = Commands[alias]
 			if (!commandToRun) return
 		}
