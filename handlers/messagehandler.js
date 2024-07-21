@@ -90,7 +90,6 @@ async function canRunCommand(commandToRun, user, osuData, context) {
 
 async function runCommand(command, channel, msg, context, args, aliasUsed) {
 	try {
-		if (!aliasUsed) aliasUsed = ""
 		var messageToSend = await command.execute(msg, context, args, aliasUsed)
 		if (!messageToSend) return
 		if (channel && Array.isArray(messageToSend)) {
