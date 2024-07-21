@@ -11,7 +11,7 @@ import { osuData } from "./websocket.js"
 import { listener, shigeapiClient } from "./utils/apiclient.js"
 
 async function main() {
-	await shigeapiClient.moderation.unbanUser(37575275, 14163149);
+	//await shigeapiClient.moderation.unbanUser(37575275, 14163149);
 	var channels = await getChannels()
 	startWebsocket()
 	startSevenTVWebsocket(channels)
