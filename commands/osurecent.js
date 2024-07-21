@@ -10,7 +10,7 @@ export default {
 	execute: async function(msg, context, args, alias) {
         const api = await osu.API.createAsync({id: config.osu.client_id, secret: config.osu.client_secret})
         var scoreIndex
-        if (alias) scoreIndex = parseInt(msg.substring(alias.length + 1).trim().toLowerCase().split(" ")[0])
+        if (alias) scoreIndex = parseInt(msg.substring(alias.length).trim().toLowerCase().split(" ")[0])
         else scoreIndex = parseInt(msg.substring(10).trim().toLowerCase().split(" ")[0])
         if (isNaN(scoreIndex)) scoreIndex = 1
         var username
