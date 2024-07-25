@@ -5,26 +5,28 @@
     "client_secret": "",
     "access_token": "",
     "refresh_token": "",
-    "admins": [""],
+    "admins": [],
     "enable_whitelist": true,
     "command_cooldown": true,
     "command_cooldown_time": 10000,
     "message_cooldown_time": 5000,
-    "separateBroadcasterToken": false,
+    "separateBroadcasterToken": true,
     "osu_commands_only": false,
-    "is_official_bot": false,
-    "enable_subhandler": false,
-    "enable_banhandler": false
+    "is_official_bot": true,
+    "enable_subhandler": true,
+    "enable_banhandler": true
   },
-  "kick": {
-    "enabled": false,
-    "email": "",
+  "mysql": {
+    "host": "localhost",
+    "username": "",
     "password": "",
-    "otc": 0
+    "database": "zeldabot"
   },
   "osu": {
     "Songs_folder": "",
-    "gosumemory_address": "ws://0.0.0.0:24050/ws"
+    "gosumemory_address": "",
+    "client_id": "",
+    "client_secret": ""
   },
   "ai": {
     "url": ""
