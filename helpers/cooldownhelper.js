@@ -1,5 +1,5 @@
 const cooldowns = new Map()
-import config from "../config.json" assert { type: "json" }
+import config from "../config.json" with { type: "json" }
 const commandCooldownTime = config.twitch.command_cooldown_time
 const messageCooldownTime = config.twitch.message_cooldown_time
 

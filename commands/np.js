@@ -2,7 +2,7 @@ const dlUrl = "https://osu.ppy.sh/b/"
 const dlSetUrl = "https://osu.ppy.sh/s/"
 //import { BeatmapDecoder } from 'osu-parsers'
 //import path from "path"
-//import config from "../config.json" assert { type: "json" }
+//import config from "../config.json" with { type: "json" }
 //const songsFolder = config.osu.Songs_folder
 
 

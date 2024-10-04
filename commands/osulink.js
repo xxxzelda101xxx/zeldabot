@@ -1,5 +1,5 @@
 import * as osu from "osu-api-v2-js"
-import config from '../config.json' assert { type: "json" }
+import config from '../config.json' with { type: "json" }
 import { setOsuUsername } from "../database.js"
 
 

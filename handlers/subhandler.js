@@ -1,5 +1,5 @@
 import { chatClient } from "../utils/chatclient.js"
-import config from "../config.json" assert { type: "json" };
+import config from "../config.json" with { type: "json" };
 const enableSubHandler = config.twitch.enable_subhandler
 
 export function subHandler(channel, user, subInfo, context) {

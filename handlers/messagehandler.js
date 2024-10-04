@@ -5,7 +5,7 @@ import { logger } from "../logger.js"
 import { GosuMemory } from "../classes/gosumemory.js"
 import { chatClient } from "../utils/chatclient.js"
 import * as Commands from "../commands/index.js";
-import config from "../config.json" assert { type: "json" }
+import config from "../config.json" with { type: "json" }
 const osuCommandsOnly = config.twitch.osu_commands_only
 const isWhitelistEnabled = config.twitch.enable_whitelist
 const admins = config.twitch.admins

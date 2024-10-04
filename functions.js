@@ -3,7 +3,7 @@ import { apiClient, shigeapiClient } from "./utils/apiclient.js"
 import { chatClient } from "./utils/chatclient.js"
 import axios from 'axios'
 import { logger } from "./logger.js"
-import config from "./config.json" assert { type: "json" }
+import config from "./config.json" with { type: "json" }
 
 export async function kagamiBanRNG(channel, user, user_id, context) {
 	var randomNumber = Math.floor(Math.random() * 1001)

@@ -2,7 +2,7 @@ import { ScoreCalculator } from "@kionell/osu-pp-calculator"
 import { getMaxPP } from "../websocket.js"
 const scoreCalculator = new ScoreCalculator()
 import path from "path"
-import config from "../config.json" assert { type: "json" }
+import config from "../config.json" with { type: "json" }
 const songsFolder = config.osu.Songs_folder
 
 export default {

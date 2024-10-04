@@ -1,5 +1,5 @@
 import { shigeapiClient } from "../utils/apiclient.js"
-import config from '../config.json' assert { type: "json" }
+import config from '../config.json' with { type: "json" }
 const useSeparateBroadcasterToken = config.twitch.separateBroadcasterToken
 
 export default {

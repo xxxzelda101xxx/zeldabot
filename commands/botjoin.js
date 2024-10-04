@@ -1,4 +1,4 @@
-import config from '../config.json' assert { type: "json" }
+import config from '../config.json' with { type: "json" }
 import { getChannelData } from "../functions.js"
 import { chatClient } from "../utils/chatclient.js"
 import { apiClient } from "../utils/apiclient.js"

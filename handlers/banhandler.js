@@ -1,6 +1,6 @@
 import { chatClient } from "../utils/chatclient.js"
 import { incrementBans, getUserIdByUsername } from "../database.js"
-import config from "../config.json" assert { type: "json" };
+import config from "../config.json" with { type: "json" };
 const enableBanHandler = config.twitch.enable_banhandler
 
 export async function banHandler(channel, user, msg) {

@@ -1,4 +1,4 @@
-import config from "./config.json" assert { type: "json" }
+import config from "./config.json" with { type: "json" }
 import { ScoreCalculator } from "@kionell/osu-pp-calculator"
 const scoreCalculator = new ScoreCalculator()
 const url = config.osu.gosumemory_address

@@ -1,6 +1,6 @@
 import { logger } from "./logger.js"
 import { setCooldown, getCooldown } from "./helpers/cooldownhelper.js"
-import config from "./config.json" assert { type: "json" };
+import config from "./config.json" with { type: "json" };
 import mysql from 'mysql';
 var connection = mysql.createConnection({
   host     : config.mysql.host,

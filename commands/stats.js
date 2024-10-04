@@ -1,7 +1,7 @@
 import { BeatmapCalculator } from "@kionell/osu-pp-calculator"
 const beatmapCalculator = new BeatmapCalculator()
 import path from "path"
-import config from '../config.json' assert { type: "json" }
+import config from '../config.json' with { type: "json" }
 const songsFolder = config.osu.Songs_folder
 
 export default {

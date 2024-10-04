@@ -1,4 +1,4 @@
-import config from "../config.json"  assert { type: "json" }
+import config from "../config.json"  with { type: "json" }
 import { logger } from "../logger.js"
 import { join } from "path"
 var songsFolder = config.osu.Songs_folder
