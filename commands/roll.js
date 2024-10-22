@@ -4,7 +4,6 @@ export default {
 	description: "Roll a dice.",
 	canWhisper: true,
 	isOsuCommand: false,
-	vipOnly: true, 
 	isPublic: false,
 	execute: async function(msg, context, args) {
 		var numberToRoll = msg.split(" ").filter(item => item)
@@ -14,4 +13,4 @@ export default {
 		var randomDice = Math.floor(maxDice*Math.random()) + 1
 		return `/me ${context.userInfo.userName} rolls ${randomDice.toString()}`
 	}
-}
+} 
