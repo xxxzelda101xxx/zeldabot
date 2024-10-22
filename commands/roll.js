@@ -4,7 +4,6 @@ export default {
 	description: "Roll a dice.",
 	canWhisper: true,
 	isOsuCommand: false,
-	isPublic: false,
 	execute: async function(msg, context, args) {
 		var numberToRoll = msg.split(" ").filter(item => item)
 		numberToRoll = numberToRoll[1]
