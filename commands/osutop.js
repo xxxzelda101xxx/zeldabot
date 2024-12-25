@@ -22,7 +22,7 @@ export default {
         const score = (await api.getUserScores(user, "best", osu.Ruleset.osu, {lazer: false}, {limit: scoreIndex}))[scoreIndex - 1]
         const beatmapDifficulty = await api.getBeatmapDifficultyAttributesOsu(score.beatmap, score.mods) // Specifying the mods so the SR is adapted to them
         lastMap[context.channelId] = score.beatmap.id
-        console.log(score.beatmap.id)
+        console.log(score.mods.acronym)
         var pp
         if (score.pp != null) pp = `${score.pp.toFixed(2)}pp `
         else pp = ""
@@ -30,7 +30,7 @@ export default {
         if (mods == "+ ") mods = ""
 
         const x = `${score.beatmapset.artist} - ${score.beatmapset.title} [${score.beatmap.version}]`
-        const y = `${mods}${(score.accuracy * 100).toFixed(2)}% ${pp}(${beatmapDifficulty.star_rating.toFixed(2)}*)`
+        const y = `${score.mods.acronym}${(score.accuracy * 100).toFixed(2)}% ${pp}(${beatmapDifficulty.star_rating.toFixed(2)}*)`
         return `#${scoreIndex}: ${x} ${y} - https://osu.ppy.sh/b/${score.beatmap.id}`
 	}
 }
