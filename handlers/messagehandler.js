@@ -13,7 +13,7 @@ import { apiClient } from "../utils/apiclient.js"
 import { parseChatMessage } from "@twurple/chat"
 import * as osu from "osu-api-v2-js"
 import { getEndPoint } from "osu-parser/lib/slidercalc.js"
-const api = await osu.API.createAsync({id: config.osu.client_id, secret: config.osu.client_secret})
+const api = await osu.API.createAsync(config.osu.client_id, config.osu.client_secret)
 export var lastMap = {}
 
 async function messageHandler(channel, user, msg, context, osuData) {
