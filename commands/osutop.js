@@ -22,14 +22,14 @@ export default {
         const score = (await api.getUserScores(user, "best", osu.Ruleset.osu, {lazer: false}, {limit: scoreIndex}))[scoreIndex - 1]
         const beatmapDifficulty = await api.getBeatmapDifficultyAttributesOsu(score.beatmap, score.mods) // Specifying the mods so the SR is adapted to them
         lastMap[context.channelId] = score.beatmap.id
-        console.log(score.mods[0])
+        console.log(score.mods[0].acronym)
         var pp
         if (score.pp != null) pp = `${score.pp.toFixed(2)}pp `
         else pp = ""
         var mods = `+`
-        for (const mod in score.mods) {
-                console.log(mod)
-                mods += mod.acronym
+        for (var i = 0; i < score.mods.length; i++) {
+                console.log(score.mods[i])
+                mods += score.mods[i].acronym
         }
         if (mods == "+ ") mods = ""
 
