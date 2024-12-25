@@ -28,7 +28,7 @@ export default {
         else pp = ""
         var mods = `+`
         for (const mod in score.mods) {
-                console.log(mod.acronym)
+                console.log(mod)
                 mods += mod.acronym
         }
         if (mods == "+ ") mods = ""
