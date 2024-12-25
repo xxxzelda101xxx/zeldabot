@@ -34,7 +34,7 @@ export default {
         if (mods == "+ ") mods = ""
 
         const x = `${score.beatmapset.artist} - ${score.beatmapset.title} [${score.beatmap.version}]`
-        const y = `${mods}${(score.accuracy * 100).toFixed(2)}% ${pp}(${beatmapDifficulty.star_rating.toFixed(2)}*)`
+        const y = `${mods} ${(score.accuracy * 100).toFixed(2)}% ${pp}(${beatmapDifficulty.star_rating.toFixed(2)}*)`
         return `#${scoreIndex}: ${x} ${y} - https://osu.ppy.sh/b/${score.beatmap.id}`
 	}
 }
