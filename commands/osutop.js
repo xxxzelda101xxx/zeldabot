@@ -26,7 +26,10 @@ export default {
         var pp
         if (score.pp != null) pp = `${score.pp.toFixed(2)}pp `
         else pp = ""
-        var mods = `+${score.mods.toString()} `
+        var mods = `+`
+        for (const mod in score.mods) {
+                mods += mod.acronym
+        }
         if (mods == "+ ") mods = ""
 
         const x = `${score.beatmapset.artist} - ${score.beatmapset.title} [${score.beatmap.version}]`
