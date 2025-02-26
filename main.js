@@ -43,9 +43,6 @@ async function main() {
 	chatClient.onWhisper(async function (user, msg, context) {
 		messageHandler(null, user, msg, context, osuData)
 	})
-	chatClient.onDisconnect(async function (manually, reason) {
-		console.log(reason)
-	})
 	chatClient.onJoin(async function (channel, user) {
 		logger.verbose("Joined Channel: #" + channel)
 	})
@@ -77,9 +74,11 @@ main()
 
 process
 	.on("unhandledRejection", (reason, p) => {
+		logger.error(reason, "Unhandled Rejection at Promise", p)
 		console.error(reason, "Unhandled Rejection at Promise", p)
 	})
 	.on("uncaughtException", err => {
+		logger.error(err, "Uncaught Exception thrown")
 		console.error(err, "Uncaught Exception thrown")
 		process.exit(1)
 	})
