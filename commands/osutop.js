@@ -12,6 +12,7 @@ export default {
         var scoreIndex
         if (alias) scoreIndex = parseInt(msg.substring(alias.length).trim().toLowerCase().split(" ")[0])
         else scoreIndex = parseInt(msg.substring(6).trim().toLowerCase().split(" ")[0])
+        console.log(msg)
         console.log(scoreIndex)
         if (isNaN(scoreIndex)) scoreIndex = 1
         var username
