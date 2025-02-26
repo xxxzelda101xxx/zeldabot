@@ -1,5 +1,5 @@
 import { createLogger, format, transports } from "winston"
-const { combine, timestamp, printf } = format
+const { combine, timestamp, label, printf } = format
 
 function setConsoleColor(level) {
 	if (level.level == "info") return "\x1b[32m"
@@ -18,12 +18,16 @@ let alignColorsAndTime = combine(
 	)
 )
 
+const myFormat = printf(({ level, message, label, timestamp }) => {
+	return `${timestamp} [${label}] ${level}: ${message}`;
+  });
+
 export const logger = createLogger({
 	level: "verbose",
 	transports: [
-		new transports.File({ filename: "./logs/verbose.log", level: "verbose" }),
-		new transports.File({ filename: "./logs/error.log", level: "error" }),
-		new transports.File({ filename: "./logs/combined.log" }),
+		new transports.File({ filename: "./logs/verbose.log", level: "verbose", format: combine(label({ label: 'zeldabot' }), timestamp(), myFormat)}),
+		new transports.File({ filename: "./logs/error.log", level: "error", format: combine(label({ label: 'zeldabot' }), timestamp(), myFormat)}),
+		new transports.File({ filename: "./logs/combined.log", format: combine(label({ label: 'zeldabot' }), timestamp(), myFormat)}),
 		new transports.Console({ format: alignColorsAndTime })
 	],
 })
