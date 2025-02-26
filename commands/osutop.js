@@ -13,7 +13,12 @@ export default {
         if (alias) scoreIndex = parseInt(msg.substring(alias.length).trim().toLowerCase().split(" ")[0])
         else scoreIndex = parseInt(msg.substring(6).trim().toLowerCase().split(" ")[0])
         console.log(msg)
-        console.log(scoreIndex)
+        console.log(msg.substring(1).trim().toLowerCase().split(" ")[0])
+        console.log(msg.substring(2).trim().toLowerCase().split(" ")[0])
+        console.log(msg.substring(3).trim().toLowerCase().split(" ")[0])
+        console.log(msg.substring(4).trim().toLowerCase().split(" ")[0])
+        console.log(msg.substring(5).trim().toLowerCase().split(" ")[0])
+        console.log(msg.substring(6).trim().toLowerCase().split(" ")[0])
         if (isNaN(scoreIndex)) scoreIndex = 1
         var username
         if (msg.toLowerCase().split(" ").length == 1) username = await getOsuUsername(context.userInfo.userId)
