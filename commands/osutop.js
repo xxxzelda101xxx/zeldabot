@@ -12,6 +12,7 @@ export default {
         var scoreIndex
         if (alias) scoreIndex = parseInt(msg.substring(alias.length - 1).trim().toLowerCase().split(" ")[0])
         else scoreIndex = parseInt(msg.substring(7).trim().toLowerCase().split(" ")[0])
+        console.log(scoreIndex)
         if (isNaN(scoreIndex)) scoreIndex = 1
         var username
         if (msg.toLowerCase().split(" ").length == 1) username = await getOsuUsername(context.userInfo.userId)
