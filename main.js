@@ -11,7 +11,6 @@ import { osuData } from "./websocket.js"
 import { listener, shigeapiClient } from "./utils/apiclient.js"
 
 async function main() {
-	//await shigeapiClient.moderation.unbanUser(37575275, 14163149);
 	var channels = await getChannels()
 	startWebsocket()
 	startSevenTVWebsocket(channels)
@@ -36,12 +35,6 @@ async function main() {
 		subHandler(channel, user, subInfo, context)
 	})
 	chatClient.onBan(async function (channel, user, msg) {
-		//console.log(channel)
-		//console.log(channel == "shigetora")
-		//console.log(user)
-		//console.log(user == "zelda101_")
-		//console.log(channel == "shigetora" && user == "zelda101_")
-		//if (channel == "shigetora" && user == "zelda101_") await shigeapiClient.moderation.unbanUser(37575275, 14163149);
 		banHandler(channel, user, msg)
 	})
 	chatClient.onMessage(async function (channel, user, msg, context) {

@@ -2,26 +2,31 @@ import { logger } from "./logger.js"
 import { setCooldown, getCooldown } from "./helpers/cooldownhelper.js"
 import config from "./config.json" with { type: "json" };
 import mysql from 'mysql';
-var connection = mysql.createConnection({
-  host     : config.mysql.host,
-  user     : config.mysql.username,
-  password : config.mysql.password,
-  database : config.mysql.database
-}); 
-
-connection.connect();
+var pool  = mysql.createPool({
+	connectionLimit : 10,
+	host            : config.mysql.host,
+	user            : config.mysql.username,
+	password        : config.mysql.password,
+	database        : config.mysql.database
+  });
 
 async function queryDatabase(query, queryArray){
 	return new Promise(function(resolve,reject){
 		if (queryArray) {
-			connection.query({sql: query, values: queryArray }, function(err, results, fields){
-				if(err){return reject(err)}
+			pool.query({sql: query, values: queryArray }, function(err, results, fields){
+				if(err) {
+					logger.error(`MySQL error: query: ${query} values: ${queryArray}, error: ${err}`)
+					return reject(err)
+				}
 				resolve(results)
 			})
 		}
 		else {
-			connection.query(query, function(err, results, fields){
-				if(err){return reject(err)}
+			pool.query(query, function(err, results, fields){
+				if(err) {
+					logger.error(`MySQL error: query: ${query} values: ${queryArray}, error: ${err}`)
+					return reject(err)
+				}
 				resolve(results)
 			})
 		}
