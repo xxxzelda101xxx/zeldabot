@@ -11,11 +11,11 @@ export default {
         const api = await osu.API.createAsync(config.osu.client_id, config.osu.client_secret)
         var scoreIndex
         if (alias) scoreIndex = parseInt(msg.substring(alias.length).trim().toLowerCase().split(" ")[0])
-        else scoreIndex = parseInt(msg.substring(5).trim().toLowerCase().split(" ")[0])
-        console.log(parseInt(msg.substring(5)))
-        console.log(parseInt(msg.substring(5).trim()))
-        console.log(parseInt(msg.substring(5).trim().toLowerCase()))
-        console.log(parseInt(msg.substring(5).trim().toLowerCase().split(" ")[0]))
+        else scoreIndex = parseInt(msg.substring(4).trim().toLowerCase().split(" ")[0])
+        console.log(parseInt(msg.substring(4)))
+        console.log(parseInt(msg.substring(4).trim()))
+        console.log(parseInt(msg.substring(4).trim().toLowerCase()))
+        console.log(parseInt(msg.substring(4).trim().toLowerCase().split(" ")[0]))
         console.log(scoreIndex)
         if (isNaN(scoreIndex)) scoreIndex = 1
         var username
